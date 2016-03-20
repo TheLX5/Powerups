@@ -17,13 +17,15 @@ Makes possible to have custom powerups on Super Mario World.
 - Dynamically uploading GFX tiles of projectiles on screen.
 - Add custom code (add-ons) from other people.
 - Easy to update and edit the engine files.
+- Easier way to add powerups.
 
 # Planned features
 - Be able to use compressed Player graphics (this would leave used $7E2000 again).
-- Release the patch.
+- Dynamically uploading the powerup items graphics when they are on screen.
 
 # Dynamic Z notes
-Mario ExGFX, Custom player palettes and Mario 8x8 tiles DMAer features won't be available when using Dynamic Z, you will need to read Dynamic Z manual in order to have Custom player palettes and Mario ExGFX, however, Mario 8x8 tiles DMAer isn't integrated into Dynamic Z so you will have to ask anonimzwx for that feature.
+Mario ExGFX, Custom player palettes and Mario 8x8 tiles DMAer features won't be available when using Dynamic Z, you will need to read Dynamic Z manual in order to have Custom player palettes and Mario ExGFX, however, Mario 8x8 tiles DMAer isn't integrated into Dynamic Z so you will have to ask anonimzwx for that feature if he hasn't added it yet.
 
-# Lastest beta release which doesn't contain any code from here and has some missing features from here:
+# Lastest beta release
+Doesn't contain any code from here and has some missing features from the list.
 http://bin.smwcentral.net/u/12344/powerup_pack.zip
