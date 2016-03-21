@@ -1,3 +1,4 @@
+if !dynamic_z = 0
 org $00A300|!base3			;Main DMA routines handler. Includes:
 !a	JML PlrDMA			;Projectile DMA, 8x8 DMAer and Mario ExGFX
 
@@ -67,3 +68,5 @@ capetilehijack:
 	db $04				;[2C]		Cape
 	db !dmaer_tile,!dmaer_tile+$1	;[2D-2E]	Random Gliding tiles
 	db $FF,$FF,$FF			;[2F-31]
+		
+endif

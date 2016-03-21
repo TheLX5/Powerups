@@ -1,3 +1,4 @@
+if !dynamic_z = 0
 player_tiles_1:
 	PHA	
 	PHX	
@@ -48,3 +49,4 @@ player_tiles_3:
 	LSR	
 	ADC	!gfx_pointer
 	JML	$00F67F|!base3
+endif

@@ -1,3 +1,4 @@
+if !dynamic_z = 0
 PlrDMA:
 	LDA	$0D84|!base2
 	BNE	+
@@ -121,3 +122,4 @@ endif
 		
 .skip_all	
 	JML	$00A38F|!base3
+endif
