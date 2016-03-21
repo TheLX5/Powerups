@@ -1,0 +1,2 @@
+- make a better routine for the "get powerup" code
+- test more
