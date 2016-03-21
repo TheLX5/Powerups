@@ -12,10 +12,10 @@
 
 !boomerang_suit_ext_prop	= $0A	;YXPPCCCT properties of the boomerang projectile.
 
-!boomerang_num = $16
-!boomerang_pro_props = $0A
+!boomerang_num			= $15
+!boomerang_pro_props		= $0A
 
-!boomerang_suit_extended	= $16
+!boomerang_suit_extended	= $15
 
 %powerup_number(boomerang_suit,06)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)

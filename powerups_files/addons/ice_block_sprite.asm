@@ -303,7 +303,7 @@ SpawnBrokenIce:	PHB
 		LDA	#$13
 		STA	$185D|!base2
 .code02867C	LDX	$185D|!base2
-.code02867F	LDA	#$0D
+.code02867F	LDA	#!ice_piece_num
 		STA	$17F0|!base2,x
 		LDA	$9A
 		CLC	

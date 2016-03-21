@@ -10,7 +10,3 @@
 %insert_gfx(mario_tiny,15)
 
 	incbin /graphics/ExtendGFX.bin		-> extended_gfx
-	
-if !enable_projectile_dma == 1
-	incbin /graphics/projectiles.bin		-> projectiles_gfx
-endif	

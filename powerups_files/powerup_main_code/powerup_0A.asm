@@ -1,12 +1,17 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Bubble flower
+;; By LX5
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 	LDA	$73
-	ORA	$74
+	ORA	$74			;check if riding yoshi, climbing, ducking or carrying
 	ORA	$187A|!base2
 	ORA	$1470|!base2
 	BNE	.return
 		
-	BIT	$16
+	BIT	$16			;check if pressing Y/X to shoot a bubble
 	BVS	.shoot_bubble
-	LDA	$140D|!base2
+	LDA	$140D|!base2		;check if spin jumping to throw bubbles while doing it
 	BEQ	.return
 	INC	$13E2|!base2
 	LDA	$13E2|!base2
@@ -22,7 +27,7 @@
 .shoot_bubble	
 	LDX	#$0B
 .loop_normal
-	LDA	!14C8,x
+	LDA	!14C8,x			;get if there is a bubble alive already
 	CMP	#$08
 	BNE	.dex
 	LDA	!9E,x
@@ -33,27 +38,25 @@
 	BPL	.loop_normal
 	BRA	.prepare_bubble
 .bubble_sprite_found
-	LDA	!190F,x
+	LDA	!190F,x			;check if the bubble sprite has a coin inside
 	BMI	.return
 	BRA	.dex
 .prepare_bubble
 	LDX	#$08
-	LDA	$170B|!base2,x
+	LDA	$170B|!base2,x		;if we found 0 bubbles with coins, search a free ext slot
 	BEQ	.found_slot
 .return
 	RTS	
 .found_slot	
-	LDA	!wait_timer
-	BNE	.return
 	LDA	#$01
-	STA	!projectile_do_dma
-	LDA	#$02		; play sfx
+	STA	!projectile_do_dma	;enable dma
+	LDA	#$02			; play sfx
 	STA	$1DFC|!base2
-	LDA	#$0A		; show shooting pose
+	LDA	#$0A			; show shooting pose
 	STA	$149C|!base2
-	LDA	#!bubble_num		; ext sprite number
+	LDA	#!bubble_ext_num	; ext sprite number
 	STA	$170B|!base2,x
-	LDA	#$0A		; y speed
+	LDA	#$0A			; y speed
 	STA	$173D|!base2,x
 
 	LDY	$76

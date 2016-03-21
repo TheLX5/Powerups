@@ -4,13 +4,13 @@ Main:
 	BEQ	+
 	BCS	.Return
 +	
-	PHA		
-	LDA	!wait_timer
-	BEQ	.zero
-	DEC	A
-	STA	!wait_timer
-.zero		
-	PLA	
+;	PHA		
+;	LDA	!wait_timer
+;	BEQ	.zero
+;	DEC	A
+;	STA	!wait_timer
+;.zero		
+;	PLA	
 	PHB	
 	PHK	
 	PLB	
