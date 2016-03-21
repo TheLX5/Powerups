@@ -141,7 +141,11 @@ bubble_hit:
 		PHX	
 		TXY	
 		STY	$185E|!base2		;save projectile index for later
+	if !SA1 == 1
+		LDX.b	#21
+	else		
 		LDX	#$0B			;start looping through all sprite slots
+	endif		
 .loop		STX	$15E9|!base2
 		LDA	!14C8,x
 		CMP	#$08			;dont check if sprite isn't considered alive
@@ -265,6 +269,8 @@ bubble_projectile_dma:
 		ADC	#$0200
 		STA	!projectile_gfx_index+$04,x
 		SEP	#$20
+		LDA	#bubble_projectile_gfx>>16
+		STA	!projectile_gfx_bank
 		LDA	#$01
 		STA	!projectile_do_dma	;enable projectile DMA
 		PLX	

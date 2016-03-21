@@ -358,6 +358,8 @@ cloud_projectile_dma:
 		ADC	#$0200
 		STA	!projectile_gfx_index+$04,x
 		SEP	#$20
+		LDA	#cloud_projectile_gfx>>16
+		STA	!projectile_gfx_bank
 		LDA	#$01
 		STA	!projectile_do_dma	;enable projectile DMA
 		PLX	

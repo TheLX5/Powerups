@@ -1,6 +1,6 @@
 go_to_main:
 		LDA	$170B|!base2,x
-		CMP	#$14
+		CMP	#!iceball_num
 		BNE	+
 		LDA	!extra_extended,x
 		DEC	
@@ -30,7 +30,7 @@ iceball:
 	PLB	
 	INC	$1765|!base2,x	; restore hijacked code
 	LDA	$170B|!base2,x
-	CMP	#$14
+	CMP	#!iceball_num
 	BEQ	.frozesprites
 	JSR	Hit_Sprite	; otherwise check for interaction with sprites (and hurt if possible).
 -	PLB	
@@ -51,7 +51,11 @@ ice_hit:
 		PHX	
 		TXY	
 		STY	$185E|!base2		;save projectile index for later
+ 	if !SA1 == 1
+		LDX.b	#21
+	else		
 		LDX	#$0B			;start looping through all sprite slots
+	endif		
 .loop		STX	$15E9|!base2
 		LDA	!14C8,x
 		CMP	#$08			;dont check if sprite isn't considered alive
@@ -72,10 +76,6 @@ ice_hit:
 		LDY	$185E|!base2
 		JSL	$03B72B|!base3		;check for contact
 		BCC	++
-	;	LDA	$170B|!base2,y
-	;	SEC	
-	;	SBC	#$14			;useless
-	;	STA	$00
 		LDA	!7FAB10,x
 		AND	#$08			;is the sprite custom?
 		BNE	.IsCustom
@@ -182,7 +182,7 @@ iceball_edit:	LDA.l	$02A15F|!base3,x
 		LDX	$15E9|!base2
 		LDA	$170B|!base2,x
 		BEQ	+++
-		CMP	#$14
+		CMP	#!iceball_num
 		BNE	+
 	if !enable_projectile_dma == 1
 		;JSR	ExtGetDraw_NoIndex
@@ -277,6 +277,8 @@ ice_projectile_dma:
 		ADC	#$0200
 		STA	!projectile_gfx_index+$04,x
 		SEP	#$20
+		LDA	#iceball_projectile_gfx>>16
+		STA	!projectile_gfx_bank
 		LDA	#$01
 		STA	!projectile_do_dma	;enable projectile DMA
 		PLX	
@@ -284,7 +286,7 @@ ice_projectile_dma:
 
 iceball_projectile:
 		db $00,$01,$00,$01
-.gfx
+iceball_projectile_gfx:
 	incbin iceball_gfx.bin
 endif
 

@@ -13,14 +13,7 @@ endif
 org $029B16|!base3
 	autoclean JML ExtendedSpr
 
-org $029FC2|!base3
-	autoclean JML iceball
-	NOP
-org $02A1EF|!base3			;Edit the fireball graphic routine.
-	autoclean JML iceball_edit
-
-org $029FFF|!base3
-	JSL go_to_main
+incsrc extended_sprites_addon.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Macros
@@ -158,9 +151,7 @@ ExtendedSpr:
 .ret	PLB	
 	JML	$029B15|!base3	; return
 +	LDA	$170B|!base2,x
-	CMP	#$14
-	BEQ	++
-	CMP	#$13
+	CMP	#!iceball_num
 	BNE	+			; branch if sprite isn't #$13
 ++	PLB	
 	JML	$029FAF|!base3	; if it is, reference original fireball code.
@@ -170,7 +161,7 @@ ExtendedSpr:
 Pointer:
 	LDA	$170B|!base2,x	; handle the pointer by doing some math.
 	SEC	
-	SBC	#$15
+	SBC	#$14
 	LDY	$9D
 	BNE	+
 	LDY	$176F|!base2,x
@@ -244,8 +235,6 @@ SubSmoke:
 ;; extended sprite clipping size.
 ExtSprClip:
 	LDA	$170B|!base2,x
-;	CMP	#$17
-;	BEQ	.special_treat
 	SEC	
 	SBC	#$13
 	TAY	

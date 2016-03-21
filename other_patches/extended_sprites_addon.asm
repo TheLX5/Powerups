@@ -5,4 +5,4 @@ org $02A1EF|!base3			;Edit the fireball graphic routine.
 	autoclean JML iceball_edit
 
 org $029FFF|!base3			;make iceball to be erased when bouncing twice
-	JSL go_to_main
+	autoclean JSL go_to_main

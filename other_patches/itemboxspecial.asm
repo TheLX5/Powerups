@@ -235,7 +235,6 @@ GiveCloudFlower:
 	STA	!mask_15
 	STA	!mask_17
 	STA 	!timer
-	STA 	!wait_timer
 	STA 	!misc
 	STA	!shell_immunity
 	JML	$01C560|!base3
@@ -308,7 +307,6 @@ clean_ram:
 	STA	!mask_17
 	STA	!flags
 	STA 	!timer
-	STA 	!wait_timer
 	STA 	!misc
 	STA	!shell_immunity
 	JML	$01C560|!base3
