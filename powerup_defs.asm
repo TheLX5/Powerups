@@ -129,16 +129,13 @@ if !SA1 = 0
 ;;;;;;;
 ;; !gfx_pointer: 24-bit pointer that has the location of the current Mario GFX file.
 	!gfx_pointer		= $7E2000
-
 ;;;;;;;
 ;; !gfx_bypass_flag: RAM that bypasses the code that selects the player GFX.
 ;; #$00 = use original code (not nintendo code), #$01 = bypass the original code.
 	!gfx_bypass_flag	= $7E2003
-
 ;;;;;;;
 ;; !gfx_bypass_num: This RAM should contain the index of the graphics of the player if the bypass flag is set.
 	!gfx_bypass_num		= $7E2004	
-
 ;;;;;;;
 ;; !mask_15: Setting this disables bits from $15/$16.
 	!mask_15		= $7E2005
@@ -161,8 +158,8 @@ if !SA1 = 0
 ;; !misc: Misc RAM, uses may vary per powerup
 	!misc			= $7E200B
 ;;;;;;;
-;; !wait_timer: RAM used as a timer to determine how many frames Mario will wait to fire another boomerang or hammer.
-	!wait_timer		= $7E200C
+;; !projectile_gfx_bank: RAM that should contain the projectile GFX bank byte.
+	!projectile_gfx_bank	= $7E200C
 ;;;;;;;
 ;; !pal_bypass: RAM that bypasses the palette upload code to upload your own palette.
 	!pal_bypass		= $7E200D
@@ -235,6 +232,9 @@ if !SA1 = 0
 ;; !clipping_disp_y: How many pixels will be shifted the interaction field
 ;; based on Mario's position. 1 byte.
 	!clipping_disp_y	= $7E2125
+;;;;;;;
+;; !wait_timer: Misc timer.
+	!wait_timer		= $7E2126
 
 else
 
@@ -344,6 +344,11 @@ else
 ;; !clipping_disp_y: How many pixels will be shifted the interaction field
 ;; based on Mario's position. 1 byte.
 	!clipping_disp_y	= $404225
+;;;;;;;
+;; !wait_timer: Misc timer.
+	!wait_timer		= $404226
+
+endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SA-1 compatibility defines.
