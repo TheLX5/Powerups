@@ -360,7 +360,7 @@ boomerang_projectile_dma:
 		ADC	#$0200
 		STA	!projectile_gfx_index+$04,x
 		SEP	#$20
-		LDA	#boomerang_projectile_gfx>>16
+		LDA.b	#boomerang_projectile_gfx>>16
 		STA	!projectile_gfx_bank
 		LDA	#$01
 		STA	!projectile_do_dma	;enable projectile DMA
@@ -369,8 +369,8 @@ boomerang_projectile_dma:
 
 boomerang_projectile:
 		db $00,$01,$00,$01
-.gfx		
-		incsrc boomerang_gfx.bin
+boomerang_projectile_gfx:
+		incbin boomerang_gfx.bin
 else
 boomerang_tiles:
 		db !boomerang_pro_tile_1,!boomerang_pro_tile_2

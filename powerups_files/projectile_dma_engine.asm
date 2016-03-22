@@ -10,8 +10,8 @@
 -		
 	LDA	!projectile_gfx_index,x
 	STA	$4312
-	LDY.b	!projectile_gfx_bank
-	STY	$4314
+	LDA	!projectile_gfx_bank
+	STA	$4314
 	LDA	#$0040
 	STA	$4315
 	LDY	#$02
@@ -27,8 +27,8 @@
 -		
 	LDA	!projectile_gfx_index+$04,x
 	STA	$4312
-	LDY.b	!projectile_gfx_bank
-	STY	$4314
+	LDA	!projectile_gfx_bank
+	STA	$4314
 	LDA	#$0040
 	STA	$4315
 	LDY	#$02
