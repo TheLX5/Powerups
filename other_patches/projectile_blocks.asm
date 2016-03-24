@@ -4,21 +4,7 @@
 ;;
 ;; vvv --- Here goes your blocks tables --- vvv
 
-hammer_table:
-	dw $011E : db $04	;Turn block
-	dw $0112 : db $06	;On/Off block
-	dw $012E : db $05	;Throw block
-	dw $002C : db $08	;Coin
-	dw $0250 : db $03	;Super block (kills hammer)
-.end
 
-boomerang_table:
-	dw $011E : db $04	;Turn block
-	dw $0112 : db $06	;On/Off block
-	dw $012E : db $05	;Throw block
-	dw $002C : db $08	;Coin
-	dw $0251 : db $03	;Super block (kills boomerang)
-.end
 
 ;; ^^^ --- Here goes your blocks tables --- ^^^
 ;;

@@ -1,3 +1,6 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;,
+;; Follow the pattern if you want to add more powerups
+
 Settings:
 db $00,$20,$20,$20,$00,$30,$30,$30,$30,$30,$30,$30,$30,$30,$30,$30	; values 00-0F
 db $30,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00	; values 10-1F
@@ -15,6 +18,9 @@ db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00	; values C0-C
 db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00	; values D0-DF
 db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00	; values E0-EF
 db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00	; values F0-FF
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;,
+;; Follow the pattern if you want to add more powerups
 
 SpriteNumber:
 db $00,$74,$75,$76,$77							; values 00-04
@@ -46,20 +52,23 @@ db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00	; values D0-D
 db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00	; values E0-EF
 db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00	; values F0-FF
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;,
+;; Follow the pattern if you want to add more powerups
+
 ItemTilemap:
 dw $0000,$3824,$3A26,$3448,$340E
-dw ($30+!ice_flower_prop)<<8+!ice_flower_tile
-dw ($30+!hammer_suit_prop)<<8+!hammer_suit_tile
-dw ($30+!boomerang_suit_prop)<<8+!boomerang_suit_tile
-dw ($30+!rocket_boots_prop)<<8+!rocket_boots_tile
-dw ($30+!raccoon_leaf_prop)<<8+!raccoon_leaf_tile
-dw ($30+!tanooki_suit_prop)<<8+!tanooki_suit_tile
-dw ($30+!bubble_flower_prop)<<8+!bubble_flower_tile
-dw ($30+!shell_suit_prop)<<8+!shell_suit_tile
-dw ($30+!tiny_mushroom_prop)<<8+!tiny_mushroom_tile
-dw ($30+!cloud_flower_prop)<<8+!cloud_flower_tile
-dw ($30+!unused_e_prop)<<8+!unused_e_tile
-dw ($30+!unused_f_prop)<<8+!unused_f_tile
+dw ($30+!powerup_04_prop)<<8+!powerup_04_tile
+dw ($30+!powerup_05_prop)<<8+!powerup_05_tile
+dw ($30+!powerup_06_prop)<<8+!powerup_06_tile
+dw ($30+!powerup_07_prop)<<8+!powerup_07_tile
+dw ($30+!powerup_08_prop)<<8+!powerup_08_tile
+dw ($30+!powerup_09_prop)<<8+!powerup_09_tile
+dw ($30+!powerup_0A_prop)<<8+!powerup_0A_tile
+dw ($30+!powerup_0B_prop)<<8+!powerup_0B_tile
+dw ($30+!powerup_0C_prop)<<8+!powerup_0C_tile
+dw ($30+!powerup_0D_prop)<<8+!powerup_0D_tile
+dw ($30+!powerup_0E_prop)<<8+!powerup_0E_tile
+dw ($30+!powerup_0F_prop)<<8+!powerup_0F_tile
 
 dw $0000,$0000,$0000,$0000,$0000,$0000,$0000		; values 11-17
 dw $0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000	; values 18-1F
@@ -92,9 +101,22 @@ dw $0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000	; values E8-EF
 dw $0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000	; values F0-F7
 dw $0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000	; values F8-FF
 
-; Order.
-; Horz:
-; Small,Big,Cape,Fire,Ice,Hammer,Boomerang,Rocket,Leaf,Tanooki,Bubble,Shell,Tiny,Cloud,Unused,Unused
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This table determines what we will put in the item box when we grab these items. This will be used when your powerup isn't Small.
+;; Also, this table also determines what to select in each table in this file, except PowerIndex
+;; 
+;; Order.
+;; Horz:
+;; Small,Big,Cape,Fire,Powerup 4,Powerup 5,Powerup ... and so on
+;; Expand horizontally and vertically if needed
+;; It should be expanded like this:
+;; 1 2 3 4 5
+;; 2 2 3 4 5
+;; 3 3 3 4 5
+;; 4 4 4 4 5
+;; 5 5 5 5 5
+;; 
+;; I think the pattern it's obvious :P
 
 PutInBox:
 db $00,$01,$01,$01,$01,$01,$01,$01,$01,$01,$01,$01,$0D,$01,$01,$01	;Mushroom
@@ -102,18 +124,34 @@ db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Fire Flower
 db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00	;Star
 db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Feather
 db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00	;1up
-db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Ice Flower
-db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Hammer Suit
-db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Boomerang Suit
-db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Rocket Boots
-db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Leaf
-db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Tanooki Suit
-db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Bubble flower
-db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Blue Shell
-db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Tiny Mushroom
-db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Cloud Flower
-db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Nothing
-db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Nothing
+db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Powerup 4
+db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Powerup 5
+db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Powerup 6
+db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Powerup 7
+db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Powerup 8
+db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Powerup 9
+db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Powerup A
+db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Powerup B
+db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Powerup C
+db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Powerup D
+db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Powerup E
+db $00,$01,$04,$02,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10	;Powerup F
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This table determines what code will we run when we grab a powerup
+;; Order.
+;; Horz:
+;; Small,Big,Cape,Fire,Powerup 4,Powerup 5,Powerup ... and so on
+;; Expand horizontally and vertically if needed
+;; It should be expanded like this:
+;; 1 2 3 4 5
+;; 2 2 3 4 5
+;; 3 3 3 4 5
+;; 4 4 4 4 5
+;; 5 5 5 5 5
+;; 
+;; I think the pattern it's obvious :P
+
 
 PowerIndex:
 db $00,$01,$01,$01,$01,$01,$01,$01,$01,$01,$01,$01,$13,$01,$01,$01	;Mushroom
@@ -121,19 +159,15 @@ db $04,$04,$04,$01,$04,$04,$04,$04,$04,$04,$04,$04,$04,$04,$04,$04	;Fire Flower
 db $02,$02,$02,$02,$02,$02,$02,$02,$02,$02,$02,$02,$02,$02,$02,$02	;Star
 db $03,$03,$01,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03	;Feather
 db $05,$05,$05,$05,$05,$05,$05,$05,$05,$05,$05,$05,$05,$05,$05,$05	;1up
-db $06,$06,$06,$06,$01,$06,$06,$06,$06,$06,$06,$06,$06,$06,$06,$06	;Ice Flower
-db $07,$07,$07,$07,$07,$01,$07,$07,$07,$07,$07,$07,$07,$07,$07,$07	;Hammer Suit
-db $08,$08,$08,$08,$08,$08,$01,$08,$08,$08,$08,$08,$08,$08,$08,$08	;Boomerang Suit
-db $09,$09,$09,$09,$09,$09,$09,$01,$09,$09,$09,$09,$09,$09,$09,$09	;Rocket Boots
-db $0A,$0A,$0A,$0A,$0A,$0A,$0A,$0A,$01,$0A,$0A,$0A,$0A,$0A,$0A,$0A	;Leaf
-db $0B,$0B,$0B,$0B,$0B,$0B,$0B,$0B,$0B,$01,$0B,$0B,$0B,$0B,$0B,$0B	;Tanooki Suit
-db $0C,$0C,$0C,$0C,$0C,$0C,$0C,$0C,$0C,$0C,$01,$0C,$0C,$0C,$0C,$0C	;Bubble flower
-db $0D,$0D,$0D,$0D,$0D,$0D,$0D,$0D,$0D,$0D,$0D,$01,$0D,$0D,$0D,$0D	;Blue Shell
-db $0E,$0E,$0E,$0E,$0E,$0E,$0E,$0E,$0E,$0E,$0E,$0E,$01,$0E,$0E,$0E	;Tiny Mushroom
-db $0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F,$12,$0F,$0F	;Cloud
-db $10,$10,$10,$10,$10,$10,$10,$10,$10,$10,$10,$10,$10,$10,$01,$10	;Nothing
-db $11,$11,$11,$11,$11,$11,$11,$11,$11,$11,$11,$11,$11,$11,$11,$01	;Nothing
-
-
-
-
+db $06,$06,$06,$06,$01,$06,$06,$06,$06,$06,$06,$06,$06,$06,$06,$06	;Powerup 4
+db $07,$07,$07,$07,$07,$01,$07,$07,$07,$07,$07,$07,$07,$07,$07,$07	;Powerup 5
+db $08,$08,$08,$08,$08,$08,$01,$08,$08,$08,$08,$08,$08,$08,$08,$08	;Powerup 6
+db $09,$09,$09,$09,$09,$09,$09,$01,$09,$09,$09,$09,$09,$09,$09,$09	;Powerup 7
+db $0A,$0A,$0A,$0A,$0A,$0A,$0A,$0A,$01,$0A,$0A,$0A,$0A,$0A,$0A,$0A	;Powerup 8
+db $0B,$0B,$0B,$0B,$0B,$0B,$0B,$0B,$0B,$01,$0B,$0B,$0B,$0B,$0B,$0B	;Powerup 9
+db $0C,$0C,$0C,$0C,$0C,$0C,$0C,$0C,$0C,$0C,$01,$0C,$0C,$0C,$0C,$0C	;Powerup A
+db $0D,$0D,$0D,$0D,$0D,$0D,$0D,$0D,$0D,$0D,$0D,$01,$0D,$0D,$0D,$0D	;Powerup B
+db $0E,$0E,$0E,$0E,$0E,$0E,$0E,$0E,$0E,$0E,$0E,$0E,$01,$0E,$0E,$0E	;Powerup C
+db $0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F,$12,$0F,$0F	;Powerup D
+db $10,$10,$10,$10,$10,$10,$10,$10,$10,$10,$10,$10,$10,$10,$01,$10	;Powerup E
+db $11,$11,$11,$11,$11,$11,$11,$11,$11,$11,$11,$11,$11,$11,$11,$01	;Powerup F

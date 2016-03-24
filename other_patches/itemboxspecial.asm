@@ -17,6 +17,9 @@ endif
 
 !RAM_ItemDisable = $7F9678	; the RAM address that will be used for disabling dropping the item and other things
 
+!ItemBoxSfx = $0C       ; play the item box drop sound effect
+!PowerupSfx = $0B       ; play the powerup sound effect
+
 !ItemPosX1 = $78	; the X position of the item on the screen
 !ItemPosY1 = $0F	; the Y position of the item on the screen
 !ItemPosX2 = $78	; the X position of the item when it spawns
@@ -25,8 +28,15 @@ endif
 ;org $00F5F8|!base3		; x77F8; disables the item falling automatically when you get hurt
 ;db $EA,$EA,$EA,$EA	; 22 08 80 02
 
-org $01C538|!base3
-autoclean JML CheckItem
+org $01C540|!base3	; checks which item to put in the item box
+autoclean JSL CheckItem	; don't overwrite the item box unless it is empty
+LDA $19                 ; you can change "autoclean JSL CheckItem"
+BEQ SkipSfx             ; to "BRA $02 NOP #2" if you don't want powerups to put anything in the item box at all
+LDA #!PowerupSfx        ; \ sound effect
+STA $1DFC|!base2               ; /
+
+SkipSfx:
+
 
 org $009095|!base3
 autoclean JML ItemBoxFix	; execute custom code for item box graphics routine
@@ -69,9 +79,17 @@ CheckItem:
 	CLC	
 	ADC	#$05
 .next		
-	ASL	#4
-	ORA	$19
+	STA	$4202
+	LDA	#!max_powerup+1
+	STA	$4203
+	LDA	#$00
+	XBA	
+	LDA	$19
+	CLC	
+	REP	#$30
+	ADC	$4216
 	TAY	
+	SEP	#$20
 	LDA.w	PutInBox,y
 	BEQ	.noitem
 	STA	$00
@@ -88,6 +106,7 @@ CheckItem:
 	STA	$1DFC|!base2
 .noitem
 	LDA.w	PowerIndex,y
+	SEP	#$10
 	PLB	
 	CMP	#$06
 	BCS	.notoriginal
@@ -113,110 +132,14 @@ CheckItem:
 +		
 	PLA	
 	JSL	$0086DF|!base3
-.PowerupPointers
-	dw GiveIceFlower
-	dw GiveHammerSuit
-	dw GiveBoomerangSuit
-	dw GiveRocketBoots
-	dw GiveLeaf
-	dw GiveTanookiSuit
-	dw GiveBubbleFlower
-	dw GiveBlueShell
-	dw GiveTinyMushroom
-	dw GiveCloudFlower
-	dw GiveNothing
-	dw GiveNothing
-	dw GiveCloudFlower2
-	dw GiveMushroom2
 
-GiveIceFlower:
+macro flower_item(num,sfx,port)
 	LDA	#$20
 	STA	$149B|!base2
 	STA	$9D
 	LDA	#$04
 	STA	$71
-	LDA	#$04
-	JMP	PowerupShared
-GiveHammerSuit:
-	LDY	#$0A
-	LDA	#$05
-	JMP	SmokeShared
-GiveBoomerangSuit:
-	LDY	#$0A
-	LDA	#$06
-	JMP	SmokeShared
-GiveRocketBoots:
-	LDA	#$20
-	STA	$149B|!base2
-	STA	$9D
-	LDA	#$04
-	STA	$71
-	LDA	#$07
-	JMP	PowerupShared
-GiveLeaf:	
-	LDY	#$0D
-	LDA	#$08
-	JMP	SmokeShared
-GiveTanookiSuit:
-	LDY	#$0D
-	LDA	#$09
-	JMP	SmokeShared
-GiveBubbleFlower:
-	LDA	#$20
-	STA	$149B|!base2
-	STA	$9D
-	LDA	#$04
-	STA	$71
-	LDA	#$0A
-	JMP	PowerupShared
-GiveBlueShell:
-	LDY	#$0A
-	LDA	#$0B
-	JMP	SmokeShared
-GiveTinyMushroom:
-	LDA	#$01
-	STA	!clipping_flag
-	LDA	#$08
-	STA	!clipping_width
-	LDA	#$09
-	LDX	$187A|!base2
-	BEQ	+
-	LDA	#$19
-+		
-	STA	!clipping_height
-	LDA	#$04
-	STA	!clipping_disp_x
-	LDA	#$17
-	STA	!clipping_disp_y
-	
-	REP	#$30			;Set 16-bit mode for A/X/Y
-	LDX.w	#$006C			;Set up loop.
--	LDA.l	tiny_x_coords,x		;get the 16-bit value and store it to ram
-	STA	!collision_data_x,x
-	LDA.l	tiny_y_coords,x
-	STA	!collision_data_y,x
-	DEX	#2			;decrease X by 2
-	BPL	-			;loop until X = negative
-	SEP	#$30			;8-bit X/Y
-	
-	LDA	#$01
-	STA	!collision_flag
-	LDA	#$FF
-	STA	!collision_index
-	LDY	#$04
-	LDA	#$0C
-	JMP	SmokeShared2
-GiveMushroom2:
-	LDY	#$0A
-	LDA	#$01
-	JMP	SmokeShared
-GiveCloudFlower:
-	LDA	#$20
-	STA	$149B|!base2
-	STA	$9D
-	LDA	#$04
-	STA	$71
-	LDA	#$0D
+	LDA	#<num>
 	STA	$19
 	LDA	#$00
 	STA	!clipping_flag
@@ -228,77 +151,28 @@ GiveCloudFlower:
 +		
 	LDA	#$0A
 	STA	$1DF9|!base2
-	LDA	#!cloud_ammount
-	STA	!flags
-	LDA	#$00
-	STA	!disable_spin_jump
-	STA	!mask_15
-	STA	!mask_17
-	STA 	!timer
-	STA 	!misc
-	STA	!shell_immunity
-	JML	$01C560|!base3
-GiveCloudFlower2:
-	LDA	#!cloud_ammount
-	STA	!flags
-	LDA	#$01
-	JMP	CheckItem_run_original
-GiveNothing:
-	JMP	Return
+	JMP	clean_ram
+endmacro
 
-;;;;;;;;;;;;;;;;;;;
-
-tiny_x_coords:
-dw $0008,$000C,$000C,$0008,$0006,$000A	;x<8, no yoshi, no duck
-dw $0008,$0004,$0004,$0008,$000A,$0006	;x>8, no yoshi, no duck
-dw $0008,$000C,$000C,$0008,$0006,$000A	;x<8, no yoshi, duck
-dw $0008,$0004,$0004,$0008,$000A,$0006	;x>8, no yoshi, duck
-dw $0008,$000C,$000C,$0008,$0006,$000A	;x<8, yoshi, no duck
-dw $0008,$0004,$0004,$0008,$000A,$0006	;x>8, yoshi, no duck
-dw $0008,$000C,$000C,$0008,$0006,$000A	;x<8, yoshi, duck
-dw $0008,$0004,$0004,$0008,$000A,$0006	;x>8, yoshi, duck
-dw $0010,$0010,$0007			;left wallrunning
-dw $0000,$0000,$0008			;right wallrunning
-
-tiny_y_coords:
-dw $0017,$0019,$0015,$0014,$0020,$0020	;x<8, no yoshi, no duck
-dw $0017,$0019,$0015,$0014,$0020,$0020	;x>8, no yoshi, no duck
-dw $0017,$0019,$0015,$0014,$0020,$0020	;x<8, no yoshi, duck
-dw $0017,$0019,$0015,$0014,$0020,$0020	;x>8, no yoshi, duck
-dw $0020,$0024,$001E,$001B,$0030,$0030	;x<8, yoshi, no duck
-dw $0020,$0024,$001E,$001B,$0030,$0030	;x>8, yoshi, no duck
-dw $0022,$0024,$0020,$001D,$0030,$0030	;x<8, yoshi, duck
-dw $0022,$0024,$0020,$001D,$0030,$0030	;x>8, yoshi, duck
-dw $0018,$0018,$0018			;left wallrunning
-dw $0018,$0018,$0018			;right wallrunning
-
-;;;;;;;;;;;;;;;;,
-SmokeShared:
-	PHA	
+macro cape_item(num,sfx,port)
 	LDA	#$00
 	STA	!clipping_flag
 	STA	!collision_flag
-	PLA	
-SmokeShared2:
+	LDA	#<num>
 	STA	$19
-	STY	$1DF9|!base2
+	LDA	#<sfx>
+	STA	<port>|!base2
 	LDA	#$04
 	JSL	$02ACE5|!base3
 	JSL	$01C5AE|!base3
 	INC	$9D
-	BRA	clean_ram
-PowerupShared:
-	STA	$19
-	LDA	#$00
-	STA	!clipping_flag
-	STA	!collision_flag
-	LDA	#$04
-	LDY	!1534,x
-	BNE	+
-	JSL	$02ACE5|!base3
-+		
-	LDA	#$0A
-	STA	$1DF9|!base2
+	JMP	clean_ram
+endmacro	
+
+.PowerupPointers
+	incsrc get_powerup_codes.asm
+
+GiveNothing:	
 Return:		
 clean_ram:	
 	LDA	#$00
@@ -386,7 +260,39 @@ STA !9E,x			; set the sprite number
 PHY			;
 JSL $07F7D2|!base3		; reset sprite tables
 PLY			;
+LDA !9E,x
+CMP #$19
+BNE NotMessage
+LDA #$09
+STA !14C8,x
+LDA #$3E
+STA !9E,x
+PHY			;
+JSL $07F7D2|!base3		; reset sprite tables
+PLY			;
+LDA #$01
+STA !151C,x
+LDA $018467|!base3
+STA !15F6,x
 BRA FinishSpawn		; finish the spawning routine
+
+NotMessage:
+LDA !9E,x
+CMP #$3E
+BNE NotPSwitch
+STZ !151C,x
+LDA $018466|!base3
+BRA FinishSpawn
+
+NotPSwitch:
+LDA !9E,x
+CMP #$53
+BNE NotThrowBlock
+LDA #$FF
+STA !1540,x
+
+NotThrowBlock:
+BRA FinishSpawn
 
 SpawnCustom:		;
 
@@ -403,38 +309,21 @@ STA !7FAB10,x		; store to sprite extra bit table
 
 FinishSpawn:		;
 
-LDA $94
-;LDA #!ItemPosX2		; base X position
-;CLC			;
-;ADC $1A			; add the screen position so that the sprite
+LDA #!ItemPosX2		; base X position
+CLC			;
+ADC $1A			; add the screen position so that the sprite
 STA !E4,x			; always spawns relative to the screen
-;LDA $1B			; screen position high byte
-;ADC #$00		; handle overflow
-LDA $95
+LDA $1B			; screen position high byte
+ADC #$00		; handle overflow
 STA !14E0,x		;
 
-LDA $96
-;LDA #!ItemPosY2		; base Y position
-;CLC			;
-;ADC $1C			; add the screen position so that the sprite
+LDA #!ItemPosY2		; base Y position
+CLC			;
+ADC $1C			; add the screen position so that the sprite
 STA !D8,x		; always spawns relative to the screen
-;LDA $1D			; screen position high byte
-;ADC #$00		; handle overflow
-LDA $97
+LDA $1D			; screen position high byte
+ADC #$00		; handle overflow
 STA !14D4,x		;
-
-PHY
-LDA $76
-EOR #$01
-STA $157C,x
-TAY
-LDA x_vel,y
-STA $B6,x
-LDA #$D8
-STA $AA,x
-LDA #$0C
-STA $154C,x
-PLY
 
 LDA Settings,y		; check the settings
 AND #$20		; if bit 5 is set...
@@ -448,10 +337,6 @@ PLB			;
 PLY			; pull everything back
 PLX			;
 RTL			; end the item box drop routine
-
-x_vel:
-db $00,$00
-db $18,$E8
 
 FindFreeSlot:	;
 
@@ -527,4 +412,4 @@ Effect0E:			;
 Effect0F:			;
 RTS
 
-incsrc ibstables.asm
+incsrc item_box_tables.asm

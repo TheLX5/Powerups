@@ -16,7 +16,7 @@
 	;autoclean
 
 macro insert_gfx(filename,add)
-	org ($00A304|!base3+(<add>))
+	org ($00A304|!base3+(<add>*3))
 		dl <filename>_gfx
 	warnpc $00A38E|!base3
 freedata
@@ -131,11 +131,6 @@ freecode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	%protect_data(mario)
-	%protect_data(mario_raccoon)
-	%protect_data(mario_hammer)
-	%protect_data(mario_tanooki)
-	%protect_data(mario_shell)
-	%protect_data(mario_tiny)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Powerup code
