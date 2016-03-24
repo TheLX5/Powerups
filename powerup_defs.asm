@@ -51,7 +51,7 @@ endif
 ;; POW (or P-Switch)
 ;;;;;;;;;;;;;;;;;;;
 
-!remap_pow		= 1	;Enable POW remapping.
+!remap_pow		= 0	;Enable POW remapping.
 !pow_tile		= $60	;16x16 tile of the POW sprite.
 !flat_pow_tile		= $7F	;8x8 tile of the pressed POW sprite.
 !blue_pow_yxppccct	= $07	;YXPPCCCT properties of the Blue POW
@@ -61,7 +61,7 @@ endif
 ;; Squished koopa
 ;;;;;;;;;;;;;;;;;;;
 
-!remap_squished_koopa	= 1	;Enable squished koopa remapping.
+!remap_squished_koopa	= 0	;Enable squished koopa remapping.
 !squished_koopa_tile	= $4D	;8x8 tile of the squished koopa tile.
 
 ;;;;;;;;;;;;;;;;;;;
@@ -75,7 +75,7 @@ endif
 ;; Cheep-cheep
 ;;;;;;;;;;;;;;;;;;;
 
-!remap_cheep_cheeps	= 1	;Enable cheep-cheep remapping.
+!remap_cheep_cheeps	= 0	;Enable cheep-cheep remapping.
 !flopping_cheep_tile_1	= $08	;Cheep cheep tile #1
 !flopping_cheep_tile_2	= $6D	;Cheep cheep tile #2
 !cheep_cheep_page	= $01	;Select cheep-cheep GFX page.
@@ -85,7 +85,7 @@ endif
 ;; Hammers
 ;;;;;;;;;;;;;;;;;;;
 
-!remap_hammers		= 1	;Enable hammer remapping.
+!remap_hammers		= 0	;Enable hammer remapping.
 !hammer_tile_1		= $08	;Hammer tile #1
 !hammer_tile_2		= $6D	;Hammer tile #2
 !hammer_palette_page	= $07	;This byte sets the YXPPCCCT properties
@@ -103,14 +103,14 @@ endif
 ;; Spinjump star
 ;;;;;;;;;;;;;;;;;;;
 
-!remap_spinjump_star	= 1	;Enable spinjump stars remapping
+!remap_spinjump_star	= 0	;Enable spinjump stars remapping
 !spin_star_tile		= $6C	;Spinjump star tile
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Smoke particles
 ;;;;;;;;;;;;;;;;;;;
 
-!remap_smoke_particles	= 1	;Leaves free a 16x16 tile in SP1 (tile x66)
+!remap_smoke_particles	= 0	;Leaves free a 16x16 tile in SP1 (tile x66)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Blank

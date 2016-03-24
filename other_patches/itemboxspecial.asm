@@ -28,15 +28,8 @@ endif
 ;org $00F5F8|!base3		; x77F8; disables the item falling automatically when you get hurt
 ;db $EA,$EA,$EA,$EA	; 22 08 80 02
 
-org $01C540|!base3	; checks which item to put in the item box
-autoclean JSL CheckItem	; don't overwrite the item box unless it is empty
-LDA $19                 ; you can change "autoclean JSL CheckItem"
-BEQ SkipSfx             ; to "BRA $02 NOP #2" if you don't want powerups to put anything in the item box at all
-LDA #!PowerupSfx        ; \ sound effect
-STA $1DFC|!base2               ; /
-
-SkipSfx:
-
+org $01C538|!base3
+autoclean JML CheckItem
 
 org $009095|!base3
 autoclean JML ItemBoxFix	; execute custom code for item box graphics routine
@@ -56,6 +49,44 @@ db $FF,$FF,$FF,$FF,$FF,$FF					;
 
 org $009F6F|!base3		; part of the overworld fade-in routine
 autoclean JML ClearDisable	; clear the item disable flag automatically
+
+
+macro flower_item(num,sfx,port)
+	LDA	#$20
+	STA	$149B|!base2
+	STA	$9D
+	LDA	#$04
+	STA	$71
+	LDA	#<num>
+	STA	$19
+	LDA	#$00
+	STA	!clipping_flag
+	STA	!collision_flag
+	LDA	#$04
+	LDY	!1534,x
+	BNE	+
+	JSL	$02ACE5|!base3
++		
+	LDA	#$0A
+	STA	$1DF9|!base2
+	JMP	clean_ram
+endmacro
+
+macro cape_item(num,sfx,port)
+	LDA	#$00
+	STA	!clipping_flag
+	STA	!collision_flag
+	LDA	#<num>
+	STA	$19
+	LDA	#<sfx>
+	STA	<port>|!base2
+	LDA	#$04
+	JSL	$02ACE5|!base3
+	JSL	$01C5AE|!base3
+	INC	$9D
+	JMP	clean_ram
+endmacro	
+
 
 freecode
 
@@ -128,46 +159,11 @@ CheckItem:
 	ADC	#$04
 	CMP	$19
 	BNE	+
+	PLA	
 	JMP	GiveNothing
 +		
 	PLA	
 	JSL	$0086DF|!base3
-
-macro flower_item(num,sfx,port)
-	LDA	#$20
-	STA	$149B|!base2
-	STA	$9D
-	LDA	#$04
-	STA	$71
-	LDA	#<num>
-	STA	$19
-	LDA	#$00
-	STA	!clipping_flag
-	STA	!collision_flag
-	LDA	#$04
-	LDY	!1534,x
-	BNE	+
-	JSL	$02ACE5|!base3
-+		
-	LDA	#$0A
-	STA	$1DF9|!base2
-	JMP	clean_ram
-endmacro
-
-macro cape_item(num,sfx,port)
-	LDA	#$00
-	STA	!clipping_flag
-	STA	!collision_flag
-	LDA	#<num>
-	STA	$19
-	LDA	#<sfx>
-	STA	<port>|!base2
-	LDA	#$04
-	JSL	$02ACE5|!base3
-	JSL	$01C5AE|!base3
-	INC	$9D
-	JMP	clean_ram
-endmacro	
 
 .PowerupPointers
 	incsrc get_powerup_codes.asm
@@ -328,7 +324,7 @@ STA !14D4,x		;
 LDA Settings,y		; check the settings
 AND #$20		; if bit 5 is set...
 BEQ EndItemDrop		; then increment a certain sprite table so the sprite will flash as it drops
-;INC !1534,x		; This was done in the original SMW only with the mushroom and flower.
+INC !1534,x		; This was done in the original SMW only with the mushroom and flower.
 EndItemDrop:		;
 
 STZ $0DC2|!base2

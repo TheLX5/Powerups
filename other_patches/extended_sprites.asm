@@ -171,20 +171,6 @@ Pointer:
 		
 	incsrc extended_sprites_pointers.asm
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; vvv --- Here goes your extended sprites code! --- vvv
-
-	incsrc projectiles/iceball.asm
-	incsrc projectiles/boomerang.asm
-	incsrc projectiles/hammer.asm
-	incsrc projectiles/bubble.asm
-	incsrc projectiles/cloud.asm
-
-;; ^^^ --- Here goes your extended sprites code! --- ^^^
-;; Order doesn't matter here
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Adapted from original routines.
 

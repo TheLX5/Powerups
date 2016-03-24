@@ -1,6 +1,0 @@
-%insert_addon_hack(raccoon_engine)
-%insert_addon_hack(custom_bubble)
-%insert_addon_hack(ice_block_sprite)
-%insert_addon_hack(sprites_custom_interaction)
-%insert_addon_hack(yoshi_fix)
-%insert_addon_hack(reset_flag)

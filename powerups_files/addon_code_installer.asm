@@ -1,6 +1,0 @@
-%insert_addon_code(raccoon_engine)
-%insert_addon_code(custom_bubble)
-%insert_addon_code(ice_block_sprite)
-%insert_addon_code(sprites_custom_interaction)
-%insert_addon_code(yoshi_fix)
-%insert_addon_code(reset_flag)
