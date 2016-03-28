@@ -16,7 +16,7 @@
 	;autoclean
 
 macro insert_gfx(filename,add)
-	org ($00A304|!base3+(<add>*3))
+	org ($00A304|!base3+($<add>*3))
 		dl <filename>_gfx
 	warnpc $00A38E|!base3
 freedata

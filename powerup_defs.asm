@@ -13,8 +13,7 @@ endif
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 !max_powerup		= $0F	;How many powerups do you have.
-				;Increasing this value means that you will need
-				;to increase some other pointers
+				;Increasing this value means that you will need to increase some other pointers and tables.
 
 !dmaer_tile		= $7E	;Used by Ladida's patch.
 				;Tile where the extended tiles will be loaded to. Takes up 2 8x8's
@@ -33,6 +32,8 @@ endif
 				;If you have plans to use another patch/tool to edit the tilemaps, then deactive this.
 
 !dynamic_z		= 0	;Set to 1 if you are using Dynamic Z.
+
+!use_map16_only		= 0	;Use map16 numbers instead of Acts like number in projectile interactable blocks code.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SP1 & SP2 remap options

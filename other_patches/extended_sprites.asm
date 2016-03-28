@@ -380,6 +380,7 @@ GetMap16:
 	INC	$07
 	LDA	[$05]
 	XBA	
+if !use_map16_only == 0
 	REP	#$30
 	PHY	
 	AND	#$3FFF
@@ -392,6 +393,7 @@ GetMap16:
 	LDA	[$0A],y
 	PLY	
 	SEP	#$30
+endif
 	RTS	
 
 Map16Interact:

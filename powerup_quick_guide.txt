@@ -1,0 +1,308 @@
+Custom powerups v2.0
+By LX5
+
+This pack of patches allows you to have custom powerups in your hack.
+
+ ------------ 0. Index ------------ 
+
+1. How to insert
+1.1 Non SA-1 ROM
+1.2 SA-1 ROM
+2. Modifying data
+2.1 Making/Editing Mario palettes
+2.2 Adding more player GFX
+2.3 Using a different player GFX on each powerup.
+3. Powerup downloads
+4. Gamemode fixes
+5. Incompatibility list
+6. FAQ
+7. Special thanks
+8. Change log
+
+ ------------ 1. How to insert ------------ 
+
+The basic usage is pretty easy.
+It's recommended to use a clean ROM to not have any crashes!
+
+ --- 1.1 Non SA-1 ROM ---
+1) Get a clean ROM and open it with LM.
+2) Enable FastROM, this can be found under the Options menu.
+3) Change the compression options to LC_LZ2 - Optimized for speed or LC_LZ3 - Better compression, this can be also found under the options menu
+4) Expand the ROM over 3MB. This is just to store the graphics away from banks $10-$3F
+5) Open powerup_defs.asm, you may want edit something from there.
+6) Insert the included GFX files to your rom. Totally optional.
+7) Download a/some powerups and follow the instructions inside to add them to your ROM.
+8) Open asar and patch powerup.asm.
+9) Done!
+
+ --- 1.2 SA-1 ROM ---
+
+1) Get a clean SA-1 ROM.
+2) Expand the ROM over 3MB. This is just to store the graphics away from banks $10-$3F
+3) Open powerup_defs.asm, you may want edit something from there.
+4) Insert the included GFX files to your rom. Totally optional.
+5) Download a/some powerups and follow the instructions inside to add them to your ROM.
+6) Open asar and patch powerup.asm
+7) Done!
+
+Note about changing the default sprite numbers:
+If you have plans to change it, you must open powerup_defs.asm and change this define:
+
+!starting_slot			= $00		;Starting slot of your custom sprites.
+
+They need to be consecutive due to how my version of the item box special patch works.
+
+ ------------ 2. Modifying data ------------ 
+
+You may be thiking: "where can I modify Mario palettes?" "how can I add more Mario gfx?"
+
+Those questions are really easy to answer, just read carefully.
+
+--- 2.1 Making/Editing Mario palettes ---
+	
+Changing palettes is a bit tedious since you need to build those values manually and convert the RGB value to the SNES value. At least Lunar Magic gives you the SNES value.
+
+1) Open Lunar Magic.
+2) Build/open your palette with the palette editor.
+3) Open powerup_files folder, then powerup_misc_data folder and open palette.asm file
+4) Search for MarioPalettes (or LuigiPalettes) in the file.
+5) The 2-byte long values are the palette colors, to get this number go to the palette editor in LM.
+6) In the palette editor, there is a text that says SNES RGB Value, write that number in the table and repeat until you are done.
+
+Note: The palettes starts at color 86 and ends in color 8F!
+
+ --- 2.2 Adding more player GFX --- 
+
+To add more GFX, just follow this:
+
+1) Decide if you will keep the same layout as GFX32 (main Mario GFX, mario.bin in this patch) or the other GFX layout (see any of the new GFX in powerups_files folder), this is important!
+2) Open powerup_files/powerup_gfx.asm
+3) Put this code somewhere in the file:
+
+	%insert_gfx(filename,index)
+
+This line will search a file in powerup_files/graphics folder with the filename stated in the "filename" space.
+If your graphics file is named "luigi.bin" then just put this:
+
+	%insert_gfx(luigi,index)
+
+And it will search for "luigi.bin" inside the powerup_files/graphics folder.
+Now it's time to change the "index" part. You need to put a single digit number in that part to get the graphics index that you will need for future references.
+Index 0 is occupied by mario.bin that has the GFX32.bin data, so more if you want to insert more GFX, you should start after 1.
+
+	%insert_gfx(luigi,1)
+
+After doing this, go to powerup.asm and search this:
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Prot area
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	%protect_data(mario)
+
+Add another %protect_data but with your new GFX filename, if we keep with the luigi.bin example, then it would be:
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Prot area
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	%protect_data(mario)
+	%protect_data(luigi)
+
+--- 2.3 Using a different player GFX on each powerup. ---
+
+This task can be achieved really easy:
+
+1) Go to powerup_files/powerup_misc_data folder and open gfx_index.asm
+2) Put in the correct byte the GFX index that you used in powerup_gfx.asm
+
+Example:
+
+I want Luigi GFX on his small, big, caped and fiery form and my index is 1
+
+	;luigi gfx
+	db $01,$01,$01,$01,$00,$00,$00,$00		; powerups 0 - 7
+	db $00,$00,$00,$00,$00,$00,$00,$00		; powerups 8 - F
+
+ ------------ 3. Powerup downloads ------------ 
+
+Powerups can be found on my release thread.
+
+Thread: http://www.smwcentral.net/?p=viewthread&t=79053
+
+ ------------ 4. Gamemode fixes -------------
+
+Gamemode.asm (comes with UberASM) is required for this and I include bugfixes here just because I don't want to hijack more spots in the ROM:
+
+Make sure that you call powerup_defs.asm in gamemode code, just put at the top of the file:
+
+	incsrc powerup_defs.asm
+
+1) Overworld Mario graphics glitches:
+Open gamemode_code.asm, search gamemode_B and use this code:
+
+gamemode_B:
+	LDA	#$00
+	STA	!gfx_bypass_flag
+	RTS	
+
+2) Level Mario graphic glitches
+Same as above, but go to gamemode_13 instead.
+
+gamemode_13:
+	LDA	#$00
+	STA	!gfx_bypass_flag
+	RTS	
+
+3) Weird ground interaction on title screen
+Go to gamemode_06 and put this code:
+
+gamemode_06:
+	LDA	#$00
+	STA	!clipping_flag
+	STA	!collision_flag
+	RTS	
+
+4) Title screen Mario's graphic glitches
+Add this code to gamemode_06:
+
+gamemode_06:
+	LDA	#$00
+	STA	!gfx_bypass_flag
+	RTS	
+
+If using the above code to fix the weird interaction, your code should be this:
+
+gamemode_06:
+	LDA	#$00
+	STA	!clipping_flag
+	STA	!collision_flag
+	STA	!gfx_bypass_flag
+	RTS	
+
+ ------------ 5. Incompatibility list ------------ 
+
+Well, the complete incompatibility list is... still unknown,
+but there are some patches that I'm sure that they doesn't work with this patch:
+
+Mario 8x8 DMAer (included in this patch)
+32x32 Player
+Manual Player Palette Uploader (included in this patch)
+Mario ExGFX (included in this patch)
+
+If you know about another patch that is incompatible let me know!
+
+ ------------ 6. FAQ ------------ 
+
+Q: This crashes my ROM >:(
+A: Did you followed the instructions AND used a clean ROM? I suggest to re-read the How to insert section.
+
+Q: I need asistance with your patch, pls
+A: You can talk to me on IRC via query if you want, I won't respond if I'm busy or AFK. The best thing that you can do is posting in the released thread or PMing me.
+
+Q: Does this works with DKC Status bar?
+A: Yes, I modified that patch to be used with this patch, you can download it from my file bin in SMWC.
+
+Q: Powerdown patch?
+A: Get MarioFanGamer's patch
+
+Download: http://www.smwcentral.net/?p=section&a=details&id=12748
+
+Q: DynamicZ?
+A: Read powerup_defs.asm and this:
+
+Mario ExGFX, Custom player palettes and Mario 8x8 tiles DMAer features won't be available when using Dynamic Z, you will need to read Dynamic Z manual in order to have Custom player palettes and Mario ExGFX, however, Mario 8x8 tiles DMAer isn't integrated into Dynamic Z so you will have to ask anonimzwx for that feature if he hasn't added it yet.
+
+Q: Projectiles doesn't interact with blocks :(
+A: I know, that's why I included projectile_blocks.asm file and a section on this readme called Custom interactive blocks.
+
+Have another question that isn't answered here?
+
+Go to the release thread I'll answer it. 
+
+Thread: http://www.smwcentral.net/?p=viewthread&t=79053
+
+ ------------ 7. Special thanks ------------ 
+
+MarioE - Original author of powerup.asm
+Lui37 - He made the asar version of powerup.asm and many other things.
+Ladida - Made Mario 8x8 GFX DMAer patch
+imamelia - Made the Item box special patch
+Sonikku - For his patch (Custom extended sprites)
+Ruberjig - He made the Shell Mario GFX
+
+ ------------ 8. Change log ------------ 
+
+v2.0 (24-Mar-2016)
+New:
+- Every file has been moved.
+- It's now easier to update (at least for me)
+- Powerups have been removed from this patch, you must download them separately.
+- Included a quick guide fow newbie users.
+- Separated the advanced stuff in powerups_manual.txt
+- Probably a lot of stuff was changed, kek.
+
+v1.1 (2-Jan-2016)
+New:
+- Tiny Mushroom powerup from NSMBWii is now available.
+- Cloud flower powerup from SMG series is now available. Huge thanks to Lui37.
+- The patch is now fully SA-1 compatible, just insert it as you would do normally and the patch will handle everything like every new patch on SMWC.
+- Hammer and Boomerangs now interact with layer 1 objects, more details above.
+- Boomerang can retrieve some sprites when fired, this makes the Boomerang to not be just a Hammer clone.
+- Custom interaction fields with sprites is now possible.
+- Custom interaction dots/points with layer 1/2 (maybe 3?) is now possible.
+- Remapping some smoke particles is now optional too. A define is included in powerup_defs.asm to decide if insert the hex edits or not.
+- Added a define to control which extended sprite number will Mario shoot while having powerup that shoots projectiles.
+- Added a define to change where the Projectile DMA graphics will be loaded to.
+- Made some (small) name changes to some files in powerup_files folder.
+- Changed the custom sprite settings table in sprites_props.asm to use bits instead of hex values.
+- Minor Extender patch is now completely optional, you still require to patch the file though, specially if you want those Z tiles fixed.
+- Patch size increased a bit.
+
+- Migrated from Item Box Special 1.1 to 1.3.
+- Added several custom blocks.
+
+Fixes:
+- THE Z TILE OF THE RIP VAN FISH IS NOW FIXED.
+- Mode 7 Game Over patch detection. Clearing $7E2000 area made this patch to display an invisible Mario, this is now fixed.
+- Fixed a HUGE mistake on IceBlock.asm. Changed a $1622,x to $1686,x.
+- Iceball image is now properly aligned while using the projectile DMA feature.
+- Riding Yoshi instantly bug is now gone.
+- Projectile DMA feature now works correctly in title screen. Thanks to KDee for reporting this.
+- Mario's 8x8 tiles weren't showing correctly on title screen, it's fixed now.
+- Fixed several misplaced things.
+
+Known issues:
+- Tiny Mario graphics glitches when he gets a P-Balloon also he has wrong collision fields with everything.
+- Tiny Mario sometimes goes through slopes when on Yoshi (?)
+- Tiny Mario can't use small doors.
+- extended_sprites.asm can't be patched without the main patch.
+
+v1.0 (21-Aug-2015)
+New:
+- Bubble projectile is now available.
+- Mario ExGFX integrated in the patch.
+- Added a feature that uploads dynamically the projectiles GFX to the VRAM and it can be disabled if the user wants.
+- Optimized most of the graphic files for the powerup tilemaps, now they are 12kB instead of 24kB.
+- The new insert size of the patch is 87472 bytes instead of 178909 bytes.
+- There are a bunch of defines in powerup_defs.asm that let you to remap some GFX00 and GFX01 stuff.
+- DKC Status bar compatibility.
+- !shell_immunity now has a purpose. Thanks to Lui37.
+- Included some defines to set the tile/YXPPCCCT properties of the projectiles in powerup_defs.asm
+- Added some settings for Mario Statue in sprite_props.asm.
+
+Fixes:
+- Tanooki suit was using the wrong combination of buttons to trigger the statue.
+- Mario statue was able to climb in nets.
+- Mario statue was using spin jump instead of a custom routine to detect sprites and kill them or be invincible to them.
+- Fixed a bug in question block that doesn't do anything in vertical levels.
+- Ice blocks weren't detecting ceilings correctly.
+- Iceballs now really listen to the sprite_props.asm settings.
+- Iceballs doesn't display a fireball when are about to disappear in a puff of smoke.
+- And probably a lot more. I don't remember what I fixed (forgot to create a list... >.>).
+
+Removed:
+- Luigi graphics aren't included in the patch, you must search/draw your own graphics in order to have Luigi graphics.
+
+Alpha versions
+- Lot of stuff is lost, you can download older versions if you are curious about how this patch evolved.

@@ -67,8 +67,8 @@ macro flower_item(num,sfx,port)
 	BNE	+
 	JSL	$02ACE5|!base3
 +		
-	LDA	#$0A
-	STA	$1DF9|!base2
+	LDA	#<sfx>
+	STA	<port>|!base2
 	JMP	clean_ram
 endmacro
 

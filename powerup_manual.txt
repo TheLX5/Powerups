@@ -1,0 +1,512 @@
+Custom powerups 2.0
+By LX5
+
+This pack of patches allows you to have custom powerups in your hack.
+
+ ------------ 0. Index ------------ 
+
+1. Powerup item
+2. Custom player palettes
+3. Mario ExGFX
+4. More control over Mario poses
+5. Making/editing tilemaps
+6. Custom hitboxes/hurtboxes
+7. Custom objects collision
+8. Dynamic projectiles
+9. Blocks for projectiles
+
+ ------------ 1. Powerup item ------------ 
+
+When making a new powerup you should need to code their "get powerup" code which controls what powerup are they giving you.
+This is rather easy to code because I included two very useful macros:
+
+	%flower_item(powerup,sfx,port)
+	%cape_item(powerup,sfx,port)
+
+%flower_item behaves like a flower, pauses the screen and gives Mario the powerup while %cape_item hides Mario and spawns a smoke sprite in his position.
+
+Both routines gives Mario the powerup, gives points and cleans some misc RAMs like:
+
+	!disable_spin_jump
+	!mask_15
+	!mask_17
+	!flags
+	!timer
+	!misc
+	!shell_immunity
+
+If you need some of these initialized to any other value that isn't zero, don't use the macros and code them yourself, you can take a look at macro's code to see how to code your own "get powerup" code.
+
+But... what are (powerup,sfx,port)?
+
+<powerup>: is the powerup number that the powerup will give.
+<sfx>: SFX number.
+<port>: Port of the SFX. This can only be $1DF9, $1DFA and $1DFC.
+
+To test your powerup code, just paste your code in other_patches/get_powerup_codes.asm, you can either place an incsrc and put the code in the get_powerup folder or write the code directly into the code/incsrc area.
+
+You also need to include a pointer, they will start at $06, but how is that pointer table indexed? Well, take a look at item_box_tables.asm and get_powerup_codes.asm:
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; These pointers are indexed by the value that you got from PowerIndex table.
+;; That table gets its index by getting the (custom) sprite number,
+;; multiply by !max_powerup+1 and then adding your current powerup number ($19)
+;;	if it is a normal sprite...
+;;		((sprite_num-#$74)*(!max_powerup+1))+powerup_number
+;;	if it is a custom sprite...
+;;		((sprite_num+#$05)*(!max_powerup+1))+powerup_number
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This table determines what code will we run when we grab a powerup
+;; Order.
+;; Horz:
+;; Small,Big,Cape,Fire,Powerup 4,Powerup 5,Powerup ... and so on
+;; Expand horizontally and vertically if needed
+;; It should be expanded like this:
+;; 1 2 3 4 5
+;; 2 2 3 4 5
+;; 3 3 3 4 5
+;; 4 4 4 4 5
+;; 5 5 5 5 5
+;; 
+;; I think the pattern it's obvious :P
+
+PowerIndex:
+*table*
+
+So what does all of that info means? You need to make a powerup item to test your code and edit the PowerIndex table.
+
+Making a powerup item sprite is really easy, just take the .cfg info from an existing sprite (mushroom, flower and feather) and set the 7th bit of $190F (Don't get stuck in walls) which is used to see if our sprite should give a custom powerup. No .asm file is required, insert the .cfg file and you will be ready to test your code.
+
+ ------------ 2. Custom player palettes ------------ 
+
+Have you used Manual Player Palette Uploader? Well, if yes, the way to have custom player palettes is similar to that patch.
+
+You just need this code to run every frame in order to have custom palettes:
+
+	REP #$20
+	LDA.w #.Palette
+	STA !pal_pointer
+	SEP #$20
+	LDA.b #.Palette>>16
+	STA !pal_pointer+2
+	LDA #$01
+	STA !pal_bypass
+	RTS 
+.Pal
+	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF	
+
+You can copy-paste that code in level.asm in order to have custom palettes, note that those palettes are from palette 86 to 8F.
+
+!pal_pointer is never cleared, so you will need to clear or replace the value.
+!pal_bypass is cleared every frame after updating the palette, if you stop setting this ram to a non-zero value it will load the palette based on the current powerup.
+
+After v1.1, you can have palettes per powerup PER level like Custom Mario Palettes patch.
+
+If you have used Roy's Custom Mario Palettes, this patch is VERY similar to use, the only different thing about this one is that you need to use uberASM before using this feature.
+
+ ------------ 3. Mario ExGFX ------------ 
+
+Some people suggested this, and it's a nice thing to have and easy to set up.
+
+You only need to use this code in level asm or a block or whatever you want:
+
+	LDA #$01
+	STA !gfx_bypass_flag
+	LDA #$XX
+	STA !gfx_bypass_num
+
+It's just about changing the XX to the GFX index number number and you will be able to change the GFX.
+
+IMPORTANT:
+This patch DOESN'T reset !gfx_bypass_flag, so you will have to reset it with whatever you want.
+You can use uberASM gamemode to reset the address, just put this code under gamemode_13:
+
+	LDA #$00
+	STA !gfx_bypass_flag
+
+And then it will reset every time that a new level loads.
+
+ ------------ 4. More control over Mario poses ------------ 
+
+You know, you can change the actual mario pose with $13E0, but some powerups like the shell suit needs TOTAL control of this so I inclueded a routine where you can use modify the $13E0 value with whatever you want.
+You must put the code in the included files that are in powerup_image_code folder inside of powerup_files.
+
+Of course that you need to build your tilemaps for this, but that's covered in another point.
+
+ ------------ 5. Making/editing tilemaps ------------ 
+
+Making tilemap tables is a more tedious task than changing the changing the GFX, so be aware of that and read this carefully.
+
+The original tilemap tables are located in $00E00C and $00E0CC.
+
+The first address has the tilemap data of the upper player tile (Mario Head)
+The second address has the tilemap data of the lower player tile (Mario Body)
+
+Editing them isn't hard, just follow this:
+
+1) Open the following diagrams and powerup_defs.asm and powerup_data.asm
+http://media.smwcentral.net/Diagrams/PlayerTiles.png
+http://www.smwiki.net/images/9/91/MarioPoses.png
+
+2) You can edit the original tilemaps via this patch by setting to 1 this define !enable_E00C_editing
+
+The order of the values of the tilemap tables is this:
+
+The first $3C (60) values correspond to Small Mario.
+The next $0A (10) values correspond to some misc poses that doesn't depend on the powerup (see the pose number $3D to $46).
+The next $3C values correspond to Big/Fire Mario.
+The last $3C values correspond to Cape Mario.
+
+I already separated all of those values in tilemaps.asm, but giving this information doesn't hurt.
+
+3) Build your tilemap tables with the given information.
+
+4) After you finish to build your tilemap tables, you are done here!
+
+5) If you want to have another tilemap table for some powerup you can do this:
+
+If you use the same layout as GFX32, then copy the values from upper_big_mario_tilemap, lower_big_mario_tilemap and below of upper_big_mario_tilemap put the values of upper_misc_tilemap do the same with lower_big_mario_tilemap, but instead of using the upper_misc_tilemap, use lower_misc_tilemap.
+
+If you use the compressed layout (the ones that I used for all of the custom powerups), then copy the values from the Hammer/Boomerang suit tilemap tables (separate download), those already has the misc tiles included.
+
+When you do that, give to your new tables an unique label name and copy the name of both tables and go to TileAltIndexUpper and add your tables names in those other tables. It's just about adding this:
+
+TileAltIndexUpper:
+	dw upper_your_new_tilemap
+	;you can add more pointers here
+TileAltIndexLower:
+	dw lower_your_new_tilemap
+	;here too
+
+Replace the last one in each table with your table name.
+
+Then go to TileAltTable and replace the desired value with the one that you want.
+
+That table is used as an index (and multiplied by 2) to select the correct tilemap.
+
+01 and beyond are your custom tilemaps
+
+And finally just go to TileIndexData an be sure to have a $46 where you included your tilemap or $86 if your tilemap requires a cape GFX.
+
+ ------------ 6. Custom hitboxes/hurtboxes ------------ 
+
+If you're familiar with custom hitboxes for sprites, this should be easy for you.
+
+Basically you only need to set some RAMs to get this to work:
+!clipping_flag
+!clipping_width
+!clipping_height
+!clipping_disp_x
+!clipping_disp_y
+
+!clipping_flag is used to bypass the original SMW routine.
+!clipping_width and !clipping_height are used to, as their name say, to set the width and height
+of the interaction box.
+!clipping_disp_x and !clipping_disp_y are used to shift pixels to the left/right and down/up.
+The coordinate 0,0 for Mario is in the top left of his head tile.
+
+
+ ------------ 7. Custom objects collision ------------ 
+
+This patch lets Mario to have custom collision dots (yeah, dots) with interactable layers. This feature needs from 8 to 224 bytes of free RAM.
+Mario has 6 collision dots while he isn't wallrunning and 3 (or 2, depending on powerup) while he is running on a wall.
+The coordinates of the dots are split in two 16-bit tables, each table has 108 bytes of data. One table is for X coordinates and the other one is for Y coordinates.
+96 bytes are used when Mario isn't wallrunning and 12 bytes are used when he's running on a wall.
+
+The vanilla SMW organizes Mario's collision data like this:
+The first 12 bytes are used when Mario isn't on yoshi, isn't ducking, is small and his X position is < #08 AND when he isn't on yoshi, he IS ducking, any powerup and X pos <#08.
+The next 12 bytes are almost the same as above, but this one is used when his X position is > #08.
+The next block of 12 bytes are usedn when Mario isn't on yoshi, isn't ducking, isn't small and his X position is < #08.
+The fourth block of 12 bytes are similar to the first one, but this block is used when Mario is on Yoshi and he is small or he has a powerup and is ducking.
+The fifth group of 12 bytes is the same as above, but Mario's X position is > #08.
+The last 2 groups of 12 bytes are similar to the fourth and fifth, but Mario has a powerup and isn't ducking, the seventh group checks for X<#08 and the last one checks for X>#08
+
+Then there are two more groups of 6 bytes each, those are for wallrunning collision.
+The first one is used when Mario is running in the left wall
+The last one is usedn when Mario is running in the right wall
+The middle (third and fourth) values of each group won't be used when Mario is small.
+
+Sounds confusing, no? I think, but here is the SMW tables for Mario's collision dots coordinates for better understanding, $00E832 is for X coordinates and $00E89E for Y coordinates:
+
+DATA_00E832:
+dw $0008,$000E,$000E,$0008,$0005,$000B	;no powerup, x<8, no yoshi, no duck or powerup, x<8, no yoshi, duck
+dw $0008,$0002,$0002,$0008,$000B,$0005	;no powerup, x>8, no yoshi, no duck or powerup, x>8, no yoshi, duck
+dw $0008,$000E,$000E,$0008,$0005,$000B	;powerup, x<8, no yoshi, no duck
+dw $0008,$0002,$0002,$0008,$000B,$0005	;powerup, x>8, no yoshi, no duck
+dw $0008,$000E,$000E,$0008,$0005,$000B	;no powerup, x<8, yoshi, no duck or powerup, x<8, yoshi, duck
+dw $0008,$0002,$0002,$0008,$000B,$0005	;no powerup, x>8, yoshi, no duck or powerup, x>8, yoshi, duck
+dw $0008,$000E,$000E,$0008,$0005,$000B	;powerup, x<8, yoshi, no duck
+dw $0008,$0002,$0002,$0008,$000B,$0005	;powerup, x>8, yoshi, no duck
+dw $0010,$0020,$0007			;left wallrunning, if mario is small, the middle value won't be used.
+dw $0000,$FFF0,$0008			;right wallrunning, if mario is small, the middle value won't be used.
+DATA_00E89E:
+dw $0018,$001A,$0016,$0010,$0020,$0020	;no powerup, x<8, no yoshi, no duck or powerup, x<8, no yoshi, duck
+dw $0018,$001A,$0016,$0010,$0020,$0020	;no powerup, x>8, no yoshi, no duck or powerup, x<8, no yoshi, duck
+dw $0012,$001A,$000F,$0008,$0020,$0020	;powerup, x<8, no yoshi, no duck
+dw $0012,$001A,$000F,$0008,$0020,$0020	;powerup, x>8, no yoshi, no duck
+dw $001D,$0028,$0019,$0013,$0030,$0030	;no powerup, x<8, yoshi, no duck or powerup, x<8, yoshi, duck
+dw $001D,$0028,$0019,$0013,$0030,$0030	;no powerup, x>8, yoshi, no duck or powerup, x>8, yoshi, duck
+dw $001A,$0028,$0016,$0010,$0030,$0030	;powerup, x<8, yoshi, no duck
+dw $001A,$0028,$0016,$0010,$0030,$0030	;powerup, x>8, yoshi, no duck
+dw $0018,$0018,$0018			;left wallrunning, if mario is small, the middle value won't be used.
+dw $0018,$0018,$0018			;right wallrunning, if mario is small, the middle value won't be used.
+
+But... what's the order of those coordinates? The order is pretty simple (from left to right):
+Mario center, Mario side (center), Mario side (above center), Mario top, Mario bottom (front), Mario bottom (back).
+Now let's move to the patch.
+
+The patch has two types of loading your collision data tables:
+1) Using a large block of RAM addresses (!collision_data_x and !collision_data_y).
+2) Filling in three RAM addresses the 24-bit location of your data tables (!collision_loc_x and !collision_loc_y).
+
+Let's talk about the first one.
+
+The first one needs a way to load your collision data into RAM, you may want to use a loop, DMA or MVN. I'll only explain how to do it with a loop:
+
+	REP	#$30			;Set 16-bit mode for A/X/Y
+	LDX.w	#$006C			;Set up loop.
+-	LDA	.x_coords,x		;get the 16-bit value and store it to ram
+	STA	!collision_data_x,x
+	LDA	.y_coords,x
+	STA	!collision_data_y,x
+	DEX	#2			;decrease X by 2
+	BPL	-			;loop until X = negative
+	SEP	#$30			;8-bit X/Y
+	RTS	
+
+.x_coords
+*insert here your collision data*
+.y_coords
+*insert here your collision data*
+
+With that code you will have your custom collision data loaded into RAM, ready to be used.
+
+The second one is as easy as the first one, you only need to fill the RAM addresses with the 24-bit address of your data tables:
+
+	REP	#$20			;Set 16-bit mode for A
+	LDA.w	#.x_coords-2		;Get the 16-bit address of the location of your tables
+	STA	!collision_loc_x	
+	LDA.w	#.y_coords-2
+	STA	!collision_loc_y
+	SEP	#$20			;go back to 8-bit A
+	LDA.b	#.x_coords-2>>16
+	STA	!collision_loc_x+2	;And also get the bank byte of your tables
+	LDA.b	#.y_coords-2>>16
+	STA	!collision_loc_y+2
+	RTS	
+
+.x_coords
+*insert here your collision data*
+.y_coords
+*insert here your collision data*
+
+And that's how you use both methods, but, how to actually make Mario to use that data?
+Is easy, it's only matter of filling two more addreses: !collision_flag and !collision_index
+- !collision_flag is used to enable the usage of our custom code
+- !collision_index is used to get the starting index that will be used in your data tables.
+
+!collision_flag allows these values:
+$00 - Will run vanilla code, no custom collision data.
+Any positive value ($01-$7F) - Use the collision data in RAM (!collision_data_x and !collision_data_y).
+Any negative value ($80-$FF) - Use the collision data pointed in !collision_loc_x and !collision_loc_y.
+
+And !collision_index has an special value:
+$00-$FE - Used as index values, useful if you want to code your own routine to arrange the data differently.
+$FF - Use a built-in routine to take care of your indexes in the tables, this makes easier the index selection since this routine takes into account Yoshi, ducking and wallrunning.
+
+The order of each dot is the same as SMW:
+Mario center, Mario side (center), Mario side (above center), Mario top, Mario bottom (front), Mario bottom (back).
+
+If you get lost, just see Tiny Mario (separate download) collision tables:
+
+.x_coords
+dw $0008,$000C,$000C,$0008,$0006,$000A	;x<8, no yoshi, no duck
+dw $0008,$0004,$0004,$0008,$000A,$0006	;x>8, no yoshi, no duck
+dw $0008,$000C,$000C,$0008,$0006,$000A	;x<8, no yoshi, duck
+dw $0008,$0004,$0005,$0008,$000A,$0006	;x>8, no yoshi, duck
+dw $0008,$000C,$000C,$0008,$0006,$000A	;x<8, yoshi, no duck
+dw $0008,$0004,$0004,$0008,$000A,$0006	;x>8, yoshi, no duck
+dw $0008,$000C,$000C,$0008,$0006,$000A	;x<8, yoshi, duck
+dw $0008,$0004,$0004,$0008,$000A,$0006	;x>8, yoshi, duck
+dw $0010,$0020,$0007			;left wallrunning
+dw $0000,$FFF0,$0008			;right wallrunning
+
+.y_coords
+dw $001B,$001D,$0019,$0016,$0020,$0020	;x<8, no yoshi, no duck
+dw $001B,$001D,$0019,$0016,$0020,$0020	;x>8, no yoshi, no duck
+dw $001C,$001E,$001A,$0017,$0020,$0020	;x<8, no yoshi, duck
+dw $001C,$001E,$001A,$0017,$0020,$0020	;x>8, no yoshi, duck
+dw $0020,$002A,$001E,$001B,$0030,$0030	;x<8, yoshi, no duck
+dw $0020,$002A,$001E,$001B,$0030,$0030	;x>8, yoshi, no duck
+dw $0024,$002A,$0021,$001A,$0030,$0030	;x<8, yoshi, duck
+dw $0024,$002A,$0021,$001A,$0030,$0030	;x>8, yoshi, duck
+dw $0018,$0018,$0018			;left wallrunning
+dw $0018,$0018,$0018			;right wallrunning
+
+
+ ------------ 8. Dynamic projectiles ------------ 
+
+Oh, dynamic projectiles, this feature is pretty cool because you can stick every projectile tile to 2 tiles in GFX00. Those GFX are uploaded to the tiles 0A & 0C.
+
+The projectiles are usually stored in *projectile name*.bin and its layout is similar to the GFX32 layout.
+That said, the first tile 16x16 is 00, the next one is 01, and so on. When you reach to the end of the line, the next tile isn't 08, it is 10, then the next one is 11.
+
+There's a common routine called "projectile_dma" which consists into filling the address of where the graphics are located, you can copy the routine and it'll be like this:
+
+your_projectile_dma:	
+		PHX	
+		LDX	$15E9|!base2		;get index
+		REP	#$20
+		AND	#$00FF
+		ASL	#6			;multiply it
+		CLC	
+		ADC.w	#your_projectile_gfx	;add source address
+		PHA	
+		TXA	
+		SEC	
+		SBC	#$0008			;get new index
+		ASL	
+		TAX	
+		PLA	
+		STA	!projectile_gfx_index,x	;get GFX index
+		CLC	
+		ADC	#$0200
+		STA	!projectile_gfx_index+$04,x
+		SEP	#$20
+		LDA.b	#your_projectile_gfx>>16
+		STA	!projectile_gfx_bank	;get source bank
+		LDA	#$01
+		STA	!projectile_do_dma	;enable projectile DMA
+		PLX	
+		RTS	
+
+your_projectile:
+		db $00		;put here as many frames as you want
+.gfx		
+		incbin your_gfx.bin
+
+You can copy this routine to make your own dynamic projectiles.
+
+There's something that this routine needs at the start, it should have in A the frame number to show, so before calling it you should load something from "your_projectile" into A.
+
+Another note on this feature is that you need to call check_dma to stop uploading their GFX when they're dead.
+
+ ------------ 9. Blocks for projectiles ------------ 
+
+If you want you projectile to work with objects like hammer/boomerang, you can copy paste their interaction code:
+
+		LDA	$13
+		AND	#$01		;make it to not run every frame
+		BEQ	.no_process
+		JSR	GetMap16	;process interaction with layer 1 blocks
+		PHX	
+		REP	#$30
+		LDY.w	#your_table_end-your_table-$03
+.loop			
+		CMP.w	your_table,y		;loop until find some interactive block
+		BEQ	.found
+		DEY	#3
+		BPL	.loop
+		SEP	#$30
+		BRA	.back
+.found			
+		LDA	#$0000		;get interaction index
+		SEP	#$20
+		LDA.w	your_table+$02,y
+		REP	#$20
+		TXY	
+		ASL	
+		TAX	
+		JSR	(InteractPointers,x)
+.back			
+		PLX	
+.no_process		
+		RTS	
+
+To keep things organized, "your_table" should be in projectile blocks (the place should be pretty obvious).
+
+Projectiles can interact with objects, but they don't work like Mario's Fireballs, you need to put your code in other_patches/projectile_blocks.asm
+
+Building your interactive blocks tables is relatively easy, all that you need to do is build them like this:
+
+	dw <Acts Like number> : db <Code index>
+
+This function uses Acts Like number to detect blocks instead of Map16 number. However, if you want, you can use the actual Map16 number instead by changing on powerup_defs.asm this define:
+
+	!use_map16_only		= 0
+
+Change it to 1 and it will only check Map16 numbers. You can't use Acts Like and Map16 numbers.
+
+Let's move to Code index, what is it?
+
+I found more easy to include an index in the block table to get the routine that the block will run when the projectile touches it.
+I've included a few codes that should cover up most possible interactions as well some useful macros.
+
+Included codes (with their code index):
+00 	Puff of smoke on block's position
+01	Break block on touch like a turn block (brown pieces).
+02	Break block on touch like a throw block (rainbow pieces).
+03	Stuns (or kills) hammer and boomerang, in boomerang's case it also releases the sprite.
+04	Break block on touch like a turn block (brown pieces) and stuns hammer/boomerang.
+05	Break block on touch like a throw block (rainbow pieces) and stuns hammer/boomerang.
+06	Triggers ON/OFF block and stuns projectile. Note that it will always change into block 112.
+07	Puff of smoke on block's position and stuns hammer/boomerang.
+08	Collects a coin showing glitter trail.
+09	Release item from boomerang (if it has any).
+
+So, if you want the cement block (block number $0130) to stun the projectile, your entry in the table would be this:
+
+	dw $0130 : db $03
+
+... but that will affect every block that acts like $0130!, how to work around this:
+
+1) Change !use_map16_only to 1
+
+2) Put a block that acts like 0130 in the expanded Map16 area (like 0200) and then put another block that acts like 0200.
+Your entry will look like this:
+
+	dw $0200 : db $03
+
+And every block that acts like 0200 will stun the projectile. The second solution is a bit silly, but it works.
+
+Making your own interaction codes.
+
+First of all, you need to expand InteractPointers table, like this:
+
+InteractPointers:
+	dw	.Smoke					;00
+	dw	.BreakNormal				;01
+	dw	.BreakRainbow				;02
+	dw	.KillHammerBoomerang			;03
+	dw	.BreakNormalKillHammerBoomerang		;04
+	dw	.BreakRainbowKillHammerBoomerang	;05
+	dw	.TriggerOnOffBlock			;06
+	dw	.SmokeKillHammerBoomerang		;07
+	dw	.CollectCoin				;08
+	dw	.ReleaseItemFromBoomerang		;09
+		
+	dw	.YourNewCode				;0A
+
+.YourNewCode is obviously a placeholder name, change it to whatever you want.
+Then place .YourNewCode at the bottom of the file and start coding your interaction.
+
+You can use raw code in your interaction, but you can also use some macros that I included.
+
+Included macros:
+%prepare(): Needed at the top of every routine.
+%return(): Ends interaction code.
+%give_coins(<num>): Gives player an specified amount of coins. <num> represents how many coins it will give.
+%create_glitter(): Creates a glitter effect like Coins and Yoshi Coins when they are collected.
+%trigger_on_off(): Triggers on/off block. Pretty much only applicable to block $0112.
+%generate_smw_tile(<value>): Generates a tile, <value> corresponds to the posible $9C values.
+%generate_smoke(): Creates a puff of smoke on block's position.
+%shatter_block(<type>): Creates broken pieces. <type> represents which type of broken pieces it will spawn.
+			$00 for brown pieces, anything else for rainbow pieces.
+%generate_sound(<sfx>,<port>): Generates sound, <sfx> is the SFX number on a certain <port>.
+			       <port> can ONLY be $1DF9, $1DFA, $1DFB or $1DFC.
+%kill_hammer_boomerang(): Stuns/kills projectiles and releases item from boomerang.
+%release_item_from_boomerang(): Releases item from boomerang.
+
+When coding your own interaction codes they need to end in RTS, also A/X/Y are 16-bit so use SEP #$30 if necessary.
+And $98-$9B contains the rounded up coordinates of the current block.
