@@ -1,14 +1,12 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Rocket boots
+;; Unused 7
 ;;;;;;;;;;;;;;;;;;;
 
-!rocket_boots_tile	= $24	;Tile used by the Rocket boots item
-!rocket_boots_prop	= $06	;YXPPCCCT properties of Rocket boots item
+!unused_7_tile		= $00	;Tile used by the unused powerup E item
+!unused_7_prop		= $00	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
 
-!rocket_boots_time	= $44	;Some value used by the Rocket Boots.
-
-%powerup_number(rocket_boots,07)	;Mandatory macro to get the powerup number.
+%powerup_number(unused_7,07)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

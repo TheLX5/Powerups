@@ -1,22 +1,12 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Bubble flower
+;; Unused A
 ;;;;;;;;;;;;;;;;;;;
 
-!bubble_flower_tile	= $4A	;Tile used by the Bubble flower item
-!bubble_flower_prop	= $0A	;YXPPCCCT properties of Bubble flower item
+!unused_a_tile		= $00	;Tile used by the unused powerup E item
+!unused_a_prop		= $00	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
 
-!bubble_pro_tile_1	= $80	;Tile used by the smallest bubble projectile.
-!bubble_pro_tile_2	= $80	;Tile used by the small bubble projectile.
-!bubble_pro_tile_3	= $80	;Tile used by the large bubble projectile.
-!bubble_pro_tile_4	= $80	;Tile used by the largest bubble projectile.
-				;Those aren't used if you are using the projectile DMA feature!
-
-!bubble_pro_props	= $06	;YXPPCCCT properties of the bubble projectile.
-
-!bubble_ext_num		= $16	;Extended sprite number.
-
-%powerup_number(bubble_flower,0A)	;Mandatory macro to get the powerup number.
+%powerup_number(unused_a,0A)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

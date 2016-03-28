@@ -110,6 +110,21 @@ CheckItem:
 	CLC	
 	ADC	#$05
 .next		
+		
+if !SA1		
+	STA	$2251
+	LDA	#!max_powerup+1
+	STA	$2253
+	LDA	#$00
+	STA	$2250
+	STA	$2252
+	STA	$2254
+	XBA	
+	LDA	$19
+	CLC	
+	REP	#$30
+	ADC	$2306
+else		
 	STA	$4202
 	LDA	#!max_powerup+1
 	STA	$4203
@@ -119,6 +134,7 @@ CheckItem:
 	CLC	
 	REP	#$30
 	ADC	$4216
+endif
 	TAY	
 	SEP	#$20
 	LDA.w	PutInBox,y

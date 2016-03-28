@@ -1,30 +1,12 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Ice flower
+;; Unused 4
 ;;;;;;;;;;;;;;;;;;;
 
-!ice_flower_tile	= $26	;Tile used by the Ice flower item
-!ice_flower_prop	= $06	;YXPPCCCT properties of Ice flower item
+!unused_4_tile		= $00	;Tile used by the unused powerup E item
+!unused_4_prop		= $00	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
 
-!ice_block_tile		= $CA	;Tile used by the ice block.
-!ice_block_prop		= $0A	;YXPPCCCT properties of the ice block.
-
-!ice_tile_ul		= $CC	;Tile used by the up left shattered ice block piece
-!ice_tile_ur		= $CD	;Tile used by the up right shattered ice block piece
-!ice_tile_dl		= $DC	;Tile used by the down left shattered ice block piece
-!ice_tile_dr		= $DD	;Tile used by the down right shattered ice block piece
-
-!iceball_tile_1		= $D2	;Tile used by the iceball, first and third frame.
-!iceball_tile_2		= $D3	;Tile used by the iceball, second and fourth frame.
-				;Those aren't used if you are using the projectile DMA feature!
-
-!ice_piece_num		= $0D	;Minor extended sprite number of the broken ice piece.
-
-!iceball_prop		= $0A	;YXPPCCCT properties of the iceball.
-
-!iceball_num		= $13	;Extended sprite number.
-
-%powerup_number(ice_flower,04)	;Mandatory macro to get the powerup number.
+%powerup_number(unused_4,04)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

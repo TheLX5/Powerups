@@ -1,12 +1,12 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Tanooki suit
+;; Unused 9
 ;;;;;;;;;;;;;;;;;;;
 
-!tanooki_suit_tile	= $80	;Tile used by the Tanooki suit item
-!tanooki_suit_prop	= $04	;YXPPCCCT properties of Tanooki suit item
+!unused_9_tile		= $00	;Tile used by the unused powerup E item
+!unused_9_prop		= $00	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
 
-%powerup_number(tanooki_suit,09)	;Mandatory macro to get the powerup number.
+%powerup_number(unused_9,09)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

@@ -7,7 +7,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 org $0096B4|!base3
-	if read1($009750|!base3) == $20
+	if !clear_7E2000 == 1
 !a		JSL Clear7E2000		;Cleans $7E2000 area.
 	else				;only if Mode 7 Game Over patch isn't installed.
 		LDX #$07

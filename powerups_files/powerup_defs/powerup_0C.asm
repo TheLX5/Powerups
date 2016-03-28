@@ -1,12 +1,12 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Tiny Mushroom
+;; Unused C
 ;;;;;;;;;;;;;;;;;;;
 
-!tiny_mushroom_tile	= $42	;Tile used by the Tiny mushroom item
-!tiny_mushroom_prop	= $06	;YXPPCCCT properties of Tiny mushroom item
+!unused_c_tile		= $00	;Tile used by the unused powerup E item
+!unused_c_prop		= $00	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
 
-%powerup_number(tiny_mushroom,0C)	;Mandatory macro to get the powerup number.
+%powerup_number(unused_c,0C)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

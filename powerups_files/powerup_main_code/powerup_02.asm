@@ -1,3 +1,7 @@
+;;;;;;;;;;;;;;;
+;; Cape powerup
+;;;;;;;;;;;;;;;
+
 		BIT	$16
 		BVC	.Return
 		

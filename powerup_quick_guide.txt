@@ -31,7 +31,7 @@ It's recommended to use a clean ROM to not have any crashes!
 4) Expand the ROM over 3MB. This is just to store the graphics away from banks $10-$3F
 5) Open powerup_defs.asm, you may want edit something from there.
 6) Insert the included GFX files to your rom. Totally optional.
-7) Download a/some powerups and follow the instructions inside to add them to your ROM.
+7) Download a/some powerup(s) and follow the instructions inside to add them to your ROM.
 8) Open asar and patch powerup.asm.
 9) Done!
 
@@ -209,9 +209,9 @@ A: Get MarioFanGamer's patch
 Download: http://www.smwcentral.net/?p=section&a=details&id=12748
 
 Q: DynamicZ?
-A: Read powerup_defs.asm and this:
+A: Get this addon and read its instructions:
 
-Mario ExGFX, Custom player palettes and Mario 8x8 tiles DMAer features won't be available when using Dynamic Z, you will need to read Dynamic Z manual in order to have Custom player palettes and Mario ExGFX, however, Mario 8x8 tiles DMAer isn't integrated into Dynamic Z so you will have to ask anonimzwx for that feature if he hasn't added it yet.
+Download: http://bin.smwcentral.net/u/12344/dynamic_z_addon.zip
 
 Q: Projectiles doesn't interact with blocks :(
 A: I know, that's why I included projectile_blocks.asm file and a section on this readme called Custom interactive blocks.

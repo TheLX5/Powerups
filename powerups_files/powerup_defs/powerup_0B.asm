@@ -1,12 +1,12 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Shell suit
+;; Unused B
 ;;;;;;;;;;;;;;;;;;;
 
-!shell_suit_tile	= $8A	;Tile used by the Shell suit item
-!shell_suit_prop	= $06	;YXPPCCCT properties of Shell suit item
+!unused_b_tile		= $00	;Tile used by the unused powerup E item
+!unused_b_prop		= $00	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
 
-%powerup_number(shell_suit,0B)	;Mandatory macro to get the powerup number.
+%powerup_number(unused_b,0B)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

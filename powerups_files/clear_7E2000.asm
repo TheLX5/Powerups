@@ -6,6 +6,7 @@
 ; anything bad... besides glitching the berries due to their tiles are in GFX32.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+if !clear_7E2000 == 1
 Clear7E2000:
 	REP	#$30
 	LDX	#$5BFE
@@ -30,3 +31,4 @@ Clear7E2000:
 	LDX	#$07
 	LDA	#$FF
 	RTL	
+endif

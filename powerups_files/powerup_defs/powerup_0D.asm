@@ -1,21 +1,12 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Cloud Flower
+;; Unused D
 ;;;;;;;;;;;;;;;;;;;
 
-!cloud_flower_tile	= $C2	;Tile used by the unused powerup D item
-!cloud_flower_prop	= $06	;YXPPCCCT properties of unused powerup D item
+!unused_d_tile		= $00	;Tile used by the unused powerup E item
+!unused_d_prop		= $00	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
 
-!cloud_tile_frame_1	= $20	;Cloud animation tile 1.
-!cloud_tile_frame_2	= $22	;Cloud animation tile 2.
-
-!cloud_prop		= $06	;YXPPCCCT properties of the cloud sprite.
-
-!cloud_ammount		= $03	;Ammount of clouds per powerup item.
-
-!cloud_num		= $17	;Cloud extended sprite number.
-
-%powerup_number(cloud_flower,0D)	;Mandatory macro to get the powerup number.
+%powerup_number(unused_d,0D)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

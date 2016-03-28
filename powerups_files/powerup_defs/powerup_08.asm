@@ -1,12 +1,12 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Raccoon leaf
+;; Unused 8
 ;;;;;;;;;;;;;;;;;;;
 
-!raccoon_leaf_tile	= $C8	;Tile used by the Raccoon leaf item
-!raccoon_leaf_prop	= $04	;YXPPCCCT properties of Raccoon leaf item
+!unused_8_tile		= $00	;Tile used by the unused powerup E item
+!unused_8_prop		= $00	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
 
-%powerup_number(raccoon_leaf,08)	;Mandatory macro to get the powerup number.
+%powerup_number(unused_8,08)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

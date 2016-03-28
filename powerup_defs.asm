@@ -35,6 +35,9 @@ endif
 
 !use_map16_only		= 0	;Use map16 numbers instead of Acts like number in projectile interactable blocks code.
 
+!clear_7E2000		= 1	;Clear Mario GFX from RAM. Needs to be 0 if using Dynamic Z or the Mode 7 Game Over patch.
+				;1 = enable, 0 = disable
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SP1 & SP2 remap options
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -126,6 +129,9 @@ endif
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 if !SA1 = 0
+	if !dynamic_z = 0
+;;;;;;;
+;; Normal ROM defines, ignore if using SA-1 or Dynamic Z.
 
 ;;;;;;;
 ;; !gfx_pointer: 24-bit pointer that has the location of the current Mario GFX file.
@@ -181,13 +187,13 @@ if !SA1 = 0
 	!extra_extended_2 	= $7E202B
 ;;;;;;;
 ;; !extra_extended_3: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended_3 	= $7E2126
+	!extra_extended_3 	= $7E2127
 ;;;;;;;
 ;; !extra_extended_4: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended_4 	= $7E2130
+	!extra_extended_4 	= $7E2131
 ;;;;;;;
 ;; !extra_sprites: Extra RAM table for sprites, 12 bytes
-	!extra_sprites		= $7E213A
+	!extra_sprites		= $7E213B
 ;;;;;;;
 ;; !extra_minor: Extra RAM table for minor extended sprites, 12 bytes.
 	!extra_minor		= $7E2035
@@ -237,7 +243,126 @@ if !SA1 = 0
 ;; !wait_timer: Misc timer.
 	!wait_timer		= $7E2126
 
-else
+	else
+
+;;;;;;;
+;; Dynamic Z defines, ignore if using SA-1 or not using Dynamic Z
+
+;;;;;;;
+;; !gfx_pointer: 24-bit pointer that has the location of the current Mario GFX file.
+	!gfx_pointer		= $7FBE00
+;;;;;;;
+;; !gfx_bypass_flag: RAM that bypasses the code that selects the player GFX.
+;; #$00 = use original code (not nintendo code), #$01 = bypass the original code.
+	!gfx_bypass_flag	= $7FBE03
+;;;;;;;
+;; !gfx_bypass_num: This RAM should contain the index of the graphics of the player if the bypass flag is set.
+	!gfx_bypass_num		= $7FBE04	
+;;;;;;;
+;; !mask_15: Setting this disables bits from $15/$16.
+	!mask_15		= $7FBE05
+;;;;;;;
+;; !mask_17: Setting this disables bits from $17/$18.
+	!mask_17		= $7FBE06
+;;;;;;;
+;; !disable_spin_jump: Disable spin jump. #$00 = no, anything else = disable.
+	!disable_spin_jump	= $7FBE07	
+;;;;;;;
+;; !shell_immunity: Gives immunity to some extended sprites while crouching.
+	!shell_immunity		= $7FBE08
+;;;;;;;
+;; !flags: Misc RAM often used as a flag for some settings or the current powerup state.
+	!flags			= $7FBE09
+;;;;;;;
+;; !timer: Misc RAM often used as a timer.
+	!timer			= $7FBE0A
+;;;;;;;
+;; !misc: Misc RAM, uses may vary per powerup
+	!misc			= $7FBE0B
+;;;;;;;
+;; !projectile_gfx_bank: RAM that should contain the projectile GFX bank byte.
+	!projectile_gfx_bank	= $7FBE0C
+;;;;;;;
+;; !pal_bypass: RAM that bypasses the palette upload code to upload your own palette.
+	!pal_bypass		= $7FBE0D
+;;;;;;;
+;; !pal_pointer: This RAM should contain the 24-bit pointer of your custom palette.
+	!pal_pointer		= $7FBE0E
+;;;;;;;
+;; !projectile_do_dma: RAM used as a flag to upload the projectile GFX
+	!projectile_do_dma	= $7FBE17
+;;;;;;;
+;; !projectile_gfx_index: Used to determine which powerup should be uploaded with DMA, 8 bytes.
+	!projectile_gfx_index	= $7FBE18
+;;;;;;;
+;; !extra_extended: Extra RAM table for extended sprites, 10 bytes
+	!extra_extended		= $7FBE21
+;;;;;;;
+;; !extra_extended_2: Extra RAM table for extended sprites, 10 bytes
+	!extra_extended_2 	= $7FBE2B
+;;;;;;;
+;; !extra_extended_3: Extra RAM table for extended sprites, 10 bytes
+	!extra_extended_3 	= $7FBF27
+;;;;;;;
+;; !extra_extended_4: Extra RAM table for extended sprites, 10 bytes
+	!extra_extended_4 	= $7FBF31
+;;;;;;;
+;; !extra_sprites: Extra RAM table for sprites, 12 bytes
+	!extra_sprites		= $7FBF3B
+;;;;;;;
+;; !extra_minor: Extra RAM table for minor extended sprites, 12 bytes.
+	!extra_minor		= $7FBE35
+;;;;;;;
+;; !collision_flag: Enable custom Mario<->Layers interaction field, 1 byte.
+;; $00 = run original code
+;; $01-$7F values = use RAM tables
+;; $80-$FF values = use indirect addressing
+	!collision_flag		= $7FBE41
+;;;;;;;
+;; !collision_index: Starting index that will be used in your data tables.
+;; #$FF = use built-in routine to handle the index like in the vanilla game.
+;; Handles Yoshi, crouching & wallrunning indexes.
+	!collision_index	= $7FBE42
+;;;;;;;
+;; !collision_loc_x: 24-bit address of the X coordinates of the collision data. 3 bytes.
+	!collision_loc_x	= $7FBE43
+;;;;;;;
+;; !collision_loc_y: 24-bit address of the Y coordinates of the collision data. 3 bytes.
+	!collision_loc_y	= $7FBE46
+;;;;;;;
+;; !collision_data_x: Collision data in RAM, X coordinates.
+;; At least 108 bytes if using the built-in routine.
+	!collision_data_x	= $7FBE49
+;;;;;;;
+;; !collision_data_y: Collision data in RAM, Y coordinates.
+;; At least 108 bytes if using the built-in routine.
+	!collision_data_y	= $7FBEB5
+;;;;;;;
+;; !clipping_flag: Enable custom interaction field with sprites. 1 byte.
+	!clipping_flag		= $7FBF21
+;;;;;;;
+;; !clipping_width: Width of interaction field. 1 byte.
+	!clipping_width		= $7FBF22
+;;;;;;;
+;; !clipping_height: Height of interaction field. 1 byte.
+	!clipping_height	= $7FBF23
+;;;;;;;
+;; !clipping_disp_x: How many pixels will be shifted the interaction field
+;; based on Mario's position. 1 byte.
+	!clipping_disp_x	= $7FBF24
+;;;;;;;
+;; !clipping_disp_y: How many pixels will be shifted the interaction field
+;; based on Mario's position. 1 byte.
+	!clipping_disp_y	= $7FBF25
+;;;;;;;
+;; !wait_timer: Misc timer.
+	!wait_timer		= $7FBF26
+
+		endif
+	else
+
+;;;;;;;
+;; SA-1 Defines, ignore if not using SA-1.
 
 ;;;;;;;
 ;; !gfx_pointer: 24-bit pointer that has the location of the current Mario GFX file.
@@ -271,8 +396,8 @@ else
 ;; !misc: Misc RAM, uses may vary per powerup
 	!misc			= $40410B
 ;;;;;;;
-;; !wait_timer: RAM used as a timer to determine how many frames Mario will wait to fire another boomerang or hammer.
-	!wait_timer		= $40410C
+;; !projectile_gfx_bank: RAM that should contain the projectile GFX bank byte.
+	!projectile_gfx_bank	= $40410C
 ;;;;;;;
 ;; !pal_bypass: RAM that bypasses the palette upload code to upload your own palette.
 	!pal_bypass		= $40410D

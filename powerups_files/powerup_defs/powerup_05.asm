@@ -1,20 +1,12 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Hammer suit
+;; Unused 5
 ;;;;;;;;;;;;;;;;;;;
 
-!hammer_suit_tile	= $20	;Tile used by the Hammer suit item
-!hammer_suit_prop	= $08	;YXPPCCCT properties of Hammer suit item
+!unused_5_tile		= $00	;Tile used by the unused powerup E item
+!unused_5_prop		= $00	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
 
-!hammer_pro_tile_1	= $80	;Hammer tile #1
-!hammer_pro_tile_2	= $80	;Hammer tile #2
-				;Those aren't used if you are using the projectile DMA feature!
-
-!hammer_pro_props	= $06	;YXPPCCCT properties of the hammer projectile
-
-!hammer_num		= $14	;Extended sprite number.
-
-%powerup_number(hammer_suit,05)	;Mandatory macro to get the powerup number.
+%powerup_number(unused_5,05)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

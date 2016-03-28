@@ -14,6 +14,7 @@ This pack of patches allows you to have custom powerups in your hack.
 7. Custom objects collision
 8. Dynamic projectiles
 9. Blocks for projectiles
+9.1 Adding "projectile interactable" blocks
 
  ------------ 1. Powerup item ------------ 
 
@@ -425,6 +426,8 @@ If you want you projectile to work with objects like hammer/boomerang, you can c
 		RTS	
 
 To keep things organized, "your_table" should be in projectile blocks (the place should be pretty obvious).
+
+ --- 9.1 Adding "projectile interactable" blocks --- 
 
 Projectiles can interact with objects, but they don't work like Mario's Fireballs, you need to put your code in other_patches/projectile_blocks.asm
 
