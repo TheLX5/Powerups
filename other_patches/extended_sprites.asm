@@ -95,14 +95,9 @@ macro kill_hammer_boomerang()
 	STA	$1747|!base2,y
 endmacro
 
-macro generate_sound(sfx,port)
-	LDA #<sfx>
-	STA <port>|!base2
-endmacro
-
 macro release_item_from_boomerang()
 	LDA	$170B|!base2,y
-	CMP	#!boomerang_num		;check if boomerang
+	CMP	#$15			;check if boomerang
 	BNE	?no
 	PHY	
 	TYX	
@@ -123,11 +118,17 @@ macro release_item_from_boomerang()
 ?no:		
 endmacro
 
+macro generate_sound(sfx,port)
+	LDA #<sfx>
+	STA <port>|!base2
+endmacro
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Freespace
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 freecode
+	incsrc extended_sprites_prots.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Code
