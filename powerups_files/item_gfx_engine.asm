@@ -25,15 +25,15 @@ PowerupTiles:
 	JML	$01C6D6|!base3
 		
 .powerup_tiles
-	db !ice_flower_tile
-	db !hammer_suit_tile
-	db !boomerang_suit_tile
-	db !rocket_boots_tile
-	db !raccoon_leaf_tile
-	db !tanooki_suit_tile
-	db !bubble_flower_tile
-	db !shell_suit_tile
-	db !tiny_mushroom_tile
-	db !cloud_flower_tile
-	db !unused_e_tile
-	db !unused_f_tile
+	db !powerup_04_tile
+	db !powerup_05_tile
+	db !powerup_06_tile
+	db !powerup_07_tile
+	db !powerup_08_tile
+	db !powerup_09_tile
+	db !powerup_0A_tile
+	db !powerup_0B_tile
+	db !powerup_0C_tile
+	db !powerup_0D_tile
+	db !powerup_0E_tile
+	db !powerup_0F_tile
