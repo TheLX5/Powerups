@@ -48,9 +48,6 @@ endmacro
 ; Taken from alcaro's Mario ExGFX patch
 ;;;;;;;;;;;;;
 
-!NumPowerup = $0F	;Limit is $0F
-		; to increase, expand the table below (pattern should be obvious)
-
 !powerups_A = 00
 !powerups_AA = 01
 !powerups_AAA = 02

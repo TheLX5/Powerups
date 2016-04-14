@@ -96,8 +96,9 @@ macro kill_hammer_boomerang()
 endmacro
 
 macro release_item_from_boomerang()
+if !boomerang_inserted == 1
 	LDA	$170B|!base2,y
-	CMP	#$15			;check if boomerang
+	CMP	#!boomerang_num		;check if boomerang
 	BNE	?no
 	PHY	
 	TYX	
@@ -116,6 +117,7 @@ macro release_item_from_boomerang()
 	PLX	
 	PLY	
 ?no:		
+endif
 endmacro
 
 macro generate_sound(sfx,port)
@@ -145,8 +147,10 @@ ExtendedSpr:
 	PLB	
 	LDA	$170B|!base2,x
 	BEQ	.ret		; return if sprite is #$00
-	CMP	#$13
+if !iceball_inserted == 1
+	CMP	#!iceball_num
 	BCS	+			; branch if sprite is #$13 or above.
+endif
 	PLB	
 	JML	$029B1B|!base3	; if not, reference original code
 .ret	PLB	

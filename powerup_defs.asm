@@ -38,6 +38,10 @@ endif
 !clear_7E2000		= 1	;Clear Mario GFX from RAM. Needs to be 0 if using Dynamic Z or the Mode 7 Game Over patch.
 				;1 = enable, 0 = disable
 
+!boomerang_inserted	= 0	;Set to 1 if using my Boomerang Suit
+!iceball_inserted	= 0	;Set to 1 if using my Ice Flower
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SP1 & SP2 remap options
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
