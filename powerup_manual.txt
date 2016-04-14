@@ -1,4 +1,4 @@
-Custom powerups 2.0
+Custom powerups 2.0.1
 By LX5
 
 This pack of patches allows you to have custom powerups in your hack.

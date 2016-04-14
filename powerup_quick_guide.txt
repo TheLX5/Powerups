@@ -1,4 +1,4 @@
-Custom powerups v2.0
+Custom powerups v2.0.1
 By LX5
 
 This pack of patches allows you to have custom powerups in your hack.
@@ -232,6 +232,9 @@ Sonikku - For his patch (Custom extended sprites)
 Ruberjig - He made the Shell Mario GFX
 
  ------------ 8. Change log ------------ 
+
+v2.0.1 (13-Apr-2016)
+- Fixed a issue with some defines in extended_sprites.asm. Thanks to Rykon-V73 for reporting this.
 
 v2.0 (24-Mar-2016)
 New:
