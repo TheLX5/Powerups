@@ -31,7 +31,9 @@ MinorExSprite0D:
 		STA	$0201|!base2,y
 		LDA	!extra_minor,x
 		STA	$0202|!base2,y
+	if !iceball_inserted == 1
 		LDA	#!ice_block_prop
+	endif
 		ORA	$64
 		STA	$0203|!base2,y
 		LDX	$1698|!base2
