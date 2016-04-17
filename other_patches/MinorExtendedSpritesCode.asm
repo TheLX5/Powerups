@@ -7,7 +7,7 @@ MinorExSprite0D:
 		LDA	$9D
 		BNE	.no_update
 		JSR	MinorExUpdateGravity
-.no_update	LDA	$02D51E|!base3,x
+.no_update	LDA	$028B78|!base3,x
 		TAY	
 		LDA	$1808|!base2,x
 		SEC	
@@ -48,53 +48,7 @@ MinorExSprite0D:
 
 
 MinorExSprite0E:
-		LDA	$1808|!base2,x
-		CMP	$1A
-		LDA	$18EA|!base2,x
-		SBC	$1B
-		BNE	+
-		LDA	$1850|!base2,x
-		BEQ	+
-		LDY	$9D
-		BNE	++
-		DEC	$1850|!base2,x
-		JSR	MinorExUpdateYPos
-		INC	$1820|!base2,x
-++			
-		LDA.l	$02D51E|!base3,x
-		TAY	
-		LDA	$1808|!base2,x
-		SEC	
-		SBC	$1A
-		STA	$0200|!base2,y
-		LDA	$17FC|!base2,x
-		CMP	#$F0
-		BCS	+
-		SEC	
-		SBC	$1C
-		STA	$0201|!base2,y
-		LDA	$1850|!base2,x
-		LSR	#4
-		TAX	
-		LDA.l	.tiles,x
-		STA	$0202|!base2,y
-		LDA	#$0B
-		;ORA	#$0B
-		STA	$0203|!base2,y
-		LDX	$1698|!base2
-		TYA	
-		LSR	#2
-		TAY	
-		LDA	#$00
-		STA	$0420|!base2,y
-		RTL	
-+			
-		JSR	kill_rt
-		RTL	
-
-.tiles
-		db $F1,$E1,$F0,$E0
-			
+	RTL	
 MinorExSprite0F:
 	RTL
 
