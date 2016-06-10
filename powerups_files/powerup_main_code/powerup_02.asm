@@ -1,7 +1,9 @@
 ;;;;;;;;;;;;;;;
 ;; Cape powerup
 ;;;;;;;;;;;;;;;
-
+		LDA.b	#%00100111
+		STA	!cape_settings
+			
 		BIT	$16
 		BVC	.Return
 		

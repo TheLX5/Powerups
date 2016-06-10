@@ -12,9 +12,6 @@ endif
 ;; Misc Defines
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-!max_powerup		= $0F	;How many powerups do you have.
-				;Increasing this value means that you will need to increase some other pointers and tables.
-
 !dmaer_tile		= $7E	;Used by Ladida's patch.
 				;Tile where the extended tiles will be loaded to. Takes up 2 8x8's
 				;located in SP1
@@ -38,9 +35,38 @@ endif
 !clear_7E2000		= 1	;Clear Mario GFX from RAM. Needs to be 0 if using Dynamic Z or the Mode 7 Game Over patch.
 				;1 = enable, 0 = disable
 
+!default_interaction	= 1	;Includes Sonikku's Custom Default Interaction patch.
+				;1 = enable, 0 = disable
+
 !boomerang_inserted	= 0	;Set to 1 if using my Boomerang Suit
 !iceball_inserted	= 0	;Set to 1 if using my Ice Flower
+!raccoon_inserted	= 0	;Set to 1 if using my Raccoon or Tanooki powerups.
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Number of possible powerups.
+;; Increase this define chain if you need more (or less) powerups slots.
+;; Pattern should be obvious.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+!max_powerup		= $0F	;How many powerups do you have.
+				;Increasing this value means that you will need to increase some other pointers and tables.
+
+!powerups_A = 00
+!powerups_AA = 01
+!powerups_AAA = 02
+!powerups_AAAA = 03
+!powerups_AAAAA = 04
+!powerups_AAAAAA = 05
+!powerups_AAAAAAA = 06
+!powerups_AAAAAAAA = 07
+!powerups_AAAAAAAAA = 08
+!powerups_AAAAAAAAAA = 09
+!powerups_AAAAAAAAAAA = 0A
+!powerups_AAAAAAAAAAAA = 0B
+!powerups_AAAAAAAAAAAAA = 0C
+!powerups_AAAAAAAAAAAAAA = 0D
+!powerups_AAAAAAAAAAAAAAA = 0E
+!powerups_AAAAAAAAAAAAAAAA = 0F
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SP1 & SP2 remap options
@@ -246,7 +272,19 @@ if !SA1 = 0
 ;;;;;;;
 ;; !wait_timer: Misc timer.
 	!wait_timer		= $7E2126
-
+;;;;;;;
+;; !cape_settings: Reset every frame.
+;; bits:
+;; 0 - Can capespin flag.
+;; 1 - Can fly flag.
+;; 2 - Can infinite fly flag (cape).
+;; 3 - Use Raccoon-like SFX when it's a Raccoon-like powerup.
+;; 4 - Use Raccoon-like animation for a cape or tail.
+;; 5 - Enable the usage of a cape OR a tail.
+	!cape_settings		= $7E2145
+;;;;;;;
+;; !flight_timer: How many frames you will keep ascending with a Raccoon-like powerup. Not used on Cape-like powerups. Never reset.
+	!flight_timer		= $7E2146
 	else
 
 ;;;;;;;
@@ -361,6 +399,19 @@ if !SA1 = 0
 ;;;;;;;
 ;; !wait_timer: Misc timer.
 	!wait_timer		= $7FBF26
+;;;;;;;
+;; !cape_settings: Reset every frame.
+;; bits:
+;; 0 - Can capespin flag.
+;; 1 - Can fly flag.
+;; 2 - Can infinite fly flag (cape).
+;; 3 - Use Raccoon-like SFX when it's a Raccoon-like powerup.
+;; 4 - Use Raccoon-like animation for a cape or tail.
+;; 5 - Enable the usage of the 4th bit.
+	!cape_settings		= $7FBF46
+;;;;;;;
+;; !flight_timer: How many frames you will keep ascending with a Raccoon-like powerup. Not used on Cape-like powerups. Never reset.
+	!flight_timer		= $7FBF47
 
 		endif
 	else
@@ -427,7 +478,7 @@ if !SA1 = 0
 ;; !extra_extended_4: Extra RAM table for extended sprites, 10 bytes
 	!extra_extended_4	= $404230
 ;;;;;;;
-;; !extra_sprites: Extra RAM table for sprites, 12 bytes
+;; !extra_sprites: Extra RAM table for sprites, 22 bytes
 	!extra_sprites		= $40423A
 ;;;;;;;
 ;; !extra_minor: Extra RAM table for minor extended sprites, 12 bytes.
@@ -477,6 +528,19 @@ if !SA1 = 0
 ;;;;;;;
 ;; !wait_timer: Misc timer.
 	!wait_timer		= $404226
+;;;;;;;
+;; !cape_settings: Reset every frame.
+;; bits:
+;; 0 - Can capespin flag.
+;; 1 - Can fly flag.
+;; 2 - Can infinite fly flag (cape).
+;; 3 - Use Raccoon-like SFX when it's a Raccoon-like powerup.
+;; 4 - Use Raccoon-like animation for a cape or tail.
+;; 5 - Enable the usage of the 4th bit.
+	!cape_settings		= $404250
+;;;;;;;
+;; !flight_timer: How many frames you will keep ascending with a Raccoon-like powerup. Not used on Cape-like powerups. Never reset.
+	!flight_timer		= $404251
 
 endif
 

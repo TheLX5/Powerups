@@ -1,4 +1,4 @@
-Custom powerups v2.0.1
+Custom powerups v2.1.0
 By LX5
 
 This pack of patches allows you to have custom powerups in your hack.
@@ -233,6 +233,31 @@ Ruberjig - He made the Shell Mario GFX
 
  ------------ 8. Change log ------------ 
 
+v2.1 (10-Jun-2016)
+New:
+- Added Raccoon-like powerups compatibility.
+- Added two extra RAMs: !cape_settings & !flight_timer.
+- Fixed the bug when the player has Star power and it only flashes between normal palette and fire palette of player 1.
+- Added a table that will let you to decide which palettes to show when using a Star.
+- Added a file that let's you to have custom interaction codes with sprites.
+- Added compatibility with Sonikku's Custom Default Interaction patch.
+
+Files modified:
+- powerup.asm
+- powerup_defs.asm
+- powerups_files/main_engine.asm
+- powerups_files/palette_engine.asm
+- powerups_files/misc_data/palette.asm
+- powerup_files/powerup_main_code/powerup_02.asm
+
+Files added:
+- other_patches/custom_interaction.asm
+- other_patches/custom_interaction_code.asm
+- powerups_files/hijacks/raccoon_engine.asm
+- powerups_files/raccoon_engine.asm
+- powerups_files/misc_data/raccoon_tables.asm
+- other_patches/interaction
+
 v2.0.1 (13-Apr-2016)
 - Fixed a issue with some defines in extended_sprites.asm. Thanks to Rykon-V73 for reporting this.
 
@@ -307,5 +332,5 @@ Fixes:
 Removed:
 - Luigi graphics aren't included in the patch, you must search/draw your own graphics in order to have Luigi graphics.
 
-Alpha versions
+Alpha versions:
 - Lot of stuff is lost, you can download older versions if you are curious about how this patch evolved.

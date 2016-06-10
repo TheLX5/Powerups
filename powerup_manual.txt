@@ -1,4 +1,4 @@
-Custom powerups 2.0.1
+Custom powerups 2.1.0
 By LX5
 
 This pack of patches allows you to have custom powerups in your hack.
@@ -15,6 +15,7 @@ This pack of patches allows you to have custom powerups in your hack.
 8. Dynamic projectiles
 9. Blocks for projectiles
 9.1 Adding "projectile interactable" blocks
+10. Custom interaction code with sprites
 
  ------------ 1. Powerup item ------------ 
 
@@ -101,10 +102,6 @@ You can copy-paste that code in level.asm in order to have custom palettes, note
 
 !pal_pointer is never cleared, so you will need to clear or replace the value.
 !pal_bypass is cleared every frame after updating the palette, if you stop setting this ram to a non-zero value it will load the palette based on the current powerup.
-
-After v1.1, you can have palettes per powerup PER level like Custom Mario Palettes patch.
-
-If you have used Roy's Custom Mario Palettes, this patch is VERY similar to use, the only different thing about this one is that you need to use uberASM before using this feature.
 
  ------------ 3. Mario ExGFX ------------ 
 
@@ -513,3 +510,9 @@ Included macros:
 
 When coding your own interaction codes they need to end in RTS, also A/X/Y are 16-bit so use SEP #$30 if necessary.
 And $98-$9B contains the rounded up coordinates of the current block.
+
+ ------------ 10. Custom interaction code with sprites ------------ 
+
+This patch lets you to code custom interaction codes when Mario is touching a sprite.
+
+Well, that's all. For more info look at other_patches/custom_interaction_code.asm

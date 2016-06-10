@@ -2,6 +2,7 @@
 ; Custom powerups patch by MarioE
 ; Asar version by Lui37
 ; Modified by LX5
+; Version 2.1.0
 ; 
 ; This does exactly what the title says and it adds in some more very useful
 ; stuff.
@@ -48,23 +49,6 @@ endmacro
 ; Taken from alcaro's Mario ExGFX patch
 ;;;;;;;;;;;;;
 
-!powerups_A = 00
-!powerups_AA = 01
-!powerups_AAA = 02
-!powerups_AAAA = 03
-!powerups_AAAAA = 04
-!powerups_AAAAAA = 05
-!powerups_AAAAAAA = 06
-!powerups_AAAAAAAA = 07
-!powerups_AAAAAAAAA = 08
-!powerups_AAAAAAAAAA = 09
-!powerups_AAAAAAAAAAA = 0A
-!powerups_AAAAAAAAAAAA = 0B
-!powerups_AAAAAAAAAAAAA = 0C
-!powerups_AAAAAAAAAAAAAA = 0D
-!powerups_AAAAAAAAAAAAAAA = 0E
-!powerups_AAAAAAAAAAAAAAAA = 0F
-
 macro foreach_core(code1, code2, code3, code4, id)
 !Id = !{powerups_<id>}
 <code1>!{Id}<code2>!{Id}<code3>!{Id}<code4>
@@ -107,6 +91,9 @@ endif
 	incsrc powerups_files/hijacks/clear_7E2000.asm
 	incsrc powerups_files/hijacks/shell_immunity_code.asm
 	incsrc powerups_files/hijacks/custom_collision_engine.asm
+	if !raccoon_inserted = 1
+		incsrc powerups_files/hijacks/raccoon_engine.asm
+	endif
 	incsrc powerups_files/hex_edits.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -217,6 +204,14 @@ freecode
 
 	incsrc powerups_files/custom_collision_engine.asm
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Handle Raccoon-like powerups.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	if !raccoon_inserted = 1
+		incsrc powerups_files/raccoon_engine.asm
+	endif
+
 	pushpc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Misc incsrcs
@@ -255,4 +250,11 @@ PowerupData:
 
 	incsrc powerups_files/powerup_gfx.asm
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Asar info.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+print "Custom powerups patch."
+print "Version 2.1.0"
+print " "
 print "Inserted ", freespaceuse, " bytes"

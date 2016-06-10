@@ -1,4 +1,7 @@
 Main:
+	LDA	#$00
+	STA	!cape_settings
+
 	LDA	$19
 	CMP	#!max_powerup
 	BEQ	+
@@ -11,6 +14,7 @@ Main:
 ;	STA	!wait_timer
 ;.zero		
 ;	PLA	
+	
 	PHB	
 	PHK	
 	PLB	

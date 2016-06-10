@@ -73,3 +73,13 @@ LuigiPalettes:
 	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup E
 ; Custom Powerup
 	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup F
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; These values represent the palette of Mario OR Luigi when he has a Star.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+FlashPalettes:
+	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; frame 0
+	dw $635F,$5D18,$2529,$7FFF,$0008,$001A,$18DF,$577B,$361F,$03FF		; frame 1
+	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; frame 2
+	dw $3B1F,$581D,$2529,$7FFF,$1140,$01E0,$02E0,$577B,$0DDF,$03FF		; frame 3
