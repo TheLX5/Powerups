@@ -10,7 +10,7 @@ CapeTailSpin:
 CapeTailGraphics:
 	LDA	!cape_settings
 	BIT	#$20
-	BNE	.Nope
+	BEQ	.Nope
 	AND	#$10
 	BNE	.Tail
 .Yes		
@@ -77,7 +77,7 @@ EnableFlying:
 NoInfiniteFlying:
 	LDA	!cape_settings
 	AND	#$04
-	BEQ	.Nofly
+	BEQ	.NoFly
 	LDA	$7D
 	BMI	.NoFly
 	LDA	$149F|!base2
