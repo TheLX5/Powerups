@@ -35,9 +35,12 @@ endif
 !clear_7E2000		= 1	;Clear Mario GFX from RAM. Needs to be 0 if using Dynamic Z or the Mode 7 Game Over patch.
 				;1 = enable, 0 = disable
 
+!better_powerdown	= 0	;Set it to 1 if you have any plans on using Better Powerdown patch.
+
 !boomerang_inserted	= 0	;Set to 1 if using my Boomerang Suit
 !iceball_inserted	= 0	;Set to 1 if using my Ice Flower
 !raccoon_inserted	= 0	;Set to 1 if using my Raccoon or Tanooki powerups.
+!tiny_mushroom_inserted	= 0	;Set to 1 if using my Tiny Mushroom powerup.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Number of possible powerups.

@@ -2,7 +2,6 @@
 ; Custom powerups patch by MarioE
 ; Asar version by Lui37
 ; Modified by LX5
-; Version 2.1.0
 ; 
 ; This does exactly what the title says and it adds in some more very useful
 ; stuff.
@@ -94,6 +93,9 @@ endif
 	if !raccoon_inserted = 1
 		incsrc powerups_files/hijacks/raccoon_engine.asm
 	endif
+	if !better_powerdown = 0
+		incsrc powerups_files/hijacks/clean_ram.asm
+	endif
 	incsrc powerups_files/hex_edits.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -115,6 +117,8 @@ freecode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	%protect_data(mario)
+	%protect_data(mario_hammer)
+	%protect_data(mario_raccoon)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Powerup code
@@ -212,6 +216,14 @@ freecode
 		incsrc powerups_files/raccoon_engine.asm
 	endif
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Clear some RAM when Mario's hurt.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	if !better_powerdown = 0
+		incsrc powerups_files/clean_ram.asm
+	endif
+
 	pushpc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Misc incsrcs
@@ -250,11 +262,4 @@ PowerupData:
 
 	incsrc powerups_files/powerup_gfx.asm
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Asar info.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-print "Custom powerups patch."
-print "Version 2.1.0"
-print " "
 print "Inserted ", freespaceuse, " bytes"

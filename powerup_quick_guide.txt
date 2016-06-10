@@ -251,12 +251,14 @@ Files modified:
 - powerup_files/powerup_main_code/powerup_02.asm
 
 Files added:
+- other_patches/interaction (folder)
 - other_patches/custom_interaction.asm
 - other_patches/custom_interaction_code.asm
 - powerups_files/hijacks/raccoon_engine.asm
 - powerups_files/raccoon_engine.asm
 - powerups_files/misc_data/raccoon_tables.asm
-- other_patches/interaction
+- powerups_files/hijacks/clean_ram.asm
+- powerups_files/clean_ram.asm
 
 v2.0.1 (13-Apr-2016)
 - Fixed a issue with some defines in extended_sprites.asm. Thanks to Rykon-V73 for reporting this.
