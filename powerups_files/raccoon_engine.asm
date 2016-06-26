@@ -105,7 +105,7 @@ Force16AndSFX:
 	LDA	$77
 	AND	#$04
 	BEQ	.Sound
-if read1($0E8000) != $40 && read1($0E8001) != $41 && read1($0E8002) != $4D && read1($0E8003) != $4B		; Check for @AMK
+if read1($008075) = $5C
 	LDY	#$35
 .Sound	STY	$1DFC|!base2		;gotta search a better code for this.
 else	
