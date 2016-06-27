@@ -1,20 +1,18 @@
 Main:
 	LDA	#$00
 	STA	!cape_settings
+		
+	LDA	!wait_timer
+	BEQ	.zero
+	DEC	A
+	STA	!wait_timer
+.zero		
 
 	LDA	$19
 	CMP	#!max_powerup
 	BEQ	+
 	BCS	.Return
 +	
-;	PHA		
-;	LDA	!wait_timer
-;	BEQ	.zero
-;	DEC	A
-;	STA	!wait_timer
-;.zero		
-;	PLA	
-	
 	PHB	
 	PHK	
 	PLB	

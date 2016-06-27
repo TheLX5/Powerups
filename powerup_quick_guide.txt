@@ -1,4 +1,4 @@
-Custom powerups v2.1.0
+Custom powerups v2.1.1
 By LX5
 
 This pack of patches allows you to have custom powerups in your hack.
@@ -232,6 +232,21 @@ Sonikku - For his patch (Custom extended sprites)
 Ruberjig - He made the Shell Mario GFX
 
  ------------ 8. Change log ------------ 
+
+v2.1.1 (27-Jun-2016)
+New:
+- Added a little patch that disables riding yoshi if !flags isn't zero.
+- Fixed a bug with Raccoon-like powerups making the wrong SFX.
+- Fixed a bug with Raccoon-like and Cape powerups not being able to kill enemies with cape/tail.
+- Made !wait_timer usable again.
+
+Files modified:
+- powerup.asm
+- powerup_files/main_engine.asm
+- powerup_files/raccoon_engine.asm
+
+Files added:
+- other_patches/ride_yoshi.asm
 
 v2.1 (10-Jun-2016)
 New:

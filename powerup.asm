@@ -263,6 +263,6 @@ PowerupData:
 	incsrc powerups_files/powerup_gfx.asm
 
 print "Custom powerups patch."
-print "Version 2.1.0"
+print "Version 2.1.1"
 print ""
 print "Inserted ", freespaceuse, " bytes"

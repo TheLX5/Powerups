@@ -1,6 +1,8 @@
 CapeTailSpin:
+	PHA	
 	LDA	!cape_settings
 	LSR	
+	PLA	
 	BCC	.Nope
 .Yes		
 	JML	$00CF45|!base3
