@@ -7,7 +7,7 @@ org $01ED38|!base3	;make imposible to ride yoshi when !flags isn't zero
 fix_yoshi:		
 		PHX	
 		LDX	$19
-		LDA.l	.get_powerups
+		LDA.l	.get_powerups,s
 		BEQ	.invalid
 		LDA	!flags
 		BNE	.force_end_code
