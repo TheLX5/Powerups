@@ -35,6 +35,7 @@ Both routines gives Mario the powerup, gives points and cleans some misc RAMs li
 	!flags
 	!timer
 	!misc
+	!cape_settings
 	!shell_immunity
 
 If you need some of these initialized to any other value that isn't zero, don't use the macros and code them yourself, you can take a look at macro's code to see how to code your own "get powerup" code.
