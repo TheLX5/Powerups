@@ -117,8 +117,6 @@ freecode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	%protect_data(mario)
-	%protect_data(mario_hammer)
-	%protect_data(mario_raccoon)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Powerup code
@@ -229,6 +227,8 @@ freecode
 ; Misc incsrcs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+	incsrc other_patches/ride_yoshi.asm
+	incsrc other_patches/custom_interaction.asm
 	incsrc other_patches/itemboxspecial.asm
 	incsrc other_patches/extended_sprites.asm
 	incsrc other_patches/MinorExtendedSprites.asm

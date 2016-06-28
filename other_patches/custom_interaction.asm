@@ -37,10 +37,10 @@ force_hit_sprites:
 	TAX	
 	REP	#$20
 	LDA.l	.pointers,x
-	STA	$00
+	STA	$0E
 	SEP	#$20
 	PLX	
-	JMP	($0000|!base1)
+	JMP	($000E|!base1)
 		
 .recover_code_hit_x	
 	PLX	

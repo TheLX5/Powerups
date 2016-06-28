@@ -27,16 +27,18 @@ Palette:
 	INY	
 	BRA	.do_normal
 		
-.per_powerup_handling		
-	LDX	$19
-	CPX	#$0B
-	BNE	.do_normal
-	LDA	!flags
-	BEQ	.do_special
-	LDA	$19
-	ASL	
-	ORA	$0DB3|!base2
-	BRA	.do_normal
+.per_powerup_handling
+;if 
+;	LDX	$19
+;	CPX	#$0B
+;	BNE	.do_normal
+;	LDA	!flags
+;	BEQ	.do_special
+;	LDA	$19
+;	ASL	
+;	ORA	$0DB3|!base2
+;	BRA	.do_normal
+;endif
 .do_special	
 	LDA	$00
 .do_normal		

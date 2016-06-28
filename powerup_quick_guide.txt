@@ -38,12 +38,11 @@ It's recommended to use a clean ROM to not have any crashes!
  --- 1.2 SA-1 ROM ---
 
 1) Get a clean SA-1 ROM.
-2) Expand the ROM over 3MB. This is just to store the graphics away from banks $10-$3F
-3) Open powerup_defs.asm, you may want edit something from there.
-4) Insert the included GFX files to your rom. Totally optional.
-5) Download a/some powerups and follow the instructions inside to add them to your ROM.
-6) Open asar and patch powerup.asm
-7) Done!
+2) Open powerup_defs.asm, you may want edit something from there.
+3) Insert the included GFX files to your rom. Totally optional.
+4) Download a/some powerups and follow the instructions inside to add them to your ROM.
+5) Open asar and patch powerup.asm
+6) Done!
 
 Note about changing the default sprite numbers:
 If you have plans to change it, you must open powerup_defs.asm and change this define:
@@ -229,7 +228,6 @@ Lui37 - He made the asar version of powerup.asm and many other things.
 Ladida - Made Mario 8x8 GFX DMAer patch
 imamelia - Made the Item box special patch
 Sonikku - For his patch (Custom extended sprites)
-Ruberjig - He made the Shell Mario GFX
 
  ------------ 8. Change log ------------ 
 
@@ -239,11 +237,16 @@ New:
 - Fixed a bug with Raccoon-like powerups making the wrong SFX.
 - Fixed a bug with Raccoon-like and Cape powerups not being able to kill enemies with cape/tail.
 - Made !wait_timer usable again.
+- Fixed the inclusion of other_patches/custom_interaction.asm
+- Removed unnecesary lines on powerups_files/palette_engine.asm
 
 Files modified:
 - powerup.asm
-- powerup_files/main_engine.asm
-- powerup_files/raccoon_engine.asm
+- powerups_files/main_engine.asm
+- powerups_files/raccoon_engine.asm
+- powerups_files/palette_engine.asm
+- other_patches/custom_interaction.asm
+- other_patches/custom_interaction_code.asm
 
 Files added:
 - other_patches/ride_yoshi.asm
