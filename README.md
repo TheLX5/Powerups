@@ -22,6 +22,9 @@ Makes possible to have custom powerups on Super Mario World.
 # Planned features
 - Be able to use compressed Player graphics (this would leave used $7E2000 again).
 - Dynamically uploading the powerup items graphics when they are on screen.
+ 
+# 32x32 GFX
+I tried to merge the 32x32 player patch inside this one, it is supposed to read 32x32 tilemap code, but for some reason it just crashes, so I gave up. If anyone is interested on get this to work, go for it. My progress is on '32' folder.
 
 # Dynamic Z notes
 Mario ExGFX, Custom player palettes and Mario 8x8 tiles DMAer features won't be available when using Dynamic Z, you will need to read Dynamic Z manual in order to have Custom player palettes and Mario ExGFX, however, Mario 8x8 tiles DMAer isn't integrated into Dynamic Z so you will have to ask anonimzwx for that feature if he hasn't added it yet.
