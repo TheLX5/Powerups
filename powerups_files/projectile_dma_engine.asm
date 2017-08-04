@@ -34,4 +34,5 @@
 	LDY	#$02
 	STY	$420B
 	DEX	#2
-	BPL	-
+	BPL	- 
++

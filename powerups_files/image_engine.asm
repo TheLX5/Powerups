@@ -2,89 +2,161 @@
 ; Handle player tile data
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+OAM_data:
+;	pha
+;	lda !get_32
+;	tax
+;	pla
+;	cpx #$00
+;	bne .no_flip
+;.normal
+;	ldx $04
+;	cpx #$E8
+;	bne .no_flip
+;	eor #$40
+;.no_flip
+	jml $00E3EC|!base3
+
+OAM_8x8:
+	ldx $06
+;	lda !get_32
+;	bne .big
+;	lda.l $00DFDA,x
+;	jml $00E466
+.big	
+	lda.l mario_8x8,x
+	jml $00E466
+
+OAM_y_pos:
+;	pha
+;	lda !get_32
+;	and #$00FF
+;	bne .big
+;	pla
+;	clc
+;	adc.l $00DE32|!base3,x
+;	rtl
+;.big
+;	pla 
+	clc 
+	adc.l mario_y_pos,x
+	rtl 
+
+OAM_x_pos:
+;	pha
+;	lda !get_32
+;	and #$00FF
+;	bne .big
+;	pla
+;	clc
+;	adc.l $00DD4E|!base3,x
+;	rtl
+;.big
+;	pla 
+	clc 
+	adc.l mario_x_pos,x
+	rtl 
+
+
 Tiles:
-	PHX	
-	JSR	HandleCustomImages
-	LDX	$19
-	LDA.l	TileAltTable,x
-	BNE	.UseAlt
-	LDA	$13E0|!base2
-	CMP	#$3D
-	BCS	+
-	ADC.l	TileIndexData,x
-+	TAX	
-	LDA	$E00C,x
-	STA	$0A
-	LDA	$E0CC,x
-	STA	$0B
--	LDA	$DF1A,x
-	BPL	+
-	AND	#$7F
-	STA	$0D
-	LDA	#$04
-+	STA	$06
-	TXY	
-	PLX	
-	RTL	
-.UseAlt	
-	LDA.l	TileAltTable,x
-	ASL	
-	TAX	
-	REP	#$20
-	LDA	$13E0|!base2
-	AND	#$00FF
-	STA	$0B
-	LDA.l	TileAltIndexUpper-$02,x
-	CLC	
-	ADC	$0B
-	STA	$00
-	SEP	#$20
-	LDA.b	#TileAltTable>>16
-	STA	$02
-	LDA	[$00]
-	STA	$0A
-	REP	#$20
-	LDA.l	TileAltIndexLower-$02,x
-	CLC	
-	ADC	$0B
-	STA	$00
-	SEP	#$20
-	LDA	[$00]
-	STA	$0B
-	LDX	$19
-	LDA	$13E0|!base2
-	CMP	#$3D
-	BCS	+
-	CLC	
-	ADC.l	TileIndexData,x
-+	TAX	
-	BRA	-
+	lda $1497
+	beq .skip
+	lsr #3
+	txy
+	tax
+	lda.l $00E292|!base3,x
+	and $1497|!base2
+	ora $13FB|!base2
+.big	
+	ora $9D
+	bne .skip
+	plb
+	rtl
+.skip	
+	lda #$F8
+	bra +
+.continue_normal
+	lda #$C8
++
+	tyx
+	cpx #$43
+	bne .real_continue
+	lda #$E8
+.real_continue
+	sta $04
+	cpx #$29
+	bne .start
+	lda $19
+	bne .start
+	ldx #$20
+.start
+	phx
+	jsr HandleCustomImages
+	plx
+.bigger_tiles
+	lda.l PosPointPointer,x
+	ora $76
+	tax
+	lda.l PosPoint,x
+	sta $05
+	
+	ldx $19
+	lda.l TileAltTable,x
+	bne ..UseAlt
+	lda $13E0|!base2
+	cmp #$3D
+	bcs +
+	adc.l TileIndexData,x
++	tax 
+	lda.l excharactertilemap,x
+-
+	sta $0A
+	stz $06
+	jml $00E3C0
+	
+..UseAlt
+	lda.l TileAltTable,x
+	asl
+	tax
+	rep #$20
+	lda $13E0|!base2
+	and #$00FF
+	sta $0B
+	lda.l TileAltIndex-$02,x
+	clc
+	adc $0B
+	sta $00
+	sep #$20
+	lda.b #TileAltTable>>16
+	sta $02
+	lda [$00]
+	bra -
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Handle custom images ($13E0)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 HandleCustomImages:
-	LDA	$19
-	CMP	#!max_powerup
-	BEQ	+
-	BCS	.Return
+	lda $19
+	cmp #!max_powerup
+	beq +
+	bcs .Return
 +		
-	PHB	
-	PHK	
-	PLB	
-	REP	#$30
-	AND	#$00FF
-	ASL	
-	TAX	
-	LDA.w	PowerupImages,x
-	STA	$00
-	SEP	#$30
-	LDX	#$00
-	JSR	($0000|!base1,x)
-	PLB	
+	phb
+	phk
+	plb
+	rep #$30
+	and #$00FF
+	asl
+	tax
+	lda.w PowerupImages,x
+	sta $00
+	sep #$30
+	ldx #$00
+	jsr ($0000|!base1,x)
+	plb
 .Return		
-	RTS	
+	rts
 
 PowerupImages:
 	dw powerup_00_img

@@ -12,10 +12,6 @@ endif
 ;; Misc Defines
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-!dmaer_tile		= $7E	;Used by Ladida's patch.
-				;Tile where the extended tiles will be loaded to. Takes up 2 8x8's
-				;located in SP1
-
 !enable_projectile_dma	= 1	;Enable the ASM hacks to make possible use DMA to upload the projectile tiles
 				;Note that this takes some v-blank time because this uses two DMA routines
 				;to upload the tiles in $0A and $0C
@@ -24,11 +20,6 @@ endif
 				;loaded to SP1.
 
 !starting_slot		= $00	;Starting slot of the powerup custom sprites.
-
-!enable_E00C_editing	= 0	;Enable the hex edits that let you to edit the tilemap tables via powerup_data.asm
-				;If you have plans to use another patch/tool to edit the tilemaps, then deactive this.
-
-!dynamic_z		= 0	;Set to 1 if you are using Dynamic Z.
 
 !use_map16_only		= 0	;Use map16 numbers instead of Acts like number in projectile interactable blocks code.
 
@@ -155,11 +146,16 @@ endif
 ;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; RAMs
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+!player_num	= $0DB3|!base2
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Free RAMs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 if !SA1 = 0
-	if !dynamic_z = 0
 ;;;;;;;
 ;; Normal ROM defines, ignore if using SA-1 or Dynamic Z.
 
@@ -210,68 +206,47 @@ if !SA1 = 0
 ;; !projectile_gfx_index: Used to determine which powerup should be uploaded with DMA, 8 bytes.
 	!projectile_gfx_index	= $7E2018
 ;;;;;;;
-;; !extra_extended: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended		= $7E2021
-;;;;;;;
-;; !extra_extended_2: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended_2 	= $7E202B
-;;;;;;;
-;; !extra_extended_3: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended_3 	= $7E2127
-;;;;;;;
-;; !extra_extended_4: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended_4 	= $7E2131
-;;;;;;;
-;; !extra_sprites: Extra RAM table for sprites, 12 bytes
-	!extra_sprites		= $7E213B
-;;;;;;;
-;; !extra_minor: Extra RAM table for minor extended sprites, 12 bytes.
-	!extra_minor		= $7E2035
-;;;;;;;
 ;; !collision_flag: Enable custom Mario<->Layers interaction field, 1 byte.
 ;; $00 = run original code
 ;; $01-$7F values = use RAM tables
 ;; $80-$FF values = use indirect addressing
-	!collision_flag		= $7E2041
+	!collision_flag		= $7E2020
 ;;;;;;;
 ;; !collision_index: Starting index that will be used in your data tables.
 ;; #$FF = use built-in routine to handle the index like in the vanilla game.
 ;; Handles Yoshi, crouching & wallrunning indexes.
-	!collision_index	= $7E2042
+	!collision_index	= $7E2021
 ;;;;;;;
 ;; !collision_loc_x: 24-bit address of the X coordinates of the collision data. 3 bytes.
-	!collision_loc_x	= $7E2043
+	!collision_loc_x	= $7E2022
 ;;;;;;;
 ;; !collision_loc_y: 24-bit address of the Y coordinates of the collision data. 3 bytes.
-	!collision_loc_y	= $7E2046
+	!collision_loc_y	= $7E2025
 ;;;;;;;
 ;; !collision_data_x: Collision data in RAM, X coordinates.
 ;; At least 108 bytes if using the built-in routine.
-	!collision_data_x	= $7E2049
+	!collision_data_x	= $7E2028
 ;;;;;;;
 ;; !collision_data_y: Collision data in RAM, Y coordinates.
 ;; At least 108 bytes if using the built-in routine.
-	!collision_data_y	= $7E20B5
+	!collision_data_y	= $7E2094
 ;;;;;;;
 ;; !clipping_flag: Enable custom interaction field with sprites. 1 byte.
-	!clipping_flag		= $7E2121
+	!clipping_flag		= $7E2100
 ;;;;;;;
 ;; !clipping_width: Width of interaction field. 1 byte.
-	!clipping_width		= $7E2122
+	!clipping_width		= $7E2101
 ;;;;;;;
 ;; !clipping_height: Height of interaction field. 1 byte.
-	!clipping_height	= $7E2123
+	!clipping_height	= $7E2102
 ;;;;;;;
 ;; !clipping_disp_x: How many pixels will be shifted the interaction field
 ;; based on Mario's position. 1 byte.
-	!clipping_disp_x	= $7E2124
+	!clipping_disp_x	= $7E2103
 ;;;;;;;
 ;; !clipping_disp_y: How many pixels will be shifted the interaction field
 ;; based on Mario's position. 1 byte.
-	!clipping_disp_y	= $7E2125
-;;;;;;;
-;; !wait_timer: Misc timer.
-	!wait_timer		= $7E2126
+	!clipping_disp_y	= $7E2104
 ;;;;;;;
 ;; !cape_settings: Reset every frame.
 ;; bits:
@@ -281,139 +256,11 @@ if !SA1 = 0
 ;; 3 - Use Raccoon-like SFX when it's a Raccoon-like powerup.
 ;; 4 - Use Raccoon-like animation for a cape or tail.
 ;; 5 - Enable the usage of a cape OR a tail.
-	!cape_settings		= $7E2145
+	!cape_settings		= $7E2105
 ;;;;;;;
 ;; !flight_timer: How many frames you will keep ascending with a Raccoon-like powerup. Not used on Cape-like powerups. Never reset.
-	!flight_timer		= $7E2146
-	else
+	!flight_timer		= $7E2106
 
-;;;;;;;
-;; Dynamic Z defines, ignore if using SA-1 or not using Dynamic Z
-
-;;;;;;;
-;; !gfx_pointer: 24-bit pointer that has the location of the current Mario GFX file.
-	!gfx_pointer		= $7FBE00
-;;;;;;;
-;; !gfx_bypass_flag: RAM that bypasses the code that selects the player GFX.
-;; #$00 = use original code (not nintendo code), #$01 = bypass the original code.
-	!gfx_bypass_flag	= $7FBE03
-;;;;;;;
-;; !gfx_bypass_num: This RAM should contain the index of the graphics of the player if the bypass flag is set.
-	!gfx_bypass_num		= $7FBE04	
-;;;;;;;
-;; !mask_15: Setting this disables bits from $15/$16.
-	!mask_15		= $7FBE05
-;;;;;;;
-;; !mask_17: Setting this disables bits from $17/$18.
-	!mask_17		= $7FBE06
-;;;;;;;
-;; !disable_spin_jump: Disable spin jump. #$00 = no, anything else = disable.
-	!disable_spin_jump	= $7FBE07	
-;;;;;;;
-;; !shell_immunity: Gives immunity to some extended sprites while crouching.
-	!shell_immunity		= $7FBE08
-;;;;;;;
-;; !flags: Misc RAM often used as a flag for some settings or the current powerup state.
-	!flags			= $7FBE09
-;;;;;;;
-;; !timer: Misc RAM often used as a timer.
-	!timer			= $7FBE0A
-;;;;;;;
-;; !misc: Misc RAM, uses may vary per powerup
-	!misc			= $7FBE0B
-;;;;;;;
-;; !projectile_gfx_bank: RAM that should contain the projectile GFX bank byte.
-	!projectile_gfx_bank	= $7FBE0C
-;;;;;;;
-;; !pal_bypass: RAM that bypasses the palette upload code to upload your own palette.
-	!pal_bypass		= $7FBE0D
-;;;;;;;
-;; !pal_pointer: This RAM should contain the 24-bit pointer of your custom palette.
-	!pal_pointer		= $7FBE0E
-;;;;;;;
-;; !projectile_do_dma: RAM used as a flag to upload the projectile GFX
-	!projectile_do_dma	= $7FBE17
-;;;;;;;
-;; !projectile_gfx_index: Used to determine which powerup should be uploaded with DMA, 8 bytes.
-	!projectile_gfx_index	= $7FBE18
-;;;;;;;
-;; !extra_extended: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended		= $7FBE21
-;;;;;;;
-;; !extra_extended_2: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended_2 	= $7FBE2B
-;;;;;;;
-;; !extra_extended_3: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended_3 	= $7FBF27
-;;;;;;;
-;; !extra_extended_4: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended_4 	= $7FBF31
-;;;;;;;
-;; !extra_sprites: Extra RAM table for sprites, 12 bytes
-	!extra_sprites		= $7FBF3B
-;;;;;;;
-;; !extra_minor: Extra RAM table for minor extended sprites, 12 bytes.
-	!extra_minor		= $7FBE35
-;;;;;;;
-;; !collision_flag: Enable custom Mario<->Layers interaction field, 1 byte.
-;; $00 = run original code
-;; $01-$7F values = use RAM tables
-;; $80-$FF values = use indirect addressing
-	!collision_flag		= $7FBE41
-;;;;;;;
-;; !collision_index: Starting index that will be used in your data tables.
-;; #$FF = use built-in routine to handle the index like in the vanilla game.
-;; Handles Yoshi, crouching & wallrunning indexes.
-	!collision_index	= $7FBE42
-;;;;;;;
-;; !collision_loc_x: 24-bit address of the X coordinates of the collision data. 3 bytes.
-	!collision_loc_x	= $7FBE43
-;;;;;;;
-;; !collision_loc_y: 24-bit address of the Y coordinates of the collision data. 3 bytes.
-	!collision_loc_y	= $7FBE46
-;;;;;;;
-;; !collision_data_x: Collision data in RAM, X coordinates.
-;; At least 108 bytes if using the built-in routine.
-	!collision_data_x	= $7FBE49
-;;;;;;;
-;; !collision_data_y: Collision data in RAM, Y coordinates.
-;; At least 108 bytes if using the built-in routine.
-	!collision_data_y	= $7FBEB5
-;;;;;;;
-;; !clipping_flag: Enable custom interaction field with sprites. 1 byte.
-	!clipping_flag		= $7FBF21
-;;;;;;;
-;; !clipping_width: Width of interaction field. 1 byte.
-	!clipping_width		= $7FBF22
-;;;;;;;
-;; !clipping_height: Height of interaction field. 1 byte.
-	!clipping_height	= $7FBF23
-;;;;;;;
-;; !clipping_disp_x: How many pixels will be shifted the interaction field
-;; based on Mario's position. 1 byte.
-	!clipping_disp_x	= $7FBF24
-;;;;;;;
-;; !clipping_disp_y: How many pixels will be shifted the interaction field
-;; based on Mario's position. 1 byte.
-	!clipping_disp_y	= $7FBF25
-;;;;;;;
-;; !wait_timer: Misc timer.
-	!wait_timer		= $7FBF26
-;;;;;;;
-;; !cape_settings: Reset every frame.
-;; bits:
-;; 0 - Can capespin flag.
-;; 1 - Can fly flag.
-;; 2 - Can infinite fly flag (cape).
-;; 3 - Use Raccoon-like SFX when it's a Raccoon-like powerup.
-;; 4 - Use Raccoon-like animation for a cape or tail.
-;; 5 - Enable the usage of the 4th bit.
-	!cape_settings		= $7FBF46
-;;;;;;;
-;; !flight_timer: How many frames you will keep ascending with a Raccoon-like powerup. Not used on Cape-like powerups. Never reset.
-	!flight_timer		= $7FBF47
-
-		endif
 	else
 
 ;;;;;;;
@@ -461,73 +308,52 @@ if !SA1 = 0
 	!pal_pointer		= $40410E
 ;;;;;;;
 ;; !projectile_do_dma: RAM used as a flag to upload the projectile GFX
-	!projectile_do_dma	= $404117
+	!projectile_do_dma	= $404111
 ;;;;;;;
 ;; !projectile_gfx_index: Used to determine which powerup should be uploaded with DMA, 8 bytes.
-	!projectile_gfx_index	= $404118
-;;;;;;;
-;; !extra_extended: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended		= $404121
-;;;;;;;
-;; !extra_extended_2: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended_2	= $40412B
-;;;;;;;
-;; !extra_extended_3: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended_3	= $404226
-;;;;;;;
-;; !extra_extended_4: Extra RAM table for extended sprites, 10 bytes
-	!extra_extended_4	= $404230
-;;;;;;;
-;; !extra_sprites: Extra RAM table for sprites, 22 bytes
-	!extra_sprites		= $40423A
-;;;;;;;
-;; !extra_minor: Extra RAM table for minor extended sprites, 12 bytes.
-	!extra_minor		= $404135
+	!projectile_gfx_index	= $404112
 ;;;;;;;
 ;; !collision_flag: Enable custom Mario<->Layers interaction field, 1 byte.
 ;; $00 = run original code
 ;; $01-$7F values = use RAM tables
 ;; $80-$FF values = use indirect addressing
-	!collision_flag		= $404141
+	!collision_flag		= $404119
 ;;;;;;;
 ;; !collision_index: Starting index that will be used in your data tables.
 ;; #$FF = use built-in routine to handle the index like in the vanilla game.
 ;; Handles Yoshi, crouching & wallrunning indexes.
-	!collision_index	= $404142
+	!collision_index	= $40411A
 ;;;;;;;
 ;; !collision_loc_x: 24-bit address of the X coordinates of the collision data. 3 bytes.
-	!collision_loc_x	= $404143
+	!collision_loc_x	= $40411B
 ;;;;;;;
 ;; !collision_loc_y: 24-bit address of the Y coordinates of the collision data. 3 bytes.
-	!collision_loc_y	= $404146
+	!collision_loc_y	= $40411E
 ;;;;;;;
 ;; !collision_data_x: Collision data in RAM, X coordinates.
 ;; At least 108 bytes if using the built-in routine.
-	!collision_data_x	= $404149
+	!collision_data_x	= $404121
 ;;;;;;;
 ;; !collision_data_y: Collision data in RAM, Y coordinates.
 ;; At least 108 bytes if using the built-in routine.
-	!collision_data_y	= $4041B5
+	!collision_data_y	= $40418D
 ;;;;;;;
 ;; !clipping_flag: Enable custom interaction field with sprites. 1 byte.
-	!clipping_flag		= $404221
+	!clipping_flag		= $4041F9
 ;;;;;;;
 ;; !clipping_width: Width of interaction field. 1 byte.
-	!clipping_width		= $404222
+	!clipping_width		= $4041FA
 ;;;;;;;
 ;; !clipping_height: Height of interaction field. 1 byte.
-	!clipping_height	= $404223
+	!clipping_height	= $4041FB
 ;;;;;;;
 ;; !clipping_disp_x: How many pixels will be shifted the interaction field
 ;; based on Mario's position. 1 byte.
-	!clipping_disp_x	= $404224
+	!clipping_disp_x	= $4041FC
 ;;;;;;;
 ;; !clipping_disp_y: How many pixels will be shifted the interaction field
 ;; based on Mario's position. 1 byte.
-	!clipping_disp_y	= $404225
-;;;;;;;
-;; !wait_timer: Misc timer.
-	!wait_timer		= $404226
+	!clipping_disp_y	= $4041FD
 ;;;;;;;
 ;; !cape_settings: Reset every frame.
 ;; bits:
@@ -537,10 +363,10 @@ if !SA1 = 0
 ;; 3 - Use Raccoon-like SFX when it's a Raccoon-like powerup.
 ;; 4 - Use Raccoon-like animation for a cape or tail.
 ;; 5 - Enable the usage of the 4th bit.
-	!cape_settings		= $404250
+	!cape_settings		= $4041FE
 ;;;;;;;
 ;; !flight_timer: How many frames you will keep ascending with a Raccoon-like powerup. Not used on Cape-like powerups. Never reset.
-	!flight_timer		= $404251
+	!flight_timer		= $4041FF
 
 endif
 

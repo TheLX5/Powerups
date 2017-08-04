@@ -2,6 +2,5 @@
 ; This file contains GFX for separate powerups.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-%insert_gfx(mario,0)
-
-	incbin /graphics/ExtendGFX.bin		-> extended_gfx
+%insert_gfx(small_mario,0)
+%insert_gfx(big_mario,1)

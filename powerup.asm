@@ -17,7 +17,7 @@
 
 macro insert_gfx(filename,add)
 	org ($00A304|!base3+($<add>*3))
-		dl <filename>_gfx
+		autoclean dl <filename>_gfx
 	warnpc $00A38E|!base3
 freedata
 	<filename>_gfx:
@@ -110,13 +110,14 @@ org $00A304|!base3
 	PowerupGFX:
 
 freecode
-	prot PowerupData,extended_gfx
+	prot PowerupData
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Prot area
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-	%protect_data(mario)
+	%protect_data(small_mario)
+	%protect_data(big_mario)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Powerup code
@@ -222,24 +223,6 @@ freecode
 		incsrc powerups_files/clean_ram.asm
 	endif
 
-	pushpc
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Misc incsrcs
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-	incsrc other_patches/ride_yoshi.asm
-	incsrc other_patches/custom_interaction.asm
-	incsrc other_patches/itemboxspecial.asm
-	incsrc other_patches/extended_sprites.asm
-	incsrc other_patches/MinorExtendedSprites.asm
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Add-ons incsrc area
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	pullpc
-	
-	incsrc powerups_files/addon_code_installer.asm
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 freedata
@@ -262,7 +245,21 @@ PowerupData:
 
 	incsrc powerups_files/powerup_gfx.asm
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Misc incsrcs
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	incsrc other_patches/ride_yoshi.asm
+	incsrc other_patches/itemboxspecial.asm
+	incsrc other_patches/custom_interaction.asm
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Add-ons incsrc area
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	
+	incsrc powerups_files/addon_code_installer.asm
+
 print "Custom powerups patch."
-print "Version 2.1.1"
+print "Version 3.0.0"
 print ""
 print "Inserted ", freespaceuse, " bytes"
