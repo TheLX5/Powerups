@@ -6,13 +6,13 @@ mario_exgfx:
 	bra .bypass_everything
 .no_bypass_everything
 if !SA1 == 1
-	stz $2250
 	lda !player_num
 	sta $2251
 	stz $2252
 	lda.b #!max_powerup+$01
-	stz $2253
+	sta $2253
 	stz $2254
+	stz $2250
 	lda #$00
 	xba
 	lda $19
@@ -25,8 +25,7 @@ else
 	sta $4203
 	lda #$00
 	xba
-	nop
-	nop
+	nop #4
 	lda $19
 	clc
 	adc $4216
