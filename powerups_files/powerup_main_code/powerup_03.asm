@@ -2,6 +2,15 @@
 ;; Fire flower
 ;;;;;;;;;;;;;;
 
+	lda #$1B
+	sta !extra_tile_flag
+	rep #$20
+	lda #$0000
+	sta !extra_tile_offset_x
+	lda #$FFF8
+	sta !extra_tile_offset_y
+	sep #$20
+
 	LDA $73
 	ORA $74
 	ORA $187A|!base2

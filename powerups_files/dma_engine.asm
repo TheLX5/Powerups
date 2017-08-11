@@ -31,13 +31,15 @@ PlrDMA:
 	rep #$20
 		
 .continue_upload
-	ldx #$02
-	stx $420B
+	ldy #$02
+	sty $420B
 		
-	ldy #$80			; adjust some DMA settings
-	sty $2115
+	ldx #$80			; adjust some DMA settings
+	stx $2115
 	lda #$1801
 	sta $4310
+	ldx #$7E
+	stx $4314
 
 .bigger_upload
 ;misc top tiles
@@ -47,11 +49,8 @@ PlrDMA:
 -	
 	lda $0D85|!base2,x
 	sta $4312
-	ldy #$7E
-	sty $4314
 	lda #$0040
 	sta $4315
-	ldy #$02
 	sty $420B
 	inx #2
 	cpx $0D84|!base2
@@ -64,17 +63,45 @@ PlrDMA:
 -	
 	lda $0D8F|!base2,x
 	sta $4312
-	ldy #$7E
-	sty $4314
 	lda #$0040
 	sta $4315
-	ldy #$02
 	sty $420B
 	inx #2
 	cpx $0D84|!base2
 	bcc -
 ;player upload
 +
+	ldx $0D87|!base2
+	stx $4314
+	lda $0D86|!base2 : pha
+	ldx #$06
+-	
+	lda.l .vramtbl,x
+	sta $2116
+	lda #$0080
+	sta $4315
+	lda $0D85|!base2
+	sta $4312
+	sty $420B
+	inc $0D86|!base2
+	inc $0D86|!base2
+	dex #2
+	bpl -
+	pla : sta $0D86|!base2
+	
+	;jmp .skip_all-2
+
+if !enable_projectile_dma == 1
+	incsrc projectile_dma_engine.asm
+endif		
+
+	sep #$20
+.skip_all
+	jml $00A38F|!base3
+
+.vramtbl
+	dw $6300,$6200,$6100,$6000
+
 	pea $6000
 	lda $0D85|!base2
 	pha
@@ -104,13 +131,3 @@ PlrDMA:
 	bpl -
 	pla
 	pla
-
-	;jmp .skip_all-2
-
-if !enable_projectile_dma == 1
-	incsrc projectile_dma_engine.asm
-endif		
-
-	sep #$20
-.skip_all
-	jml $00A38F|!base3

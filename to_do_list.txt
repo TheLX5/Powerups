@@ -1,5 +1,0 @@
-- include an option to use compressed GFX??? (requires too much work)
-- optimize a bit?
-- a "complete" pack of my powerups?
-- get more ideas
-- submit to smwc

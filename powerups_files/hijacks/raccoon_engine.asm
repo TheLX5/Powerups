@@ -1,19 +1,16 @@
 org $00D676|!base3
-!a	JSL	FlightTime
-	NOP	
+!a	jsl custom_flight_time
+	nop
 
 org $00D802|!base3
-!a	JML	NoInfiniteFlying
-
-org $00D904|!base3
-!a	JML	Force16AndSFX
+!a	jml no_infinite_fly
 
 org $00D8E7|!base3
-!a	JML	EnableFlying
-	NOP	#2
+!a	jml enable_fly
+	nop #2
 
 org $00E3FB|!base3
-!a	JML	CapeTailGraphics
+!a	jml cape_image
 
 org $00CF3F|!base3
-!a	JML	CapeTailSpin
+!a	jml cape_spin

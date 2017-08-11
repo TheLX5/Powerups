@@ -1,138 +1,112 @@
-CapeTailSpin:
-	PHA	
-	LDA	!cape_settings
-	LSR	
-	PLA	
-	BCC	.Nope
-.Yes		
-	JML	$00CF45|!base3
-.Nope		
-	JML	$00CF48|!base3
+cape_image:
+	lda !extra_tile_flag
+	lsr
+	bcs .custom_tile
+	lda !cape_settings
+	and #$10
+	bne .cape_image
+.hide_cape
+	jml $00E458|!base3
+.cape_image
+	jml $00E401|!base3
+	
+.custom_tile
+	phy
+	lda !extra_tile_flag
+	bit #$10
+	beq .normal_priority
+	ldy #$08
+.normal_priority
+	and.b #%11001110
+	sta $0303,y
+	lda #$26	;#$04
+	sta $0302|!base2,y
+	rep #$20
+	lda $80
+	clc
+	adc !extra_tile_offset_y
+	pha
+	clc
+	adc #$0010
+	cmp #$0100
+	pla
+	sep #$20
+	bcs .no_draw
+	sta $0301,y
+	rep #$20
+	lda $7E
+	clc
+	adc !extra_tile_offset_x
+	pha
+	clc
+	adc #$0080
+	cmp #$0200
+	pla
+	sep #$20
+	bcs .no_draw
+	sta $0300,y
+	xba
+	lsr
+.no_draw
+	php
+	tya
+	lsr #2
+	tax
+	rol
+	plp
+	and #$03
+	ora #$02
+	sta $0460,x
+	ply
+	iny #4
+	inc $05
+	inc $05 
+	jml $00E458|!base3
 
-CapeTailGraphics:
-	LDA	!cape_settings
-	BIT	#$20
-	BEQ	.Nope
-	AND	#$10
-	BNE	.Tail
-.Yes		
-	JML	$00E401|!base3
-.Nope		
-	JML	$00E458|!base3
-.Tail		
-	PHB	
-	PHK	
-	PLB	
-	PHY	
-	LDA	#$2C
-	STA	$06
-	LDX	$13E0|!base2
-	LDA.w	TailData_00E18E,x
-	TAX	
-	LDA	$0D
-	CPX	#$2B
-	BCC	+
-	CPX	#$40
-	BCS	+
-	LDA.w	TailData_00E1D7,x
-+
-	STA	$0D
-	LDA.w	TailData_00E1D8,x
-	STA	$0E
-	LDA.w	TailData_00E1D5,x
-	STA	$0C
-	CMP	#$04
-	BCS	.Code00E432
-	LDA	$13DF|!base2
-	ASL	#2
-	ORA	$0C
-	TAY	
-	LDA.w	TailData_00E23A,y
-	STA	$0C
-	LDA.w	TailData_00E266,y
-	BRA	.Code00E435
-.Code00E432	
-	LDA.w	TailData_00E1D6,x
-.Code00E435	
-	ORA	$76
-	TAY	
-	LDA.w	TailData_00E21A,y
-	STA	$05
-	PLY	
-	PLB	
-	LDA.l	TailData_00E1D4,x
-	TSB	$78
-	BMI	.Code00E448
-	JML	$00E445|!base3
-.Code00E448
-	JML	$00E448|!base3
-
-EnableFlying:
-	LDA	!cape_settings
-	AND	#$02
-	BEQ	.Nope
+cape_spin:
+	pha
+	lda !cape_settings
+	lsr 
+	pla 
+	bcc .Nope
 .Yes	
-	JML	$00D8ED|!base3
+	jml $00CF45|!base3
 .Nope	
-	JML	$00D928|!base3
+	jml $00CF48|!base3
 
-NoInfiniteFlying:
-	LDA	!cape_settings
-	AND	#$04
-	BEQ	.NoFly
-	LDA	$7D
-	BMI	.NoFly
-	LDA	$149F|!base2
-	BEQ	.NoFly
-	JML	$00D814|!base3
-.NoFly
-	JML	$00D811|!base3
+enable_fly:
+	lda !cape_settings
+	and #$02
+	beq .Nope
+.Yes	
+	jml $00D8ED|!base3
+.Nope	
+	jml $00D928|!base3
 
-Force16AndSFX:
-	LDA	!cape_settings
-	AND	#$08
-	BNE	.Raccoon
-	LDA	$15,x
-	BPL	.Return
-	LDA	#$10
-	STA	$14A5|!base2
-	JML	$00D90D|!base3
-.Return
-	JML	$00D924|!base3
-.Raccoon
-	LDA	$16
-	BPL	.Return
-	PHY	
-	LDY	#$04
-	LDA	$77
-	AND	#$04
-	BEQ	.Sound
-if read1($008075) = $5C
-	LDY	#$35
-.Sound	STY	$1DFC|!base2		;gotta search a better code for this.
-else	
-	LDY	#$01			;maybe later
-	STY	$1DFA|!base2
-	BRA	.Finish
-.Sound	STY	$1DFC|!base2
-endif
-.Finish
-	PLY	
-	LDA	#$08
-	STA	$14A5|!base2
-	JML	$00D90D|!base3
+no_infinite_fly:
+	lda !cape_settings
+	and #$04
+	bne .nope
+	lda $7D
+	bmi .nope
+	lda $149F|!base2
+	beq .nope
+	jml $00D814|!base3
+.nope
+	jml $00D811|!base3
 
-FlightTime:
-	PHY	
-	LDY	#$50
-	LDA	!cape_settings
-	AND	#$04
-	BEQ	.Store
-.Tanooki	
-	LDA	!flight_timer
-	TAY	
-.Store	STY	$149F|!base2
-	PLY	
-	RTL	
+custom_flight_time:
+	phy
+	ldy #$50
+	lda !cape_settings
+	and #$08
+	beq .Store
+	lda !flight_timer
+	tay
+.Store	sty $149F|!base2
+	ply 
+	rtl 
+
+;;
 
 incsrc powerup_misc_data/raccoon_tables.asm

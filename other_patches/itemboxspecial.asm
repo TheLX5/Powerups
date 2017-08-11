@@ -52,39 +52,39 @@ autoclean JML ClearDisable	; clear the item disable flag automatically
 
 
 macro flower_item(num,sfx,port)
-	LDA	#$20
-	STA	$149B|!base2
-	STA	$9D
-	LDA	#$04
-	STA	$71
-	LDA	#<num>
-	STA	$19
-	LDA	#$00
-	STA	!clipping_flag
-	STA	!collision_flag
-	LDA	#$04
-	LDY	!1534,x
-	BNE	+
-	JSL	$02ACE5|!base3
-+		
-	LDA	#<sfx>
-	STA	<port>|!base2
-	JMP	clean_ram
+	lda #$20
+	sta $149B|!base2
+	sta $9D
+	lda #$04
+	sta $71
+	lda #<num>
+	sta $19
+	lda #$00
+	sta !clipping_flag
+	sta !collision_flag
+	lda #$04
+	ldy !1534,x
+	bne +
+	jsl $02ACE5|!base3
++	
+	lda #<sfx>
+	sta <port>|!base2
+	jmp clean_ram
 endmacro
 
 macro cape_item(num,sfx,port)
-	LDA	#$00
-	STA	!clipping_flag
-	STA	!collision_flag
-	LDA	#<num>
-	STA	$19
-	LDA	#<sfx>
-	STA	<port>|!base2
-	LDA	#$04
-	JSL	$02ACE5|!base3
-	JSL	$01C5AE|!base3
-	INC	$9D
-	JMP	clean_ram
+	lda #$00
+	sta !clipping_flag
+	sta !collision_flag
+	lda #<num>
+	sta $19
+	lda #<sfx>
+	sta <port>|!base2
+	lda #$04
+	jsl $02ACE5|!base3
+	jsl $01C5AE|!base3
+	inc $9D
+	jmp clean_ram
 endmacro	
 
 
@@ -94,89 +94,89 @@ Statuses:			; sprite statuses, 4 possible
 db $08,$01,$09,$00	; normal, init, stunned, nonexistent
 
 CheckItem:
-	PHB	
-	PHK	
-	PLB	
-	LDA	!190F,x
-	BMI	.custom
-	LDA	!9E,x
-	SEC	
-	SBC	#$74
-	BRA	.next
+	phb
+	phk
+	plb 
+	lda !190F,x
+	bmi .custom
+	lda !9E,x
+	sec 
+	sbc #$74
+	bra .next
 .custom		
-	LDA	!7FAB9E,x
-	SEC	
-	SBC.b	#!starting_slot
-	CLC	
-	ADC	#$05
+	lda !7FAB9E,x
+	sec	
+	sbc.b	#!starting_slot
+	clc 
+	adc #$05
 .next		
 		
 if !SA1		
-	STA	$2251
-	LDA	#!max_powerup+1
-	STA	$2253
-	LDA	#$00
-	STA	$2250
-	STA	$2252
-	STA	$2254
-	XBA	
-	LDA	$19
-	CLC	
-	REP	#$30
-	ADC	$2306
+	sta $2251
+	lda #!max_powerup+1
+	sta $2253
+	lda #$00
+	sta $2250
+	sta $2252
+	sta $2254
+	xba 
+	lda $19
+	clc
+	rep #$30
+	adc $2306
 else		
-	STA	$4202
-	LDA	#!max_powerup+1
-	STA	$4203
-	LDA	#$00
-	XBA	
-	LDA	$19
-	CLC	
-	REP	#$30
-	ADC	$4216
+	sta $4202
+	lda #!max_powerup+1
+	sta $4203
+	lda #$00
+	xba 
+	lda $19
+	clc
+	rep #$30
+	adc $4216
 endif
-	TAY	
-	SEP	#$20
-	LDA.w	PutInBox,y
-	BEQ	.noitem
-	STA	$00
-	CMP	#$01
-	BNE	.store
-	LDA	$0DC2|!base2
-	BEQ	.store
-	CMP	#$02
-	BCS	.noitem
+	tay	
+	sep #$20
+	lda.w PutInBox,y
+	beq .noitem
+	sta $00
+	cmp #$01
+	bne .store
+	lda $0DC2|!base2
+	beq .store
+	cmp #$02
+	bcs .noitem
 .store		
-	LDA	$00
-	STA	$0DC2|!base2
-	LDA	#$0B
-	STA	$1DFC|!base2
+	lda $00
+	sta $0DC2|!base2
+	lda #$0B
+	sta $1DFC|!base2
 .noitem
-	LDA.w	PowerIndex,y
-	SEP	#$10
-	PLB	
-	CMP	#$06
-	BCS	.notoriginal
+	lda.w	PowerIndex,y
+	sep #$10
+	plb
+	cmp #$06
+	bcs .notoriginal
 .run_original
-	CMP	#$01
-	BEQ	+
-	PHA	
-	LDA	#$00
-	STA	!clipping_flag
-	STA	!collision_flag
-	PLA	
-+		
-	JML	$01C550|!base3
+	cmp #$01
+	beq +
+	pha
+	lda #$00
+	sta !clipping_flag
+	sta !collision_flag
+	pla 
++	
+	jml $01C550|!base3
 .notoriginal	
-	SEC	
-	SBC	#$06
-	PHA	
-	CLC	
-	ADC	#$04
-	CMP	$19
-	BNE	+
-	PLA	
-	JMP	GiveNothing
+	sec 
+	sbc #$06
+	pha 
+	clc
+	adc #$04
+	cmp $19
+	bne +
+	pla 	
+	jmp GiveNothing
 +		
 	PLA	
 	JSL	$0086DF|!base3
@@ -187,15 +187,16 @@ endif
 GiveNothing:	
 Return:		
 clean_ram:	
-	LDA	#$00
-	STA	!disable_spin_jump
-	STA	!mask_15
-	STA	!mask_17
-	STA	!flags
-	STA 	!timer
-	STA 	!misc
-	STA	!shell_immunity
-	JML	$01C560|!base3
+	lda #$00
+	sta !disable_spin_jump
+	sta !mask_15
+	sta !mask_17
+	sta !flags
+	sta !timer
+	sta !misc
+	sta !shell_immunity
+	sta !cape_settings
+	jml $01C560|!base3
 
 ItemBoxFix:
 

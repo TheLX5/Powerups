@@ -90,9 +90,7 @@ endif
 	incsrc powerups_files/hijacks/clear_7E2000.asm
 	incsrc powerups_files/hijacks/shell_immunity_code.asm
 	incsrc powerups_files/hijacks/custom_collision_engine.asm
-	if !raccoon_inserted = 1
-		incsrc powerups_files/hijacks/raccoon_engine.asm
-	endif
+	incsrc powerups_files/hijacks/raccoon_engine.asm
 	if !better_powerdown = 0
 		incsrc powerups_files/hijacks/clean_ram.asm
 	endif
@@ -211,9 +209,7 @@ freecode
 ; Handle Raccoon-like powerups.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-	if !raccoon_inserted = 1
-		incsrc powerups_files/raccoon_engine.asm
-	endif
+	incsrc powerups_files/raccoon_engine.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Clear some RAM when Mario's hurt.

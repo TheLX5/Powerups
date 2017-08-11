@@ -6,10 +6,6 @@
 org $01A832|!base3
 	!a JML force_hit_sprites
 
-org $01A9E2|!base3
-	!a JML setup_def_interaction
-	NOP
-
 freecode
 
 setup_def_interaction:
@@ -47,9 +43,6 @@ force_hit_sprites:
 .recover_code_hit	
 	LDA	!167A,x
 	BPL	.default_interaction
-		LDA	!1656,x
-		AND	#$10
-		BNE	.default_interaction
 .return_force		
 	JML	$01A837|!base3
 .default_interaction

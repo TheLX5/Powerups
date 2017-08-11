@@ -50,8 +50,6 @@ endif
 	sta !gfx_pointer+2		;store info in pointers
 	sep #$10
 	
-	ldx #$00			;check if using a 32*32 player
-
 	rep #$20
 	lda $09
 	clc
@@ -82,7 +80,8 @@ endif
 	lda $0B
 	and #$FF00
 	lsr #3
-	adc !gfx_pointer
+	adc #$2000
+	;adc !gfx_pointer
 	sta $0D89|!base2
 	clc
 	adc #$0200
@@ -94,6 +93,7 @@ endif
 	adc #$2000
 	sta $0D99|!base2
 	sep #$20
+	
 	lda #$0A
 	sta $0D84|!base2
 	jml $00F69E|!base3

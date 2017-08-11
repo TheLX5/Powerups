@@ -21,16 +21,11 @@ endif
 
 !starting_slot		= $00	;Starting slot of the powerup custom sprites.
 
-!use_map16_only		= 0	;Use map16 numbers instead of Acts like number in projectile interactable blocks code.
-
 !clear_7E2000		= 1	;Clear Mario GFX from RAM. Needs to be 0 if using Dynamic Z or the Mode 7 Game Over patch.
 				;1 = enable, 0 = disable
 
 !better_powerdown	= 0	;Set it to 1 if you have any plans on using Better Powerdown patch.
 
-!boomerang_inserted	= 0	;Set to 1 if using my Boomerang Suit
-!iceball_inserted	= 0	;Set to 1 if using my Ice Flower
-!raccoon_inserted	= 0	;Set to 1 if using my Raccoon or Tanooki powerups.
 !tiny_mushroom_inserted	= 0	;Set to 1 if using my Tiny Mushroom powerup.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -167,7 +162,8 @@ if !SA1 = 0
 ;; #$00 = use original code (not nintendo code), #$01 = bypass the original code.
 	!gfx_bypass_flag	= $7E2003
 ;;;;;;;
-;; !gfx_bypass_num: This RAM should contain the index of the graphics of the player if the bypass flag is set.
+;; !gfx_bypass_num: This RAM should contain the index of the graphics of the player.
+
 	!gfx_bypass_num		= $7E2004	
 ;;;;;;;
 ;; !mask_15: Setting this disables bits from $15/$16.
@@ -253,13 +249,39 @@ if !SA1 = 0
 ;; 0 - Can capespin flag.
 ;; 1 - Can fly flag.
 ;; 2 - Can infinite fly flag (cape).
-;; 3 - Use Raccoon-like SFX when it's a Raccoon-like powerup.
-;; 4 - Use Raccoon-like animation for a cape or tail.
-;; 5 - Enable the usage of a cape OR a tail.
+;; 3 - Use !flight_timer.
+;; 4 - Show cape.
 	!cape_settings		= $7E2105
 ;;;;;;;
 ;; !flight_timer: How many frames you will keep ascending with a Raccoon-like powerup. Not used on Cape-like powerups. Never reset.
 	!flight_timer		= $7E2106
+
+;;;;;;;
+;; !extra_tile_flags: Enables the usage of a 5th tile. 1 byte. Reset every frame.
+;; format: yx-pccce
+;; e = Enable the usage of a 5th tile. Overwrites the cape image.
+;; ccc = Tile palette. YXPPCCCT format.
+;; p = Give priority over Mario
+;; x = Flip the tile in the X axis.
+;; y = Flip the tile in the Y axis.
+	!extra_tile_flag	= $7E2107
+
+;;;;;;;
+;; !extra_tile_offset_x: How many pixels the tile is going to be offset from Mario's X position. 2 bytes.
+;; Reset every frame.
+	!extra_tile_offset_x	= $7E2108
+
+;;;;;;;
+;; !extra_tile_offset_y: How many pixels the tile is going to be offset from Mario's Y position. 2 bytes.
+;; Reset every frame.
+	!extra_tile_offset_y	= $7E210A
+
+;;;;;;;
+;; !extra_tile_frame: Frame number of the 5th tile.
+;; Reset every frame.
+	!extra_tile_frame	= $7E210C
+
+;;;;;;;
 
 	else
 

@@ -1,27 +1,33 @@
 Main:
-	LDA	#$00
-	STA	!cape_settings
+	lda #$00
+	sta !cape_settings	;this setting always gets reset before the code
+	sta !extra_tile_flag
+	sta !extra_tile_offset_x
+	sta !extra_tile_offset_x+1
+	sta !extra_tile_offset_y
+	sta !extra_tile_offset_y+1
+	sta !extra_tile_frame
 
-	LDA	$19
-	CMP	#!max_powerup
-	BEQ	+
-	BCS	.Return
+	lda $19
+	cmp #!max_powerup	;return if mario is exceding the max number of powerups
+	beq +
+	bcs .Return
 +	
-	PHB	
-	PHK	
-	PLB	
-	REP	#$30
-	AND	#$00FF
-	ASL	
-	TAX	
-	LDA.w	PowerupCode,x
-	STA	$00
-	SEP	#$30
-	LDX	#$00
-	JSR	($0000|!base1,x)
-	PLB	
-.Return		
-	JML	$00D066|!base3
+	phb
+	phk
+	plb
+	rep #$30
+	and #$00FF		;prepare a jump to the code.
+	asl
+	tax
+	lda.w PowerupCode,x
+	sta $00
+	sep #$30
+	ldx #$00
+	jsr ($0000|!base1,x)
+	plb
+.Return	
+	jml $00D066|!base3	;rip
 
 PowerupCode:
 	dw powerup_00
