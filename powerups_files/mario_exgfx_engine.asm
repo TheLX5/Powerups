@@ -1,8 +1,6 @@
 mario_exgfx:
 	lda !gfx_bypass_flag		;check if you there is another gfx due to be loaded
 	beq .no_bypass_everything
-	rep #$20
-	lda !gfx_bypass_num		;load mario's gfx
 	bra .bypass_everything
 .no_bypass_everything
 if !SA1 == 1
@@ -10,7 +8,7 @@ if !SA1 == 1
 	sta $2251
 	stz $2252
 	lda.b #!max_powerup+$01
-	sta $2253
+	sta $2253			;get the correct index based on powerup status*player num
 	stz $2254
 	stz $2250
 	lda #$00
@@ -20,7 +18,7 @@ if !SA1 == 1
 	adc $2306	
 else	
 	lda !player_num
-	sta $4202
+	sta $4202			;get the correct index based on powerup status*player num
 	lda.b #!max_powerup+1
 	sta $4203
 	lda #$00
@@ -34,22 +32,50 @@ endif
 
 	tax
 	lda.l GFXData,x			;get the correct powerup data
-.bypass_everything
-	rep #$30
-	sta $02
-	and #$007F
 	sta $00
+	lda.l ExtraGFXData,x
+	sta $02
+	bra .continue
+
+.bypass_everything
+	lda !gfx_bypass_num		;load mario's gfx
+	sta $00
+	lda !extra_gfx_bypass_num	;load player's extra gfx
+	sta $02
+.continue
+	stz $01
+	stz $02
+	rep #$30
+	phy
+	lda $00	
 	asl
 	clc
 	adc $00
 	tax				;multiply data*3
+
+	lda $02
+	asl
+	clc
+	adc $02
+	tay
+	
 	lda.l PowerupGFX,x
 	sta !gfx_pointer
 	sep #$20
 	lda.l PowerupGFX+2,x
 	sta !gfx_pointer+2		;store info in pointers
-	sep #$10
 	
+	rep #$20
+	tyx
+	lda.l ExtraTilesGFX,x
+	sta !extra_tile_pointer
+	sep #$20
+	lda.l ExtraTilesGFX+2,x
+	sta !extra_tile_pointer+2
+	ply
+	sep #$10
+
+	ldx #$00
 	rep #$20
 	lda $09
 	clc
@@ -80,20 +106,24 @@ endif
 	lda $0B
 	and #$FF00
 	lsr #3
-	adc #$2000
-	;adc !gfx_pointer
+	clc
+	adc !extra_tile_pointer	
 	sta $0D89|!base2
 	clc
 	adc #$0200
 	sta $0D93|!base2
+	lda !extra_tile_pointer+2
+	tay 
+	sty $0D88|!base2
 
 	lda $0C
 	and #$FF00
 	lsr #3
 	adc #$2000
 	sta $0D99|!base2
+
 	sep #$20
 	
 	lda #$0A
 	sta $0D84|!base2
-	jml $00F69E|!base3
+	jml $00F635|!base3

@@ -38,14 +38,36 @@ PlrDMA:
 	stx $2115
 	lda #$1801
 	sta $4310
-	ldx #$7E
-	stx $4314
 
 .bigger_upload
-;misc top tiles
+;cape tile
+	ldx $0D88|!base2
+	stx $4314
+	
 	lda #$6040
 	sta $2116
-	ldx #$04
+	lda $0D89|!base2
+	sta $4312
+	lda #$0040
+	sta $4315
+	sty $420B
+
+	lda #$6140
+	sta $2116
+	lda $0D93|!base2
+	sta $4312
+	lda #$0040
+	sta $4315
+	sty $420B
+
+;misc tiles
+	ldx #$7E
+	stx $4314
+	lda #$6060
+	sta $2116
+	ldx #$06
+	cpx $0D84|!base2
+	bcc .skip
 -	
 	lda $0D85|!base2,x
 	sta $4312
@@ -56,10 +78,9 @@ PlrDMA:
 	cpx $0D84|!base2
 	bcc -
 
-;misc bottom tiles
-	lda #$6140
+	lda #$6160
 	sta $2116
-	ldx #$04
+	ldx #$06
 -	
 	lda $0D8F|!base2,x
 	sta $4312
@@ -69,7 +90,10 @@ PlrDMA:
 	inx #2
 	cpx $0D84|!base2
 	bcc -
+
+
 ;player upload
+.skip
 +
 	ldx $0D87|!base2
 	stx $4314
@@ -88,6 +112,44 @@ PlrDMA:
 	dex #2
 	bpl -
 	pla : sta $0D86|!base2
+
+	lda !item_gfx_refresh
+	lsr
+	bcc .skip_item_refresh
+	asl
+	sta !item_gfx_refresh
+
+;top_tiles
+	lda #$60A0
+	sta $2116
+	ldx.b #powerup_items/$10000
+	stx $4314
+	ldx #$00
+-	
+	lda !item_gfx_pointer,x
+	sta $4312
+	lda #$0040
+	sta $4315
+	sty $420B
+	inx #2
+	cpx #$06
+	bne -
+
+;bottom tiles
+	lda #$61A0
+	sta $2116
+	ldx #$00
+-	
+	lda !item_gfx_pointer+6,x
+	sta $4312
+	lda #$0040
+	sta $4315
+	sty $420B
+	inx #2
+	cpx #$06
+	bne -
+
+.skip_item_refresh
 	
 	;jmp .skip_all-2
 
@@ -101,33 +163,3 @@ endif
 
 .vramtbl
 	dw $6300,$6200,$6100,$6000
-
-	pea $6000
-	lda $0D85|!base2
-	pha
-	ldx #$03
--	
-	lda $03,s
-	sta $2116
-	lda $01,s
-	sta $4312
-	ldy $0D87|!base2
-	sty $4314
-	lda #$0080
-	sta $4315
-	ldy #$02
-	sty $420B
-
-	lda $03,s
-	clc
-	adc #$0100
-	sta $03,s
-	lda $01,s
-	clc
-	adc #$0200
-	sta $01,s
-
-	dex
-	bpl -
-	pla
-	pla

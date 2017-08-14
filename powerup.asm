@@ -24,6 +24,15 @@ freedata
 		incbin powerups_files/graphics/<filename>.bin
 endmacro
 
+macro insert_extra_gfx(filename,add)
+	org ($00F63A|!base3+($<add>*3))
+		autoclean dl <filename>_gfx
+	warnpc $00F69F|!base3
+freedata
+	<filename>_gfx:
+		incbin powerups_files/graphics/<filename>.bin
+endmacro
+
 macro protect_data(filename)
 	prot <filename>_gfx
 endmacro
@@ -90,7 +99,7 @@ endif
 	incsrc powerups_files/hijacks/clear_7E2000.asm
 	incsrc powerups_files/hijacks/shell_immunity_code.asm
 	incsrc powerups_files/hijacks/custom_collision_engine.asm
-	incsrc powerups_files/hijacks/raccoon_engine.asm
+	incsrc powerups_files/hijacks/cape_engine.asm
 	if !better_powerdown = 0
 		incsrc powerups_files/hijacks/clean_ram.asm
 	endif
@@ -106,9 +115,11 @@ endif
 
 org $00A304|!base3
 	PowerupGFX:
+org $00F63A|!base3
+	ExtraTilesGFX:
 
 freecode
-	prot PowerupData
+	prot PowerupData,powerup_items
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Prot area
@@ -116,6 +127,7 @@ freecode
 
 	%protect_data(small_mario)
 	%protect_data(big_mario)
+	%protect_data(cape_tiles)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Powerup code
@@ -206,10 +218,10 @@ freecode
 	incsrc powerups_files/custom_collision_engine.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Handle Raccoon-like powerups.
+; Handle cape stuff.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-	incsrc powerups_files/raccoon_engine.asm
+	incsrc powerups_files/cape_engine.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Clear some RAM when Mario's hurt.

@@ -12,6 +12,8 @@ cape_image:
 	
 .custom_tile
 	phy
+	lda !extra_tile_frame
+	sta $0C
 	lda !extra_tile_flag
 	bit #$10
 	beq .normal_priority
@@ -19,7 +21,7 @@ cape_image:
 .normal_priority
 	and.b #%11001110
 	sta $0303,y
-	lda #$26	;#$04
+	lda #$04
 	sta $0302|!base2,y
 	rep #$20
 	lda $80
@@ -77,16 +79,16 @@ cape_spin:
 enable_fly:
 	lda !cape_settings
 	and #$02
-	beq .Nope
-.Yes	
+	beq .nope
+.yes	
 	jml $00D8ED|!base3
-.Nope	
+.nope		
 	jml $00D928|!base3
 
 no_infinite_fly:
 	lda !cape_settings
 	and #$04
-	bne .nope
+	beq .nope
 	lda $7D
 	bmi .nope
 	lda $149F|!base2
@@ -106,7 +108,3 @@ custom_flight_time:
 .Store	sty $149F|!base2
 	ply 
 	rtl 
-
-;;
-
-incsrc powerup_misc_data/raccoon_tables.asm

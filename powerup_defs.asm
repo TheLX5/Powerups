@@ -16,7 +16,9 @@ endif
 				;Note that this takes some v-blank time because this uses two DMA routines
 				;to upload the tiles in $0A and $0C
 
-!projectile_dma_tile	= $0A	;Upper left tile where two consecutive 16x16 graphics will be 
+!dynamic_items		= 1
+
+!projectile_dma_tile	= $24	;Upper left tile where two consecutive 16x16 graphics will be 
 				;loaded to SP1.
 
 !starting_slot		= $00	;Starting slot of the powerup custom sprites.
@@ -141,7 +143,7 @@ endif
 ;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; RAMs
+;; Other defines
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 !player_num	= $0DB3|!base2
@@ -248,8 +250,8 @@ if !SA1 = 0
 ;; bits:
 ;; 0 - Can capespin flag.
 ;; 1 - Can fly flag.
-;; 2 - Can infinite fly flag (cape).
-;; 3 - Use !flight_timer.
+;; 2 - Disable infinite fly flag (cape).
+;; 3 - Use !flight_timer instead of a set timer.
 ;; 4 - Show cape.
 	!cape_settings		= $7E2105
 ;;;;;;;
@@ -282,7 +284,30 @@ if !SA1 = 0
 	!extra_tile_frame	= $7E210C
 
 ;;;;;;;
+;; !extra_tile_pointer: 24-bit pointer of the 5th tile GFX location. 3 bytes.
+	!extra_tile_pointer	= $7E210D
 
+;;;;;;
+;; !extra_gfx_bypass_num: This RAM should contain the index of the graphics of the player.
+;; Only used if !gfx_bypass_flag is set.
+	!extra_gfx_bypass_num	= $7E2110
+
+;;;;;;;
+;; !item_gfx_refresh:
+;; format: -------r
+;; r = refresh tilemap
+;; 1 byte.
+	!item_gfx_refresh	= $7E2111
+
+;;;;;;;
+;; !item_frame:
+;; 3 bytes.
+	!item_frame		= $7E2112
+
+;;;;;;;
+;; !item_gfx_pointer:
+;; 12 bytes
+	!item_gfx_pointer	= $7E2115
 	else
 
 ;;;;;;;

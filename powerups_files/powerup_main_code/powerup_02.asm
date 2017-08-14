@@ -1,7 +1,7 @@
 ;;;;;;;;;;;;;;;
 ;; Cape powerup
 ;;;;;;;;;;;;;;;
-		LDA.b	#%00011011
+		LDA.b	#%00010111
 		STA	!cape_settings
 			
 		BIT	$16

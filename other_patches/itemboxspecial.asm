@@ -97,6 +97,9 @@ CheckItem:
 	phb
 	phk
 	plb 
+	
+	stz !1528,x
+
 	lda !190F,x
 	bmi .custom
 	lda !9E,x
@@ -106,7 +109,7 @@ CheckItem:
 .custom		
 	lda !7FAB9E,x
 	sec	
-	sbc.b	#!starting_slot
+	sbc.b #!starting_slot
 	clc 
 	adc #$05
 .next		
@@ -152,7 +155,7 @@ endif
 	lda #$0B
 	sta $1DFC|!base2
 .noitem
-	lda.w	PowerIndex,y
+	lda.w PowerIndex,y
 	sep #$10
 	plb
 	cmp #$06
@@ -178,8 +181,8 @@ endif
 	pla 	
 	jmp GiveNothing
 +		
-	PLA	
-	JSL	$0086DF|!base3
+	pla
+	jsl $0086DF|!base3
 
 .PowerupPointers
 	incsrc get_powerup_codes.asm
