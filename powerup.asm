@@ -108,9 +108,6 @@ endif
 		incsrc powerups_files/hijacks/clean_ram.asm
 	endif
 	incsrc powerups_files/hex_edits.asm
-	if !ow_mario_fix == 1
-		incsrc powerups_files/powerup_misc_data/ow_mario.asm
-	endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Add-on hijacks installer

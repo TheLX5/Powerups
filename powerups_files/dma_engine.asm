@@ -135,7 +135,11 @@ PlrDMA:
 	sta $4315
 	sty $420B
 	inx #2
+if !no_dynamic_item_box == 0
 	cpx #$06
+else
+	cpx #$04
+endif
 	bne -
 
 ;bottom tiles

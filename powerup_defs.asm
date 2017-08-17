@@ -14,14 +14,14 @@ endif
 
 !enable_projectile_dma	= 1	;Enable the ASM hacks to make possible use DMA to upload the projectile tiles
 				;Note that this takes some v-blank time because this uses two DMA routines
-				;to upload the tiles in $0A and $0C
-
-!dynamic_items		= 1
-
-!ow_mario_fix		= 1	
-
+				;to upload the tiles in $24 and $26
 !projectile_dma_tile	= $24	;Upper left tile where two consecutive 16x16 graphics will be 
 				;loaded to SP1.
+
+!dynamic_items		= 1	;Enable the ASM hacks to make possible have dynamic powerup items. Freeing a lot of space in SP1/2.
+
+!no_dynamic_item_box	= 0	;Disable the item box graphics being uploaded to tile $0E. Also tile $0E is free if this is 1.
+				;Only works if !dynamic_items is 1
 
 !starting_slot		= $00	;Starting slot of the powerup custom sprites.
 
@@ -29,8 +29,6 @@ endif
 				;1 = enable, 0 = disable
 
 !better_powerdown	= 0	;Set it to 1 if you have any plans on using Better Powerdown patch.
-
-!tiny_mushroom_inserted	= 0	;Set to 1 if using my Tiny Mushroom powerup.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Number of possible powerups.
@@ -328,6 +326,10 @@ if !SA1 == 0
 ;; 1 byte
 	!ride_yoshi_flag	= $7E211F
 
+;;;;;;;
+;; !insta_kill_flag: Check if Mario should get insta killed when being hit from an enemy.
+	!insta_kill_flag	= $7E2120
+
 	else
 
 
@@ -494,6 +496,9 @@ if !SA1 == 0
 ;; !ride_yoshi_flag: Disables riding yoshi.
 ;; 1 byte
 	!ride_yoshi_flag	= $40421F
+;;;;;;;
+;; !insta_kill_flag: Check if Mario should get insta killed when being hit from an enemy.
+	!insta_kill_flag	= $404220
 
 endif
 
