@@ -40,25 +40,6 @@ PlrDMA:
 	sta $4310
 
 .bigger_upload
-;cape tile
-	ldx $0D88|!base2
-	stx $4314
-	
-	lda #$6040
-	sta $2116
-	lda $0D89|!base2
-	sta $4312
-	lda #$0040
-	sta $4315
-	sty $420B
-
-	lda #$6140
-	sta $2116
-	lda $0D93|!base2
-	sta $4312
-	lda #$0040
-	sta $4315
-	sty $420B
 
 ;misc tiles
 	ldx #$7E
@@ -67,7 +48,7 @@ PlrDMA:
 	sta $2116
 	ldx #$06
 	cpx $0D84|!base2
-	bcc .skip
+	bcs .skip
 -	
 	lda $0D85|!base2,x
 	sta $4312
@@ -94,7 +75,29 @@ PlrDMA:
 
 ;player upload
 .skip
-+
+
+;cape tile
+	ldx $0D88|!base2
+	stx $4314
+	
+	lda #$6040
+	sta $2116
+	lda $0D89|!base2
+	sta $4312
+	lda #$0040
+	sta $4315
+	sty $420B
+
+	lda #$6140
+	sta $2116
+	lda $0D93|!base2
+	sta $4312
+	lda #$0040
+	sta $4315
+	sty $420B
+
+;mario tiles
+
 	ldx $0D87|!base2
 	stx $4314
 	lda $0D86|!base2 : pha

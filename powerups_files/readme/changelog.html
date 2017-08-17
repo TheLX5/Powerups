@@ -7,42 +7,116 @@
 <body text="#FFFFFF">
 	<h1>Changelog</h1><br><br>
 	
-	<h2>Version 3.0.0 (2017-Aug-XX)</h2>
+	<h2>Version 3.0.0 Beta(2017-Aug-XX)</h2>
 	<ul>
 	<li>32x32 patch integration</li>
 	<li>Removed Mario's 8x8 tiles DMAer patch</li>
 	<li>Included a proper readme</li>
-	<li>Gave proper support to multiple players*</li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	</ul><br>
+	<li>Dynamic powerup items are now available</li>
+	<li>Made possible to use a 5th tile</li>
+	<li>Cape tile is now isolated from GFX32</li>
+	<li>Annoying sound effect when using !disable_spin_jump is gone</li>
+	<li>Removed other_patches directory.</li>
+	<li>Added a bonus room fix if using Dynamic Items.</li>
+	<li>Cape shenaningans are fixed</li>
+	<li>Introduced !ride_yoshi_flag, so you can disable riding Yoshi without very specific stuff</li>
+	<li>Made some optimizations to some files.</li>
+	<li>Got rid of some bad formatting in the asm files.</li>
+	</ul>
 	
 	<h2>Version 2.1.1 (2016-Jun-27)</h2>
 	<ul>
-	<li>something</li>
-	</ul><br>
+	<li>Added a little patch that disables riding yoshi if !flags isn't zero.</li>
+	<li>Fixed a bug with Raccoon-like powerups making the wrong SFX.</li>
+	<li>Fixed a bug with Raccoon-like and Cape powerups not being able to kill enemies with cape/tail.</li>
+	<li>Made !wait_timer usable again.</li>
+	<li>Fixed the inclusion of other_patches/custom_interaction.asm</li>
+	<li>Removed unnecesary lines on powerups_files/palette_engine.asm</li>
+	</ul>
 	
-	<h2>Version 3.0.0 (2016-Jun-27)</h2>
+	<h2>Version 2.1.0 (2016-Jun-10)</h2>
 	<ul>
-	<li>something</li>
-	</ul><br>
+	<li>Added Raccoon-like powerups compatibility.</li>
+	<li>Added two extra RAMs: !cape_settings & !flight_timer.</li>
+	<li>Fixed the bug when the player has Star power and it only flashes between normal palette and fire palette of player 1.</li>
+	<li>Added a table that will let you to decide which palettes to show when using a Star.</li>
+	<li>Added a file that let's you to have custom interaction codes with sprites.</li>
+	<li>Added compatibility with Sonikku's Custom Default Interaction patch.</li>
+	</ul>
 	
-	<h2>Version 3.0.0 (2016-Jun-27)</h2>
+	<h2>Version 2.0.1 (2016-Apr-13)</h2>
 	<ul>
-	<li>something</li>
-	</ul><br>
+	<li>Fixed a issue with some defines in extended_sprites.asm. Thanks to Rykon-V73 for reporting this.</li>
+	</ul>
 	
-	<h2>Version 3.0.0 (2016-Jun-27)</h2>
+	<h2>Version 2.0.0 (2016-Mar-24)</h2>
 	<ul>
-	<li>something</li>
-	</ul><br>
+	<li>Every file has been moved.</li>
+	<li>It's now easier to update (at least for me).</li>
+	<li>Powerups have been removed from this patch, you must download them separately.</li>
+	<li>Included a quick guide fow newbie users.</li>
+	<li>Separated the advanced stuff in powerups_manual.txt</li>
+	<li>Probably a lot of stuff was changed, kek.</li>
+	</ul>
 	
-	<br><br>
+	<h2>Version 1.1.0(2016-Jan-2)</h2>
+	<ul>
+	<li>Tiny Mushroom powerup from NSMBWii is now available.</li>
+	<li>Cloud flower powerup from SMG series is now available. Huge thanks to Lui37.</li>
+	<li>The patch is now fully SA-1 compatible, just insert it as you would do normally and the patch will handle everything like every new patch on SMWC.</li>
+	<li>Hammer and Boomerangs now interact with layer 1 objects.</li>
+	<li>Boomerang can retrieve some sprites when fired, this makes the Boomerang to not be just a Hammer clone.</li>
+	<li>Custom interaction fields with sprites is now possible.</li>
+	<li>Custom interaction dots/points with layer 1/2 (maybe 3?) is now possible.</li>
+	<li>Remapping some smoke particles is now optional too. A define is included in powerup_defs.asm to decide if insert the hex edits or not.</li>
+	<li>Added a define to control which extended sprite number will Mario shoot while having powerup that shoots projectiles.</li>
+	<li>Added a define to change where the Projectile DMA graphics will be loaded to.</li>
+	<li>Made some (small) name changes to some files in powerup_files folder.</li>
+	<li>Changed the custom sprite settings table in sprites_props.asm to use bits instead of hex values.</li>
+	<li>Minor Extender patch is now completely optional, you still require to patch the file though, specially if you want those Z tiles fixed.</li>
+	<li>Patch size increased a bit.</li>
+	<li>Migrated from Item Box Special 1.1 to 1.3.</li>
+	<li>Added several custom blocks.</li>
+	<li>THE Z TILE OF THE RIP VAN FISH IS NOW FIXED.</li>
+	<li>Mode 7 Game Over patch detection. Clearing $7E2000 area made this patch to display an invisible Mario, this is now fixed.</li>
+	<li>Fixed a HUGE mistake on IceBlock.asm. Changed a $1622,x to $1686,x.</li>
+	<li>Iceball image is now properly aligned while using the projectile DMA feature.</li>
+	<li>Riding Yoshi instantly bug is now gone.</li>
+	<li>Projectile DMA feature now works correctly in title screen. Thanks to KDee for reporting this.</li>
+	<li>Mario's 8x8 tiles weren't showing correctly on title screen, it's fixed now.</li>
+	<li>Fixed several misplaced things.</li>
+	</ul>
 	
-
-	<br><br><p>Return to the <a href="../../readme.html">main page</a></p><br>
+	<h2>Version 1.0.0 (2015-Aug-21)</h2>
+	<ul>
+	<li>Bubble projectile is now available.</li>
+	<li>Mario ExGFX integrated in the patch.</li>
+	<li>Added a feature that uploads dynamically the projectiles GFX to the VRAM and it can be disabled if the user wants.</li>
+	<li>Optimized most of the graphic files for the powerup tilemaps, now they are 12kB instead of 24kB.</li>
+	<li>The new insert size of the patch is 87472 bytes instead of 178909 bytes.</li>
+	<li>There are a bunch of defines in powerup_defs.asm that let you to remap some GFX00 and GFX01 stuff.</li>
+	<li>DKC Status bar compatibility.</li>
+	<li>!shell_immunity now has a purpose. Thanks to Lui37.</li>
+	<li>Included some defines to set the tile/YXPPCCCT properties of the projectiles in powerup_defs.asm</li>
+	<li>Added some settings for Mario Statue in sprite_props.asm.</li>
+	<li>Tanooki suit was using the wrong combination of buttons to trigger the statue.</li>
+	<li>Mario statue was able to climb in nets.</li>
+	<li>Mario statue was using spin jump instead of a custom routine to detect sprites and kill them or be invincible to them.</li>
+	<li>Fixed a bug in question block that doesn't do anything in vertical levels.</li>
+	<li>Ice blocks weren't detecting ceilings correctly.</li>
+	<li>Iceballs now really listen to the sprite_props.asm settings.</li>
+	<li>Iceballs doesn't display a fireball when are about to disappear in a puff of smoke.</li>
+	<li>And probably a lot more. I don't remember what I fixed (forgot to create a list... >.>).</li>
+	</ul>
+	
+	<h2>Alpha versions (201X-???-??)</h2>
+	<ul>
+	<li>Lot of stuff is lost, you can download older versions if you are curious about how this patch evolved.</li>
+	</ul>
+	
+	<br>
+	
+	<br><br><p>Return to the <a href="../../powerup_readme.html">main page</a></p><br>
 	
 </body>
 </html>

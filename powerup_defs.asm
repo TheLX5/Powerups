@@ -18,6 +18,8 @@ endif
 
 !dynamic_items		= 1
 
+!ow_mario_fix		= 1	
+
 !projectile_dma_tile	= $24	;Upper left tile where two consecutive 16x16 graphics will be 
 				;loaded to SP1.
 
@@ -148,11 +150,20 @@ endif
 
 !player_num	= $0DB3|!base2
 
+!ItemBoxSfx = $0C       ; play the item box drop sound effect
+!PowerupSfx = $0B       ; play the powerup sound effect
+
+!ItemPosX1 = $78	; the X position of the item on the screen
+!ItemPosY1 = $0F	; the Y position of the item on the screen
+!ItemPosX2 = $78	; the X position of the item when it spawns
+!ItemPosY2 = $20	; the Y position of the item when it spawns
+ 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Free RAMs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-if !SA1 = 0
+if !SA1 == 0
 ;;;;;;;
 ;; Normal ROM defines, ignore if using SA-1 or Dynamic Z.
 
@@ -293,22 +304,32 @@ if !SA1 = 0
 	!extra_gfx_bypass_num	= $7E2110
 
 ;;;;;;;
-;; !item_gfx_refresh:
-;; format: -------r
+;; !item_gfx_refresh: Refreshes stuff on sprite tiles 0A,0C,0E
+;; format: ------dr
 ;; r = refresh tilemap
+;; d = handles item tile
 ;; 1 byte.
 	!item_gfx_refresh	= $7E2111
 
 ;;;;;;;
-;; !item_frame:
-;; 3 bytes.
-	!item_frame		= $7E2112
+;; !item_gfx_pointer: 16-bit pointer used to locate the GFX for the extra item graphics.
+;; 12 bytes
+	!item_gfx_pointer	= $7E2112
 
 ;;;;;;;
-;; !item_gfx_pointer:
-;; 12 bytes
-	!item_gfx_pointer	= $7E2115
+;; !item_box_disable: Disables item box and other stuff.
+;; format ------sd
+;; d = Disable item box dropping.
+;; s = Disable item box from being shown on VANILLA status bar.
+	!item_box_disable	= $7E211E
+
+;;;;;;;
+;; !ride_yoshi_flag: Disables riding yoshi.
+;; 1 byte
+	!ride_yoshi_flag	= $7E211F
+
 	else
+
 
 ;;;;;;;
 ;; SA-1 Defines, ignore if not using SA-1.
@@ -321,8 +342,9 @@ if !SA1 = 0
 ;; #$00 = use original code (not nintendo code), #$01 = bypass the original code.
 	!gfx_bypass_flag	= $404103
 ;;;;;;;
-;; !gfx_bypass_num: This RAM should contain the index of the graphics of the player if the bypass flag is set.
-	!gfx_bypass_num		= $404104
+;; !gfx_bypass_num: This RAM should contain the index of the graphics of the player.
+
+	!gfx_bypass_num		= $404104	
 ;;;;;;;
 ;; !mask_15: Setting this disables bits from $15/$16.
 	!mask_15		= $404105
@@ -331,7 +353,7 @@ if !SA1 = 0
 	!mask_17		= $404106
 ;;;;;;;
 ;; !disable_spin_jump: Disable spin jump. #$00 = no, anything else = disable.
-	!disable_spin_jump	= $404107
+	!disable_spin_jump	= $404107	
 ;;;;;;;
 ;; !shell_immunity: Gives immunity to some extended sprites while crouching.
 	!shell_immunity		= $404108
@@ -355,65 +377,123 @@ if !SA1 = 0
 	!pal_pointer		= $40410E
 ;;;;;;;
 ;; !projectile_do_dma: RAM used as a flag to upload the projectile GFX
-	!projectile_do_dma	= $404111
+	!projectile_do_dma	= $404117
 ;;;;;;;
 ;; !projectile_gfx_index: Used to determine which powerup should be uploaded with DMA, 8 bytes.
-	!projectile_gfx_index	= $404112
+	!projectile_gfx_index	= $404118
 ;;;;;;;
 ;; !collision_flag: Enable custom Mario<->Layers interaction field, 1 byte.
 ;; $00 = run original code
 ;; $01-$7F values = use RAM tables
 ;; $80-$FF values = use indirect addressing
-	!collision_flag		= $404119
+	!collision_flag		= $404120
 ;;;;;;;
 ;; !collision_index: Starting index that will be used in your data tables.
 ;; #$FF = use built-in routine to handle the index like in the vanilla game.
 ;; Handles Yoshi, crouching & wallrunning indexes.
-	!collision_index	= $40411A
+	!collision_index	= $404121
 ;;;;;;;
 ;; !collision_loc_x: 24-bit address of the X coordinates of the collision data. 3 bytes.
-	!collision_loc_x	= $40411B
+	!collision_loc_x	= $404122
 ;;;;;;;
 ;; !collision_loc_y: 24-bit address of the Y coordinates of the collision data. 3 bytes.
-	!collision_loc_y	= $40411E
+	!collision_loc_y	= $404125
 ;;;;;;;
 ;; !collision_data_x: Collision data in RAM, X coordinates.
 ;; At least 108 bytes if using the built-in routine.
-	!collision_data_x	= $404121
+	!collision_data_x	= $404128
 ;;;;;;;
 ;; !collision_data_y: Collision data in RAM, Y coordinates.
 ;; At least 108 bytes if using the built-in routine.
-	!collision_data_y	= $40418D
+	!collision_data_y	= $404194
 ;;;;;;;
 ;; !clipping_flag: Enable custom interaction field with sprites. 1 byte.
-	!clipping_flag		= $4041F9
+	!clipping_flag		= $404200
 ;;;;;;;
 ;; !clipping_width: Width of interaction field. 1 byte.
-	!clipping_width		= $4041FA
+	!clipping_width		= $404201
 ;;;;;;;
 ;; !clipping_height: Height of interaction field. 1 byte.
-	!clipping_height	= $4041FB
+	!clipping_height	= $404202
 ;;;;;;;
 ;; !clipping_disp_x: How many pixels will be shifted the interaction field
 ;; based on Mario's position. 1 byte.
-	!clipping_disp_x	= $4041FC
+	!clipping_disp_x	= $404203
 ;;;;;;;
 ;; !clipping_disp_y: How many pixels will be shifted the interaction field
 ;; based on Mario's position. 1 byte.
-	!clipping_disp_y	= $4041FD
+	!clipping_disp_y	= $404204
 ;;;;;;;
 ;; !cape_settings: Reset every frame.
 ;; bits:
 ;; 0 - Can capespin flag.
 ;; 1 - Can fly flag.
-;; 2 - Can infinite fly flag (cape).
-;; 3 - Use Raccoon-like SFX when it's a Raccoon-like powerup.
-;; 4 - Use Raccoon-like animation for a cape or tail.
-;; 5 - Enable the usage of the 4th bit.
-	!cape_settings		= $4041FE
+;; 2 - Disable infinite fly flag (cape).
+;; 3 - Use !flight_timer instead of a set timer.
+;; 4 - Show cape.
+	!cape_settings		= $404205
 ;;;;;;;
 ;; !flight_timer: How many frames you will keep ascending with a Raccoon-like powerup. Not used on Cape-like powerups. Never reset.
-	!flight_timer		= $4041FF
+	!flight_timer		= $404206
+
+;;;;;;;
+;; !extra_tile_flags: Enables the usage of a 5th tile. 1 byte. Reset every frame.
+;; format: yx-pccce
+;; e = Enable the usage of a 5th tile. Overwrites the cape image.
+;; ccc = Tile palette. YXPPCCCT format.
+;; p = Give priority over Mario
+;; x = Flip the tile in the X axis.
+;; y = Flip the tile in the Y axis.
+	!extra_tile_flag	= $404207
+
+;;;;;;;
+;; !extra_tile_offset_x: How many pixels the tile is going to be offset from Mario's X position. 2 bytes.
+;; Reset every frame.
+	!extra_tile_offset_x	= $404208
+
+;;;;;;;
+;; !extra_tile_offset_y: How many pixels the tile is going to be offset from Mario's Y position. 2 bytes.
+;; Reset every frame.
+	!extra_tile_offset_y	= $40420A
+
+;;;;;;;
+;; !extra_tile_frame: Frame number of the 5th tile.
+;; Reset every frame.
+	!extra_tile_frame	= $40420C
+
+;;;;;;;
+;; !extra_tile_pointer: 24-bit pointer of the 5th tile GFX location. 3 bytes.
+	!extra_tile_pointer	= $40420D
+
+;;;;;;
+;; !extra_gfx_bypass_num: This RAM should contain the index of the graphics of the player.
+;; Only used if !gfx_bypass_flag is set.
+	!extra_gfx_bypass_num	= $404210
+
+;;;;;;;
+;; !item_gfx_refresh: Refreshes stuff on sprite tiles 0A,0C,0E
+;; format: ------dr
+;; r = refresh tilemap
+;; d = handles item tile
+;; 1 byte.
+	!item_gfx_refresh	= $404211
+
+;;;;;;;
+;; !item_gfx_pointer: 16-bit pointer used to locate the GFX for the extra item graphics.
+;; 12 bytes
+	!item_gfx_pointer	= $404212
+
+;;;;;;;
+;; !item_box_disable: Disables item box and other stuff.
+;; format ------sd
+;; d = Disable item box dropping.
+;; s = Disable item box from being shown on VANILLA status bar.
+	!item_box_disable	= $40421E
+
+;;;;;;;
+;; !ride_yoshi_flag: Disables riding yoshi.
+;; 1 byte
+	!ride_yoshi_flag	= $40421F
 
 endif
 

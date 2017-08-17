@@ -22,4 +22,9 @@ init_feather:
 init_1up:
 !a	jsl init_powerup
 	rts
+
+org $02894F|!base3
+!a	jsl question_block_fix
+
 endif
+

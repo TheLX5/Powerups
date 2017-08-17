@@ -3,20 +3,26 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 SpinJump:
-	PHX	
-	LDX	$19
-	LDA.l	SpinJumpData,x
-	EOR	!disable_spin_jump
-	BEQ	+
-	STA	$140D|!base2
-	LDA	#$04
-	STA	$1DFC|!base2
-	BRA	++
-+		
-	LDA	#$00
-	STA	!disable_spin_jump
-	INC	
-	STA	$1DFA|!base2
+	phx	
+	ldx $19
+	lda.l SpinJumpData,x
+	eor !disable_spin_jump
+	beq +
+	sta $140D|!base2
+	lda #$04
+	sta $1DFC|!base2
+	bra ++
++	
+	lda #$00
+	sta !disable_spin_jump
+	
+if read1($008075|!base3) = $5C
+	lda #$35
+	sta $1DFC|!base2
+else
+	inc 
+	sta $1DFA|!base2
+endif
 ++		
-	PLX	
-	RTL	
+	plx
+	rtl	

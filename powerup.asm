@@ -18,7 +18,7 @@
 macro insert_gfx(filename,add)
 	org ($00A304|!base3+($<add>*3))
 		autoclean dl <filename>_gfx
-	warnpc $00A38E|!base3
+	warnpc $00A38B|!base3
 freedata
 	<filename>_gfx:
 		incbin powerups_files/graphics/<filename>.bin
@@ -48,6 +48,8 @@ endmacro
 macro powerup_number(define_name,num)
 	!<define_name>_powerup_num = $<num>
 	!powerup_<num> = !<define_name>_powerup_num
+
+	!dynamic_powerup_<num>_tile = !<define_name>_dynamic_tile
 
 	!powerup_<num>_tile = !<define_name>_tile
 	!powerup_<num>_prop = !<define_name>_prop
@@ -100,10 +102,15 @@ endif
 	incsrc powerups_files/hijacks/shell_immunity_code.asm
 	incsrc powerups_files/hijacks/custom_collision_engine.asm
 	incsrc powerups_files/hijacks/cape_engine.asm
-	if !better_powerdown = 0
+	incsrc powerups_files/hijacks/item_box_engine.asm
+	incsrc powerups_files/hijacks/custom_interaction_engine.asm
+	if !better_powerdown == 0
 		incsrc powerups_files/hijacks/clean_ram.asm
 	endif
 	incsrc powerups_files/hex_edits.asm
+	if !ow_mario_fix == 1
+		incsrc powerups_files/powerup_misc_data/ow_mario.asm
+	endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Add-on hijacks installer
@@ -113,6 +120,8 @@ endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+org $00A38B|!base3
+	autoclean dl powerup_items
 org $00A304|!base3
 	PowerupGFX:
 org $00F63A|!base3
@@ -232,6 +241,24 @@ freecode
 	endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Handle Mario's riding yoshi status
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	incsrc powerups_files/ride_yoshi.asm
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Handle item box stuff.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	incsrc powerups_files/item_box_engine.asm
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Handle custom interaction with sprites.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	incsrc powerups_files/custom_interaction_engine.asm
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 freedata
 
@@ -251,15 +278,11 @@ PowerupData:
 ; Graphics files
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+freedata
+powerup_items:
+	incbin powerups_files/graphics/powerup_items.bin
+
 	incsrc powerups_files/powerup_gfx.asm
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Misc incsrcs
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-	incsrc other_patches/ride_yoshi.asm
-	incsrc other_patches/itemboxspecial.asm
-	incsrc other_patches/custom_interaction.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Add-ons incsrc area

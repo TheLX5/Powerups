@@ -44,7 +44,7 @@ endif
 	sta $02
 .continue
 	stz $01
-	stz $02
+	stz $03
 	rep #$30
 	phy
 	lda $00	
@@ -115,13 +115,6 @@ endif
 	lda !extra_tile_pointer+2
 	tay 
 	sty $0D88|!base2
-
-	lda $0C
-	and #$FF00
-	lsr #3
-	adc #$2000
-	sta $0D99|!base2
-
 	sep #$20
 	
 	lda #$0A

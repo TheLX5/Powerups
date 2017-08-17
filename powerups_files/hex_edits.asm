@@ -203,3 +203,25 @@ db $04,$04,$04,$04,$02,$02,$02,$02
 db $08,$08,$08,$08,$28,$28,$28,$28
 db $2A,$2A,$2A,$2A,$22,$22,$22,$22
 db $0C,$0C,$0C,$0C
+
+if !dynamic_items == 1
+org $01DEE3
+db $FA,$FB,$D2,$D2
+db $EA,$EB,$FA,$FB
+db $D2,$D2,$EA,$EB
+db $DE,$DF,$D2,$D2
+db $CE,$CF,$DE,$DF
+db $D2,$D2,$CE,$CF
+db $FE,$FF,$D2,$D2
+db $EE,$EF,$FE,$FF
+db $D2,$D2,$EE,$EF
+ 
+db $05,$05,$05
+db $09,$09,$09
+db $0B,$0B,$0B
+
+org $02FE5E
+	db $CE
+org $02FE63
+	db $3B
+endif

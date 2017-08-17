@@ -2,9 +2,11 @@
 ;; Unused 9
 ;;;;;;;;;;;;;;;;;;;
 
-!unused_9_tile		= $00	;Tile used by the unused powerup E item
+!unused_9_tile		= $0E	;Tile used by the unused powerup E item
 !unused_9_prop		= $00	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
+
+!unused_9_dynamic_tile	= $00	;Tile used by this powerup.
 
 %powerup_number(unused_9,09)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
