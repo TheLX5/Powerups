@@ -33,6 +33,13 @@ freedata
 		incbin powerups_files/graphics/<filename>.bin
 endmacro
 
+macro insert_big_gfx(filename,add)
+    org ($00A304|!base3+($<add>*3))
+        autoclean dl <filename>_gfx
+    warnpc $00A38B|!base3
+        incbin powerups_files/graphics/<filename>.bin -> <filename>_gfx
+endmacro
+
 macro protect_data(filename)
 	prot <filename>_gfx
 endmacro
@@ -45,31 +52,6 @@ macro insert_addon_hack(filename)
 	incsrc powerups_files/addons/hijacks/<filename>.asm
 endmacro
 
-macro powerup_number(define_name,num)
-	!<define_name>_powerup_num = $<num>
-	!powerup_<num> = !<define_name>_powerup_num
-
-	!dynamic_powerup_<num>_tile = !<define_name>_dynamic_tile
-
-	!powerup_<num>_tile = !<define_name>_tile
-	!powerup_<num>_prop = !<define_name>_prop
-endmacro
-
-;;;;;;;;;;;;;
-; Taken from alcaro's Mario ExGFX patch
-;;;;;;;;;;;;;
-
-macro foreach_core(code1, code2, code3, code4, id)
-!Id = !{powerups_<id>}
-<code1>!{Id}<code2>!{Id}<code3>!{Id}<code4>
-if $!Id < !max_powerup : %foreach_core("<code1>", "<code2>", "<code3>", "<code4>", <id>A)
-endmacro
-macro foreach(code1, code2)
-%foreach_core("<code1>", "<code2> : if 0 : ", "x", "x", A)
-endmacro
-macro foreach2(code1, code2, code3)
-%foreach_core("<code1>", "<code2>", "<code3> : if 0 : ", "x", A)
-endmacro
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Defines, do not edit these
@@ -78,7 +60,6 @@ endmacro
 	!a = autoclean
 
 	incsrc powerup_defs.asm
-	%foreach("incsrc powerups_files/powerup_defs/powerup_",".asm")
 
 if !SA1 = 1
 	sa1rom
@@ -133,6 +114,7 @@ freecode
 
 	%protect_data(small_mario)
 	%protect_data(big_mario)
+	%protect_data(hammer_mario)
 	%protect_data(cape_tiles)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

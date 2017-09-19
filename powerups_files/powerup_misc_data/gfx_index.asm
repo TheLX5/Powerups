@@ -4,7 +4,7 @@
 
 GFXData:
 	;mario gfx
-	db $00,$01,$01,$01,$00,$00,$00,$00		; powerups 0 - 7
+	db $00,$01,$01,$01,$02,$00,$00,$00		; powerups 0 - 7
 	db $00,$00,$00,$00,$00,$00,$00,$00		; powerups 8 - F
 
 	;luigi gfx

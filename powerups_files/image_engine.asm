@@ -2,62 +2,6 @@
 ; Handle player tile data
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-OAM_data:
-;	pha
-;	lda !get_32
-;	tax
-;	pla
-;	cpx #$00
-;	bne .no_flip
-;.normal
-;	ldx $04
-;	cpx #$E8
-;	bne .no_flip
-;	eor #$40
-;.no_flip
-	jml $00E3EC|!base3
-
-OAM_8x8:
-	ldx $06
-;	lda !get_32
-;	bne .big
-;	lda.l $00DFDA,x
-;	jml $00E466
-.big	
-	lda.l mario_8x8,x
-	jml $00E466
-
-OAM_y_pos:
-;	pha
-;	lda !get_32
-;	and #$00FF
-;	bne .big
-;	pla
-;	clc
-;	adc.l $00DE32|!base3,x
-;	rtl
-;.big
-;	pla 
-	clc 
-	adc.l mario_y_pos,x
-	rtl 
-
-OAM_x_pos:
-;	pha
-;	lda !get_32
-;	and #$00FF
-;	bne .big
-;	pla
-;	clc
-;	adc.l $00DD4E|!base3,x
-;	rtl
-;.big
-;	pla 
-	clc 
-	adc.l mario_x_pos,x
-	rtl 
-
-
 Tiles:
 	lda $1497
 	beq .skip
@@ -67,21 +11,20 @@ Tiles:
 	lda.l $00E292|!base3,x
 	and $1497|!base2
 	ora $13FB|!base2
-.big	
 	ora $9D
 	bne .skip
 	plb
 	rtl
 .skip	
 	lda #$F8
-	bra +
-.continue_normal
-	lda #$C8
-+
-	tyx
-	cpx #$43
-	bne .real_continue
-	lda #$E8
+;	bra +
+;.continue_normal
+;	lda #$C8
+;+
+;	tyx
+;	cpx #$43
+;	bne .real_continue
+;	lda #$E8
 .real_continue
 	sta $04
 	cpx #$29

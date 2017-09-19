@@ -115,7 +115,7 @@ endif
 
 if !dynamic_items == 1
 	tax
-	lda.l dynamic_item_tiles-1,x
+	lda.l dynamic_item_tiles_box-1,x
 	xba
 	rep #$20
 	and #$FF00

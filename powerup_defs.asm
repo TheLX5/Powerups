@@ -56,6 +56,34 @@ endif
 !powerups_AAAAAAAAAAAAAAA = 0E
 !powerups_AAAAAAAAAAAAAAAA = 0F
 
+macro powerup_number(define_name,num)
+	!<define_name>_powerup_num = $<num>
+	!powerup_<num> = !<define_name>_powerup_num
+
+	!dynamic_powerup_<num>_tile = !<define_name>_dynamic_tile
+
+	!powerup_<num>_tile = !<define_name>_tile
+	!powerup_<num>_prop = !<define_name>_prop
+endmacro
+
+;;;;;;;;;;;;;
+; Taken from alcaro's Mario ExGFX patch
+;;;;;;;;;;;;;
+
+macro foreach_core(code1, code2, code3, code4, id)
+!Id = !{powerups_<id>}
+<code1>!{Id}<code2>!{Id}<code3>!{Id}<code4>
+if $!Id < !max_powerup : %foreach_core("<code1>", "<code2>", "<code3>", "<code4>", <id>A)
+endmacro
+macro foreach(code1, code2)
+%foreach_core("<code1>", "<code2> : if 0 : ", "x", "x", A)
+endmacro
+macro foreach2(code1, code2, code3)
+%foreach_core("<code1>", "<code2>", "<code3> : if 0 : ", "x", A)
+endmacro
+
+	%foreach("incsrc powerups_files/powerup_defs/powerup_",".asm")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SP1 & SP2 remap options
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -146,7 +174,23 @@ endif
 ;; Other defines
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-!player_num	= $0DB3|!base2
+!player_num		= $0DB3|!base2
+
+!ext_sprite_num		= $170B|!base2
+!ext_sprite_y_speed	= $173D|!base2
+!ext_sprite_x_speed	= $1747|!base2
+!ext_sprite_x_lo	= $171F|!base2
+!ext_sprite_x_hi	= $1733|!base2
+!ext_sprite_y_lo	= $1715|!base2
+!ext_sprite_y_hi	= $1729|!base2
+!ext_sprite_layer	= $1779|!base2
+!ext_sprite_x_bits	= $1751|!base2
+!ext_sprite_y_bits	= $175B|!base2
+!ext_sprite_table	= $1765|!base2
+!ext_sprite_timer	= $176F|!base2
+!ext_sprite_gfx		= !ext_sprite_ram
+!extended_gfx		= !ext_sprite_gfx
+
 
 !ItemBoxSfx = $0C       ; play the item box drop sound effect
 !PowerupSfx = $0B       ; play the powerup sound effect
@@ -266,7 +310,6 @@ if !SA1 == 0
 ;;;;;;;
 ;; !flight_timer: How many frames you will keep ascending with a Raccoon-like powerup. Not used on Cape-like powerups. Never reset.
 	!flight_timer		= $7E2106
-
 ;;;;;;;
 ;; !extra_tile_flags: Enables the usage of a 5th tile. 1 byte. Reset every frame.
 ;; format: yx-pccce
@@ -276,31 +319,25 @@ if !SA1 == 0
 ;; x = Flip the tile in the X axis.
 ;; y = Flip the tile in the Y axis.
 	!extra_tile_flag	= $7E2107
-
 ;;;;;;;
 ;; !extra_tile_offset_x: How many pixels the tile is going to be offset from Mario's X position. 2 bytes.
 ;; Reset every frame.
 	!extra_tile_offset_x	= $7E2108
-
 ;;;;;;;
 ;; !extra_tile_offset_y: How many pixels the tile is going to be offset from Mario's Y position. 2 bytes.
 ;; Reset every frame.
 	!extra_tile_offset_y	= $7E210A
-
 ;;;;;;;
 ;; !extra_tile_frame: Frame number of the 5th tile.
 ;; Reset every frame.
 	!extra_tile_frame	= $7E210C
-
 ;;;;;;;
 ;; !extra_tile_pointer: 24-bit pointer of the 5th tile GFX location. 3 bytes.
 	!extra_tile_pointer	= $7E210D
-
 ;;;;;;
 ;; !extra_gfx_bypass_num: This RAM should contain the index of the graphics of the player.
 ;; Only used if !gfx_bypass_flag is set.
 	!extra_gfx_bypass_num	= $7E2110
-
 ;;;;;;;
 ;; !item_gfx_refresh: Refreshes stuff on sprite tiles 0A,0C,0E
 ;; format: ------dr
@@ -308,27 +345,28 @@ if !SA1 == 0
 ;; d = handles item tile
 ;; 1 byte.
 	!item_gfx_refresh	= $7E2111
-
 ;;;;;;;
 ;; !item_gfx_pointer: 16-bit pointer used to locate the GFX for the extra item graphics.
 ;; 12 bytes
 	!item_gfx_pointer	= $7E2112
-
 ;;;;;;;
 ;; !item_box_disable: Disables item box and other stuff.
 ;; format ------sd
 ;; d = Disable item box dropping.
 ;; s = Disable item box from being shown on VANILLA status bar.
 	!item_box_disable	= $7E211E
-
 ;;;;;;;
 ;; !ride_yoshi_flag: Disables riding yoshi.
 ;; 1 byte
 	!ride_yoshi_flag	= $7E211F
-
 ;;;;;;;
 ;; !insta_kill_flag: Check if Mario should get insta killed when being hit from an enemy.
+;; 1 byte
 	!insta_kill_flag	= $7E2120
+;;;;;;;
+;; !ext_sprite_ram: Reserved for 4 extended sprites tables.
+;; 40 bytes.
+	!ext_sprite_ram		= $7E2121
 
 	else
 
@@ -437,7 +475,6 @@ if !SA1 == 0
 ;;;;;;;
 ;; !flight_timer: How many frames you will keep ascending with a Raccoon-like powerup. Not used on Cape-like powerups. Never reset.
 	!flight_timer		= $404206
-
 ;;;;;;;
 ;; !extra_tile_flags: Enables the usage of a 5th tile. 1 byte. Reset every frame.
 ;; format: yx-pccce
@@ -447,31 +484,25 @@ if !SA1 == 0
 ;; x = Flip the tile in the X axis.
 ;; y = Flip the tile in the Y axis.
 	!extra_tile_flag	= $404207
-
 ;;;;;;;
 ;; !extra_tile_offset_x: How many pixels the tile is going to be offset from Mario's X position. 2 bytes.
 ;; Reset every frame.
 	!extra_tile_offset_x	= $404208
-
 ;;;;;;;
 ;; !extra_tile_offset_y: How many pixels the tile is going to be offset from Mario's Y position. 2 bytes.
 ;; Reset every frame.
 	!extra_tile_offset_y	= $40420A
-
 ;;;;;;;
 ;; !extra_tile_frame: Frame number of the 5th tile.
 ;; Reset every frame.
 	!extra_tile_frame	= $40420C
-
 ;;;;;;;
 ;; !extra_tile_pointer: 24-bit pointer of the 5th tile GFX location. 3 bytes.
 	!extra_tile_pointer	= $40420D
-
 ;;;;;;
 ;; !extra_gfx_bypass_num: This RAM should contain the index of the graphics of the player.
 ;; Only used if !gfx_bypass_flag is set.
 	!extra_gfx_bypass_num	= $404210
-
 ;;;;;;;
 ;; !item_gfx_refresh: Refreshes stuff on sprite tiles 0A,0C,0E
 ;; format: ------dr
@@ -479,19 +510,16 @@ if !SA1 == 0
 ;; d = handles item tile
 ;; 1 byte.
 	!item_gfx_refresh	= $404211
-
 ;;;;;;;
 ;; !item_gfx_pointer: 16-bit pointer used to locate the GFX for the extra item graphics.
 ;; 12 bytes
 	!item_gfx_pointer	= $404212
-
 ;;;;;;;
 ;; !item_box_disable: Disables item box and other stuff.
 ;; format ------sd
 ;; d = Disable item box dropping.
 ;; s = Disable item box from being shown on VANILLA status bar.
 	!item_box_disable	= $40421E
-
 ;;;;;;;
 ;; !ride_yoshi_flag: Disables riding yoshi.
 ;; 1 byte
@@ -499,6 +527,10 @@ if !SA1 == 0
 ;;;;;;;
 ;; !insta_kill_flag: Check if Mario should get insta killed when being hit from an enemy.
 	!insta_kill_flag	= $404220
+;;;;;;;
+;; !ext_sprite_ram: Reserved for 4 extended sprites tables.
+;; 40 bytes.
+	!ext_sprite_ram		= $404221
 
 endif
 

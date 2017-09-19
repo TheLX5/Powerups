@@ -249,6 +249,21 @@ dynamic_item_tiles:
 	db !dynamic_powerup_0E_tile
 	db !dynamic_powerup_0F_tile
 
+.box
+	db $00,$02,$06,$04
+	db !dynamic_powerup_04_tile
+	db !dynamic_powerup_05_tile
+	db !dynamic_powerup_06_tile
+	db !dynamic_powerup_07_tile
+	db !dynamic_powerup_08_tile
+	db !dynamic_powerup_09_tile
+	db !dynamic_powerup_0A_tile
+	db !dynamic_powerup_0B_tile
+	db !dynamic_powerup_0C_tile
+	db !dynamic_powerup_0D_tile
+	db !dynamic_powerup_0E_tile
+	db !dynamic_powerup_0F_tile
+
 powerup_tiles:
 	lda !14C8,x
 	bne .draw

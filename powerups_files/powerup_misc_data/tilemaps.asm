@@ -7,7 +7,7 @@ TileIndexData:
 	db $46,$46,$46,$46,$46,$46,$46,$46		; powerups 8 - F
 
 TileAltTable:
-	db $01,$02,$03,$02,$00,$00,$00,$00		; powerups 0 - 7
+	db $01,$02,$03,$02,$02,$00,$00,$00		; powerups 0 - 7
 	db $00,$00,$00,$00,$00,$00,$00,$00		; powerups 8 - F
 
 TileAltIndex:

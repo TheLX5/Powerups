@@ -11,7 +11,7 @@
 ;; Starts at #$06
 ;; vvvv ---- Here goes your pointers ---- vvvv
 
-
+	dw give_hammer_suit
 
 ;; ^^^^ ---- Here goes your pointers ---- ^^^^
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -20,6 +20,7 @@
 ;; Order doesn't matter
 ;; vvvv ---- Here goes your codes/incsrc ---- vvvv
 
+	incsrc get_powerup/hammer_suit.asm
 
 
 ;; ^^^^ ---- Here goes your codes/incsrc ---- ^^^^
