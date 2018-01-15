@@ -1,0 +1,20 @@
+00 powerups/hammer_suit.cfg
+01 powerups/boomerang_suit.cfg
+02 powerups/super_leaf.cfg
+03 powerups/tanooki_suit.cfg
+04 powerups/frog_suit.cfg
+05 powerups/superball_flower.cfg
+06 powerups/rocket_boots.cfg
+07 powerups/mini_mushroom.cfg
+08 powerups/ice_flower.cfg
+09 powerups/penguin_suit.cfg
+0A powerups/propeller_suit.cfg
+0B powerups/shell_suit.cfg
+0C powerups/bubble_flower.cfg
+0D powerups/cloud_flower.cfg
+
+EXTENDED:
+00 powerup/mario_hammer.asm
+01 powerup/mario_boomerang.asm
+02 powerup/mario_superball.asm
+03 powerup/mario_iceball.asm

@@ -2,12 +2,19 @@
 ;; Unused A
 ;;;;;;;;;;;;;;;;;;;
 
-!unused_a_tile		= $0E	;Tile used by the unused powerup E item
-!unused_a_prop		= $00	;YXPPCCCT properties of unused powerup E item
-				;You may want to change the .cfg file too.
-!unused_a_dynamic_tile	= $00	;Tile used by this powerup.
+!rocket_boots_tile		= $0E	;Tile used by the Hammer Suit item
+					;Unused if the Dynamic Powerups Items are disabled.
+!rocket_boots_prop		= $02	;YXPPCCCT properties of Hammer Suit item
+					;You may want to change the .cfg file too.
 
-%powerup_number(unused_a,0A)	;Mandatory macro to get the powerup number.
+!rocket_boots_dynamic_tile	= $24	;Tile used by the Hammer Suit item.
+					;Only used if the Dynamic Powerups Items are enabled.
+
+!rocket_boots_time		= $44	;How many frames Mario will be able to fly with the boots.
+!rocket_boots_boost_sfx		= $27	;Which SFX will play when going up.
+!rocket_boots_boost_port	= $1DFC	;SFX port of above.
+
+%powerup_number(rocket_boots,0A)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

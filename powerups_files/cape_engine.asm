@@ -11,16 +11,35 @@ cape_image:
 	jml $00E401|!base3
 	
 .custom_tile
+	lda !extra_tile_flag
+	and #$01
+	eor #$01
+	sta $00
+	lda $78
+	and #$10
+	ora $00
+	bne .hide_cape
 	phy
 	lda !extra_tile_frame
 	sta $0C
 	lda !extra_tile_flag
 	bit #$10
 	beq .normal_priority
-	ldy #$08
+	ldy #$0C
 .normal_priority
+	ora $64
+	ldx $13F9|!base2
+	beq .no_behind
+	tax
+	tya
+	clc
+	adc #$D8
+	tay
+	txa
 	and.b #%11001110
-	sta $0303,y
+.no_behind
+	and.b #%11111110
+	sta $0303|!base2,y
 	lda #$04
 	sta $0302|!base2,y
 	rep #$20
@@ -34,7 +53,7 @@ cape_image:
 	pla
 	sep #$20
 	bcs .no_draw
-	sta $0301,y
+	sta $0301|!base2,y
 	rep #$20
 	lda $7E
 	clc
@@ -46,7 +65,7 @@ cape_image:
 	pla
 	sep #$20
 	bcs .no_draw
-	sta $0300,y
+	sta $0300|!base2,y
 	xba
 	lsr
 .no_draw
@@ -58,8 +77,9 @@ cape_image:
 	plp
 	and #$03
 	ora #$02
-	sta $0460,x
+	sta $0460|!base2,x
 	ply
+.end
 	iny #4
 	inc $05
 	inc $05 
@@ -108,3 +128,18 @@ custom_flight_time:
 .Store	sty $149F|!base2
 	ply 
 	rtl 
+
+cape_tap:
+	lda !cape_settings
+	and #$20
+	bne .tap
+	lda $15,x
+	bpl .code_00D924
+.continue
+	jml $00D908
+.code_00D924
+	jml $00D924
+.tap	
+	lda $16,x
+	bpl .code_00D924
+	bra .continue

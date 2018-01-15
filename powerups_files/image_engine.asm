@@ -118,3 +118,6 @@ PowerupImages:
 	dw powerup_0D_img
 	dw powerup_0E_img
 	dw powerup_0F_img
+	dw powerup_10_img
+	dw powerup_11_img
+	dw powerup_12_img

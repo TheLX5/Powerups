@@ -1,14 +1,25 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Unused 6
+;; Super Leaf (Super Mario Bros. 3)
+;; 
+;; Gives Mario a pair of ears and a raccoon tail
+;; You can fly for a short period of time.
 ;;;;;;;;;;;;;;;;;;;
 
-!unused_6_tile		= $0E	;Tile used by the unused powerup E item
-!unused_6_prop		= $00	;YXPPCCCT properties of unused powerup E item
-				;You may want to change the .cfg file too.
+!super_leaf_dynamic_tile	= $0C	;Tile used by this powerup.
+!super_leaf_tile		= $0E	;Tile used by the unused powerup E item
+!super_leaf_prop		= $04	;YXPPCCCT properties of unused powerup E item
+					;You may want to change the .cfg file too.
 
-!unused_6_dynamic_tile	= $00	;Tile used by this powerup.
+!super_leaf_spin_sfx		= $04	;SFX that plays when Mario does a spin
+!super_leaf_spin_port		= $1DFC	;SFX port of the above define.
+!super_leaf_spin_timer		= $14	;How many frames Mario will be spinning
+					;$14 = max value
 
-%powerup_number(unused_6,06)	;Mandatory macro to get the powerup number.
+!super_leaf_settings		= $2A	;Settings for !cape_settings
+
+!super_leaf_flight_timer	= $78	;How many frames Mario will be able to ascend.
+
+%powerup_number(super_leaf,06)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

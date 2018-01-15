@@ -1,14 +1,14 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Unused 8
+;; Frog Suit (SMB3)
 ;;;;;;;;;;;;;;;;;;;
 
-!unused_8_tile		= $0E	;Tile used by the unused powerup E item
-!unused_8_prop		= $00	;YXPPCCCT properties of unused powerup E item
+!frog_suit_tile		= $0E	;Tile used by the unused powerup E item
+!frog_suit_prop		= $0A	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
 
-!unused_8_dynamic_tile	= $00	;Tile used by this powerup.
+!frog_suit_dynamic_tile	= $20	;Tile used by this powerup.
 
-%powerup_number(unused_8,08)	;Mandatory macro to get the powerup number.
+%powerup_number(frog_suit,08)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

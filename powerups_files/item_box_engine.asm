@@ -1,6 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; Item Box Special - Version 1.1, by imamelia
+;; Item Box Special - Version 1.2, by imamelia
 ;;
 ;; This patch allows you to do several things with the
 ;; item box.  See the readme for details.
@@ -108,11 +108,13 @@ endif
 	cmp #$02
 	bcs .noitem
 .store		
+	lda #$00
+	xba
 	lda #$0B
 	sta $1DFC|!base2
 	lda $00
 	sta $0DC2|!base2
-
+	
 if !dynamic_items == 1
 	tax
 	lda.l dynamic_item_tiles_box-1,x
@@ -120,13 +122,13 @@ if !dynamic_items == 1
 	rep #$20
 	and #$FF00
 	lsr #3
-	adc #powerup_items
+	adc.w #powerup_items
 	sta !item_gfx_pointer+4
 	clc 
 	adc #$0200
 	sta !item_gfx_pointer+10
 	sep #$20
-	ldx $15E9
+	ldx $15E9|!base2
 	lda !item_gfx_refresh
 	ora #$01
 	sta !item_gfx_refresh
@@ -177,6 +179,14 @@ clean_ram:
 	sta !misc
 	sta !shell_immunity
 	sta !cape_settings
+	sta !extra_tile_flag
+	sta !extra_tile_offset_x
+	sta !extra_tile_offset_x+1
+	sta !extra_tile_offset_y
+	sta !extra_tile_offset_y+1
+	sta !extra_tile_frame
+	sta !ride_yoshi_flag
+	sta !insta_kill_flag
 	jml $01C560|!base3
 
 ItemBoxFix:
@@ -318,17 +328,16 @@ EndItemDrop:			;
 	lda.w Settings,y
 	and #$40
 	beq .no_init_powerups
-
 	stx $15E9|!base2
 	lda #$01
 	sta $02
-	;jsl update_tilemap
 	jsl init_item
 
 .no_init_powerups
-
+End:
 	stz $0DC2|!base2
 	plb : ply : plx
+	stx $15E9|!base2
 	rtl
 
 FindFreeSlot:		;

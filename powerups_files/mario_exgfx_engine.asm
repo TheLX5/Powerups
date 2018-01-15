@@ -7,7 +7,7 @@ if !SA1 == 1
 	lda !player_num
 	sta $2251
 	stz $2252
-	lda.b #!max_powerup+$01
+	lda.b #!max_powerup+1
 	sta $2253			;get the correct index based on powerup status*player num
 	stz $2254
 	stz $2250

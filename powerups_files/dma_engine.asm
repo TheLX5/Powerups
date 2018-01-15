@@ -116,12 +116,17 @@ PlrDMA:
 	bpl -
 	pla : sta $0D86|!base2
 
+	ldx $0100
+	cpx #$13
+	beq .force_refresh
+
 	lda !item_gfx_refresh
 	lsr
 	bcc .skip_item_refresh
 	asl
 	sta !item_gfx_refresh
 
+.force_refresh
 ;top_tiles
 	lda #$60A0
 	sta $2116

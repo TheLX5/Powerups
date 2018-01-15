@@ -14,3 +14,6 @@ org $00E3FB|!base3
 
 org $00CF3F|!base3
 !a	jml cape_spin
+
+org $00D904|!base3
+!a	jml cape_tap

@@ -1,0 +1,1 @@
+%insert_addon_hack(SpinOnSpikySpriteHack)

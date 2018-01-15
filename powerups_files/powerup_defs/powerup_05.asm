@@ -1,14 +1,44 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Unused 5
+;; Boomerang Suit
 ;;;;;;;;;;;;;;;;;;;
 
-!unused_5_tile		= $0E	;Tile used by the unused powerup E item
-!unused_5_prop		= $00	;YXPPCCCT properties of unused powerup E item
-				;You may want to change the .cfg file too.
+!boomerang_suit_tile		= $0E	;Tile used by the Boomerang Suit item
+					;Unused if the Dynamic Powerups Items are disabled.
+!boomerang_suit_dynamic_tile	= $0A	;Tile used by the Boomerang Suit item.
+					;Only used if the Dynamic Powerups Items are enabled.
+!boomerang_suit_prop		= $0A	;YXPPCCCT properties of Boomerang suit item
+					;You may want to change the .cfg file too.
 
-!unused_5_dynamic_tile	= $00	;Tile used by this powerup.
+!boomerang_shoot_sfx		= $06	;SFX for throwing the boomerang.
+!boomerang_shoot_port		= $1DFC	;SFX port for the SFX above.
 
-%powerup_number(unused_5,05)	;Mandatory macro to get the powerup number.
+!boomerang_pose_timer		= $0A	;How many frames Mario will show the "Throw projectile" pose.
+
+!boomerang_catch_cooldown	= $10	;How many frames the boomerang will be "uncatchable"
+					;Don't set it too low, otherwise Mario will catch these in an instant.
+
+!boomerang_y_speed		= $EC	;Base Y speed, it's used to calculate every Y speed.
+					;It's based on Mario's X speed.
+
+!boomerang_pro_tile_1		= $80	;Boomerang tile #1
+!boomerang_pro_tile_2		= $80	;Boomerang tile #2
+					;Those aren't used if you are using the projectile DMA feature!
+!boomerang_ext_prop		= $0A	;YXPPCCCT properties of the boomerang projectile.
+
+!boomerang_ext_num		= $14	;Extended sprite number for Boomerangs.
+
+!boomerang_shell_immunity	= 1	;If this is set to 1, SMW's enemy fireballs won hurt mario.
+
+!boomerang_run_sprites		= 1	;If this is set to 0, the sprite will check contact with sprites every frame.
+					;Otherwise, it will only check every other frame.
+					;Set it to zero if you are using SA-1.
+					
+!boomerang_run_blocks		= 0	;If this is set to 0, the boomerang will check contact with blocks every frame.
+					;Otherwise, it will only check every other frame.
+					;Set it to zero if you are using SA-1.
+
+
+%powerup_number(boomerang_suit,05)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

@@ -7,6 +7,16 @@ Main:
 	sta !extra_tile_offset_y
 	sta !extra_tile_offset_y+1
 	sta !extra_tile_frame
+	sta !ride_yoshi_flag
+	sta !clipping_flag
+	sta !collision_flag
+	sta !insta_kill_flag
+
+	lda !timer
+	beq +
+	dec
+	sta !timer
++	
 
 	lda $19
 	cmp #!max_powerup	;return if mario is exceding the max number of powerups
@@ -46,3 +56,6 @@ PowerupCode:
 	dw powerup_0D
 	dw powerup_0E
 	dw powerup_0F
+	dw powerup_10
+	dw powerup_11
+	dw powerup_12

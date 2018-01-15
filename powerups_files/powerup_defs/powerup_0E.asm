@@ -1,13 +1,57 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Unused E
+;; Propeller
 ;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  ____________________________  ;
+; /			       \ ;
+;|  PROPELLER MUSHROOM DEFINES  |;
+; \____________________________/ ;
+;				 ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-!unused_e_tile		= $0E	;Tile used by the unused powerup E item
-!unused_e_prop		= $00	;YXPPCCCT properties of unused powerup E item
-				;You may want to change the .cfg file too.
-!unused_e_dynamic_tile	= $00	;Tile used by this powerup.
+; /	    \ ;
+;|  Defines  |;
+; \	    / ;
 
-%powerup_number(unused_e,0E)	;Mandatory macro to get the powerup number.
+;<  Numerical adresses  >;
+
+!PropSuit_tile	       = $0E
+!PropSuit_prop	       = $04
+!PropSuit_dynamic_tile = $42
+
+!FlightTime  = #$48		;>  How much frames the player should be flying before
+				;   starting to descend.
+!FlightSpeed = #$CF 		;>  Y speed the player will have when flying.
+!FlightSFX   = #$36		;>  Sound effect number used for the flying sound effect.
+!FrndSpinSFX = #$04		;>  Sound effect number used for the spinning sound effect.
+!SpinAtkSFX  = #$37		;>  Sound effect number used for the spinning sound effect.
+
+;<  RAM adresses  >;
+
+!PropStatus        = !flags		  ;>  RAM adress used to index the powerup status.
+!PropStatusTimer   = !timer		  ;>  Timer used to indicate how much frames the
+					  ;   player flies.
+!PropPlayerFrame   = !misc		  ;>  RAM adress used to indicate the player frame
+					  ;   when flying and descending.
+!PropTileFlags	   = !extra_tile_flag	  ;>  RAM adress containing the propeller tile
+					  ;   flags. Check !extra_tile_flags in
+					  ;   powerup_defs.asm.
+!PropTileAngle	   = !collision_loc_x	  ;>  RAM adress used to create the real propeller
+					  ;   tile's frame.
+!PropTileFrame	   = !extra_tile_frame	  ;>  RAM adress used as the propeller tile's frame.
+!PropTileYOffset   = !extra_tile_offset_y ;>  RAM adress used to set how many pixels the
+					  ;   propeller tile is goin to be from the
+					  ;   player vertically.
+!PropTileXOffset   = !extra_tile_offset_x ;>  RAM adress used to set how many pixels the
+					  ;   propeller tile is goin to be from the
+					  ;   player horizontally.
+!PropFlipFrequency = !collision_loc_x+1	  ;>  RAM adress used to indicate the frequency
+					  ;   where the propeller tile's frame changes.
+!FlightSFXPort	   = $1DFC|!base2	  ;>  Port used by the flying sound effect.
+!FrndSpinSFXPort   = $1DFC|!base2	  ;>  Port used by the spinning sound effect.
+!SpinAtkSFXPort    = $1DFC|!base2	  ;>  Port used by the spin attack sound effect.
+
+%powerup_number(PropSuit,0E)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

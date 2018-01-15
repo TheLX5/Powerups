@@ -16,28 +16,34 @@
 	;autoclean
 
 macro insert_gfx(filename,add)
+pushpc
 	org ($00A304|!base3+($<add>*3))
 		autoclean dl <filename>_gfx
 	warnpc $00A38B|!base3
 freedata
 	<filename>_gfx:
 		incbin powerups_files/graphics/<filename>.bin
+pullpc
 endmacro
 
 macro insert_extra_gfx(filename,add)
+pushpc
 	org ($00F63A|!base3+($<add>*3))
 		autoclean dl <filename>_gfx
 	warnpc $00F69F|!base3
 freedata
 	<filename>_gfx:
 		incbin powerups_files/graphics/<filename>.bin
+pullpc
 endmacro
 
 macro insert_big_gfx(filename,add)
+pushpc
     org ($00A304|!base3+($<add>*3))
         autoclean dl <filename>_gfx
     warnpc $00A38B|!base3
         incbin powerups_files/graphics/<filename>.bin -> <filename>_gfx
+pullpc
 endmacro
 
 macro protect_data(filename)
@@ -85,9 +91,8 @@ endif
 	incsrc powerups_files/hijacks/cape_engine.asm
 	incsrc powerups_files/hijacks/item_box_engine.asm
 	incsrc powerups_files/hijacks/custom_interaction_engine.asm
-	if !better_powerdown == 0
-		incsrc powerups_files/hijacks/clean_ram.asm
-	endif
+	incsrc powerups_files/hijacks/ride_yoshi.asm
+	incsrc powerups_files/hijacks/instant_kill_flag.asm
 	incsrc powerups_files/hex_edits.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -115,7 +120,17 @@ freecode
 	%protect_data(small_mario)
 	%protect_data(big_mario)
 	%protect_data(hammer_mario)
+	%protect_data(boomerang_mario)
+	%protect_data(raccoon_mario)
+	%protect_data(tanooki_mario)
+	%protect_data(frog_mario)
+	%protect_data(mini_mario)
+	%protect_data(penguin_mario)
+	%protect_data(propeller_mario)
+	%protect_data(shell_mario)
 	%protect_data(cape_tiles)
+	%protect_data(tail_tiles)
+	%protect_data(propeller_tiles)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Powerup code
@@ -215,9 +230,7 @@ freecode
 ; Clear some RAM when Mario's hurt.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-	if !better_powerdown = 0
-		incsrc powerups_files/clean_ram.asm
-	endif
+	incsrc powerups_files/instant_kill_flag.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Handle Mario's riding yoshi status
@@ -270,6 +283,6 @@ powerup_items:
 	incsrc powerups_files/addon_code_installer.asm
 
 print "Custom powerups patch."
-print "Version 3.0.0"
+print "Version 3.0.0 (C3 Beta)"
 print ""
 print "Inserted ", freespaceuse, " bytes"

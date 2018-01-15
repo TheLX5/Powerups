@@ -36,7 +36,7 @@ endif
 ;; Pattern should be obvious.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-!max_powerup		= $0F	;How many powerups do you have.
+!max_powerup		= $12	;How many powerups do you have.
 				;Increasing this value means that you will need to increase some other pointers and tables.
 
 !powerups_A = 00
@@ -55,6 +55,9 @@ endif
 !powerups_AAAAAAAAAAAAAA = 0D
 !powerups_AAAAAAAAAAAAAAA = 0E
 !powerups_AAAAAAAAAAAAAAAA = 0F
+!powerups_AAAAAAAAAAAAAAAAA = 10
+!powerups_AAAAAAAAAAAAAAAAAA = 11
+!powerups_AAAAAAAAAAAAAAAAAAA = 12
 
 macro powerup_number(define_name,num)
 	!<define_name>_powerup_num = $<num>
@@ -92,7 +95,7 @@ endmacro
 ;; Shell-less koopa (green, red & yellow)
 ;;;;;;;;;;;;;;;;;;;
 
-!remap_shell_less_koopa = 1	;This remap will make all of the shell-less koopas
+!remap_shell_less_koopa = 0	;This remap will make all of the shell-less koopas
 				;use the tiles used by the blue shell-less koopas.
 				;0 = don't do this & recover the old data
 				;1 = do this
@@ -144,7 +147,7 @@ endmacro
 ;; Coin sparkles
 ;;;;;;;;;;;;;;;;;;;
 
-!remap_sparkles		= 1	;Enable little sparkles remapping.
+!remap_sparkles		= 0	;Enable little sparkles remapping.
 !large_star_tile	= $5C	;Large star tile.
 !medium_star_tile	= $6C	;Medium star tile.
 !small_star_tile	= $6D	;Small star tile.
@@ -161,14 +164,6 @@ endmacro
 ;;;;;;;;;;;;;;;;;;;
 
 !remap_smoke_particles	= 0	;Leaves free a 16x16 tile in SP1 (tile x66)
-
-;;;;;;;;;;;;;;;;;;;
-;; Blank
-;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;
-;; Blank
-;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Other defines
@@ -189,8 +184,11 @@ endmacro
 !ext_sprite_table	= $1765|!base2
 !ext_sprite_timer	= $176F|!base2
 !ext_sprite_gfx		= !ext_sprite_ram
-!extended_gfx		= !ext_sprite_gfx
-
+!ext_sprite_flags	= !ext_sprite_ram+10
+!ext_sprite_dir		= !ext_sprite_ram+20
+!extended_gfx		= !ext_sprite_ram
+!extended_flags		= !ext_sprite_ram+10
+!extended_dir		= !ext_sprite_ram+20
 
 !ItemBoxSfx = $0C       ; play the item box drop sound effect
 !PowerupSfx = $0B       ; play the powerup sound effect
@@ -241,9 +239,6 @@ if !SA1 == 0
 ;;;;;;;
 ;; !misc: Misc RAM, uses may vary per powerup
 	!misc			= $7E200B
-;;;;;;;
-;; !projectile_gfx_bank: RAM that should contain the projectile GFX bank byte.
-	!projectile_gfx_bank	= $7E200C
 ;;;;;;;
 ;; !pal_bypass: RAM that bypasses the palette upload code to upload your own palette.
 	!pal_bypass		= $7E200D
@@ -306,6 +301,7 @@ if !SA1 == 0
 ;; 2 - Disable infinite fly flag (cape).
 ;; 3 - Use !flight_timer instead of a set timer.
 ;; 4 - Show cape.
+;; 5 - Enable tap to fly.
 	!cape_settings		= $7E2105
 ;;;;;;;
 ;; !flight_timer: How many frames you will keep ascending with a Raccoon-like powerup. Not used on Cape-like powerups. Never reset.
@@ -367,6 +363,21 @@ if !SA1 == 0
 ;; !ext_sprite_ram: Reserved for 4 extended sprites tables.
 ;; 40 bytes.
 	!ext_sprite_ram		= $7E2121
+;;;;;;;
+;; !power_ram: Reserved for powerups.
+;; 16 bytes.
+	!power_ram		= $7E2149
+;;;;;;;
+;; !projectile_gfx_bank: RAM that should contain the projectile GFX bank byte.
+;; 2 bytes.
+	!projectile_gfx_bank	= $7E2159
+;;;;;;:
+;; !init_item_pos: Cover-up tile for items position (unused)
+	!cover_up_flag		= $7E2159+$B*0
+	!init_item_x_lo		= $7E2159+$B*1
+	!init_item_x_hi		= $7E2159+$B*2
+	!init_item_y_lo		= $7E2159+$B*3
+	!init_item_y_hi		= $7E2159+$B*4
 
 	else
 

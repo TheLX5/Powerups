@@ -31,8 +31,18 @@
 	PHK
 	PEA.w ..return-1
 	PEA $84CE
-	JML $00FEA8
+	JML $00FEA8|!base3
 ..return
+if !fireball_shoot_up == 1
+	lda $15
+	and #$08
+	beq +
+	lda !ext_sprite_y_speed,x
+	eor #$FF
+	inc 
+	sta !ext_sprite_y_speed,x
++	
+endif
 	PLB
 	
 .Return

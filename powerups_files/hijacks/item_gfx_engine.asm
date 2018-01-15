@@ -26,5 +26,8 @@ init_1up:
 org $02894F|!base3
 !a	jsl question_block_fix
 
+org $03C31C
+!a	jsl invisible_mushroom_fix
+
 endif
 

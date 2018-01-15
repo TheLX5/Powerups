@@ -1,1 +1,3 @@
-		RTS
+
+.image
+	rts

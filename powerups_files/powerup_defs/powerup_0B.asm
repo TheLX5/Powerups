@@ -2,13 +2,13 @@
 ;; Unused B
 ;;;;;;;;;;;;;;;;;;;
 
-!unused_b_tile		= $0E	;Tile used by the unused powerup E item
-!unused_b_prop		= $00	;YXPPCCCT properties of unused powerup E item
-				;You may want to change the .cfg file too.
+!mini_mushroom_tile		= $0E	;Tile used by the unused powerup E item
+!mini_mushroom_prop		= $06	;YXPPCCCT properties of unused powerup E item
+					;You may want to change the .cfg file too.
 
-!unused_b_dynamic_tile	= $00	;Tile used by this powerup.
+!mini_mushroom_dynamic_tile	= $26	;Tile used by this powerup.
 
-%powerup_number(unused_b,0B)	;Mandatory macro to get the powerup number.
+%powerup_number(mini_mushroom,0B)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

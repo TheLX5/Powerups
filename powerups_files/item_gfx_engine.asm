@@ -38,14 +38,27 @@ powerup_tiles:
 	db !powerup_0D_tile
 	db !powerup_0E_tile
 	db !powerup_0F_tile
+	db !powerup_10_tile
+	db !powerup_11_tile
+	db !powerup_12_tile
 else
 
 ;; init_powerup was relocated to be able to initialize the powerups
 
 init_powerup:
+;	lda #$00
+;	sta !cover_up_flag,x
 	inc !C2,x		;original code, dunno what it does.
 	stz $02
 init_item:
+;	lda !E4,x
+;	sta !init_item_x_lo,x
+;	lda !14E0,x
+;	sta !init_item_x_hi,x
+;	lda !D8,x
+;	sta !init_item_y_lo,x
+;	lda !14D4,x
+;	sta !init_item_y_hi,x
 	lda #$FF
 	sta $00			;$00 is used to know the powerup that is going to be in the second item slot
 	sta $03
@@ -70,7 +83,7 @@ init_item:
 	lda !7FAB9E,x
 	cmp #!starting_slot
 	bcc .clear
-	cmp #!max_powerup-4
+	cmp.b #!starting_slot+!max_powerup-4
 	bcs .clear
 +++	
 	lda !1602,x
@@ -117,7 +130,7 @@ init_item:
 	lda !7FAB9E,x
 	cmp #!starting_slot
 	bcc +
-	cmp #!max_powerup-4
+	cmp.b #!starting_slot+!max_powerup-4
 	bcs +
 +++	
 	lda !1602,x
@@ -248,6 +261,9 @@ dynamic_item_tiles:
 	db !dynamic_powerup_0D_tile
 	db !dynamic_powerup_0E_tile
 	db !dynamic_powerup_0F_tile
+	db !dynamic_powerup_10_tile
+	db !dynamic_powerup_11_tile
+	db !dynamic_powerup_12_tile
 
 .box
 	db $00,$02,$06,$04
@@ -263,6 +279,9 @@ dynamic_item_tiles:
 	db !dynamic_powerup_0D_tile
 	db !dynamic_powerup_0E_tile
 	db !dynamic_powerup_0F_tile
+	db !dynamic_powerup_10_tile
+	db !dynamic_powerup_11_tile
+	db !dynamic_powerup_12_tile
 
 powerup_tiles:
 	lda !14C8,x
@@ -279,41 +298,61 @@ powerup_tiles:
 	lda !15F6,x
 	ora $64
 	sta $0303|!base2,y
-.no_stop_flip	
+.no_stop_flip
+
 	lda !1602,x		;check which dynamic tile will the powerup use
 	tax
 	lda.l .dynamic_tiles,x
 	sta $0302|!base2,y
 
 	ldx $15E9|!base2
-	stz $00
-	lda !154C,x
-	beq .no_cover		;not coming out of the block, no cover up tile
-	lda !9E,x
-	cmp #$77		;no cape, no tile
-	beq .no_cover
-	lda $0300|!base2,y
-	sta $0304|!base2,y
-	lda $0301|!base2,y	;literally copy everything
-	sta $0305|!base2,y
-	and #$F0
-	clc
-	adc #$0F
-	sta $0301|!base2,y
-	lda $0302|!base2,y
-	sta $0306|!base2,y
-	lda #$2E
-	sta $0302|!base2,y
-	lda $0303|!base2,y
-	sta $0307|!base2,y
-	lda #$00
-	sta $0303|!base2,y
-	inc $00
+;	stz $0F
+;	lda !9E,x
+;	cmp #$77		;cape, no tile
+;	beq .no_cover
+;	lda !cover_up_flag,x
+;	bne .no_cover		;not coming out of the block, no cover up tile
+
+;	inc $0F
+;	lda $0300|!base2,y
+;	sta $0304|!base2,y
+;	lda $0301|!base2,y	;literally copy everything
+;	sta $0305|!base2,y
+;	lda $0302|!base2,y
+;	sta $0306|!base2,y
+;	lda $0303|!base2,y
+;	sta $0307|!base2,y
+
+;	lda !init_item_x_lo,x
+;	sec
+;	sbc $1A
+;	sta $0300|!base2,y
+;	lda !init_item_x_hi,x
+;	sbc $1B
+;	bne .delete_cover
+
+;	lda !init_item_y_lo,x
+;	sec
+;	sbc $1C
+;	sta $0301|!base2,y
+;	lda !init_item_y_hi,x
+;	sbc $1D
+;	bne .delete_cover
+
+;	lda #$2E
+;	sta $0302|!base2,y
+;	lda #$00
+;	sta $0303|!base2,y			;finish gfx routine
 .no_cover
-	lda $00			;finish gfx routine
+;	lda $0F
+	lda #$00
 	ldy #$02
 	jml $01C6E2|!base3
-	
+.delete_cover
+;	lda #$F0
+;	;sta $0301|!base2,y
+;	bra .no_cover
+
 .dynamic_tiles
 	db $0A,$0C,$0E
 
@@ -331,6 +370,8 @@ question_block_fix:
 	sta $02
 	stz !1602,x
 	stz !1510,x
+;	lda #$18
+;	sta !cover_up_flag,x
 	jsl init_item
 	rep #$20
 	pla
@@ -340,4 +381,9 @@ question_block_fix:
 	sep #$20
 +	
 	rtl
+
+invisible_mushroom_fix:
+	jsl $07F7D2|!base3
+	jsl init_item	
+	rtl 
 endif

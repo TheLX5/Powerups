@@ -14,3 +14,6 @@ incsrc powerup_defs/powerup_C.asm
 incsrc powerup_defs/powerup_D.asm
 incsrc powerup_defs/powerup_E.asm
 incsrc powerup_defs/powerup_F.asm
+incsrc powerup_defs/powerup_10.asm
+incsrc powerup_defs/powerup_11.asm
+incsrc powerup_defs/powerup_12.asm

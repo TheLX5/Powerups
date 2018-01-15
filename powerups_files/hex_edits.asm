@@ -1,7 +1,7 @@
 ; Remap sprite stuff.
 
 org $019B8C|!base3
-if !remap_shell_less_koopa = 1
+if !remap_shell_less_koopa == 1
 			db $E0,$E2,$E2,$E6,$CC,$86,$4E
 else
 			db $E0,$E2,$E2,$CE,$E4,$86,$4E
