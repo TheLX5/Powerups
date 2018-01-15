@@ -16,34 +16,40 @@
 	;autoclean
 
 macro insert_gfx(filename,add)
-pushpc
 	org ($00A304|!base3+($<add>*3))
-		autoclean dl <filename>_gfx
+		if read1($00D067) == $FF
+			autoclean dl <filename>_gfx
+		else
+			dl <filename>_gfx
+		endif
 	warnpc $00A38B|!base3
 freedata
 	<filename>_gfx:
 		incbin powerups_files/graphics/<filename>.bin
-pullpc
 endmacro
 
 macro insert_extra_gfx(filename,add)
-pushpc
 	org ($00F63A|!base3+($<add>*3))
-		autoclean dl <filename>_gfx
+		if read1($00D067) == $FF
+			autoclean dl <filename>_gfx
+		else
+			dl <filename>_gfx
+		endif
 	warnpc $00F69F|!base3
 freedata
 	<filename>_gfx:
 		incbin powerups_files/graphics/<filename>.bin
-pullpc
 endmacro
 
 macro insert_big_gfx(filename,add)
-pushpc
     org ($00A304|!base3+($<add>*3))
-        autoclean dl <filename>_gfx
+		if read1($00D067) == $FF
+			autoclean dl <filename>_gfx
+		else
+			dl <filename>_gfx
+		endif
     warnpc $00A38B|!base3
         incbin powerups_files/graphics/<filename>.bin -> <filename>_gfx
-pullpc
 endmacro
 
 macro protect_data(filename)
@@ -104,7 +110,12 @@ endif
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 org $00A38B|!base3
-	autoclean dl powerup_items
+	if read1($00D067) == $FF
+		autoclean dl powerup_items
+	else
+		dl powerup_items
+	endif
+
 org $00A304|!base3
 	PowerupGFX:
 org $00F63A|!base3
@@ -265,6 +276,12 @@ PowerupData:
 	incsrc powerups_files/powerup_misc_data/goal_sprites.asm
 	incsrc powerups_files/powerup_misc_data/spin_jump.asm
 	incsrc powerups_files/powerup_misc_data/walk_frames.asm
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Add-ons incsrc area
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	
+	incsrc powerups_files/addon_code_installer.asm
 	
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Graphics files
@@ -276,11 +293,11 @@ powerup_items:
 
 	incsrc powerups_files/powerup_gfx.asm
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Add-ons incsrc area
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	
-	incsrc powerups_files/addon_code_installer.asm
+org $00D067
+install_byte:
+	db $FF
+		
+
 
 print "Custom powerups patch."
 print "Version 3.0.0 (C3 Beta)"
