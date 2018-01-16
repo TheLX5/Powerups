@@ -22,6 +22,13 @@ cape_image:
 	phy
 	lda !extra_tile_frame
 	sta $0C
+	lda $0100|!base2
+	cmp #$0E
+	bne .not_overworld
+	ldy #$F8
+	lda $64
+	bra .no_behind
+.not_overworld
 	lda !extra_tile_flag
 	bit #$10
 	beq .normal_priority

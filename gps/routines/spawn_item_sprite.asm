@@ -1,0 +1,11 @@
+	STA $05
+	LDA #$0F
+	TRB $98
+	TRB $9A
+	PHB
+	LDA #$82
+	PHA
+	PLB
+	JSL $82887D
+	PLB
+	RTL

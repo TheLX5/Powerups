@@ -3,6 +3,9 @@
 ;;;;;;;;;;;;;;;;;;;
 
 .image
+	lda $71
+	ora $13ED|!base2
+	bne .no
 	lda $75
 	bne .override
 	lda $77
@@ -23,6 +26,6 @@
 .override
 	lda !power_ram
 .end
-	sta $13E0
+	sta $13E0|!base2
 .no
 	rts

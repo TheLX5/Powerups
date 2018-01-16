@@ -6,17 +6,13 @@
 	lda $187A|!base2
 	beq +
 	ldx $18DF|!base2
-	stz $C1,x
+	stz !C2-1,x
 	stz $0DC1|!base2
 	stz $187A|!base2
 +	
 	lda #$01
 	sta !ride_yoshi_flag
-	lda $75
-	beq .out_of_water
-	jmp .underwater
-
-.out_of_water
+	sta !ducking_flag
 	lda #$00
 	ldy $148F|!base2
 	beq .next
@@ -24,6 +20,15 @@
 .next	
 	sta !mask_15
 	sta !mask_17
+	lda $75
+	beq .out_of_water
+	jmp .underwater
+
+.out_of_water
+	lda $13ED|!base2
+	beq .process
+	rts
+.process
 	ldx #$00
 	ldy #$00
 	
@@ -34,6 +39,22 @@
 	beq .walking
 	iny
 .walking
+	lda $13E1|!base2
+	beq .no_slope
+	lsr #3
+	tax
+	tya
+	adc .slope_add,x
+	tay
+	cpy #$02
+	lda $15
+	and #$03
+	bne .force_slide
+	lda #$1C
+	sta $13ED|!base2
+.force_slide
+.no_slope
+	ldx #$00
 	lda $7B
 	bpl .no_fix_sign
 	eor #$FF
@@ -64,14 +85,51 @@
 .air
 	rts
 
+.slope_add
+	db $00		;no slope
+	db $02,$02	;gradual
+	db $04,$04	;normal
+	db $06,$06	;steep
+	db $06,$06	;conveyor
+	db $06,$06	;conveyor
+	db $08,$08	;very steep
+	db $00,$00	;flying
 .threesold1
-	db $07,$15
+	db $07,$15	;no slope
+	db $07,$09	;gradual
+	db $08,$09	;normal
+	db $08,$09	;steep
+	db $08,$09	;conveyor
+	db $08,$09	;conveyor
+	db $08,$09	;very steep
+	db $00,$00	;flying
 .threesold2
-	db $0D,$1E
+	db $0E,$1E	;no slope
+	db $10,$11	;gradual
+	db $0E,$11	;normal
+	db $10,$11	;steep
+	db $10,$11	;conveyor
+	db $10,$11	;conveyor
+	db $10,$11	;very steep
+	db $00,$00	;flying
 .threesold3
-	db $15,$25
+	db $15,$25	;no slope
+	db $11,$18	;gradual
+	db $13,$18	;normal
+	db $17,$18	;steep
+	db $17,$18	;conveyor
+	db $17,$18	;conveyor
+	db $17,$18	;very steep
+	db $00,$00	;flying
 .reset_speed
-	db $00,$04
+	db $00,$04	;no slope
+	db $00,$02	;gradual
+	db $00,$02	;normal
+	db $00,$02	;steep
+	db $00,$02	;conveyor
+	db $00,$02	;conveyor
+	db $00,$02	;very steep
+	db $00,$00	;flying
 
 .underwater
 	stz $7B

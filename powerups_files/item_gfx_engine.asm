@@ -384,6 +384,12 @@ question_block_fix:
 
 invisible_mushroom_fix:
 	jsl $07F7D2|!base3
-	jsl init_item	
-	rtl 
+	jml init_item
+
+
+green_mushroom_checkpoint_fix:
+	jsl $07F7D2|!base3
+	stx $15E9|!base2
+	jml init_item
+
 endif

@@ -187,6 +187,22 @@ clean_ram:
 	sta !extra_tile_frame
 	sta !ride_yoshi_flag
 	sta !insta_kill_flag
+	sta !power_ram+0
+	sta !power_ram+1
+	sta !power_ram+2
+	sta !power_ram+3
+	sta !power_ram+4
+	sta !power_ram+5
+	sta !power_ram+6
+	sta !power_ram+7
+	sta !power_ram+8
+	sta !power_ram+9
+	sta !power_ram+$A
+	sta !power_ram+$B
+	sta !power_ram+$C
+	sta !power_ram+$D
+	sta !power_ram+$E
+	sta !power_ram+$F
 	jml $01C560|!base3
 
 ItemBoxFix:

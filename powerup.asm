@@ -99,6 +99,8 @@ endif
 	incsrc powerups_files/hijacks/custom_interaction_engine.asm
 	incsrc powerups_files/hijacks/ride_yoshi.asm
 	incsrc powerups_files/hijacks/instant_kill_flag.asm
+	incsrc powerups_files/hijacks/ducking_flag.asm
+	incsrc powerups_files/hijacks/slide_flag.asm
 	incsrc powerups_files/hex_edits.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -250,6 +252,18 @@ freecode
 	incsrc powerups_files/ride_yoshi.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Handle Mario's ducking status
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	incsrc powerups_files/ducking_flag.asm
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Handle Mario's sliding status
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	incsrc powerups_files/slide_flag.asm
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Handle item box stuff.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -296,10 +310,8 @@ powerup_items:
 org $00D067
 install_byte:
 	db $FF
-		
-
 
 print "Custom powerups patch."
-print "Version 3.0.0 (C3 Beta)"
+print "Version 3.0.3"
 print ""
 print "Inserted ", freespaceuse, " bytes"

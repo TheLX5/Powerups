@@ -11,6 +11,8 @@ Main:
 	sta !clipping_flag
 	sta !collision_flag
 	sta !insta_kill_flag
+	sta !ducking_flag
+	sta !slide_flag
 
 	lda !timer
 	beq +

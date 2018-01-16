@@ -29,5 +29,7 @@ org $02894F|!base3
 org $03C31C
 !a	jsl invisible_mushroom_fix
 
-endif
+org $03C301|!base3
+!a	jsl green_mushroom_checkpoint_fix
 
+endif

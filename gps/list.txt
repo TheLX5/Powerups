@@ -1,0 +1,16 @@
+; GPS block list
+
+200	question_mark_blocks/hammer_suit.asm
+201	question_mark_blocks/boomerang_suit.asm
+202	question_mark_blocks/super_leaf.asm
+203	question_mark_blocks/tanooki_suit.asm
+204	question_mark_blocks/frog_suit.asm
+205	question_mark_blocks/superball_flower.asm
+206	question_mark_blocks/rocket_boots.asm
+207	question_mark_blocks/mini_mushroom.asm
+208	question_mark_blocks/ice_flower.asm
+209	question_mark_blocks/penguin_suit.asm
+20A	question_mark_blocks/propeller_suit.asm
+20B	question_mark_blocks/shell_suit.asm
+20C	question_mark_blocks/cloud_flower.asm
+20D	question_mark_blocks/bubble_flower.asm

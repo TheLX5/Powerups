@@ -11,14 +11,36 @@
 	<ol>
 	<li><a href="#Palette">Changing Player's palette</a></li>
 	<li><a href="#Graphics">Changing Player's graphics</a></li>
-	</ol
+	</ol>
 	
 	<br><br><hr><br><br>
 	
 	<h2><a id="Palette">Changing Player's palette</a></h2><br>
+	Changing the player palette can't be done via Lunar Magic, but it's quite easy to do, just be sure to follow the next steps:<br><br>
+	1) Go to powerups_files/powerup_misc_data/ and open palette.asm<br><br>
+		<center><img src="./images/player_look_00.png"></center><br><br>
+	2) Once you open it, you will be welcomed with a lot of tables with strange numbers. These 16-bit values corresponds to the SNES RGB value.<br>
+		&emsp;<b>NOTE</b>: The patch only modifies colors 6 to F!<br><br>
+	3) Open Lunar Magic's palette editor and build your palette there, when it is completed, check the field at the bottom of the window:<br><br>
+		<center><img src="./images/player_look_01.gif"></center><br><br>
+	4) Copy the SNES RGB values that Lunar Magic gives to you in the desired table.<br><br>
+	5) Apply the main patch again and check the changes in-game!<br><br>
+	
+	Back to <a href="#Table">top</a>
+	
+	<br><br><hr><br><br>
 	
 	<h2><a id="Graphics">Changing Player's graphics</a></h2><br>
+	The player graphics are easily changeable, it doesn't matter if you use this patch or not.<br><br>
+	1) Go to powerups_files/graphics/<br><br>
+		<center><img src="./images/player_look_02.png"></center><br><br>
+	2) Open any of the .bin files that are given to you in that folder and modify them as you wish.<br><br>
+	If you haven't noticed, this is almost the same as modifying the player graphics in the original game.<br><br>
 	
-	<br><br><p>Return to the <a href="../../powerup_readme.html">main page</a></p><br>
+	Back to <a href="#Table">top</a>
+	
+	<br><br><hr><br><br>
+	
+	<p>Return to the <a href="../../powerup_readme.html">main page</a></p><br>
 </body>
 </html>

@@ -165,6 +165,22 @@ endmacro
 
 !remap_smoke_particles	= 0	;Leaves free a 16x16 tile in SP1 (tile x66)
 
+;;;;;;;;;;;;;;;;;;;
+;; Bubble sprite
+;;;;;;;;;;;;;;;;;;;
+
+!remap_bubble_mushroom	= 1	;Enable fixing the mushroom sprite inside a bubble.
+!bubble_mushroom_tile	= $E0
+!bubble_mushroom_prop	= $09
+
+;;;;;;;;;;;;;;;;;;;;
+;; Fishing Lakitu
+;;;;;;;;;;;;;;;;;;;;
+
+!remap_lakitu_mushroom	= 1
+!lakitu_mushroom_tile	= $E0
+!lakitu_mushroom_prop	= $3B
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Other defines
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -371,6 +387,16 @@ if !SA1 == 0
 ;; !projectile_gfx_bank: RAM that should contain the projectile GFX bank byte.
 ;; 2 bytes.
 	!projectile_gfx_bank	= $7E2159
+;;;;;;;
+;; !ducking_flag: Disables ducking if set.
+;; 1 byte.
+	!ducking_flag		= $7E215B
+;;;;;;;
+;; !slide_flag: Disables sliding on slopes if set.
+;; 1 byte.
+	!slide_flag		= $7E215C
+
+
 ;;;;;;:
 ;; !init_item_pos: Cover-up tile for items position (unused)
 	!cover_up_flag		= $7E2159+$B*0
