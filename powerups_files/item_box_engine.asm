@@ -130,7 +130,7 @@ if !dynamic_items == 1
 	sep #$20
 	ldx $15E9|!base2
 	lda !item_gfx_refresh
-	ora #$01
+	ora #$10
 	sta !item_gfx_refresh
 endif
 
@@ -169,7 +169,16 @@ endif
 
 GiveNothing:	
 Return:		
-clean_ram:	
+clean_ram:
+	ldy #$1C
+	lda !extra_tile_flag
+	bit #$10
+	beq .normal_priority
+	ldy #$0C
+.normal_priority
+	lda #$F0
+	sta $0301|!base2,y
+
 	lda #$00
 	sta !disable_spin_jump
 	sta !mask_15

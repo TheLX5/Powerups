@@ -61,6 +61,8 @@ init_item:
 ;	sta !init_item_y_hi,x
 	lda #$FF
 	sta $00			;$00 is used to know the powerup that is going to be in the second item slot
+	sta $05
+	sta $01
 	sta $03
 	ldx #$0B
 .loop	
@@ -86,9 +88,6 @@ init_item:
 	cmp.b #!starting_slot+!max_powerup-4
 	bcs .clear
 +++	
-	lda !1602,x
-	cmp #$02
-	beq +
 	lda !1510,x		;ignore if not an item
 	beq .clear
 	cmp #$02		;check if it is the oldest item
@@ -100,15 +99,15 @@ init_item:
 
 	ldx $00			;check if we got a item sprite
 	cpx #$FF
-	beq .skip
+	beq ..skip
 	lda #$02		;mark the first item sprite as the second item sprite
 	sta !1510,x
-	bra .skip
+	stx $05
+..skip
+	jmp .skip
 
 .erase_older
 	stx $00
-	ldx #$FF
-	stx $01
 	ldx #$0B
 -	
 	cpx $15E9|!base2
@@ -133,26 +132,82 @@ init_item:
 	cmp.b #!starting_slot+!max_powerup-4
 	bcs +
 +++	
-	lda !1602,x
-	cmp #$02
-	beq +
 	lda !1510,x
 	cmp #$01
 	bne +
 	lda #$02		;if found, mark it as the older item
 	sta !1510,x
 	stx $01	
-	bra ++
+	bra +
 +	
 	dex
 	bpl -
-	bra .skip
+
+
+
+	ldx #$0B
+-	
+	cpx $15E9|!base2
+	beq +
+	lda !14C8,x
+	cmp #$08		;ignore if sprite isn't alive
+	bcc +
+	;beq +
+	lda !7FAB10,x
+	and #$08
+	bne ++
+	lda.w !9E,x
+	cmp #$74		;same search as before
+	bcc +			;trying to find the other item
+	cmp #$7A
+	bcs +
+	bra +++
+++	
+	lda !7FAB9E,x
+	cmp #!starting_slot
+	bcc +
+	cmp.b #!starting_slot+!max_powerup-4
+	bcs +
++++	
+	lda !1510,x
+	ldy $00
+	bmi ++
+	cmp !1510,y
+	bne ++
+	lda #$01
+	cmp !1510,y
+	beq +++++
+	lda #$02
++++++	
+	sta !1510,x
+	stx $03
+	bra ++++
 ++
+	ldy $01
+	bmi +
+	cmp !1510,y
+	bne +
+	lda #$01
+	cmp !1510,y
+	beq +++++
+	lda #$02
++++++	
+	sta !1510,x
+	stx $03
+	bra ++++
++	
+	dex
+	bpl -
+++++
+
+
+	lda $01
+	cmp #$FF
+	beq .skip
 	ldy $00
 	lda #$00
 	sta !14C8,y	;delete oldest item
 	sta !1510,y
-	inc $03
 	jsr smoke_routine_item		;puff of smoke
 .skip	
 	ldx $15E9|!base2
@@ -161,30 +216,33 @@ init_item:
 
 
 update_tilemap:
-	lda $02
-	beq .skip
-	lda $03			;nonsense code, but hey, it works
-	beq .skip
-	ldx $00
-	bpl .new
-	ldy $01
-	bmi .skip
+	lda #$00	
+	ldy $00			;$00 = index for oldest item		
+	bmi .no_oldest
 	lda !1602,y
-	bra .new_2
-.new	
-	lda !1602,x
-.new_2
-	asl
-	sta !item_gfx_refresh
-.skip
+.no_oldest
+	ldy $05			;$05 = index for the previous item
+	bmi .no_previous_2
+	lda !1602,y
+	eor #$01
+.no_previous_2
+	ldy $01
+	bmi .no_previous
+	lda !1602,y
+	eor #$01
+	bra .end
+.no_previous
+	ldy $03			;$01 = index for the previous item
+	bmi .end
+	lda !1602,y
+	eor #$01
+.end
 	ldx $15E9|!base2
-	lda !item_gfx_refresh
-	eor #$02		;change the dynamic tile that the item will use
-	ora #$01		;flag to update vram
-	sta !item_gfx_refresh
-	lsr 			;make it 1 or 0
-	and #$01		;probably not needed, but eh
 	sta !1602,x
+	inc
+	ora !item_gfx_refresh
+	and #$13
+	sta !item_gfx_refresh
 
 	lda !190F,x		;check if custom item
 	bpl .original_items
@@ -214,7 +272,6 @@ update_tilemap:
 	and #$FF00		;update the item gfx pointers
 	lsr #3
 	adc #powerup_items
-	;tyx
 	sta !item_gfx_pointer,x
 	clc
 	adc #$0200

@@ -5,6 +5,7 @@
 .image
 	lda $71
 	ora $13ED|!base2
+	ora $148F|!base2
 	bne .no
 	lda $75
 	bne .override

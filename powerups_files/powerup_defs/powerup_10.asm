@@ -2,7 +2,13 @@
 !cloud_flower_prop		= $0A	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
 
-!cloud_flower_dynamic_tile	= $20	;Tile used by this powerup.
+!cloud_flower_dynamic_tile	= $46	;Tile used by this powerup.
+
+!spawn_cloud_sfx		= $04
+!spawn_cloud_port		= $1DFC
+!cloud_ext_num			= $18
+
+!cloud_flower_smoke		= 1
 
 %powerup_number(cloud_flower,10)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)

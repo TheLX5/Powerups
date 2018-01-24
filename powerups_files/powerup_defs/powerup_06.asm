@@ -7,7 +7,7 @@
 
 !super_leaf_dynamic_tile	= $0C	;Tile used by this powerup.
 !super_leaf_tile		= $0E	;Tile used by the unused powerup E item
-!super_leaf_prop		= $04	;YXPPCCCT properties of unused powerup E item
+!super_leaf_prop		= $00	;YXPPCCCT properties of unused powerup E item
 					;You may want to change the .cfg file too.
 
 !super_leaf_spin_sfx		= $04	;SFX that plays when Mario does a spin

@@ -44,13 +44,15 @@
 	sbc #$04
 	bmi .real_return
 	lsr #2
+	cmp #$01
+	beq +
 	cmp #$02
 	bne .real_return
-	
 	lda #$01
 	sta $13E8|!base2
 	lda !power_ram
 	asl
+-
 	tay
 	rep #$20
 	lda $94
@@ -63,6 +65,12 @@
 	sta $13EB|!base2
 	sep #$20
 	bra .real_return+3
++	
+	lda #$01
+	sta $13E8|!base2
+	lda !power_ram
+	eor #$01
+	bra -
 .real_return
 	stz $13E8|!base2
 	

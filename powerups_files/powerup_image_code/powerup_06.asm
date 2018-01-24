@@ -83,34 +83,24 @@
 	tax
 	lda .hover_anim,x
 	sta !extra_tile_frame
-.no_anim	
+.no_anim
 	txa
 	asl
 	tax
-	rep #$20
+	rep #$30
 	lda .offset_y,x
 	sta !extra_tile_offset_y
-	sep #$20
-	ldy $76
+	lda $76
+	and #$00FF
 	bne +
 	txa
 	clc
-	adc.b #($47*2)
+	adc.w #(.offset_x_end-.offset_x)
 	tax
 +	
-	rep #$20
 	lda .offset_x,x
 	sta !extra_tile_offset_x
-	sep #$20
-	lda $13F3|!base2
-	beq +
-	rep #$20
-	lda #$0000
-	sta !extra_tile_offset_x
-	sep #$20
-	lda #$0A
-	sta !extra_tile_frame
-+	
+	sep #$30
 	rts
 
 .offset_x
@@ -123,7 +113,7 @@
 	dw $FFF8,$FFF8,$FFF8,$FFF8,$FFF8,$FFF8,$FFF8,$FFF8
 	dw $0000,$0000,$FFF8,$FFF8,$FFF8,$FFF8,$0000,$FFF8
 	dw $FFF8,$FFF8,$0000,$0000,$0000,$0000,$FFF8
-
+..end
 	dw $0008,$0008,$0008,$0008,$0008,$0008,$0008,$0008
 	dw $0008,$0008,$0008,$0008,$0008,$0008,$0008,$0000
 	dw $000E,$000E,$000E,$000E,$0008,$0000,$0008,$0008
@@ -153,12 +143,13 @@
 	db $0C,$0C,$00,$00,$00,$00,$00,$00
 	db $0A,$0A,$00,$00,$00,$00,$00,$00
 	db $00,$00,$0A,$0A,$0A,$0A,$00
+..end
 .settings
 	db $01,$01,$01,$01,$01,$01,$01,$01
 	db $01,$01,$01,$01,$01,$01,$01,$01
 	db $01,$01,$01,$01,$01,$11,$01,$01
 	db $01,$01,$01,$01,$01,$01,$11,$11
-	db $01,$01,$01,$01,$01,$11,$01,$01
+	db $01,$01,$11,$11,$01,$11,$01,$01
 	db $01,$01,$00,$00,$00,$00,$00,$00
 	db $01,$01,$01,$01,$01,$01,$01,$01
 	db $11,$11,$01,$01,$01,$00,$00,$01

@@ -11,13 +11,16 @@ cape_image:
 	jml $00E401|!base3
 	
 .custom_tile
-	lda !extra_tile_flag
-	and #$01
-	eor #$01
-	sta $00
+;	lda !extra_tile_flag
+;	and #$01
+;	eor #$01
+;	sta $00
+	lda $71
+	cmp #$09
+	beq .hide_cape
 	lda $78
 	and #$10
-	ora $00
+;	ora $00
 	bne .hide_cape
 	phy
 	lda !extra_tile_frame

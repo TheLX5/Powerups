@@ -7,7 +7,7 @@
 
 !tanooki_suit_dynamic_tile	= $0E	;Tile used by this powerup.
 !tanooki_suit_tile		= $0E	;Tile used by the unused powerup E item
-!tanooki_suit_prop		= $04	;YXPPCCCT properties of unused powerup E item
+!tanooki_suit_prop		= $00	;YXPPCCCT properties of unused powerup E item
 					;You may want to change the .cfg file too.
 
 !tanooki_suit_spin_sfx		= $04	;SFX that plays when Mario does a spin

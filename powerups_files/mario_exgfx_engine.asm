@@ -34,15 +34,18 @@ endif
 	lda.l GFXData,x			;get the correct powerup data
 	sta $00
 	lda.l ExtraGFXData,x
-	sta $02
 	bra .continue
 
 .bypass_everything
 	lda !gfx_bypass_num		;load mario's gfx
 	sta $00
 	lda !extra_gfx_bypass_num	;load player's extra gfx
-	sta $02
 .continue
+	sta $02
+	sta !extra_tile_index
+	lda $00
+	sta !gfx_index
+	
 	stz $01
 	stz $03
 	rep #$30

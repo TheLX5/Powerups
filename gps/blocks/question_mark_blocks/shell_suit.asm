@@ -24,7 +24,7 @@ JMP MarioCorner : JMP MarioInside : JMP MarioHead
 
 ; The first argument is if Mario is small, the second for big
 SpriteNumber:
-db $74,$0C
+db $74,$0B
 
 IsCustom:
 db $00,$01	; $00 (or any other even number) for normal, $01 (or any other odd number) for custom
@@ -65,6 +65,8 @@ SpriteShared:
 Cape:
 MarioBelow:
 SpawnItem:
+	lda $15E9|!addr
+	pha
 	PHX
 	PHY
 	LDA #!bounce_num
@@ -81,7 +83,6 @@ if !item_memory_dependant == 1
 endif
 	LDA #!SoundEffect
 	STA !APUPort
-
 	LDY #$00
 	LDA !RAM
 	BEQ +
@@ -89,27 +90,32 @@ endif
 +	LDA IsCustom,y
 	LSR
 	LDA SpriteNumber,y
-
 	%spawn_sprite_block()
 	TAX
 	%move_spawn_into_block()
-
-	LDA State,y
+	LDA.w State,y
 	STA !14C8,x
-	LDA RAM_1540_vals,y
+	LDA.w RAM_1540_vals,y
 	STA !1540,x
 	LDA #$D0
 	STA !AA,x
 	LDA #$2C
 	STA !154C,x
-
+	lda #$01
+	sta $02
+	stx $15E9|!addr	
+	%init_item()
+	lda #$00
+	sta !7FAB10,x
 	LDA !190F,x
 	BPL Return2
-	LDA #$10
+	LDA #$2C
 	STA !15AC,x
 Return2:
 	PLY
 	PLX
+	pla
+	sta $15E9|!addr
 RTL
 
 print "A block which spawns by default a mushroom if Mario is small, else a shell suit."

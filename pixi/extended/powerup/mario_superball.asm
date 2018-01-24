@@ -241,8 +241,17 @@ do_dma:
 	ldx $15E9|!Base2
 	lda #superball_projectile_gfx>>16
 	sta !projectile_gfx_bank-8,x
-	lda #$01
+	tya
+	cmp !extended_prev,x
+	beq no_upload
+	sta !extended_prev,x
+	txa 
+	sec 
+	sbc #$07
+	and #$03
+	ora !projectile_do_dma
 	sta !projectile_do_dma
+no_upload:
 	rts 
 
 superball_projectile:

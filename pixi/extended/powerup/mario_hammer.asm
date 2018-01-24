@@ -58,8 +58,12 @@ endif
 	sta $0200|!Base2,y
 	lda $02
 	sta $0201|!Base2,y
+if !enable_projectile_dma == 1
+	lda #!hammer_pro_props
+else
 	ldx $00
 	lda.w hammer_props,x
+endif
 	ora $64
 	ldx $04
 	beq no_behind
@@ -181,12 +185,21 @@ do_dma:
 	ldx $15E9|!Base2
 	lda #hammer_projectile_gfx>>16
 	sta !projectile_gfx_bank-8,x
-	lda #$01
+	tya
+	cmp !extended_prev,x
+	beq no_upload
+	sta !extended_prev,x
+	txa 
+	sec 
+	sbc #$07
+	and #$03
+	ora !projectile_do_dma
 	sta !projectile_do_dma
+no_upload:
 	rts 
 
 hammer_projectile:
-		db $00,$02,$02,$00,$00,$02,$02,$00
+		db $00,$02,$04,$06,$08,$0A,$0C,$0E
 .gfx
 		incbin hammer_gfx.bin
 else

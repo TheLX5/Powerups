@@ -12,6 +12,9 @@ endif
 ;; Misc Defines
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+!i_read_the_readme	= 1	;Set it to 1 to be able to insert the patch.
+				;I hope you did read the readme file.
+
 !enable_projectile_dma	= 1	;Enable the ASM hacks to make possible use DMA to upload the projectile tiles
 				;Note that this takes some v-blank time because this uses two DMA routines
 				;to upload the tiles in $24 and $26
@@ -202,9 +205,11 @@ endmacro
 !ext_sprite_gfx		= !ext_sprite_ram
 !ext_sprite_flags	= !ext_sprite_ram+10
 !ext_sprite_dir		= !ext_sprite_ram+20
+!ext_sprite_prev	= !ext_sprite_ram+30
 !extended_gfx		= !ext_sprite_ram
 !extended_flags		= !ext_sprite_ram+10
 !extended_dir		= !ext_sprite_ram+20
+!extended_prev		= !ext_sprite_ram+30
 
 !ItemBoxSfx = $0C       ; play the item box drop sound effect
 !PowerupSfx = $0B       ; play the powerup sound effect
@@ -263,6 +268,10 @@ if !SA1 == 0
 	!pal_pointer		= $7E200E
 ;;;;;;;
 ;; !projectile_do_dma: RAM used as a flag to upload the projectile GFX
+;; Format: ------21
+;; 1 = Updates tile 1
+;; 2 = Updates tile 2
+;; - = Unused
 	!projectile_do_dma	= $7E2017
 ;;;;;;;
 ;; !projectile_gfx_index: Used to determine which powerup should be uploaded with DMA, 8 bytes.
@@ -352,9 +361,10 @@ if !SA1 == 0
 	!extra_gfx_bypass_num	= $7E2110
 ;;;;;;;
 ;; !item_gfx_refresh: Refreshes stuff on sprite tiles 0A,0C,0E
-;; format: ------dr
-;; r = refresh tilemap
-;; d = handles item tile
+;; format: -----i21
+;; 1 = refreshes dynamic tilemap 1
+;; 2 = refreshes dynamic tilemap 2
+;; i = refreshes item box dynamic tilemap
 ;; 1 byte.
 	!item_gfx_refresh	= $7E2111
 ;;;;;;;
@@ -395,8 +405,16 @@ if !SA1 == 0
 ;; !slide_flag: Disables sliding on slopes if set.
 ;; 1 byte.
 	!slide_flag		= $7E215C
-
-
+;;;;;;;
+;; !extra_tile_index: Which set of GFX is the extra tile using.
+;; If it is a negative value, the tile won't upload its graphics to SP1. Applies to both cape and extra tiles.
+;; 1 byte.
+	!extra_tile_index	= $7E215D
+;;;;;;;
+;; !gfx_index: Which set of GFX is the player using.
+;; 1 byte.
+	!gfx_index		= $7E215E
+	
 ;;;;;;:
 ;; !init_item_pos: Cover-up tile for items position (unused)
 	!cover_up_flag		= $7E2159+$B*0

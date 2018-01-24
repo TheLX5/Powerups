@@ -2,29 +2,33 @@ PlrDMA:
 	lda $0D84|!base2
 	bne +
 	jmp .skip_all
-+		
++	
 	rep #$20
+	phd
+	lda #$4300
+	tcd
+
 	ldy #$86			; palette DMA
 	sty $2121
 	lda #$0014
-	sta $4315
+	sta $15
 	lda #$2200
-	sta $4310
+	sta $10
 		
 	lda !pal_bypass
 	and #$00FF
 	bne .bypass_pal_upload
 		
 	lda $0D82|!base2
-	sta $4312
+	sta $12
 	ldy.b #LuigiPalettes>>16
 	sty $4314
 	bra .continue_upload
 .bypass_pal_upload
 	lda !pal_pointer
-	sta $4312
+	sta $12
 	lda !pal_pointer+1
-	sta $4313
+	sta $13
 	sep #$20
 	lda #$00
 	sta !pal_bypass
@@ -37,13 +41,11 @@ PlrDMA:
 	ldx #$80			; adjust some DMA settings
 	stx $2115
 	lda #$1801
-	sta $4310
-
-.bigger_upload
+	sta $10
 
 ;misc tiles
 	ldx #$7E
-	stx $4314
+	stx $14
 	lda #$6060
 	sta $2116
 	ldx #$06
@@ -51,9 +53,9 @@ PlrDMA:
 	bcs .skip
 -	
 	lda $0D85|!base2,x
-	sta $4312
+	sta $12
 	lda #$0040
-	sta $4315
+	sta $15
 	sty $420B
 	inx #2
 	cpx $0D84|!base2
@@ -64,9 +66,9 @@ PlrDMA:
 	ldx #$06
 -	
 	lda $0D8F|!base2,x
-	sta $4312
+	sta $12
 	lda #$0040
-	sta $4315
+	sta $15
 	sty $420B
 	inx #2
 	cpx $0D84|!base2
@@ -77,38 +79,43 @@ PlrDMA:
 .skip
 
 ;cape tile
+	lda !extra_tile_index
+	xba 
+	bmi .skip_cape
 	ldx $0D88|!base2
-	stx $4314
+	stx $14
 	
 	lda #$6040
 	sta $2116
 	lda $0D89|!base2
-	sta $4312
+	sta $12
 	lda #$0040
-	sta $4315
+	sta $15
 	sty $420B
 
 	lda #$6140
 	sta $2116
 	lda $0D93|!base2
-	sta $4312
+	sta $12
 	lda #$0040
-	sta $4315
+	sta $15
 	sty $420B
+
+.skip_cape
 
 ;mario tiles
 
 	ldx $0D87|!base2
-	stx $4314
+	stx $14
 	lda $0D86|!base2 : pha
 	ldx #$06
 -	
 	lda.l .vramtbl,x
 	sta $2116
 	lda #$0080
-	sta $4315
+	sta $15
 	lda $0D85|!base2
-	sta $4312
+	sta $12
 	sty $420B
 	inc $0D86|!base2
 	inc $0D86|!base2
@@ -116,59 +123,129 @@ PlrDMA:
 	bpl -
 	pla : sta $0D86|!base2
 
-	ldx $0100
-	cpx #$13
-	beq .force_refresh
-
+	ldx #$00
 	lda !item_gfx_refresh
-	lsr
-	bcc .skip_item_refresh
+	and #$0003
 	asl
-	sta !item_gfx_refresh
+	tax
+	jmp (.ptrs,x)
 
-.force_refresh
-;top_tiles
+.ptrs
+	dw .no_update
+	dw .1_tile
+	dw .2_tile
+	dw .both_tiles
+
+.1_tile
 	lda #$60A0
 	sta $2116
 	ldx.b #powerup_items/$10000
-	stx $4314
-	ldx #$00
+	stx $14
+	lda !item_gfx_pointer
+	sta $12
+	lda #$0040
+	sta $15
+	sty $420B
+
+	lda #$61A0
+	sta $2116
+	lda !item_gfx_pointer+6
+	sta $12
+	lda #$0040
+	sta $15
+	sty $420B
+	jmp .no_update
+
+
+.2_tile
+	lda #$60C0
+	sta $2116
+	ldx.b #powerup_items/$10000
+	stx $14
+	lda !item_gfx_pointer+2
+	sta $12
+	lda #$0040
+	sta $15
+	sty $420B
+
+	lda #$61C0
+	sta $2116
+	lda !item_gfx_pointer+8
+	sta $12
+	lda #$0040
+	sta $15
+	sty $420B
+	jmp .no_update
+
+
+.both_tiles
+	lda #$60A0
+	sta $2116
+	ldx.b #powerup_items/$10000
+	stx $14
+	ldx #$02
 -	
 	lda !item_gfx_pointer,x
-	sta $4312
+	sta $12
 	lda #$0040
-	sta $4315
+	sta $15
 	sty $420B
-	inx #2
-if !no_dynamic_item_box == 0
-	cpx #$06
-else
-	cpx #$04
-endif
-	bne -
+	dex #2
+	bpl -
 
 ;bottom tiles
 	lda #$61A0
 	sta $2116
-	ldx #$00
+	ldx #$02
 -	
 	lda !item_gfx_pointer+6,x
-	sta $4312
+	sta $12
 	lda #$0040
-	sta $4315
+	sta $15
 	sty $420B
-	inx #2
-	cpx #$06
-	bne -
+	dex #2
+	bpl -
+
+
+.no_update
+if !no_dynamic_item_box == 0
+	ldx $0100|!base2
+	cpx #$13
+	beq .item_box_refresh
+	lda !item_gfx_refresh
+	and #$0010
+	beq .skip_item_refresh
+	
+.item_box_refresh
+	lda #$60E0
+	sta $2116
+	ldx.b #powerup_items/$10000
+	stx $14
+	lda !item_gfx_pointer+4
+	sta $12
+	lda #$0040
+	sta $15
+	sty $420B
+
+	lda #$61E0
+	sta $2116
+	lda !item_gfx_pointer+10
+	sta $12
+	lda #$0040
+	sta $15
+	sty $420B
+endif
 
 .skip_item_refresh
-	
-	;jmp .skip_all-2
 
+	lda !item_gfx_refresh
+	and #$FF00
+	sta !item_gfx_refresh
+	
 if !enable_projectile_dma == 1
 	incsrc projectile_dma_engine.asm
 endif		
-
+	pld
 	sep #$20
 .skip_all
 	jml $00A38F|!base3

@@ -1,3 +1,4 @@
+@asar 1.50
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Custom powerups patch by MarioE
 ; Asar version by Lui37
@@ -41,6 +42,10 @@ freedata
 		incbin powerups_files/graphics/<filename>.bin
 endmacro
 
+macro insert_palette(filename)
+	incbin powerups_files/powerup_misc_data/palette_files/<filename>.mw3:10C-120
+endmacro
+
 macro insert_big_gfx(filename,add)
     org ($00A304|!base3+($<add>*3))
 		if read1($00D067) == $FF
@@ -72,6 +77,15 @@ endmacro
 	!a = autoclean
 
 	incsrc powerup_defs.asm
+
+
+if !i_read_the_readme == 0
+	print "Custom powerups patch."
+	print "Version 3.0.4"
+	print ""
+	print "Nothing was inserted."
+	print "Please read the Readme file included in this patch."
+else
 
 if !SA1 = 1
 	sa1rom
@@ -312,6 +326,7 @@ install_byte:
 	db $FF
 
 print "Custom powerups patch."
-print "Version 3.0.3"
+print "Version 3.0.4"
 print ""
 print "Inserted ", freespaceuse, " bytes"
+endif

@@ -3,6 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;
 
 .main
+if !frog_suit_ride_yoshi == 0
 	lda $187A|!base2
 	beq +
 	ldx $18DF|!base2
@@ -12,14 +13,17 @@
 +	
 	lda #$01
 	sta !ride_yoshi_flag
+else
+	lda #$01
+endif
 	sta !ducking_flag
-	lda #$00
+;	lda #$00
 	ldy $148F|!base2
-	beq .next
-	lda #$40
-.next	
-	sta !mask_15
-	sta !mask_17
+	bne .next
+;	lda #$40
+;.next	
+;	sta !mask_15
+;	sta !mask_17
 	lda $75
 	beq .out_of_water
 	jmp .underwater
@@ -27,6 +31,7 @@
 .out_of_water
 	lda $13ED|!base2
 	beq .process
+.next
 	rts
 .process
 	ldx #$00

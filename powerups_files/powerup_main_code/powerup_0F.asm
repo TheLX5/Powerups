@@ -102,4 +102,4 @@
 	rts
 
 .speeds
-	db $D1,$2F
+	db (!shell_suit_base_x_speed-0)^$FF,!shell_suit_base_x_speed+0

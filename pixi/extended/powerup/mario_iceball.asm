@@ -13,18 +13,6 @@ main:
 	lda !extended_table,x
 	bpl actual_main
 kill_sprite:
-	phx
-	ldx #$09
-.loop	
-	lda !extended_num,x
-	beq .found_slot
-	dex
-	cpx #$07
-	bpl .loop
-	lda #$00
-	sta !projectile_do_dma
-.found_slot
-	plx
 	lda #$0F
 	sta $176F|!Base2,x
 	lda #$01
@@ -270,8 +258,17 @@ do_dma:
 	ldx $15E9|!Base2
 	lda #iceball_projectile_gfx>>16
 	sta !projectile_gfx_bank-8,x
-	lda #$01
+	tya
+	cmp !extended_prev,x
+	beq no_upload
+	sta !extended_prev,x
+	txa 
+	sec 
+	sbc #$07
+	and #$03
+	ora !projectile_do_dma
 	sta !projectile_do_dma
+no_upload:
 	rts 
 
 iceball_projectile:

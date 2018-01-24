@@ -1,11 +1,12 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Unused F
+;; Shell Suit
 ;;;;;;;;;;;;;;;;;;;
 
-!shell_suit_tile		= $0E	;Tile used by the unused powerup F item
-!shell_suit_prop		= $06	;YXPPCCCT properties of unused powerup F item
+!shell_suit_tile		= $0E	;Tile used by the Shell Suit item
+!shell_suit_prop		= $06	;YXPPCCCT properties of the Shell Suit item
 					;You may want to change the .cfg file too.
 
+!shell_suit_base_x_speed	= $28	;Base x speed when Mario is inside of the shell.
 !shell_suit_dynamic_tile	= $44	;Tile used by this powerup.
 
 %powerup_number(shell_suit,0F)	;Mandatory macro to get the powerup number.

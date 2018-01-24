@@ -52,9 +52,12 @@ endif
 .found_slot
 	
 if !enable_projectile_dma == 1
-	lda #$01
+	txa
+	sec
+	sbc #$07
+	and #$03
 	sta !projectile_do_dma
-endif
+endif	
 	
 if !boomerang_shoot_sfx != $00
 	lda #!boomerang_shoot_sfx

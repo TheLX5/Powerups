@@ -7,6 +7,39 @@
 <body text="#FFFFFF">
 	<h1>Changelog</h1><br><br>
 	
+	<h2>Version 3.0.4 (2018-Jan-24)</h2>
+	<ul>
+	<li>Implemented a define to force users to read the readme so people actually read it.</li>
+<!--<li>Added Separate Overworld Luigi Graphics patch. Courtesy of Erik.</li>-->
+	<li>Made possible to edit palettes with LM, instead of building tables you just edit a .mw3 file in powerups_files/powerup_misc_data/palette_files</li>
+	<li>Fixed a problem with dynamic powerup tile allocation when a propeller suit was using the second dynamic item tile.</li>
+	<li>Dynamic powerup items DMA routine got reprogrammed, it now uploads only the required graphics and it's faster in most cases.</li>
+	<li>Fixed a potential SA-1 crash/unintended behavior in the powerup items DMA routine.</li>
+	<li>Reworked the logic behind the dynamic item tile allocation, this fixes a issue where new powerup items would overwrite old items graphics if the latest item that you got was the newest one.</li>
+	<li>Reworked the logic behind Projectile DMA, now it uploads the necessary graphics when it's actually required.</li>
+<!--<li>Added an option to detect Yoshi or Podoboo on screen to decide if their DMA routine should be executed.</li>-->
+	<li>Cape/Extra tile DMA routine doesn't get executed if there's no tile set for the current powerup state.</li>
+	<li>GFX and Extra Tile indexes are now stored to RAM (Read only).</li>
+	<li>Adjusted Shell Mario's speed when the player is inside of the shell so it doesn't break have some clipping issues.</li>
+	<li>Added a few defines in Shell powerup defines file.</li>
+	<li>Fixed Shell suit's question mark block.</li>
+	<li>Boomerangs didn't stop uploading their graphics if they were catched by Mario</li>
+	<li>Fixed some alignments with Boomerang Mario graphics.</li>
+	<li>Added missing frames for Boomerang Mario.</li>
+	<li>Fixed some misalignments of the Raccoon tail</li>
+	<li>Extra tile now disappears if Mario was instantly killed</li>
+	<li>Reseted some statuses for Frog Mario</li>
+	<li>Made possible for Frog Mario to carry sprites.</li>
+	<li>Added a define to decide if Frog Mario is able to ride Yoshi.</li>
+	<li>Reseted some statuses for Mini Mario</li>
+<!--<li>Fixed Mario going up in the overworld tile</li>-->
+<!--<li>Fixed tile reveal animation in the overworld</li>-->
+	<li>Raccoon tail now attacks both back and front when doing a spin attack.</li>
+	<li>Fixed YXPPCCT properties for the tanooki suit and super leaf powerup items when they are in the item box.</li>
+	<li>Fixed some issues when trying to insert with an older asar the propeller mushroom powerup. You should be using the latest asar version anyway.</li>
+	<li>Fixed some X speeds for the iceball projectile. Not that the powerup is actually usable though...</li>
+	</ul>
+	
 	<h2>Version 3.0.3 (2018-Jan-16)</h2>
 	<ul>
 	<li>Added Question Mark blocks that spawns powerups</li>

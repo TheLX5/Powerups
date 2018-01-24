@@ -1,4 +1,5 @@
 give_mini_mushroom:
+	stz $140D|!base2
 	phx
 	lda #$01
 	sta !clipping_flag

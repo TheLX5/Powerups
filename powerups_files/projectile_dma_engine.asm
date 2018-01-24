@@ -1,48 +1,104 @@
 ;projectiles DMA, top
-		
-	LDA	!projectile_do_dma
-	AND	#$00FF
-	BEQ	+
-		
-	LDA.w #!projectile_dma_tile<<4|$6000
-	sta $2116
-	ldx #$02
--	
-	lda !projectile_gfx_index,x
-	sta $4312
-	phx
-	txa
-	lsr
+
+.projectiles	
+	ldx #$00
+	lda !projectile_do_dma
+	and #$0003
+	asl
 	tax
-	lda !projectile_gfx_bank,x
-	plx
-	sta $4314
-	lda #$0040
-	sta $4315
-	ldy #$02
-	sty $420B
-	dex #2
-	bpl -
-		
-;projectiles DMA, bottom
-		
-	lda #!projectile_dma_tile<<4|$6100
+	jmp (..ptrs,x)
+..ptrs
+	dw ..no_update
+	dw ..2_tile
+	dw ..1_tile
+	dw ..both_tiles
+
+..1_tile
+	lda.w #!projectile_dma_tile<<4|$6000
 	sta $2116
-	ldx #$02
--	
-	lda !projectile_gfx_index+$04,x
-	sta $4312
-	phx
-	txa
-	lsr
-	tax
-	lda !projectile_gfx_bank,x
-	plx
-	sta $4314
+	lda !projectile_gfx_bank+1
+	sta $14
+	lda !projectile_gfx_index+2
+	sta $12
 	lda #$0040
-	sta $4315
-	ldy #$02
+	sta $15
 	sty $420B
-	dex #2
-	bpl - 
+	lda.w #!projectile_dma_tile<<4|$6100
+	sta $2116
+	lda !projectile_gfx_bank+1
+	sta $14
+	lda !projectile_gfx_index+6
+	sta $12
+	lda #$0040
+	sta $15
+	sty $420B
+
+	jmp ..no_update
+
+
+..2_tile
+	lda.w #((!projectile_dma_tile+2)<<4|$6000)
+	sta $2116
+	lda !projectile_gfx_bank+0
+	sta $14
+	lda !projectile_gfx_index+0
+	sta $12
+	lda #$0040
+	sta $15
+	sty $420B
+	lda.w #((!projectile_dma_tile+2)<<4|$6100)
+	sta $2116
+	lda !projectile_gfx_bank+0
+	sta $14
+	lda !projectile_gfx_index+4
+	sta $12
+	lda #$0040
+	sta $15
+	sty $420B
+	jmp ..no_update
+
+..both_tiles
+	lda.w #!projectile_dma_tile<<4|$6000
+	sta $2116
+	lda !projectile_gfx_bank+1
+	sta $14
+	lda !projectile_gfx_index+2
+	sta $12
+	lda #$0040
+	sta $15
+	sty $420B
+
+	lda.w #((!projectile_dma_tile+2)<<4|$6000)
+	sta $2116
+	lda !projectile_gfx_bank+0
+	sta $14
+	lda !projectile_gfx_index+0
+	sta $12
+	lda #$0040
+	sta $15
+	sty $420B
+
+	lda.w #!projectile_dma_tile<<4|$6100
+	sta $2116
+	lda !projectile_gfx_bank+1
+	sta $14
+	lda !projectile_gfx_index+6
+	sta $12
+	lda #$0040
+	sta $15
+	sty $420B
+
+	lda.w #((!projectile_dma_tile+2)<<4|$6100)
+	sta $2116
+	lda !projectile_gfx_bank+0
+	sta $14
+	lda !projectile_gfx_index+4
+	sta $12
+	lda #$0040
+	sta $15
+	sty $420B
+..no_update
+	lda !projectile_do_dma
+	and #$FF00
+	sta !projectile_do_dma
 +	

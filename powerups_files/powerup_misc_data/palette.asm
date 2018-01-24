@@ -7,43 +7,43 @@ PalettePointers:
 
 MarioPalettes:
 ; Small
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup 0
+	%insert_palette(small_mario)			; powerup 0
 ; Big
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup 1
+	%insert_palette(big_mario)			; powerup 1
 ; Feather
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup 2
+	%insert_palette(cape_mario)			; powerup 2
 ; Fire flower
-	dw $635F,$5D18,$2529,$7FFF,$0008,$001A,$18DF,$577B,$361F,$03FF		; powerup 3
+	%insert_palette(fire_flower_mario)		; powerup 3
 ; Hammer suit (SMB3)
-	dw $635F,$581D,$000A,$18BF,$0842,$1CE7,$318C,$1497,$0DDF,$03FF		; powerup 4
+	%insert_palette(hammer_suit_mario)		; powerup 4
 ; Boomerang suit
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup 5
+	%insert_palette(boomerang_suit_mario)		; powerup 5
 ; Super leaf (SMB3)
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup 6
+	%insert_palette(super_leaf_mario)		; powerup 6
 ; Tanooki suit (SMB3)
-	dw $635F,$2C5F,$000A,$35DF,$092F,$0D72,$3B9F,$39CE,$56B5,$6739		; powerup 7
+	%insert_palette(tanooki_suit_mario)		; powerup 7
 ; Frog suit (SMB3)
-	dw $635F,$581D,$1140,$0160,$01E0,$0300,$0000,$0000,$35DF,$0000		; powerup 8
+	%insert_palette(frog_suit_mario)		; powerup 8
 ; Superball flower (SML)
-	dw $635F,$581D,$14A5,$56B2,$0011,$0017,$001F,$39CD,$35DF,$03FF		; powerup 9
-; Rocket mushroom (Terraria)
-	dw $635F,$581D,$000A,$391F,$3CEB,$6534,$721A,$30B6,$35DF,$03FF		; powerup A
+	%insert_palette(superball_flower_mario)		; powerup 9
+; Rocket boots (Terraria)
+	%insert_palette(rocket_boots_mario)		; powerup A
 ; Mini mushroom (NSMBWii)
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup B
+	%insert_palette(mini_mushroom_mario)		; powerup B
 ; Ice flower (NSMBWii)
-	dw $635F,$581D,$44C4,$7F0C,$0008,$0017,$001F,$61E8,$0DDF,$03FF		; powerup C
+	%insert_palette(ice_flower_mario)		; powerup C
 ; Penguin suit (NSMBWii)
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup D
+	%insert_palette(penguin_suit_mario)		; powerup D
 ; Propeller suit (NSMBWii)
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup E
+	%insert_palette(propeller_suit_mario)		; powerup E
 ; Shell suit (NSMBDS)
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup F
+	%insert_palette(shell_suit_mario)		; powerup F
 ; Cloud flower (SMG)
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup 10
+	%insert_palette(cloud_flower_mario)		; powerup 10
 ; Bubble flower
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup 11
+	%insert_palette(bubble_flower_mario)		; powerup 11
 ; Dummy
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup 12
+	%insert_palette(dummy_mario)			; powerup 12
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; These values represent the palette of Luigi when he has each powerup.
@@ -51,50 +51,50 @@ MarioPalettes:
 
 LuigiPalettes:
 ; Small
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup 0
+	%insert_palette(small_luigi)			; powerup 0
 ; Big
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup 1
+	%insert_palette(big_luigi)			; powerup 1
 ; Feather
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup 2
+	%insert_palette(cape_luigi)			; powerup 2
 ; Fire flower
-	dw $3B1F,$581D,$2529,$7FFF,$1140,$01E0,$02E0,$577B,$0DDF,$03FF		; powerup 3
-; Custom Powerup
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup 4
-; Custom Powerup
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup 5
-; Custom Powerup
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup 6
-; Custom Powerup
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup 7
-; Custom Powerup
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup 8
-; Custom Powerup
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup 9
-; Custom Powerup
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup A
-; Custom Powerup
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup B
-; Custom Powerup
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup C
-; Custom Powerup
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup D
-; Custom Powerup
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup E
-; Custom Powerup
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; powerup F
-; Custom Powerup
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup 10
-; Custom Powerup
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup 11
-; Custom Powerup
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; powerup 12
+	%insert_palette(fire_flower_luigi)		; powerup 3
+; Hammer suit (SMB3)
+	%insert_palette(hammer_suit_luigi)		; powerup 4
+; Boomerang suit
+	%insert_palette(boomerang_suit_luigi)		; powerup 5
+; Super leaf (SMB3)
+	%insert_palette(super_leaf_luigi)		; powerup 6
+; Tanooki suit (SMB3)
+	%insert_palette(tanooki_suit_luigi)		; powerup 7
+; Frog suit (SMB3)
+	%insert_palette(frog_suit_luigi)		; powerup 8
+; Superball flower (SML)
+	%insert_palette(superball_flower_luigi)		; powerup 9
+; Rocket boots (Terraria)
+	%insert_palette(rocket_boots_luigi)		; powerup A
+; Mini mushroom (NSMBWii)
+	%insert_palette(mini_mushroom_luigi)		; powerup B
+; Ice flower (NSMBWii)
+	%insert_palette(ice_flower_luigi)		; powerup C
+; Penguin suit (NSMBWii)
+	%insert_palette(penguin_suit_luigi)		; powerup D
+; Propeller suit (NSMBWii)
+	%insert_palette(propeller_suit_luigi)		; powerup E
+; Shell suit (NSMBDS)
+	%insert_palette(shell_suit_luigi)		; powerup F
+; Cloud flower (SMG)
+	%insert_palette(cloud_flower_luigi)		; powerup 10
+; Bubble flower
+	%insert_palette(bubble_flower_luigi)		; powerup 11
+; Dummy
+	%insert_palette(dummy_luigi)			; powerup 12
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; These values represent the palette of Mario OR Luigi when he has a Star.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 FlashPalettes:
-	dw $635F,$581D,$000A,$391F,$44C4,$4E08,$6770,$30B6,$35DF,$03FF		; frame 0
-	dw $635F,$5D18,$2529,$7FFF,$0008,$001A,$18DF,$577B,$361F,$03FF		; frame 1
-	dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF		; frame 2
-	dw $3B1F,$581D,$2529,$7FFF,$1140,$01E0,$02E0,$577B,$0DDF,$03FF		; frame 3
+	%insert_palette(small_mario)			; frame 1
+	%insert_palette(small_luigi)			; frame 2
+	%insert_palette(fire_flower_mario)		; frame 3
+	%insert_palette(fire_flower_luigi)		; frame 4

@@ -108,9 +108,9 @@ PropMushroomMain:
 	ldy #$02
 +
 	lda !AA,x
-	clc : adc .YSpeeds,y
+	clc : adc YSpeeds,y
 	sta !AA,x
-	cmp .YSpeedsLimits,y
+	cmp YSpeedsLimits,y
 	bne Rtrn0
 	tya
 	eor #$01
@@ -134,9 +134,9 @@ ExitingQuestionBlock:
 +	plb
 	rtl
 
-SubOffScreen_YSpeeds:
+YSpeeds:
 db $01,$FF,$FE
-SubOffScreen_YSpeedsLimits:
+YSpeedsLimits:
 db $16,$E8,$FC
 
 SubGFX:
@@ -145,14 +145,15 @@ SubGFX:
 	bne .GetDrawInfo
 
 	lda $14
-	phx
 	and #$06
 	lsr
 	tay
 	lda !1602,x
 	asl
-	tax
+	sta $00
 	lda.w GFXIndexes,y
+	pha
+	ldx $00
 	xba
 	rep #$20
 	and #$FF00
@@ -176,11 +177,17 @@ else
 endif
 
 	sep #$20
-	plx
-
-	lda #$01
+	ldx $15E9|!Base2
+	pla
+	cmp !160E,x
+	beq .skip
+	sta !160E,x
+	lda !1602,x
+	inc
+	ora !item_gfx_refresh
+	and #$13
 	sta !item_gfx_refresh
-
+.skip
 .GetDrawInfo
 	%GetDrawInfo()
 
@@ -249,7 +256,11 @@ else
 	jsl $01B7B3|!BankB
 
 endif
+	rts
 .DontDraw
+	lda !item_gfx_refresh
+	and #$03
+	sta !item_gfx_refresh
 	rts
 
 .XPositions:

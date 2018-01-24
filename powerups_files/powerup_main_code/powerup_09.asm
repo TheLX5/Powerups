@@ -30,14 +30,18 @@
 	lda !ext_sprite_num,x
 	beq .found_slot
 	dex
-	cpx #$07 ;+!superball_shoot_one
+	cpx #$07+!superball_shoot_one
 	bne .find_slot
 .return
 	rts
 
 .found_slot
+
 if !enable_projectile_dma == 1
-	lda #$01
+	txa
+	sec
+	sbc #$07
+	and #$03
 	sta !projectile_do_dma
 endif	
 	

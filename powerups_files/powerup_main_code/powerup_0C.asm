@@ -33,7 +33,10 @@
 
 .found_slot
 if !enable_projectile_dma == 1
-	lda #$01
+	txa
+	sec
+	sbc #$07
+	and #$03
 	sta !projectile_do_dma
 endif	
 	lda #!ice_flower_shoot_sfx
@@ -95,11 +98,11 @@ endif
 .x_disp
 	db $00,$08
 .x_speed
-	db (!iceball_base_x_speed-0)^$FF,!iceball_base_x_speed+0
-	db (!iceball_base_x_speed-1)^$FF,!iceball_base_x_speed+1
-	db (!iceball_base_x_speed-1)^$FF,!iceball_base_x_speed+1
-	db (!iceball_base_x_speed-1)^$FF,!iceball_base_x_speed+1
-	db (!iceball_base_x_speed-2)^$FF,!iceball_base_x_speed+2
-	db (!iceball_base_x_speed-2)^$FF,!iceball_base_x_speed+2
-	db (!iceball_base_x_speed-2)^$FF,!iceball_base_x_speed+2
-	db (!iceball_base_x_speed-2)^$FF,!iceball_base_x_speed+2
+	db (!iceball_base_x_speed+0)^$FF+1,!iceball_base_x_speed+0
+	db (!iceball_base_x_speed+1)^$FF+1,!iceball_base_x_speed+1
+	db (!iceball_base_x_speed+1)^$FF+1,!iceball_base_x_speed+1
+	db (!iceball_base_x_speed+1)^$FF+1,!iceball_base_x_speed+1
+	db (!iceball_base_x_speed+2)^$FF+1,!iceball_base_x_speed+2
+	db (!iceball_base_x_speed+2)^$FF+1,!iceball_base_x_speed+2
+	db (!iceball_base_x_speed+3)^$FF+1,!iceball_base_x_speed+3
+	db (!iceball_base_x_speed+3)^$FF+1,!iceball_base_x_speed+3
