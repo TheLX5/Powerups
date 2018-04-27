@@ -5,8 +5,9 @@
 .image
 	lda $71
 	ora $13ED|!base2
+	ora $1493|!base2
 	ora $148F|!base2
-	bne .no
+	bne .custom_anim
 	lda $75
 	bne .override
 	lda $77
@@ -28,5 +29,21 @@
 	lda !power_ram
 .end
 	sta $13E0|!base2
-.no
+.no	
 	rts
+
+.custom_anim
+	bra .no
+.walk_cycle
+	lda $13E0|!base2
+	lda !power_ram+3
+	inc 
+	sta !power_ram+3
+	lsr #2
+	and #$03
+	tax
+	lda.l .walk_poses,x
+	bra .end
+
+.walk_poses
+	db $00,$01,$02,$01

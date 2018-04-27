@@ -26,10 +26,16 @@ init_1up:
 org $02894F|!base3
 !a	jsl question_block_fix
 
-org $03C31C
+org $03C31C|!base3
 !a	jsl invisible_mushroom_fix
 
 org $03C301|!base3
 !a	jsl green_mushroom_checkpoint_fix
+
+org $02EB19|!base3
+!a	jsl super_koopa_fix
+
+org $02D980|!base3
+!a	jsl bubble_fix
 
 endif

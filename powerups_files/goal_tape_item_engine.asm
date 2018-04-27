@@ -5,24 +5,31 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 goal_tape_hax:
-	STA.w	!9E,y
-	TYX	
-	JSL	$07F7D2|!base3
-	LDX	$02
-	CPX	#$FF
-	BEQ	.return
-	LDA.l	data00FADF_settings,x
-	BEQ	.return
-	TYX	
-	LDA	$0F
-	PHA	
-	LDA.b	!9E,x
-	STA	!7FAB9E,x
-	LDA	#$08
-	STA	!7FAB10,x
-	JSL	$0187A7|!base3
-	PLA	
-	STA	$0F
-	TXY	
-.return		
-	RTL	
+	sta.w !9E,y
+	tyx 
+	jsl $07F7D2|!base3
+	stz !1510,x
+	stx $15E9|!base2
+	ldx $02
+	cpx #$FF
+	beq .regular
+	lda.l data00FADF_settings,x
+	beq .regular
+	tyx
+	lda $0F
+	pha
+	lda.b !9E,x
+	sta !7FAB9E,x
+	lda #$08
+	sta !7FAB10,x
+	jsl $0187A7|!base3
+	jsl init_item
+	pla 
+	sta $0F
+	txy
+	rtl
+.regular
+	ldx $15E9|!base2
+	jsl init_item
+	txy
+	rtl

@@ -22,12 +22,12 @@ PlrDMA:
 	lda $0D82|!base2
 	sta $12
 	ldy.b #LuigiPalettes>>16
-	sty $4314
+	sty $14
 	bra .continue_upload
 .bypass_pal_upload
-	lda !pal_pointer
+	lda.l !pal_pointer
 	sta $12
-	lda !pal_pointer+1
+	lda.l !pal_pointer+1
 	sta $13
 	sep #$20
 	lda #$00
@@ -44,7 +44,11 @@ PlrDMA:
 	sta $10
 
 ;misc tiles
+if !SA1 == 0
 	ldx #$7E
+else
+	ldx #$40
+endif
 	stx $14
 	lda #$6060
 	sta $2116
@@ -123,7 +127,6 @@ PlrDMA:
 	bpl -
 	pla : sta $0D86|!base2
 
-	ldx #$00
 	lda !item_gfx_refresh
 	and #$0003
 	asl
@@ -149,7 +152,7 @@ PlrDMA:
 
 	lda #$61A0
 	sta $2116
-	lda !item_gfx_pointer+6
+	lda.l !item_gfx_pointer+6
 	sta $12
 	lda #$0040
 	sta $15
@@ -162,7 +165,7 @@ PlrDMA:
 	sta $2116
 	ldx.b #powerup_items/$10000
 	stx $14
-	lda !item_gfx_pointer+2
+	lda.l !item_gfx_pointer+2
 	sta $12
 	lda #$0040
 	sta $15
@@ -170,7 +173,7 @@ PlrDMA:
 
 	lda #$61C0
 	sta $2116
-	lda !item_gfx_pointer+8
+	lda.l !item_gfx_pointer+8
 	sta $12
 	lda #$0040
 	sta $15
@@ -198,7 +201,7 @@ PlrDMA:
 	sta $2116
 	ldx #$02
 -	
-	lda !item_gfx_pointer+6,x
+	lda.l !item_gfx_pointer+6,x
 	sta $12
 	lda #$0040
 	sta $15
@@ -221,7 +224,7 @@ if !no_dynamic_item_box == 0
 	sta $2116
 	ldx.b #powerup_items/$10000
 	stx $14
-	lda !item_gfx_pointer+4
+	lda.l !item_gfx_pointer+4
 	sta $12
 	lda #$0040
 	sta $15
@@ -229,7 +232,7 @@ if !no_dynamic_item_box == 0
 
 	lda #$61E0
 	sta $2116
-	lda !item_gfx_pointer+10
+	lda.l !item_gfx_pointer+10
 	sta $12
 	lda #$0040
 	sta $15

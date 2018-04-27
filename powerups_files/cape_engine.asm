@@ -146,9 +146,9 @@ cape_tap:
 	lda $15,x
 	bpl .code_00D924
 .continue
-	jml $00D908
+	jml $00D908|!base3
 .code_00D924
-	jml $00D924
+	jml $00D924|!base3
 .tap	
 	lda $16,x
 	bpl .code_00D924

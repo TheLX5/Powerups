@@ -5,8 +5,7 @@ bubble_hijack:
 		LDA	!190F,x
 		AND	#$80
 		BNE	.custom_bubble
-		JSL	$02D8AD|!base3
-		RTL	
+		JML	$02D8AD|!base3
 
 .custom_bubble
 		PHB	
@@ -48,12 +47,12 @@ bubble_main:
 		BCC	.ret
 	;sub_off_screen
 	PHB	
-	LDA.b	#($01|!base3>>16)
+	LDA.b	#$01|(!base3/$10000)
 	PHA	
 	PLB	
 	PHK	
 	PEA.w	.suboffscreen-1
-	PEA.w	$80CA-1
+	PEA.w	$80C9
 	JML	$01AC2B|!base3
 .suboffscreen		
 	PLB	
@@ -100,7 +99,7 @@ bubble_main:
 		BCC	.return
 		PHK	
 		PEA.w	.sub_vert_pos-1
-		PEA.w	$80CA-1
+		PEA.w	$80C9
 		JML	$01AD42|!base3
 .sub_vert_pos		
 		LDA	$0E
@@ -285,3 +284,66 @@ bubble_tile_size:
 	db $02,$02,$02,$02,$00
 bubble_tilemap_offset:
 	db $00,$05,$0A,$05
+
+
+GetDrawInfo:
+   LDA !14E0,x
+   XBA
+   LDA !E4,x
+   REP #$20
+   SEC : SBC $1A
+   STA $00
+   CLC
+   ADC.w #$0040
+   CMP.w #$0180
+   SEP #$20
+   LDA $01
+   BEQ +
+     LDA #$01
+   +   STA !15A0,x
+   TDC
+   ROL A
+   STA !15C4,x
+   BNE .Invalid
+
+   LDA !14D4,x
+   XBA
+   LDA !1662,x
+   AND #$20
+   BEQ .CheckOnce
+.CheckTwice
+   LDA !D8,x
+   REP #$21
+   ADC.w #$001C
+   SEC : SBC $1C
+   SEP #$20
+   LDA !14D4,x
+   XBA
+   BEQ .CheckOnce
+   LDA #$02
+.CheckOnce
+   STA !186C,x
+   LDA !D8,x
+   REP #$21
+   ADC.w #$000C
+   SEC : SBC $1C
+   SEP #$21
+   SBC #$0C
+   STA $01
+   XBA
+   BEQ .OnScreenY
+   INC !186C,x
+.OnScreenY
+   LDY !15EA,x
+   RTL
+ 
+.Invalid
+   PLA             ; destroy the JSL
+   PLA
+   PLA
+   PLA             ; sneak in the bank
+   PLY
+   PHB
+   PHY
+   PHA
+   RTL

@@ -12,7 +12,7 @@ endif
 ;; Misc Defines
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-!i_read_the_readme	= 1	;Set it to 1 to be able to insert the patch.
+!i_read_the_readme	= 0	;Set it to 1 to be able to insert the patch.
 				;I hope you did read the readme file.
 
 !enable_projectile_dma	= 1	;Enable the ASM hacks to make possible use DMA to upload the projectile tiles
@@ -32,6 +32,8 @@ endif
 				;1 = enable, 0 = disable
 
 !better_powerdown	= 0	;Set it to 1 if you have any plans on using Better Powerdown patch.
+
+!disable_drop_item	= 0	;Set it to 1 to disable items falling from item box automatically when getting hit.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Number of possible powerups.
@@ -166,7 +168,7 @@ endmacro
 ;; Smoke particles
 ;;;;;;;;;;;;;;;;;;;
 
-!remap_smoke_particles	= 0	;Leaves free a 16x16 tile in SP1 (tile x66)
+!remap_smoke_particles	= 1	;Leaves free a 16x16 tile in SP1 (tile x66)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Bubble sprite
@@ -206,10 +208,13 @@ endmacro
 !ext_sprite_flags	= !ext_sprite_ram+10
 !ext_sprite_dir		= !ext_sprite_ram+20
 !ext_sprite_prev	= !ext_sprite_ram+30
+!ext_sprite_index	= !ext_sprite_ram+40
 !extended_gfx		= !ext_sprite_ram
 !extended_flags		= !ext_sprite_ram+10
 !extended_dir		= !ext_sprite_ram+20
 !extended_prev		= !ext_sprite_ram+30
+!extended_index		= !ext_sprite_ram+40
+!sprite_ram		= !ext_sprite_ram+50
 
 !ItemBoxSfx = $0C       ; play the item box drop sound effect
 !PowerupSfx = $0B       ; play the powerup sound effect
@@ -258,7 +263,7 @@ if !SA1 == 0
 ;; !timer: Misc RAM often used as a timer.
 	!timer			= $7E200A
 ;;;;;;;
-;; !misc: Misc RAM, uses may vary per powerup
+;; !misc: Misc RAM, uses may vary per powerup. 16-bit
 	!misc			= $7E200B
 ;;;;;;;
 ;; !pal_bypass: RAM that bypasses the palette upload code to upload your own palette.
@@ -459,11 +464,8 @@ if !SA1 == 0
 ;; !timer: Misc RAM often used as a timer.
 	!timer			= $40410A
 ;;;;;;;
-;; !misc: Misc RAM, uses may vary per powerup
+;; !misc: Misc RAM, uses may vary per powerup. 16-bit
 	!misc			= $40410B
-;;;;;;;
-;; !projectile_gfx_bank: RAM that should contain the projectile GFX bank byte.
-	!projectile_gfx_bank	= $40410C
 ;;;;;;;
 ;; !pal_bypass: RAM that bypasses the palette upload code to upload your own palette.
 	!pal_bypass		= $40410D
@@ -472,6 +474,10 @@ if !SA1 == 0
 	!pal_pointer		= $40410E
 ;;;;;;;
 ;; !projectile_do_dma: RAM used as a flag to upload the projectile GFX
+;; Format: ------21
+;; 1 = Updates tile 1
+;; 2 = Updates tile 2
+;; - = Unused
 	!projectile_do_dma	= $404117
 ;;;;;;;
 ;; !projectile_gfx_index: Used to determine which powerup should be uploaded with DMA, 8 bytes.
@@ -526,6 +532,7 @@ if !SA1 == 0
 ;; 2 - Disable infinite fly flag (cape).
 ;; 3 - Use !flight_timer instead of a set timer.
 ;; 4 - Show cape.
+;; 5 - Enable tap to fly.
 	!cape_settings		= $404205
 ;;;;;;;
 ;; !flight_timer: How many frames you will keep ascending with a Raccoon-like powerup. Not used on Cape-like powerups. Never reset.
@@ -560,9 +567,10 @@ if !SA1 == 0
 	!extra_gfx_bypass_num	= $404210
 ;;;;;;;
 ;; !item_gfx_refresh: Refreshes stuff on sprite tiles 0A,0C,0E
-;; format: ------dr
-;; r = refresh tilemap
-;; d = handles item tile
+;; format: -----i21
+;; 1 = refreshes dynamic tilemap 1
+;; 2 = refreshes dynamic tilemap 2
+;; i = refreshes item box dynamic tilemap
 ;; 1 byte.
 	!item_gfx_refresh	= $404211
 ;;;;;;;
@@ -581,11 +589,46 @@ if !SA1 == 0
 	!ride_yoshi_flag	= $40421F
 ;;;;;;;
 ;; !insta_kill_flag: Check if Mario should get insta killed when being hit from an enemy.
+;; 1 byte
 	!insta_kill_flag	= $404220
 ;;;;;;;
 ;; !ext_sprite_ram: Reserved for 4 extended sprites tables.
 ;; 40 bytes.
 	!ext_sprite_ram		= $404221
+;;;;;;;
+;; !power_ram: Reserved for powerups.
+;; 16 bytes.
+	!power_ram		= $404249
+;;;;;;;
+;; !projectile_gfx_bank: RAM that should contain the projectile GFX bank byte.
+;; 2 bytes.
+	!projectile_gfx_bank	= $404259
+;;;;;;;
+;; !ducking_flag: Disables ducking if set.
+;; 1 byte.
+	!ducking_flag		= $40425B
+;;;;;;;
+;; !slide_flag: Disables sliding on slopes if set.
+;; 1 byte.
+	!slide_flag		= $40425C
+;;;;;;;
+;; !extra_tile_index: Which set of GFX is the extra tile using.
+;; If it is a negative value, the tile won't upload its graphics to SP1. Applies to both cape and extra tiles.
+;; 1 byte.
+	!extra_tile_index	= $40425D
+;;;;;;;
+;; !gfx_index: Which set of GFX is the player using.
+;; 1 byte.
+	!gfx_index		= $40425E
+	
+;;;;;;:
+;; !init_item_pos: Cover-up tile for items position (unused)
+	!cover_up_flag		= $40425F+$B*0
+	!init_item_x_lo		= $40425F+$B*1
+	!init_item_x_hi		= $40425F+$B*2
+	!init_item_y_lo		= $40425F+$B*3
+	!init_item_y_hi		= $40425F+$B*4
+
 
 endif
 
@@ -595,6 +638,7 @@ endif
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 if !SA1 = 1
+	!SprSize = $16
 	!base1	= $3000			;$0000-$00FF addresses
 	!base2	= $6000			;$0100-$1FFF addresses
 	!base3	= $000000		;FastROM addresses
@@ -653,6 +697,7 @@ if !SA1 = 1
 	!7FAB34 = $40006D
 	!7FAB9E	= $400083
 else
+	!SprSize = $0C
 	!base1	= $0000
 	!base2	= $0000
 	!base3	= $800000

@@ -50,6 +50,7 @@ init_powerup:
 ;	sta !cover_up_flag,x
 	inc !C2,x		;original code, dunno what it does.
 	stz $02
+	stz !1510,x
 init_item:
 ;	lda !E4,x
 ;	sta !init_item_x_lo,x
@@ -64,7 +65,7 @@ init_item:
 	sta $05
 	sta $01
 	sta $03
-	ldx #$0B
+	ldx.b #!SprSize-1
 .loop	
 	cpx $15E9|!base2	;ignore if we're comparing the this sprite
 	beq .clear
@@ -108,7 +109,7 @@ init_item:
 
 .erase_older
 	stx $00
-	ldx #$0B
+	ldx.b #!SprSize-1
 -	
 	cpx $15E9|!base2
 	beq +
@@ -145,7 +146,7 @@ init_item:
 
 
 
-	ldx #$0B
+	ldx.b #!SprSize-1
 -	
 	cpx $15E9|!base2
 	beq +
@@ -216,32 +217,35 @@ init_item:
 
 
 update_tilemap:
-	lda #$00	
+	lda #$00
 	ldy $00			;$00 = index for oldest item		
 	bmi .no_oldest
 	lda !1602,y
 .no_oldest
 	ldy $05			;$05 = index for the previous item
 	bmi .no_previous_2
-	lda !1602,y
+	cmp !1602,y
+	bne .no_previous_2
 	eor #$01
 .no_previous_2
 	ldy $01
 	bmi .no_previous
-	lda !1602,y
+	cmp !1602,y
+	bne .end
 	eor #$01
 	bra .end
 .no_previous
 	ldy $03			;$01 = index for the previous item
 	bmi .end
-	lda !1602,y
+	cmp !1602,y
+	bne .end
 	eor #$01
-.end
+.end	
 	ldx $15E9|!base2
 	sta !1602,x
 	inc
 	ora !item_gfx_refresh
-	and #$13
+	and #$93
 	sta !item_gfx_refresh
 
 	lda !190F,x		;check if custom item
@@ -257,16 +261,52 @@ update_tilemap:
 	sec
 	sbc #$74		;load the correct index for original items
 .continue
-	tay
-	lda !1602,x		;determine which item in SP1 will be overwritten
-	asl
-	tax 
 	phb
 	phk
-	plb			;load dynamic tile to show
+	plb
+	tay
+
+	lda !1602,x
+	pha
+
+	lda !item_gfx_refresh
+	bpl +
+	
+	lda !1602,x
+	eor #$01
+	sta !1602,x
+	asl
+	tax
+
+	rep #$20
+	lda !item_gfx_pointer,x
+	pha
+	lda !item_gfx_pointer+6,x
+	pha
+	sep #$20
+
+	ldx $15E9|!base2
+	lda !1602,x
+	eor #$01
+	asl
+	tax
+
+	rep #$20
+	pla
+	sta !item_gfx_pointer+6,x
+	pla
+	sta !item_gfx_pointer,x
+	sep #$20
+	
++	
+	ldx $15E9|!base2
+	lda #$00
+	xba
+	lda !1602,x
+	asl
+	tax			;load dynamic tile to show
 	lda.w dynamic_item_tiles,y
 	xba
-	plb
 
 	rep #$20
 	and #$FF00		;update the item gfx pointers
@@ -276,9 +316,16 @@ update_tilemap:
 	clc
 	adc #$0200
 	sta !item_gfx_pointer+6,x
-
 	sep #$20
+
+	lda !item_gfx_refresh
+	ora #$80
+	sta !item_gfx_refresh
+
 	ldx $15E9|!base2
+	pla
+	sta !1602,x
+	plb
 	rtl
 
 smoke_routine_item:
@@ -441,12 +488,36 @@ question_block_fix:
 
 invisible_mushroom_fix:
 	jsl $07F7D2|!base3
+	stz !1510,x
 	jml init_item
 
 
 green_mushroom_checkpoint_fix:
 	jsl $07F7D2|!base3
 	stx $15E9|!base2
+	stz !1510,x
+	jml init_item
+
+
+super_koopa_fix:
+	jsl $07F7D2|!base3
+	stz !1510,x
+	lda $15E9|!base2
+	pha
+	stx $15E9|!base2
+	jsl init_item
+	pla
+	sta $15E9|!base2
+	rtl
+
+bubble_fix:
+	jsl $07F7D2|!base3
+	stz !1510,x
+	lda $04,s
+	cmp #$74
+	beq +
+	rtl
++	
 	jml init_item
 
 endif

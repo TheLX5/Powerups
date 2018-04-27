@@ -31,3 +31,4 @@
 force_hit_sprites_powerups:
 	db $00,$00,$00,$00,$00,$00,$00,$01		;powerups 0-7
 	db $00,$00,$00,$02,$00,$00,$00,$03		;powerups 8-F
+	db $00,$00,$00					;powerups 10-12

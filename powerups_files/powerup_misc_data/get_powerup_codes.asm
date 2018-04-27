@@ -23,8 +23,8 @@
 	dw give_penguin_suit
 	dw give_propeller_suit
 	dw give_shell_suit
-	dw give_cloud_flower
 	dw give_bubble_flower
+	dw give_cloud_flower
 	dw give_dummy
 
 ;; ^^^^ ---- Here goes your pointers ---- ^^^^
@@ -46,8 +46,8 @@
 	incsrc get_powerup/penguin_suit.asm
 	incsrc get_powerup/propeller_suit.asm
 	incsrc get_powerup/shell_suit.asm
-	incsrc get_powerup/cloud_flower.asm
 	incsrc get_powerup/bubble_flower.asm
+	incsrc get_powerup/cloud_flower.asm
 	incsrc get_powerup/dummy.asm
 
 ;; ^^^^ ---- Here goes your codes/incsrc ---- ^^^^

@@ -1,13 +1,13 @@
 ; check contact between powerup projectile and enemy
 ; input: 
 ; X = Extended sprite index.
+; Y = Extended sprite index.
 ; 
 ; output:
 ; carry set = collision was found
 ; carry clear = collision wasn't found
 ; 
 
-	
 	txy
 	sty $185E|!Base2
 	ldx.b #!SprSize-1
@@ -16,9 +16,9 @@
 	lda !14C8,x
 	cmp #$08
 	bcc .ignore
-	lda !167A,x
-	and #$02
-	ora !15D0,x
+;	lda !167A,x
+;	and #$02
+	lda !15D0,x
 	ora !1632,x
 	eor !extended_behind,y
 	bne .ignore
@@ -38,7 +38,6 @@
 	and #$08
 	bne .is_custom
 	ldy.w !9E,x
-	rep #$10
 	bra .continue
 .is_custom
 	rep #$20
@@ -47,23 +46,8 @@
 	sep #$20
 	lda !7FAB9E,x
 	tay
-	rep #$10
-;	cmp #$B0
-;	bcc .continue
-;.per_level_custom
-;	sec
-;	sbc #$B0
-;	rep #$20
-;	sta !mul_reg_a
-;	lda $010B
-;	sta !mul_reg_b
-;	lda !mul_res_a
-;	tay
-;	inc $8A
-;	inc $8A
-;	sep #$20
 .continue
-	rep #$20
+	rep #$30
 	lda ($8A)
 	sta $8A
 	sep #$20

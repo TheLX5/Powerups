@@ -73,6 +73,8 @@ endif
 	sta !ext_sprite_gfx,x
 	sta !ext_sprite_table,x
 	sta !ext_sprite_flags,x
+	dec
+	sta !ext_sprite_index,x
 	lda #!boomerang_catch_cooldown
 	sta !ext_sprite_timer,x
 	

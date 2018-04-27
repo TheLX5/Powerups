@@ -15,18 +15,22 @@ macro flower_item(num,sfx,port)
 	sta $9D
 	lda #$04
 	sta $71
+	ldy $0DB3|!base2
 	lda #<num>
 	sta $19
+	sta $0DB8|!base2,y
 	lda #$00
 	sta !clipping_flag
 	sta !collision_flag
-	lda #$04
-	ldy !1534,x
-	bne +
-	jsl $02ACE5|!base3
-+	
+	lda $0F
+	bpl +
 	lda #<sfx>
 	sta <port>|!base2
+	ldy !1534,x
+	bne +
+	lda #$04
+	jsl $02ACE5|!base3
++	
 	jmp clean_ram
 endmacro
 
@@ -34,12 +38,19 @@ macro cape_item(num,sfx,port)
 	lda #$00
 	sta !clipping_flag
 	sta !collision_flag
+	ldy $0DB3|!base2
 	lda #<num>
 	sta $19
+	sta $0DB8|!base2,y
+	lda $0F
+	bmi +
 	lda #<sfx>
 	sta <port>|!base2
+	ldy !1534,x
+	bne +
 	lda #$04
 	jsl $02ACE5|!base3
++	
 	jsl $01C5AE|!base3
 	inc $9D
 	jmp clean_ram
@@ -50,6 +61,11 @@ freecode
 
 Statuses:			; sprite statuses, 4 possible
 db $08,$01,$09,$00	; normal, init, stunned, nonexistent
+
+mushroom_animation_fix:
+	lda #$01
+	sta $19
+	rtl
 
 CheckItem:
 	phb
@@ -135,6 +151,8 @@ if !dynamic_items == 1
 endif
 
 .noitem
+	lda #$00
+	sta $0F
 	lda.w PowerIndex,y
 	sep #$10
 	plb
@@ -142,13 +160,13 @@ endif
 	bcs .notoriginal
 .run_original
 	cmp #$01
-	beq +
+	beq .actual_run_original
 	pha
 	lda #$00
 	sta !clipping_flag
 	sta !collision_flag
 	pla 
-+	
+.actual_run_original
 	jml $01C550|!base3
 .notoriginal	
 	sec 
@@ -162,10 +180,20 @@ endif
 	jmp GiveNothing
 +		
 	pla
+.run_power_code
 	jsl $0086DF|!base3
 
 .PowerupPointers
 	incsrc powerup_misc_data/get_powerup_codes.asm
+
+init_powerups_code:
+	cmp #$06
+	bcs .notoriginal
+	jmp CheckItem_actual_run_original
+.notoriginal	
+	sec 
+	sbc #$06
+	jmp CheckItem_run_power_code
 
 GiveNothing:	
 Return:		
@@ -179,6 +207,11 @@ clean_ram:
 	lda #$F0
 	sta $0301|!base2,y
 
+	stz $1407|!base2
+	lda $13ED|!base2
+	and #$7F
+	sta $13ED|!base2
+	
 	lda #$00
 	sta !disable_spin_jump
 	sta !mask_15

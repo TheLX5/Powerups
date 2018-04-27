@@ -17,6 +17,14 @@ kill_sprite:
 	sta $176F|!Base2,x
 	lda #$01
 	sta !extended_num,x
+	txa 
+	sec 
+	sbc #$07
+	eor #$03
+	sta $00
+	lda !projectile_do_dma
+	and $00
+	sta !projectile_do_dma
 	plb 
 	rtl 
 	
@@ -200,17 +208,48 @@ contact:
 	jmp kill_sprite
 
 .instant_froze
+
+	phx
+	ldx.b #!SprSize-1
+.loop	
+	lda !14C8,x
+	cmp #$08
+	bcs .found_ice
+.next_spr	
+	dex
+	bpl .loop
+	bra .continue
+.found_ice
+	lda !7FAB10,x
+	and #$08
+	beq .next_spr
+	lda !7FAB9E,x
+	cmp #!ice_block_num
+	bne .next_spr
+	lda #$02
+	sta !14C8,x
+.continue
+	plx
+
+
 	lda #$01
 	sta $1DFC|!Base2
 	lda !1588,x
 	sta $00
 	lda !164A,x
 	sta $01
-	lda #$53
+	
+	lda #$36
 	sta !9E,x
+	lda #!ice_block_num
+	sta !7FAB9E,x
 	jsl $07F7D2|!BankB
-	lda #$09
+	lda #$88
+	sta !7FAB10,x
+	jsl $0187A7|!BankB
+	lda #$08
 	sta !14C8,x
+	
 	lda #$FF
 	sta !1540,x
 	lda $00
@@ -218,7 +257,7 @@ contact:
 	and #$04
 	beq .no_floor
 	lda #$01
-	sta !C2,x
+	sta $C2,x
 	bra .next
 .no_floor
 	lda $01
@@ -226,14 +265,55 @@ contact:
 	lda #$80
 	sta !154C,x
 .next	
-	lda #$22
-	sta !1686,x
-	lda #$A9
-	sta !167A,x
+	lda $0F
+	bpl .no_adjust_y
+	lda !D8,x
+	sec
+	sbc #$10
+	sta !D8,x
+	lda !14D4,x
+	sbc #$00
+	sta !14D4,x
+.no_adjust_y
+
+	bit $0F
+	bvc .no_adjust_x
+	lda !E4,x
+	sec
+	sbc #$08
+	sta !E4,x
+	lda !14E0,x
+	sbc #$00
+	sta !14E0,x
+.no_adjust_x	
+	
+	lda $0F
+	and #$0D
+	clc 
+	lsr 
+	sta $00
+	lda #$00
+	ror
+	eor #$80
+	ora $00
+	ora !7FAB28,x
+	and.b #%10000111
+	sta !7FAB28,x
+	stz $01
+	lda $00
+	ora !C2,x
+	and #%00000111
+	sta !C2,x
+	lsr
+	phy
+	tay
+	lda .block_layer,y
+	sta !1656,x
+	ply
 	jmp .puff
-.return	
-	sty $15E9|!Base2
-	rts
+
+.block_layer
+	db $00,$01,$0E,$0E
 
 ;there should be a better way to do this lol
 
@@ -258,10 +338,10 @@ do_dma:
 	ldx $15E9|!Base2
 	lda #iceball_projectile_gfx>>16
 	sta !projectile_gfx_bank-8,x
-	tya
-	cmp !extended_prev,x
-	beq no_upload
-	sta !extended_prev,x
+;	tya
+;	cmp !extended_prev,x
+;	beq no_upload
+;	sta !extended_prev,x
 	txa 
 	sec 
 	sbc #$07
@@ -288,6 +368,5 @@ iceball_props:
 iceball_pointers:
 	dw iceball_normal_sprites
 	dw iceball_custom_sprites
-	dw iceball_level_sprites
 
 incsrc mario_iceball_props.asm

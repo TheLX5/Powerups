@@ -1,6 +1,8 @@
 
 ; Gets the OAM index to be used, deletes when off screen, etc.
 
+	lda !extended_num,x
+	beq .erased_spr
 	lda.l .oam_slots-8,x
 	tay
 	stz $03
@@ -48,20 +50,17 @@
 
 .erase_spr
 	stz !extended_num,x
+.erased_spr
 	lda #$01
 	sta $03
-	phx
-	ldx #$09
-.loop	
-	lda !extended_num,x
-	beq .found_slot
-	dex
-	cpx #$07
-	bpl .loop
-	lda #$00
+	txa 
+	sec 
+	sbc #$07
+	eor #$03
+	sta $00
+	lda !projectile_do_dma
+	and $00
 	sta !projectile_do_dma
-.found_slot
-	plx
 	clc
 	rtl
 

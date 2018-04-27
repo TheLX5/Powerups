@@ -2,7 +2,7 @@
 ; Handle player tile data
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-org $00E36D
+org $00E36D|!base3
 !a	jml Tiles
 
 ;org $00E3E4|!base3

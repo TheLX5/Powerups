@@ -229,7 +229,7 @@
 	LdA #$83		;\
 	StA !mask_15		;/  Player can't press Left, Right and A/B.
 	LdA #$01		;\
-	StA $140D		;/  Set spin jumping.
+	StA $140D|!base2	;/  Set spin jumping.
 
 	LdA $77			;\
 	AND #$04		; | Branch if not touching ground.
@@ -336,7 +336,7 @@ CheckDownAndGround:
 	LdA #$00
 	StA !PropStatusTimer
 ;	StA !disable_spin_jump
-	StA $140D
+	StA $140D|!base2
 	PlA : PlA
 	RtS
 
@@ -402,7 +402,6 @@ ClearStatus:
 	StA !PropStatus
 	StA !PropStatusTimer
 	StA !mask_15
-	StA $140D
 	LdA #$07		;\
 	StA !PropFlipFrequency	;/  Set propeller frequency to be every 8 frames.
 	StZ $140D|!base2	;>  No more "spin jumping".

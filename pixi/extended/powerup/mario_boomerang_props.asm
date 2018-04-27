@@ -4,8 +4,8 @@
 ; 1-3 = Unused
 ; 4 = Don't interact with the projectile at all.
 ; 5 = Unused
-; 6 = Can be retrieved by Boomerang. (Not implemented)
-; 7 = Bypass Bit 4 setting, used to retrieve some sprites. (Not implemented)
+; 6 = Can be retrieved by Boomerang.
+; 7 = Bypass Bit 4 setting, used to retrieve some sprites.
 ; Bit order is:
 ; 76543210
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -76,8 +76,6 @@ boomerang_custom_sprites:
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites F8-FB
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites FC-FF
 
-boomerang_level_sprites:
-	incsrc mario_boomerang_props_pixi.asm
 
 boomerang_normal_sprites:
 ;.00 Green Koopa no shell
@@ -337,7 +335,7 @@ boomerang_normal_sprites:
 ;.7F Flying yellow 1-Up
 	db %00111111
 ;.80 Key
-	db %11011111
+	db %10000000
 ;.81 Changing item from translucent block
 	db %00111111
 ;.82 Bonus game sprite
@@ -399,7 +397,7 @@ boomerang_normal_sprites:
 ;.9E Ball and Chain
 	db %00011111
 ;.9F Banzai Bill
-	db %00000110
+	db %00000001
 ;.A0 Activates Bowser scene
 	db %00111111
 ;.A1 Bowser's bowling ball

@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Tiles:
-	lda $1497
+	lda $1497|!base2
 	beq .skip
 	lsr #3
 	txy
@@ -16,31 +16,20 @@ Tiles:
 	plb
 	rtl
 .skip	
+	jsr HandleCustomImages
 	lda #$F8
-;	bra +
-;.continue_normal
-;	lda #$C8
-;+
-;	tyx
-;	cpx #$43
-;	bne .real_continue
-;	lda #$E8
-.real_continue
 	sta $04
+	tyx
 	cpx #$29
 	bne .start
 	lda $19
 	bne .start
 	ldx #$20
 .start
-	phx
-	jsr HandleCustomImages
-	plx
-.bigger_tiles
-	lda.l PosPointPointer,x
+	lda.l $00DCEC|!base3,x
 	ora $76
 	tax
-	lda.l PosPoint,x
+	lda.l $00DD32|!base3,x
 	sta $05
 	
 	ldx $19
@@ -55,7 +44,7 @@ Tiles:
 -
 	sta $0A
 	stz $06
-	jml $00E3C0
+	jml $00E3C0|!base3
 	
 ..UseAlt
 	lda.l TileAltTable,x

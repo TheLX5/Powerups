@@ -92,7 +92,15 @@ behind:
 	ora $03
 	sta $0420|!Base2,y
 	plx
-done:
+	plb
+	rtl
+done:	
+	lda !extended_index,x
+	bmi +
+	tax
+	stz !14C8,x
+	ldx $15E9|!Base2
++	
 	plb
 	rtl
 
@@ -166,6 +174,29 @@ movement:
 
 
 sprite_interaction:
+
+;	lda !extended_table,x
+;	and #$20
+;	beq .skip_sync
+;.sync_item
+;	lda !extended_index,x
+;	bmi .skip_sync
+;	tay
+;	lda !extended_x_low,x
+;	sta.w !E4,y
+;	lda !extended_x_high,x
+;	sta !14E0,y
+;	lda !extended_y_low,x
+;	sta.w !D8,y
+;	lda !extended_y_high,x
+;	sta !14D4,y
+;	lda !1686,y
+;	ora #$80
+;	sta !1686,y
+;	stz !AA,x
+;	stz !B6,x
+;.skip_sync
+
 if !boomerang_run_sprites == 0
 	lda $13	
 	lsr 
@@ -198,9 +229,36 @@ endif
 	jsl $03B664|!BankB
 	jsl $03B72B|!BankB
 	bcc .skip_to_sprites
+	
 	stz !extended_num,x
+;	lda !extended_table,x
+;	and #$DF
+;	sta !extended_table,x
+;	lda !extended_flags,x
+;	tay
+;	lda !extended_index,x
+;	bmi +
+;	phx
+;	tax
+;	tya
+;	sta !1686,x
+;	lda #$00
+;	sta !sprite_ram,x
+
+
+	txa 
+	sec 
+	sbc #$07
+	eor #$03
+	sta $00
+	lda !projectile_do_dma
+	and $00
+	sta !projectile_do_dma
++	
 	rts
+
 .skip_to_sprites
+.rerun
 	lda.b #boomerang_pointers
 	sta $8A
 	lda.b #boomerang_pointers/$100
@@ -208,12 +266,58 @@ endif
 	lda.b #boomerang_pointers/$10000
 	sta $8C
 	%ExtendedHitSprites()
-	bcc contact_return
+	bcs contact
+	rts
 contact:
 	tyx
+;	lda $0F
+;	bmi .items
+;	jmp .normal_hit
+;.end
+;	sty $15E9|!Base2
+;	rts
+;.items
+;	lda !extended_table,x
+;	and #$20
+;	bne .end
+;	lda !extended_timer,x
+;	bne .end
+;	ldx $0E
+;	lda !sprite_ram,x
+;	bne .end
+;.get_item
+;	lda !ext_sprite_x_lo,y
+;	sta !E4,x
+;	lda !ext_sprite_x_hi,y
+;	sta !14E0,x
+;	lda !ext_sprite_y_lo,y
+;	sta !D8,x
+;	lda !ext_sprite_y_hi,y
+;	sta !14D4,x
+;	stz !AA,x
+;	stz !B6,x
+;	lda #$01
+;	sta !sprite_ram,x
+;	lda !1686,x
+;	sta $00
+;	ora #$80
+;	sta !1686,x
+;	txa
+;	tyx
+;	sta !extended_index,x
+;	lda $00
+;	sta !extended_flags,x
+;	lda !extended_table,x
+;	ora #$20
+;	sta !extended_table,x
+;	stx $15E9|!Base2
+;	rts
+
+.normal_hit
 	lda !extended_table,x
 	ora #$80
 	sta !extended_table,x
+.going_down
 	ldx $15E9|!Base2
 	lda $0F
 	lsr
@@ -231,8 +335,24 @@ contact:
 	sta !sprite_speed_y,x
 	lda #$02
 	sta !sprite_status,x
-	lda #$08
+if !SA1 == 1
+	rep #$20
+	txa
+	and #$00FF
+	clc
+	adc.w #!sprite_num
+	sta $B4
+	adc #$0016
+	sta $CC
+	adc #$0016
+	sta $EE
+	sep #$20
+	lda ($B4)
+	sta $87
+endif
+	lda #$06
 	jsl $02ACEF|!BankB
+
 .go_back
 	lda #$10
 	ldx !extended_x_speed,y
@@ -271,10 +391,10 @@ do_dma:
 	ldx $15E9|!Base2
 	lda #boomerang_projectile_gfx>>16
 	sta !projectile_gfx_bank-8,x
-	tya
-	cmp !extended_prev,x
-	beq no_upload
-	sta !extended_prev,x
+;	tya
+;	cmp !extended_prev,x
+;	beq no_upload
+;	sta !extended_prev,x
 	txa 
 	sec 
 	sbc #$07
@@ -297,6 +417,5 @@ endif
 boomerang_pointers:
 	dw boomerang_normal_sprites
 	dw boomerang_custom_sprites
-	dw boomerang_level_sprites
 
 incsrc mario_boomerang_props.asm

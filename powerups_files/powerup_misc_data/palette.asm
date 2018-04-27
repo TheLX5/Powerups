@@ -38,10 +38,10 @@ MarioPalettes:
 	%insert_palette(propeller_suit_mario)		; powerup E
 ; Shell suit (NSMBDS)
 	%insert_palette(shell_suit_mario)		; powerup F
-; Cloud flower (SMG)
-	%insert_palette(cloud_flower_mario)		; powerup 10
 ; Bubble flower
-	%insert_palette(bubble_flower_mario)		; powerup 11
+	%insert_palette(bubble_flower_mario)		; powerup 12
+; Cloud flower (SMG)
+	%insert_palette(cloud_flower_mario)		; powerup 11
 ; Dummy
 	%insert_palette(dummy_mario)			; powerup 12
 
@@ -82,10 +82,10 @@ LuigiPalettes:
 	%insert_palette(propeller_suit_luigi)		; powerup E
 ; Shell suit (NSMBDS)
 	%insert_palette(shell_suit_luigi)		; powerup F
-; Cloud flower (SMG)
-	%insert_palette(cloud_flower_luigi)		; powerup 10
 ; Bubble flower
-	%insert_palette(bubble_flower_luigi)		; powerup 11
+	%insert_palette(bubble_flower_luigi)		; powerup 10
+; Cloud flower (SMG)
+	%insert_palette(cloud_flower_luigi)		; powerup 11
 ; Dummy
 	%insert_palette(dummy_luigi)			; powerup 12
 

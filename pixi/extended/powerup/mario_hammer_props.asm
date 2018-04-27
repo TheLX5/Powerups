@@ -74,9 +74,6 @@ hammer_custom_sprites:
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites F8-FB
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites FC-FF
 
-hammer_level_sprites:
-incsrc mario_hammer_level_props.asm
-
 hammer_normal_sprites:
 ;.00 Green Koopa no shell
 	db %00000000

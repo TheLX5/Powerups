@@ -38,16 +38,13 @@ endif
 ; \		 / ;
 
 print "INIT ",pc
-	lda $028012|!BankB
+	lda $02806F|!BankB
 	sta $00
-	lda $028013|!BankB
+	lda $02806F|!BankB
 	sta $01
-	lda $028014|!BankB
+	lda $02806F|!BankB
 	sta $02
 	jml [!Base1]
-	;jsl read3($028012|!BankB)
-	;rtl
-	;jml read3($01C6DE)+$02
 
 ; /		 \ ;
 ;|  Main routine  |;
@@ -142,12 +139,44 @@ db $16,$E8,$FC
 SubGFX:
 	lda !14C8,x
 	cmp #$08
-	bne .GetDrawInfo
-
+	beq +
+	jmp .GetDrawInfo
++
 	lda $14
 	and #$06
 	lsr
 	tay
+	
+	lda !1602,x
+	pha
+	lda !item_gfx_refresh
+	bpl +
+	lda !1602,x
+	eor #$01
+	sta !1602,x
+	asl
+	tax
+
+	rep #$20
+	lda !item_gfx_pointer,x
+	pha
+	lda !item_gfx_pointer+6,x
+	pha
+	sep #$20
+
+	ldx $15E9|!Base2
+	lda !1602,x
+	eor #$01
+	asl
+	tax
+
+	rep #$20
+	pla
+	sta !item_gfx_pointer+6,x
+	pla
+	sta !item_gfx_pointer,x
+	sep #$20
++	
 	lda !1602,x
 	asl
 	sta $00
@@ -158,7 +187,7 @@ SubGFX:
 	rep #$20
 	and #$FF00
 	lsr #3
-	adc.w #read2($00A38B)
+	adc.w #read2($00A38B|!BankB)
 
 if !DrawOne16x16Tile == 0
 
@@ -185,9 +214,11 @@ endif
 	lda !1602,x
 	inc
 	ora !item_gfx_refresh
-	and #$13
+	and #$93
 	sta !item_gfx_refresh
-.skip
+.skip	
+	pla
+	sta !1602,x
 .GetDrawInfo
 	%GetDrawInfo()
 

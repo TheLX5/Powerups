@@ -1,4 +1,4 @@
-@asar 1.50
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Custom powerups patch by MarioE
 ; Asar version by Lui37
@@ -14,11 +14,9 @@
 ; Macros
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-	;autoclean
-
 macro insert_gfx(filename,add)
-	org ($00A304|!base3+($<add>*3))
-		if read1($00D067) == $FF
+	org ($00A304+!base3+($<add>*3))
+		if read2($00D067|!base3) == $DEAD
 			autoclean dl <filename>_gfx
 		else
 			dl <filename>_gfx
@@ -30,8 +28,8 @@ freedata
 endmacro
 
 macro insert_extra_gfx(filename,add)
-	org ($00F63A|!base3+($<add>*3))
-		if read1($00D067) == $FF
+	org ($00F63A+!base3+($<add>*3))
+		if read2($00D067|!base3) == $DEAD
 			autoclean dl <filename>_gfx
 		else
 			dl <filename>_gfx
@@ -47,8 +45,8 @@ macro insert_palette(filename)
 endmacro
 
 macro insert_big_gfx(filename,add)
-    org ($00A304|!base3+($<add>*3))
-		if read1($00D067) == $FF
+    org ($00A304+!base3+($<add>*3))
+		if read2($00D067|!base3) == $DEAD
 			autoclean dl <filename>_gfx
 		else
 			dl <filename>_gfx
@@ -81,7 +79,7 @@ endmacro
 
 if !i_read_the_readme == 0
 	print "Custom powerups patch."
-	print "Version 3.0.4"
+	print "Version 3.1.0"
 	print ""
 	print "Nothing was inserted."
 	print "Please read the Readme file included in this patch."
@@ -116,6 +114,7 @@ endif
 	incsrc powerups_files/hijacks/ducking_flag.asm
 	incsrc powerups_files/hijacks/slide_flag.asm
 	incsrc powerups_files/hex_edits.asm
+	incsrc powerups_files/ow_mario.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Add-on hijacks installer
@@ -126,7 +125,7 @@ endif
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 org $00A38B|!base3
-	if read1($00D067) == $FF
+	if read1($00D067|!base3) == $DEAD
 		autoclean dl powerup_items
 	else
 		dl powerup_items
@@ -138,7 +137,7 @@ org $00F63A|!base3
 	ExtraTilesGFX:
 
 freecode
-	prot PowerupData,powerup_items
+	prot powerup_items
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Prot area
@@ -158,6 +157,7 @@ freecode
 	%protect_data(cape_tiles)
 	%protect_data(tail_tiles)
 	%protect_data(propeller_tiles)
+	%protect_data(cloud_tiles)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Powerup code
@@ -291,8 +291,6 @@ freecode
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-freedata
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Random Data
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -321,12 +319,14 @@ powerup_items:
 
 	incsrc powerups_files/powerup_gfx.asm
 
-org $00D067
-install_byte:
-	db $FF
+if read2($00D067|!base3) != $DEAD
+	org $00D067|!base3
+	install_byte:
+		dw $DEAD
+endif
 
 print "Custom powerups patch."
-print "Version 3.0.4"
+print "Version 3.1.0"
 print ""
 print "Inserted ", freespaceuse, " bytes"
 endif

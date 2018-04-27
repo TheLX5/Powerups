@@ -2,23 +2,42 @@
 ;; Ice Flower (NSMBWii)
 ;;;;;;;;;;;;;;;;;;;
 
-!ice_flower_tile		= $0E	;Tile used by the unused powerup E item
-!ice_flower_prop		= $0A	;YXPPCCCT properties of unused powerup E item
+!ice_flower_tile		= $0E	;Tile used by the Ice Flower item
+!ice_flower_prop		= $0A	;YXPPCCCT properties of the Ice Flower item
 					;You may want to change the .cfg file too.
 !ice_flower_dynamic_tile	= $28	;Tile used by this powerup.
 
-!ice_flower_shoot_sfx		= $06
-!ice_flower_shoot_port		= $1DFC
-!ice_flower_pose_timer		= $0A
-!iceball_ext_num		= $16
-!iceball_y_speed		= $38
-!iceball_shoot_up		= 1
-!iceball_base_x_speed		= $02
-!iceball_run_sprites		= 1
-!iceball_prop			= $0A
-!ice_block_rainbow		= $01
-!ice_block_tile			= $48
-!ice_block_prop			= $0A
+!ice_flower_shoot_sfx		= $06	;SFX number that plays when Mario shoots an iceball.
+!ice_flower_shoot_port		= $1DFC	;SFX Port.
+
+!ice_flower_pose_timer		= $0A	;How many frames will the "shooting" pose will be shown.
+
+!iceball_ext_num		= $16	;Extended sprite number for the iceball.
+
+!iceball_y_speed		= $38	;Initial Y speed of the iceball
+!iceball_shoot_up		= 1	;Flag to decide if Iceballs can be thrown upwards
+!iceball_base_x_speed		= $02	;Initial X speed.
+					;Note that this number refers to the amount of pixels
+					;that the iceball will move per frame.
+
+!iceball_run_sprites		= 1	;If this is set to 0, the sprite will check contact with sprites every frame.
+					;Otherwise, it will only check every other frame.
+					;Set it to zero if you are using SA-1.
+					
+!iceball_prop			= $0A	;YXPPCCCT properties for the iceball
+
+!iceball_pro_tile_1		= $00	;Frames of the iceball sprite.
+!iceball_pro_tile_2		= $00	;These aren't used if using projectiles DMA.
+!iceball_pro_tile_3		= $00
+!iceball_pro_tile_4		= $00
+
+!ice_block_rainbow		= $01	;Set to 0 if you wanna disable the rainbow effect from the ice block debris.
+
+!ice_block_num			= $10	;Number of the ice block sprite.
+!ice_block_break_sfx		= $07	;SFX that plays when the ice block breaks.
+!ice_block_break_port		= $1DFC	;Port of the SFX
+
+
 %powerup_number(ice_flower,0C)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.

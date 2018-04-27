@@ -95,7 +95,7 @@
 	phk
 	pea .no_wall-1
 	pea $84CE
-	jml $00EB42
+	jml $00EB42|!base3
 .no_wall
 	plb
 .no_active

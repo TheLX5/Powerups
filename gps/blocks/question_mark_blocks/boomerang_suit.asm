@@ -6,7 +6,7 @@ JMP Cape : JMP Fireball
 JMP MarioCorner : JMP MarioInside : JMP MarioHead
 
 !SoundEffect = $02
-!APUPort = $1DFC
+!APUPort = $1DFC|!addr
 				
 !bounce_num		= $03	; See RAM $1699 for more details
 !bounce_direction	= $00	; Should be generally $00

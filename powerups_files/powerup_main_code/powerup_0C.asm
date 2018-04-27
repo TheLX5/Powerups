@@ -1,25 +1,25 @@
 
-	LDA $73
-	ORA $74
-	ORA $187A|!base2
-	ORA $1470|!base2
-	BNE .Return
+	lda $73
+	ora $74
+	ora $187A|!base2
+	ora $1470|!base2
+	bne .Return
 
-	BIT $16
-	BVS .ShootIceball
-	LDA $140D|!base2
-	BEQ .Return
-	INC $13E2|!base2
-	LDA $13E2|!base2
-	AND #$0F
-	BNE .Return
-	TAY
-	LDA $13E2|!base2
-	AND #$10
-	BEQ +
-	INY
-+
-	STY $76
+	bit $16
+	bvs .ShootIceball
+	lda $140D|!base2
+	beq .Return
+	inc $13E2|!base2
+	lda $13E2|!base2
+	and #$0F
+	bne .Return
+	tay
+	lda $13E2|!base2
+	and #$10
+	beq +
+	iny
++	
+	sty $76
 .ShootIceball
 	ldx #$09
 .find_slot

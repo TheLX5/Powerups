@@ -168,9 +168,11 @@
 	lda #$10
 	sta $1DF9|!base2
 	stz $1DFC|!base2
-	jsl $01C5AE|!base2
+	jsl $01C5AE|!base3
 	stz $140D|!base2
 	stz $13E8|!base2
+	lda #$01
+	sta !ride_yoshi_flag
 	lda #$00
 	sta !timer
 	sta !flags
@@ -183,6 +185,8 @@
 	dec
 	sta !power_ram+4
 +	
+	lda #$01
+	sta !ride_yoshi_flag
 	lda !power_ram+3
 	beq ..cancel
 	dec
@@ -216,6 +220,7 @@
 	lda #$00
 	sta !timer
 	sta !flags
+	sta !ride_yoshi_flag
 	rts
 	
 .reset
@@ -232,6 +237,7 @@
 	lda #$00
 	sta !timer
 	sta !flags
+	sta !ride_yoshi_flag
 	rts
 ..force
 	lda #$00
@@ -241,6 +247,7 @@
 	lda #$00
 	sta !timer
 	sta !flags
+	sta !ride_yoshi_flag
 	rts
 .x_tail
 	dw $FFF4,$000C

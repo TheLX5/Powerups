@@ -15,6 +15,11 @@ ExtendedTest:
 	stz $0F
 	stz $0E
 	stz $0B
+	stz $8B
+	stz $8C
+	stz $8A
+	stz $0D
+	stz $0E
 	stz $1694|!Base2
 	lda $140F|!Base2	;checking if we're in a special level
 	bne .normal_level

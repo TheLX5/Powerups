@@ -16,7 +16,12 @@ give_mini_mushroom:
 	lda #$19
 	sta !clipping_disp_y
 	
+	phb
+	phk
+	plb
+	
 	rep #$30
+	pha
 	ldx #$006C
 -	
 	lda.l .x_coords,x
@@ -25,20 +30,28 @@ give_mini_mushroom:
 	sta !collision_data_y,x
 	dex #2
 	bpl -
+	pla
 	sep #$30
+	plb
+	
 	lda #$01
 	sta !collision_flag
 	lda #$FF
 	sta !collision_index
-	lda #$04
-	sta $1DF9|!base2
+	ldy $0DB3|!base2
 	lda #!mini_mushroom_powerup_num
 	sta $19
+	sta $0DB8|!base2,y
 	plx
+	lda $0F
+	bmi +
+	lda #$04
+	sta $1DF9|!base2
 	lda #$04
 	jsl $02ACE5|!base3
 	jsl $01C5AE|!base3
 	inc $9D
++
 	jmp clean_ram
 
 .x_coords

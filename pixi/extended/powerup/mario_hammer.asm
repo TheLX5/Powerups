@@ -126,7 +126,7 @@ contact:
 	lda !extended_table,x
 	ora #$80
 	sta !extended_table,x
-	ldx $15E9
+	ldx $15E9|!Base2
 	lda $0F
 	lsr
 	bcs .go_back
@@ -143,8 +143,25 @@ contact:
 	sta !AA,x
 	lda #$02
 	sta !14C8,x
-	lda #$08
-	jsl $02ACEF
+
+if !SA1 == 1
+	rep #$20
+	txa
+	and #$00FF
+	clc
+	adc.w #!sprite_num
+	sta $B4
+	adc #$0016
+	sta $CC
+	adc #$0016
+	sta $EE
+	sep #$20
+	lda ($B4)
+	sta $87
+endif
+	lda #$06
+	jsl $02ACEF|!BankB
+
 .go_back
 	lda #$10
 	ldx !extended_x_speed,y
@@ -185,10 +202,10 @@ do_dma:
 	ldx $15E9|!Base2
 	lda #hammer_projectile_gfx>>16
 	sta !projectile_gfx_bank-8,x
-	tya
-	cmp !extended_prev,x
-	beq no_upload
-	sta !extended_prev,x
+;	tya
+;	cmp !extended_prev,x
+;	beq no_upload
+;	sta !extended_prev,x
 	txa 
 	sec 
 	sbc #$07
@@ -218,6 +235,5 @@ hammer_props:
 hammer_pointers:
 	dw hammer_normal_sprites
 	dw hammer_custom_sprites
-	dw hammer_level_sprites
 
 incsrc mario_hammer_props.asm

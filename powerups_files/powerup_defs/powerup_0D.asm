@@ -1,14 +1,13 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Unused D
+;; Penguin Suit (Unfinished)
 ;;;;;;;;;;;;;;;;;;;
 
-!unused_d_tile		= $0E	;Tile used by the unused powerup E item
-!unused_d_prop		= $00	;YXPPCCCT properties of unused powerup E item
-				;You may want to change the .cfg file too.
+!penguin_suit_tile		= $0E	;Tile used by the penguin suit item
+!penguin_suit_prop		= $06	;YXPPCCCT properties of the penguin suit item
+					;You may want to change the .cfg file too.
+!penguin_suit_dynamic_tile	= $2A	;Tile used by this powerup.
 
-!unused_d_dynamic_tile	= $00	;Tile used by this powerup.
-
-%powerup_number(unused_d,0D)	;Mandatory macro to get the powerup number.
+%powerup_number(penguin_suit,0D)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

@@ -16,3 +16,4 @@
 %insert_extra_gfx(cape_tiles,0)
 %insert_extra_gfx(tail_tiles,1)
 %insert_extra_gfx(propeller_tiles,2)
+%insert_extra_gfx(cloud_tiles,3)

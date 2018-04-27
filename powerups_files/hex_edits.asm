@@ -4,7 +4,7 @@ org $019B8C|!base3
 if !remap_shell_less_koopa == 1
 			db $E0,$E2,$E2,$E6,$CC,$86,$4E
 else
-			db $E0,$E2,$E2,$CE,$E4,$86,$4E
+			db $C8,$CA,$CA,$CE,$CC,$86,$4E
 endif
 
 if !remap_little_bubble == 1
@@ -94,7 +94,7 @@ org $02E6B7|!base3
 	db !lakitu_mushroom_prop
 endif
 
-org $00DCEC	;PosPointPointer
+org $00DCEC|!base3	;PosPointPointer
 db $00,$00,$00,$00,$00,$00,$00,$00	;00-07	\
 db $00,$00,$00,$00,$00,$00,$00,$00	;08-0F	|
 db $04,$02,$02,$02,$00,$00,$00,$00	;10-17	|
@@ -105,13 +105,13 @@ db $00,$00,$00,$00,$00,$00,$00,$00	;30-37	|
 db $00,$00,$00,$00,$00,$00,$00,$00	;38-3F	|
 db $00,$00,$00,$00,$00,$00		;40-45	/
 
-org $00DD32	;PosPoint
+org $00DD32|!base3	;PosPoint
 db $00,$08,$10,$18,$20,$28,$00,$00	;00-07
 db $00,$00,$00,$00,$00,$00,$00,$00	;08-0F
 db $00,$00,$00,$00,$00,$00,$00,$00	;10-17
 db $00,$00,$00,$00			;18-1B
 
-org $00DD4E	;X positions
+org $00DD4E|!base3	;X positions
 dw $FFF8,$FFF8,$0008,$0008	;[00]	Normal (facing left)
 dw $0008,$0008,$FFF8,$FFF8	;[08]	Normal (facing right)
 dw $0007,$0007,$0017,$0017	;[10]	Wall running offsets (wall on left)
@@ -145,7 +145,7 @@ dw $000D,$000D,$FFFB,$FFFB
 dw $FFFB,$FFFF,$000F,$0001
 dw $FFF9,$0000
 
-org $00DE32	;Y positions
+org $00DE32|!base3	;Y positions
 dw $0001,$0011,$0001,$0011	;[00]	Normal (facing left)
 dw $0001,$0011,$0001,$0011	;[08]	Normal (facing right)
 dw $000F,$001F,$000F,$001F	;[10]	Wall running offsets (wall on left)
@@ -179,10 +179,10 @@ dw $0010,$0018,$0000,$0010
 dw $0018,$0000,$0010,$0000
 dw $0010,$FFF8
 
-org $00DFDA	;Mario8x8Tiles
+org $00DFDA|!base3	;Mario8x8Tiles
 db $00,$20,$02,$22
 
-org $00E18E
+org $00E18E|!base3
 db $00,$00,$00,$00,$00,$00,$00,$00	;[00-07]
 db $00,$00,$00,$00,$00,$0D,$00,$10	;[08-0F]
 db $13,$22,$25,$28,$00,$16,$00,$00	;[10-17]
@@ -194,13 +194,13 @@ db $16,$16,$00,$00,$08			;[38-3C]
 db $00,$00,$00,$00,$00,$00,$10,$04	;[3D-44]
 db $00					;[45]
 
-org $0485B2	;OW Border Mario Y Position
+org $0485B2|!base3	;OW Border Mario Y Position
 dw $0007
 
-org $04EBDA	;OW Sparkles
+org $04EBDA|!base3	;OW Sparkles
 db $26,$27,$36,$37,$36,$27,$26
 
-org $00E1D4			;cape data, only DYNAMIC was modified.
+org $00E1D4|!base3			;cape data, only DYNAMIC was modified.
 db $06,$00,$06,$00,$86,$02,$06,$03	;MASK,DYNAMIC,MASK,DYNAMIC,MASK,DYNAMIC,MASK,DYNAMIC
 db $06,$01,$06,$42,$06,$06,$02,$00	;MASK,DYNAMIC,MASK,DYNAMIC,POSITION,MASK,DYNAMIC,POSITION
 db $06,$0A,$06,$06,$06,$0E,$86,$0A	;MASK,DYNAMIC,POSITION,MASK,DYNAMIC,POSITION,MASK,DYNAMIC
@@ -211,7 +211,7 @@ db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF	;MASK,DYNAMIC,POSITION,TILE1,TILE2,MASK,DYNAM
 db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF	;TILE1,TILE2,MASK,DYNAMIC,POSITION,TILE1,TILE2,MASK
 db $FF,$FF,$FF,$06,$0E,$1E		;DYNAMIC,POSITION,TILE1,MASK,DYNAMIC,POSITION
 
-org $00E23A			;other cape tiles.
+org $00E23A|!base3			;other cape tiles.
 db $00,$00,$20,$00,$24,$24,$24,$24
 db $26,$26,$26,$26,$06,$06,$06,$06
 db $04,$04,$04,$04,$02,$02,$02,$02
@@ -220,7 +220,7 @@ db $2A,$2A,$2A,$2A,$22,$22,$22,$22
 db $0C,$0C,$0C,$0C
 
 if !dynamic_items == 1
-org $01DEE3
+org $01DEE3|!base3
 db $FA,$FB,$D2,$D2
 db $EA,$EB,$FA,$FB
 db $D2,$D2,$EA,$EB
@@ -235,8 +235,8 @@ db $05,$05,$05
 db $09,$09,$09
 db $0B,$0B,$0B
 
-org $02FE5E
+org $02FE5E|!base3
 	db $CE
-org $02FE63
+org $02FE63|!base3
 	db $3B
 endif

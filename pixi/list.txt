@@ -12,9 +12,12 @@
 0B powerups/shell_suit.cfg
 0C powerups/bubble_flower.cfg
 0D powerups/cloud_flower.cfg
+10 ice_block.cfg
 
 EXTENDED:
 00 powerup/mario_hammer.asm
 01 powerup/mario_boomerang.asm
 02 powerup/mario_superball.asm
 03 powerup/mario_iceball.asm
+04 powerup/mario_bubble.asm
+05 powerup/mario_cloud.asm

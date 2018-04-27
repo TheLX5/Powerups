@@ -1,10 +1,18 @@
-!bubble_flower_tile		= $0E	;Tile used by the unused powerup E item
-!bubble_flower_prop		= $0A	;YXPPCCCT properties of unused powerup E item
+!cloud_flower_tile		= $0E	;Tile used by the unused powerup E item
+!cloud_flower_prop		= $0A	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
 
-!bubble_flower_dynamic_tile	= $20	;Tile used by this powerup.
+!cloud_flower_dynamic_tile	= $46	;Tile used by this powerup.
 
-%powerup_number(bubble_flower,11)	;Mandatory macro to get the powerup number.
+!spawn_cloud_sfx		= $04
+!spawn_cloud_port		= $1DFC
+!cloud_ext_num			= $18
+
+!cloud_flower_smoke		= 1
+
+!cloud_prop			= $02
+
+%powerup_number(cloud_flower,11)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

@@ -66,7 +66,7 @@ endif
 	sta !gfx_pointer
 	sep #$20
 	lda.l PowerupGFX+2,x
-	sta !gfx_pointer+2		;store info in pointers
+	sta.l !gfx_pointer+2		;store info in pointers
 	
 	rep #$20
 	tyx
@@ -74,7 +74,7 @@ endif
 	sta !extra_tile_pointer
 	sep #$20
 	lda.l ExtraTilesGFX+2,x
-	sta !extra_tile_pointer+2
+	sta.l !extra_tile_pointer+2
 	ply
 	sep #$10
 
@@ -115,7 +115,7 @@ endif
 	clc
 	adc #$0200
 	sta $0D93|!base2
-	lda !extra_tile_pointer+2
+	lda.l !extra_tile_pointer+2
 	tay 
 	sty $0D88|!base2
 	sep #$20

@@ -1,36 +1,36 @@
-!cloud_ammo = !flags
+	lda $73
+	ora $74
+	ora $187A|!base2
+	ora $1470|!base2
+	bne .return
 
-	LDA $72				; only in the air
-	BEQ .return
-	LDA $187A|!base2		; and without yoshi
-	BNE .return
-	
-	BIT $16				; Y/X buttons
-	BVC .return
-	
-	LDA #!spawn_cloud_sfx			; sound effect 
-	STA !spawn_cloud_port|!base2
-	LDA #$14			; show spinning pose
-	STA $14A6|!base2
-	
-	LDA !cloud_ammo
-	BEQ .return
-
-	LDX #$09
+	bit $16
+	bvs .shoot_bubble
+	lda $140D|!base2
+	beq .return
+	inc $13E2|!base2
+	lda $13E2|!base2
+	and #$0F
+	bne .return
+	tay
+	lda $13E2|!base2
+	and #$10
+	beq +
+	iny
++	
+	sty $76
+.shoot_bubble
+	ldx #$09
 .find_slot
-	LDA $170B|!base2,x
-	BEQ .spawn_cloud
-	DEX
-	CPX #$07
-	BNE .find_slot
-.return					; don't spawn clouds if there are no free slots
-	RTS
+	lda !ext_sprite_num,x
+	beq .found_slot
+	dex
+	cpx #$07
+	bne .find_slot
+.return	
+	rts
 
-.spawn_cloud
-	LDA !cloud_ammo
-	DEC
-	STA !cloud_ammo
-
+.found_slot
 if !enable_projectile_dma == 1
 	txa
 	sec
@@ -38,75 +38,70 @@ if !enable_projectile_dma == 1
 	and #$03
 	sta !projectile_do_dma
 endif	
+	lda #!bubble_flower_shoot_sfx
+	sta !bubble_flower_shoot_port|!base2
+	lda #!bubble_flower_pose_timer
+	sta $149C|!base2
+	lda #!bubble_ext_num
+	sta !ext_sprite_num,x
+	
+	lda $13F9|!base2
+	sta !ext_sprite_layer,x
+	stz !ext_sprite_table,x
+	stz $01
+	ldy #$1E
+	lda $75
+	ora $85
+	sta !ext_sprite_flags,x
+	beq .no_water
+	ldy #$3C
+	lda #$22
+	sta $01
+	bra .duration
+.no_water
+	lda #$16
+	sta $01
+.duration
+	tya
+	sta !ext_sprite_gfx,x
+	
+	stz $00
+	lda $76
+	clc
+	ror #2
+	eor $7B
+	bpl +
+	lda $7B
+	sta $00
++	
+	lda $01
+	ldy $76
+	bne +
+	eor #$FF
+	inc
++	
+	clc
+	adc $00
+	sta !ext_sprite_x_speed,x
+	lda #$0A
+	sta !ext_sprite_y_speed,x
 
-	LDA #!cloud_ext_num
-	STA $170B|!base2,x
+	ldy $76
+	lda $94
+	clc
+	adc .x_disp,y
+	sta !ext_sprite_x_lo,x
+	lda $95
+	adc #$00
+	sta !ext_sprite_x_hi,x
+	lda $96
+	clc
+	adc #$08
+	sta !ext_sprite_y_lo,x
+	lda $97
+	adc #$00
+	sta !ext_sprite_y_hi,x
+	rts
 
-	LDA $94				; x position lo/hi
-	SEC
-	SBC #$08
-	STA $171F|!base2,x
-	LDA $95
-	SBC #$00
-	STA $1733|!base2,x
-	
-	LDA $96				; y position lo/hi
-	CLC
-	ADC #$24
-	STA $1715|!base2,x
-	LDA $97
-	ADC #$00
-	STA $1729|!base2,x
-	
-	LDA #$64			; expiry timer
-	STA $176F|!base2,x
-	STZ $1765|!base2,x		; clear misc flags
-	STZ $173D|!base2,x		; no y/x speed
-	STZ $1747|!base2,x
-	LDA $13F9|!base2		; go behind fg stuff
-	STA $1779|!base2,x
-	
-if !cloud_flower_smoke == 1
-	LDX #$01			; draw 2 smoke trails ala yellow yoshi
-.smoke_trail_loop
-	LDY #$07
-.find_extended
-	LDA $170B|!base2,y
-	BEQ .spawn_smoke_trail
-	DEY
-	BPL .find_extended
-	LDY #$07
-	
-.spawn_smoke_trail
-	LDA #$0F
-	STA $170B|!base2,y
-	LDA $96
-	CLC
-	ADC #$24
-	STA $1715|!base2,y
-	LDA $97
-	ADC #$00
-	STA $1729|!base2,y
-	LDA $94
-	CLC
-	ADC .smoke_x_disp,x
-	STA $171F|!base2,y
-	LDA $95
-	ADC .smoke_x_disp_hi,x
-	STA $1733|!base2,y
-	LDA .smoke_x_speed,x
-	STA $1747|!base2,y
-	LDA #$15
-	STA $176F|!base2,y
-	
-	DEX
-	BPL .smoke_trail_loop
-endif
-	RTS
-
-.smoke_x_disp
-	db $08,$F8
-.smoke_x_disp_hi
-	db $00,$FF
-.smoke_x_speed
-	db $10,$F0
+.x_disp
+	db $00,$08

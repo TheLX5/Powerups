@@ -24,6 +24,9 @@ endif
 ;.next	
 ;	sta !mask_15
 ;	sta !mask_17
+	lda #$00
+	sta !clipping_flag
+	sta !collision_flag
 	lda $75
 	beq .out_of_water
 	jmp .underwater
@@ -36,7 +39,12 @@ endif
 .process
 	ldx #$00
 	ldy #$00
-	
+
+	lda $1493|!base2
+	ora $71
+	beq .control
+	rts
+.control
 	lda $72
 	bne .air
 	lda $15
@@ -75,6 +83,7 @@ endif
 .nonextframe2
 	cmp .threesold3,y
 	bcc .no_reset
+
 	lda .reset_speed,y
 	ldy $76
 	bne .no_fix_sign_2
@@ -200,7 +209,9 @@ endif
 	bne .not_up
 	lda .up_speed,y
 	sta $7D
-.not_up
+.not_up	
+	lda #$01
+	sta $73
 	rts
 
 .ground_frames
