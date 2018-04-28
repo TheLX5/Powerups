@@ -83,9 +83,17 @@ macro foreach_core(code1, code2, code3, code4, id)
 <code1>!{Id}<code2>!{Id}<code3>!{Id}<code4>
 if $!Id < !max_powerup : %foreach_core("<code1>", "<code2>", "<code3>", "<code4>", <id>A)
 endmacro
+
+; Run code1+powerup_id+code2 for each powerup
+; So for example %foreach("incsrc powerup_",".asm") runs
+; "incsrc powerup_00.asm", "incsrc powerup_01.asm", "incsrc powerup_02.asm", etc
 macro foreach(code1, code2)
 %foreach_core("<code1>", "<code2> : if 0 : ", "x", "x", A)
 endmacro
+
+; Run code1+powerup_id+code2+powerup_id+code3 for each powerup
+; For example: %foreach2("gfx_", ": incbin powerup_", "_gfx.bin") runs
+; "gfx_00: incbin powerup_00_gfx.bin", "gfx_01: incbin powerup_01_gfx.bin", etc
 macro foreach2(code1, code2, code3)
 %foreach_core("<code1>", "<code2>", "<code3> : if 0 : ", "x", A)
 endmacro
