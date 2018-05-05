@@ -16,10 +16,8 @@ Tiles:
 	plb
 	rtl
 .skip	
-	jsr HandleCustomImages
 	lda #$F8
 	sta $04
-	tyx
 	cpx #$29
 	bne .start
 	lda $19
@@ -32,6 +30,7 @@ Tiles:
 	lda.l $00DD32|!base3,x
 	sta $05
 	
+	jsr HandleCustomImages
 	ldx $19
 	lda.l TileAltTable,x
 	bne ..UseAlt
