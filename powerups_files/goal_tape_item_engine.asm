@@ -20,7 +20,7 @@ goal_tape_hax:
 	pha
 	lda.b !9E,x
 	sta !7FAB9E,x
-	lda #$08
+	lda #$88
 	sta !7FAB10,x
 	jsl $0187A7|!base3
 	jsl init_item

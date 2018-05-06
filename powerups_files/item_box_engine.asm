@@ -353,12 +353,14 @@ SpawnCustom:		;
 	sta !7FAB9E,x		; set the sprite number
 	phy			;
 	jsl $07F7D2|!base3	; reset sprite tables
-	jsl $0187A7|!base3	; get new table values for custom sprites
-	ply			;
-	lda Settings,y		;
+	lda $01,s
+	tay 
+	lda.w Settings,y		;
 	and #$0C		; get bits 2 and 3 of the settings table
 	ora #$80			;
 	sta !7FAB10,x		; store to sprite extra bit table
+	jsl $0187A7|!base3	; get new table values for custom sprites
+	ply			;
 
 FinishSpawn:		;
 	lda #!ItemPosX2		; base X position
