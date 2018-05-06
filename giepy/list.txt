@@ -1,0 +1,27 @@
+[Sprite]
+00:2	powerups/hammer_suit.cfg
+01:2	powerups/boomerang_suit.cfg
+02:2	powerups/super_leaf.cfg
+03:2	powerups/tanooki_suit.cfg
+04:2	powerups/frog_suit.cfg
+05:2	powerups/superball_flower.cfg
+06:2	powerups/rocket_boots.cfg
+07:2	powerups/mini_mushroom.cfg
+08:2	powerups/ice_flower.cfg
+09:2	powerups/penguin_suit.cfg
+0A:2	powerups/propeller_suit.cfg
+0B:2	powerups/shell_suit.cfg
+0C:2	powerups/bubble_flower.cfg
+0D:2	powerups/cloud_flower.cfg
+10	ice_block.cfg
+
+[Extended]
+13	powerup/mario_hammer.asm
+14	powerup/mario_boomerang.asm
+15	powerup/mario_superball.asm
+16	powerup/mario_iceball.asm
+17	powerup/mario_bubble.asm
+18	powerup/mario_cloud.asm
+
+[Cluster]
+
