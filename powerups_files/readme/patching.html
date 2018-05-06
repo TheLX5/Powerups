@@ -25,12 +25,15 @@
 		Click the zip file and it should start downloading. I know you might already have the file, but it doesn't hurt having this step. Also extract the zip's contents in a folder<br><br>
 		<center><img src="./images/patching_01.png"></center><br><br>
 	<b>2) Download the following tools and patches.</b><br>
-		<ul><li><a href="https://www.smwcentral.net/?p=section&a=details&id=14560">asar 1.50 or newer.</a></li>
+		<ul><li><a href="https://www.smwcentral.net/?p=section&a=details&id=14560">asar 1.50 or newer</a></li>
 		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=15964">PIXI 1.2 or newer</a></li>
+		<li><a href="https://github.com/boldowa/GIEPY/releases/latest">GIEPY 1.0.1 or newer</a></li>
 		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=15337">GPS 1.3.0 or newer</a></li>
-		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=13938">UberASM Tool 1.2 or newer.</a></li>
-		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=11603">No More Sprite Tile Limits.</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=13938">UberASM Tool 1.2 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=11603">AddMusicK 1.0.5 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=11603">No More Sprite Tile Limits</a></li>
 		</ul><br>
+		Note that you only need either PIXI or GIEPY as sprite insertion tools, using both is not recommended.<br><br>
 	<b>3) Open your ROM in Lunar Magic, enable FastROM patch, change compression options and expand ROM to 3MB+.</b><br><br>
 		<center><img src="./images/patching_02.gif"></center><br><br>
 	<b>4) Go to powerups_files/powerup_defs/ and edit anything you want from these files.</b><br><br>
@@ -38,13 +41,14 @@
 	<b>6) Use AddMusicK for the first time in your ROM.</b><br><br>
 		&emsp;AddMusicK is required, weird sound effects may play during gameplay if you don't use AddMusicK.<br><br>
 	<b>7) Open asar.exe and insert powerup.asm</b><br><br>
-	<b>8) Copy "powerup_defs.asm" and paste it in your PIXI folder.</b><br><br>
-	<b>9) Create a folder named powerups_files in your PIXI folder.</b><br><br>
-	<b>10) Copy the powerup_defs folder and paste it inside of the powerups_files folder you created in your PIXI folder</b><br><br>
+	<b>8) Copy "powerup_defs.asm" and paste it in your PIXI or GIEPY folder, depends on which Sprite tool are you using.</b><br><br>
+	<b>9) Create a folder named powerups_files in your PIXI or GIEPY folder, depends on which Sprite tool are you using.</b><br><br>
+	<b>10) Copy the powerup_defs folder and paste it inside of the powerups_files folder you created in your PIXI or GIEPY folder, depends on which Sprite tool are you using.</b><br><br>
 		&emsp;Your PIXI folder should looks like this:
-	<center><img src="./images/patching_06.png"></center><br><br>
-	<center><img src="./images/patching_07.png"></center><br><br>
-	<b>11) Insert the included sprites with PIXI</b><br><br>
+	<center><img src="./images/patching_06.png">   <img src="./images/patching_07.png"></center><br><br>
+		&emsp;Your GIEPY folder should looks like this:
+	<center><img src="./images/patching_08.png">   <img src="./images/patching_09.png"></center><br><br>
+	<b>11) Insert the included sprites with PIXI or GIEPY, depending on which sprite tool are you using.</b><br><br>
 	<b>12) Copy the highlighted files to your GPS and UberASM Tool folders</b><br><br>
 	<b>13) Insert the included blocks with GPS</b><br><br>
 	<b>14) Insert the included codes with UberASM Tool.</b><br><br>
@@ -52,7 +56,7 @@
 	<b>15) Enjoy!</b><br><br>
 	
 	<b>BIG NOTE:</b><br>
-		&emsp;If you modify ANYTHING in powerups_files/powerup_defs/ folder, be sure that you reflect the changes in the PIXI, UberASM Tool and GPS folders! You have been warned.<br><br>
+		&emsp;If you modify ANYTHING in powerups_files/powerup_defs/ folder, be sure that you reflect the changes in the PIXI/GIEPY, UberASM Tool and GPS folders! You have been warned.<br><br>
 	
 	
 	Back to <a href="#Table">top</a><br><br><hr><br>
@@ -66,30 +70,34 @@
 		Click the zip file and it should start downloading. I know you might already have the file, but it doesn't hurt having this step. Also extract the zip's contents in a folder<br><br>
 		<center><img src="./images/patching_01.png"></center><br><br>
 	<b>2) Download the following tools.</b><br>
-		<ul><li><a href="https://www.smwcentral.net/?p=section&a=details&id=14560">asar 1.60</a></li>
-		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=15964">PIXI</a></li>
-		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=15337">GPS</a></li>
-		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=13938">UberASM Tool</a></li>
+		<ul><li><a href="https://www.smwcentral.net/?p=section&a=details&id=14560">asar 1.50 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=15964">PIXI 1.2 or newer</a></li>
+		<li><a href="https://github.com/boldowa/GIEPY/releases/latest">GIEPY 1.0.1 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=15337">GPS 1.3.0 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=13938">UberASM Tool 1.2 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=11603">AddMusicK 1.0.5 or newer</a></li>
 		</ul><br>
+		Note that you only need either PIXI or GIEPY as sprite insertion tools, using both is not recommended.<br><br>
 	<b>3) Get a clean SA-1 ROM.</b><br><br>
 	<b>4) Go to powerups_files/powerup_defs/ and edit anything you want from these files.</b><br><br>
 	<b>5)Search !i_read_the_readme define in powerups_defs.asm and set it to 1.</b><br><br>
 	<b>6) Use AddMusicK for the first time in your ROM.</b><br><br>
 		&emsp;AddMusicK is required for some checks, weird sound effects may occur if you don't do this before applying this patch.<br><br>
 	<b>7) Open asar.exe and insert powerup.asm</b><br><br>
-	<b>8) Copy "powerup_defs.asm" and paste it in your PIXI folder.</b><br><br>
-	<b>9) Create a folder named powerups_files in your PIXI folder.</b><br><br>
-	<b>10) Copy the powerup_defs folder and paste it inside of the powerups_files folder you created in your PIXI folder</b><br><br>
+	<b>8) Copy "powerup_defs.asm" and paste it in your PIXI or GIEPY folder, depends on which Sprite tool are you using.</b><br><br>
+	<b>9) Create a folder named powerups_files in your PIXI or GIEPY folder, depends on which Sprite tool are you using.</b><br><br>
+	<b>10) Copy the powerup_defs folder and paste it inside of the powerups_files folder you created in your PIXI or GIEPY folder, depends on which Sprite tool are you using.</b><br><br>
 		&emsp;Your PIXI folder should looks like this:
-	<center><img src="./images/patching_06.png"></center><br><br>
-	<center><img src="./images/patching_07.png"></center><br><br>
-	<b>11) Insert the included sprites with PIXI</b><br><br>
-	<b>12) Copy the highlighted files to your GPS folder</b><br><br>
+	<center><img src="./images/patching_06.png">   <img src="./images/patching_07.png"></center><br><br>
+		&emsp;Your GIEPY folder should looks like this:
+	<center><img src="./images/patching_08.png">   <img src="./images/patching_09.png"></center><br><br>
+	<b>11) Insert the included sprites with PIXI or GIEPY, depending on which sprite tool are you using.</b><br><br>
+	<b>12) Copy the highlighted files to your GPS and UberASM Tool folders</b><br><br>
 	<b>13) Insert the included blocks with GPS</b><br><br>
 	<b>14) Insert the included codes with UberASM Tool.</b><br><br>
 	<b>15) Enjoy!</b><br><br>
 	<b>BIG NOTE:</b><br>
-		&emsp;If you modify ANYTHING in powerups_files/powerup_defs/ folder, be sure that you reflect the changes in the PIXI, UberASM Tool and GPS folders! You have been warned.<br><br>
+		&emsp;If you modify ANYTHING in powerups_files/powerup_defs/ folder, be sure that you reflect the changes in the PIXI/GIEPY, UberASM Tool and GPS folders! You have been warned.<br><br>
 	-->
 
 	Back to <a href="#Table">top</a><br><br><hr><br>
