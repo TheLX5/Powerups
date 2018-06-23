@@ -44,11 +44,7 @@ PlrDMA:
 	sta $10
 
 ;misc tiles
-if !SA1 == 0
 	ldx #$7E
-else
-	ldx #$40
-endif
 	stx $14
 	lda #$6060
 	sta $2116
