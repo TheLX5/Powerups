@@ -3,10 +3,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Tiles:
+	txy
 	lda $1497|!base2
 	beq .skip
 	lsr #3
-	txy
 	tax
 	lda.l $00E292|!base3,x
 	and $1497|!base2
@@ -18,19 +18,22 @@ Tiles:
 .skip	
 	lda #$F8
 	sta $04
-	cpx #$29
+	cpy #$29
 	bne .start
 	lda $19
 	bne .start
-	ldx #$20
+	ldy #$20
 .start
-	lda.l $00DCEC|!base3,x
+	phy
+	jsr HandleCustomImages
+	plx
+
+	lda.l PosPointPointer,x
 	ora $76
 	tax
-	lda.l $00DD32|!base3,x
+	lda.l PosPoint,x
 	sta $05
 	
-	jsr HandleCustomImages
 	ldx $19
 	lda.l TileAltTable,x
 	bne ..UseAlt
@@ -50,17 +53,13 @@ Tiles:
 	asl
 	tax
 	rep #$20
-	lda $13E0|!base2
-	and #$00FF
-	sta $0B
+	ldy $13E0|!base2
 	lda.l TileAltIndex-$02,x
-	clc
-	adc $0B
 	sta $00
 	sep #$20
 	lda.b #TileAltTable>>16
 	sta $02
-	lda [$00]
+	lda [$00],y
 	bra -
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
