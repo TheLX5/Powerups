@@ -1,0 +1,17 @@
+@2 l64 o3
+
+v54,34 f+ g+ r v31,57 a+ > c r v60,29 d e r v27,63 f+ g+ r 
+v66,25 a+ > c r v23,68 d e r v70,23 f+ g+ r
+v31,62 a v54,27 a+ r v23,46 b v38,19 a+ r v15,30 b v22,11 a+ r v7,14 b v7,3 a+
+
+;v46 a+ > c r v50 d e r v54 f+ g r v57 a a+ > r v60 c c+ r v63 d+ e r 
+;v66 f f+ r v68 g g+ r v70 a a+ r
+;v62 b > v54 c < r v46 b > v38 c < r v30 b > v22 c < r v14 b > v7 c
+
+;v54 a a+ r v56 b > c r v58 c+ d r v60 d+ e r v62
+;f f+ r v64 g g+ r v66 a a+ r v68 b > c r v70 c+ d r v72 d+ e r 
+;v60 f f+ r v50 f+ g r v40 f f+ r v30 f+ g r v20 f f+ r v10 f+ g
+
+;f f+ r f+ g r g g+ r g+ a r a a+ r a+ b r b > c r c c+ r c+ d r d d+ r d+ e r e f r
+;f f+ r f+ g r g g+ r g+ a r a a+ r a+ b r b > c r c c+ r c+ d r d d+ r d+ e r e f r
+;f f+ r f+ g

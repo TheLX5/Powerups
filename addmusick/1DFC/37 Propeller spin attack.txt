@@ -1,0 +1,5 @@
+@1 l64 o5
+
+v27,54 a g+ r v48,24 g f+ r v21,42 f e r
+v36,18 d+ d r v15,30 c+ c r v24,12<b a+ r
+v9,18 a g+ r v12,6 g f+ r v3,6 f e r
