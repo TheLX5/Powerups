@@ -427,14 +427,14 @@ if !SA1 == 0
 ;; !gfx_index: Which set of GFX is the player using.
 ;; 1 byte.
 	!gfx_index		= $7E215E
-	
-;;;;;;:
-;; !init_item_pos: Cover-up tile for items position (unused)
-	!cover_up_flag		= $7E2159+$B*0
-	!init_item_x_lo		= $7E2159+$B*1
-	!init_item_x_hi		= $7E2159+$B*2
-	!init_item_y_lo		= $7E2159+$B*3
-	!init_item_y_hi		= $7E2159+$B*4
+;;;;;;
+;; !item_gfx_oldest: Holds the oldest powerup item sprite index.
+;; 1 bytes
+	!item_gfx_oldest	= $7E215F
+;;;;;;
+;; !item_gfx_latest: Holds the latest powerup item sprite index.
+;; 1 bytes
+	!item_gfx_latest	= $7E2160
 
 	else
 
@@ -628,15 +628,14 @@ if !SA1 == 0
 ;; !gfx_index: Which set of GFX is the player using.
 ;; 1 byte.
 	!gfx_index		= $40425E
-	
-;;;;;;:
-;; !init_item_pos: Cover-up tile for items position (unused)
-	!cover_up_flag		= $40425F+$B*0
-	!init_item_x_lo		= $40425F+$B*1
-	!init_item_x_hi		= $40425F+$B*2
-	!init_item_y_lo		= $40425F+$B*3
-	!init_item_y_hi		= $40425F+$B*4
-
+;;;;;;
+;; !item_gfx_oldest: Holds the oldest powerup item sprite index.
+;; 1 bytes
+	!item_gfx_oldest	= $40425F
+;;;;;;
+;; !item_gfx_latest: Holds the latest powerup item sprite index.
+;; 1 bytes
+	!item_gfx_latest	= $404260
 
 endif
 

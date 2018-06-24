@@ -46,207 +46,116 @@ else
 ;; init_powerup was relocated to be able to initialize the powerups
 
 init_powerup:
-;	lda #$00
-;	sta !cover_up_flag,x
 	inc !C2,x		;original code, dunno what it does.
 	stz $02
 	stz !1510,x
 init_item:
-;	lda !E4,x
-;	sta !init_item_x_lo,x
-;	lda !14E0,x
-;	sta !init_item_x_hi,x
-;	lda !D8,x
-;	sta !init_item_y_lo,x
-;	lda !14D4,x
-;	sta !init_item_y_hi,x
-	lda #$FF
-	sta $00			;$00 is used to know the powerup that is going to be in the second item slot
-	sta $05
+.search_oldest
+	lda !item_gfx_latest
+	sta $00
+	lda !item_gfx_oldest
 	sta $01
-	sta $03
-	ldx.b #!SprSize-1
-.loop	
-	cpx $15E9|!base2	;ignore if we're comparing the this sprite
-	beq .clear
+	stz $03
+	tax
+
+	cpx $15E9|!base2
+	beq ..free
 	lda !14C8,x
-	cmp #$08		;ignore if sprite isn't alive
-	bcc .clear
-	;beq .clear
+	cmp #$08
+	bcc ..free
 	lda !7FAB10,x
 	and #$08
-	bne ++
-	lda.w !9E,x		;probably we need more checks here (custom items)
+	bne ..custom_sprite
+	lda !9E,x
 	cmp #$74
-	bcc .clear		;ignore if not an original powerup
+	bcc ..free
 	cmp #$7A
-	bcs .clear
-	bra +++
-++	
+	bcs ..free
+	bra ..found
+..custom_sprite
 	lda !7FAB9E,x
 	cmp #!starting_slot
-	bcc .clear
+	bcc ..free
 	cmp.b #!starting_slot+!max_powerup-4
-	bcs .clear
-+++	
-	lda !1510,x		;ignore if not an item
-	beq .clear
-	cmp #$02		;check if it is the oldest item
-	bcs .erase_older
-	stx $00			;save the index of the sprite
-.clear	
-	dex			;keep searching
-	bpl .loop
-
-	ldx $00			;check if we got a item sprite
-	cpx #$FF
-	beq ..skip
-	lda #$02		;mark the first item sprite as the second item sprite
-	sta !1510,x
-	stx $05
-..skip
-	jmp .skip
-
-.erase_older
-	stx $00
-	ldx.b #!SprSize-1
--	
+	bcs ..free
+..found
+	lda #$01
+	tsb $03
+..free
+	
+.search_latest
+	ldx $00
 	cpx $15E9|!base2
-	beq +
+	beq ..free
 	lda !14C8,x
-	cmp #$08		;ignore if sprite isn't alive
-	bcc +
-	;beq +
+	cmp #$08
+	bcc ..free
 	lda !7FAB10,x
 	and #$08
-	bne ++
-	lda.w !9E,x
-	cmp #$74		;same search as before
-	bcc +			;trying to find the other item
+	bne ..custom_sprite
+	lda !9E,x
+	cmp #$74
+	bcc ..free
 	cmp #$7A
-	bcs +
-	bra +++
-++	
+	bcs ..free
+	bra ..found
+..custom_sprite
 	lda !7FAB9E,x
 	cmp #!starting_slot
-	bcc +
+	bcc ..free
 	cmp.b #!starting_slot+!max_powerup-4
-	bcs +
-+++	
-	lda !1510,x
-	cmp #$01
-	bne +
-	lda #$02		;if found, mark it as the older item
-	sta !1510,x
-	stx $01	
-	bra +
-+	
-	dex
-	bpl -
-
-
-
-	ldx.b #!SprSize-1
--	
-	cpx $15E9|!base2
-	beq +
-	lda !14C8,x
-	cmp #$08		;ignore if sprite isn't alive
-	bcc +
-	;beq +
-	lda !7FAB10,x
-	and #$08
-	bne ++
-	lda.w !9E,x
-	cmp #$74		;same search as before
-	bcc +			;trying to find the other item
-	cmp #$7A
-	bcs +
-	bra +++
-++	
-	lda !7FAB9E,x
-	cmp #!starting_slot
-	bcc +
-	cmp.b #!starting_slot+!max_powerup-4
-	bcs +
-+++	
-	lda !1510,x
-	ldy $00
-	bmi ++
-	cmp !1510,y
-	bne ++
-	lda #$01
-	cmp !1510,y
-	beq +++++
+	bcs ..free
+..found
 	lda #$02
-+++++	
-	sta !1510,x
-	stx $03
-	bra ++++
-++
-	ldy $01
-	bmi +
-	cmp !1510,y
-	bne +
-	lda #$01
-	cmp !1510,y
-	beq +++++
-	lda #$02
-+++++	
-	sta !1510,x
-	stx $03
-	bra ++++
-+	
-	dex
-	bpl -
-++++
+	tsb $03
+..free
 
+.checker
+	lda $03
+	asl
+	tax
+	jmp (..ptrs,x)
 
-	lda $01
-	cmp #$FF
-	beq .skip
-	ldy $00
-	lda #$00
-	sta !14C8,y	;delete oldest item
-	sta !1510,y
-	jsr smoke_routine_item		;puff of smoke
-.skip	
+..ptrs
+	dw ..none_alive
+	dw ..oldest_alive
+	dw ..latest_alive
+	dw ..both_alive
+
+..none_alive
 	ldx $15E9|!base2
-	lda #$01		;mark the current sprite as the newest item
-	sta !1510,x
-
-
-update_tilemap:
-	lda #$00
-	ldy $00			;$00 = index for oldest item		
-	bmi .no_oldest
+	stz !1602,x
+	bra ..end	
+..oldest_alive
+	lda !item_gfx_oldest
+	bra ..shared_alive
+..latest_alive
+	lda !item_gfx_latest
+	sta !item_gfx_oldest
+	bra ..shared_alive
+..both_alive
+	lda !item_gfx_latest
+	sta !item_gfx_oldest
+	ldx $01
+	stz !14C8,x
+	jsr smoke_routine_item
+	lda $00
+..shared_alive
+	tay
 	lda !1602,y
-.no_oldest
-	ldy $05			;$05 = index for the previous item
-	bmi .no_previous_2
-	cmp !1602,y
-	bne .no_previous_2
 	eor #$01
-.no_previous_2
-	ldy $01
-	bmi .no_previous
-	cmp !1602,y
-	bne .end
-	eor #$01
-	bra .end
-.no_previous
-	ldy $03			;$01 = index for the previous item
-	bmi .end
-	cmp !1602,y
-	bne .end
-	eor #$01
-.end	
 	ldx $15E9|!base2
 	sta !1602,x
+..end	
+	txa
+	sta !item_gfx_latest
+
+	lda !1602,x
 	inc
 	ora !item_gfx_refresh
-	and #$93
+	and #$03
 	sta !item_gfx_refresh
+
 
 	lda !190F,x		;check if custom item
 	bpl .original_items
@@ -265,40 +174,7 @@ update_tilemap:
 	phk
 	plb
 	tay
-
-	lda !1602,x
-	pha
-
-	lda !item_gfx_refresh
-	bpl +
 	
-	lda !1602,x
-	eor #$01
-	sta !1602,x
-	asl
-	tax
-
-	rep #$20
-	lda !item_gfx_pointer,x
-	pha
-	lda !item_gfx_pointer+6,x
-	pha
-	sep #$20
-
-	ldx $15E9|!base2
-	lda !1602,x
-	eor #$01
-	asl
-	tax
-
-	rep #$20
-	pla
-	sta !item_gfx_pointer+6,x
-	pla
-	sta !item_gfx_pointer,x
-	sep #$20
-	
-+	
 	ldx $15E9|!base2
 	lda #$00
 	xba
@@ -318,37 +194,31 @@ update_tilemap:
 	sta !item_gfx_pointer+6,x
 	sep #$20
 
-	lda !item_gfx_refresh
-	ora #$80
-	sta !item_gfx_refresh
-
 	ldx $15E9|!base2
-	pla
-	sta !1602,x
 	plb
 	rtl
 
 smoke_routine_item:
-	lda !186C,y
-	ora !15A0,y
+	lda !186C,x
+	ora !15A0,x
 	bne ++
-	ldx #$03
+	ldy #$03
 -	
-	lda $17C0|!base2,x
+	lda $17C0|!base2,y
 	beq +
-	dex
+	dey
 	bpl -
 ++
 	rts
 +	
 	lda #$01
-	sta $17C0|!base2,x
+	sta $17C0|!base2,y
 	lda #$1B
-	sta $17CC|!base2,x
-	lda.w !D8,y
-	sta $17C4|!base2,x
-	lda.w !E4,y
-	sta $17C8|!base2,x
+	sta $17CC|!base2,y
+	lda !D8,x
+	sta $17C4|!base2,y
+	lda !E4,x
+	sta $17C8|!base2,y
 	rts
 
 dynamic_item_tiles:
@@ -410,52 +280,9 @@ powerup_tiles:
 	sta $0302|!base2,y
 
 	ldx $15E9|!base2
-;	stz $0F
-;	lda !9E,x
-;	cmp #$77		;cape, no tile
-;	beq .no_cover
-;	lda !cover_up_flag,x
-;	bne .no_cover		;not coming out of the block, no cover up tile
-
-;	inc $0F
-;	lda $0300|!base2,y
-;	sta $0304|!base2,y
-;	lda $0301|!base2,y	;literally copy everything
-;	sta $0305|!base2,y
-;	lda $0302|!base2,y
-;	sta $0306|!base2,y
-;	lda $0303|!base2,y
-;	sta $0307|!base2,y
-
-;	lda !init_item_x_lo,x
-;	sec
-;	sbc $1A
-;	sta $0300|!base2,y
-;	lda !init_item_x_hi,x
-;	sbc $1B
-;	bne .delete_cover
-
-;	lda !init_item_y_lo,x
-;	sec
-;	sbc $1C
-;	sta $0301|!base2,y
-;	lda !init_item_y_hi,x
-;	sbc $1D
-;	bne .delete_cover
-
-;	lda #$2E
-;	sta $0302|!base2,y
-;	lda #$00
-;	sta $0303|!base2,y			;finish gfx routine
-.no_cover
-;	lda $0F
 	lda #$00
 	ldy #$02
 	jml $01C6E2|!base3
-.delete_cover
-;	lda #$F0
-;	;sta $0301|!base2,y
-;	bra .no_cover
 
 .dynamic_tiles
 	db $0A,$0C,$0E

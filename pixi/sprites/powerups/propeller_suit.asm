@@ -6,13 +6,7 @@
 ;			 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-if !SA1 == 0
-	!item_gfx_refresh = $7E2111
-	!item_gfx_pointer = $7E2112
-else
-	!item_gfx_refresh = $404211
-	!item_gfx_pointer = $404212
-endif
+incsrc ../../powerup_defs.asm
 
 !DrawOne16x16Tile = 0	  ;>  Enable this to make the Propeller Mushroom use one 16x16 tile.
 			  ;   The reason why this is here is because the sprite uses six
@@ -78,6 +72,7 @@ PropMushroomMain:
 	lda $9D
 	bne Rtrn0
 
+	lda #$00
 	%SubOffScreen()
 	jsl $01A7DC|!BankB
 	bcs TouchedItem
@@ -142,47 +137,17 @@ SubGFX:
 	beq +
 	jmp .GetDrawInfo
 +
+
 	lda $14
 	and #$06
 	lsr
 	tay
-	
+
 	lda !1602,x
-	pha
-	lda !item_gfx_refresh
-	bpl +
-	lda !1602,x
-	eor #$01
-	sta !1602,x
+	and #$01
 	asl
 	tax
-
-	rep #$20
-	lda !item_gfx_pointer,x
-	pha
-	lda !item_gfx_pointer+6,x
-	pha
-	sep #$20
-
-	ldx $15E9|!Base2
-	lda !1602,x
-	eor #$01
-	asl
-	tax
-
-	rep #$20
-	pla
-	sta !item_gfx_pointer+6,x
-	pla
-	sta !item_gfx_pointer,x
-	sep #$20
-+	
-	lda !1602,x
-	asl
-	sta $00
 	lda.w GFXIndexes,y
-	pha
-	ldx $00
 	xba
 	rep #$20
 	and #$FF00
@@ -204,21 +169,14 @@ else
 	sta !item_gfx_pointer+6,x
 
 endif
-
 	sep #$20
 	ldx $15E9|!Base2
-	pla
-	cmp !160E,x
-	beq .skip
-	sta !160E,x
 	lda !1602,x
 	inc
 	ora !item_gfx_refresh
-	and #$93
+	and #$03
 	sta !item_gfx_refresh
 .skip	
-	pla
-	sta !1602,x
 .GetDrawInfo
 	%GetDrawInfo()
 

@@ -135,13 +135,13 @@ PlrDMA:
 	dw .2_tile
 	dw .both_tiles
 
-.1_tile
+.1_tile	
+	lda !item_gfx_pointer 
+	sta $12
 	lda #$60A0
 	sta $2116
 	ldx.b #powerup_items/$10000
 	stx $14
-	lda !item_gfx_pointer
-	sta $12
 	lda #$0040
 	sta $15
 	sty $420B
@@ -157,12 +157,12 @@ PlrDMA:
 
 
 .2_tile
+	lda !item_gfx_pointer+2
+	sta $12
 	lda #$60C0
 	sta $2116
 	ldx.b #powerup_items/$10000
 	stx $14
-	lda.l !item_gfx_pointer+2
-	sta $12
 	lda #$0040
 	sta $15
 	sty $420B
@@ -182,31 +182,37 @@ PlrDMA:
 	sta $2116
 	ldx.b #powerup_items/$10000
 	stx $14
-	ldx #$02
+	ldx #$00
 -	
 	lda !item_gfx_pointer,x
 	sta $12
 	lda #$0040
 	sta $15
 	sty $420B
-	dex #2
-	bpl -
+.skip_both
+	inx #2
+	cpx #$04
+	bcs -
 
 ;bottom tiles
 	lda #$61A0
 	sta $2116
-	ldx #$02
+	ldx #$00
 -	
 	lda.l !item_gfx_pointer+6,x
 	sta $12
 	lda #$0040
 	sta $15
 	sty $420B
-	dex #2
-	bpl -
+.skip_both_2
+	inx #2
+	cpx #$04
+	bcs -
 
 
 .no_update
+
+
 if !no_dynamic_item_box == 0
 	ldx $0100|!base2
 	cpx #$13
