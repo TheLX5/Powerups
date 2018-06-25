@@ -11,16 +11,11 @@ cape_image:
 	jml $00E401|!base3
 	
 .custom_tile
-;	lda !extra_tile_flag
-;	and #$01
-;	eor #$01
-;	sta $00
 	lda $71
 	cmp #$09
 	beq .hide_cape
 	lda $78
 	and #$10
-;	ora $00
 	bne .hide_cape
 	phy
 	lda !extra_tile_frame
@@ -37,6 +32,7 @@ cape_image:
 	beq .normal_priority
 	ldy #$0C
 .normal_priority
+	and.b #%11001110
 	ora $64
 	ldx $13F9|!base2
 	beq .no_behind

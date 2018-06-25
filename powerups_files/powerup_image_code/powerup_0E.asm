@@ -7,107 +7,107 @@
 	lda $75
 	ora $74
 	bne .DrawPropellerTile
-	LdA $71
-	SeC : SbC #$05
-	Cmp #$02
-	BCS +
-	LdA $89
-	AND #$03
-	BEq ++
-	Dec : BNE +
+	lda $71
+	sec : sbc #$05
+	cmp #$02
+	bcs +
+	lda $89
+	and #$03
+	beq ++
+	dec : bne +
 
-++	LdX $13DB|!base2
-	LdA HorizontalPipeWalkingImages,x
-	StA $13E0|!base2
+++	ldx $13DB|!base2
+	lda HorizontalPipeWalkingImages,x
+	sta $13E0|!base2
 
-+	LdA !PropStatus
-	AND #$7F
-	BEq .DrawPropellerTile
++	lda !PropStatus
+	and #$7F
+	beq .DrawPropellerTile
 
-	LdA !PropPlayerFrame : TAX
-	AND #$02
-	LSR
-	StA $76
-	LdA Images,x
-	StA $13E0|!base2
+	lda !PropPlayerFrame : tax
+	and #$02
+	lsr
+	sta $76
+	lda Images,x
+	sta $13E0|!base2
 
 ;<  Draw the propeller tile >;
 
 .DrawPropellerTile
-	LdA $13E0|!base2 : PhA
-	Cmp #$15		;\
-	BCC +++			; |
-	Cmp #$26		; |
-	BEq ++			; |
-	Cmp #$33		; | Waste some CPU to make some calculations for not making
-	BEq +			; | the X offsets table too big.
-	Cmp #$4E
-	BCS ++++
-	LdA #$1F		; |
-+	SeC : SbC #$1F		; |
-	Bra +++			; |
-++	LdA #$17		;/
-	Bra +++
-++++	LdA #$16
-+++	ASL			;\  Shift one bit to the left and combine with the head's X 
-	ORA $76			;/  flip to make the entries in the table be pairs of bytes,
+	lda $13E0|!base2 : PhA
+	cmp #$15		;\
+	bcc +++			; |
+	cmp #$26		; |
+	beq ++			; |
+	cmp #$33		; | Waste some CPU to make some calculations for not making
+	beq +			; | the X offsets table too big.
+	cmp #$4E
+	bcs ++++
+	lda #$1F		; |
++	sec : sbc #$1F		; |
+	bra +++			; |
+++	lda #$17		;/
+	bra +++
+++++	lda #$16
++++	asl			;\  Shift one bit to the left and combine with the head's X 
+	ora $76			;/  flip to make the entries in the table be pairs of bytes,
 				;   one when looking to the left and the other to the right.
-	TAX			;>  Transfer our index to X.
+	tax			;>  Transfer our index to X.
 
-	LdA #$00		;>  Load #$00 for the next routine.
-	LdY XOffsets,x		;>  Load a low byte in Y to form a 16-bit value.
-	JSr GetHighByte		;>  Get the 16-bit value according to data.
-	StA !PropTileXOffset	;>  Store X offset.
-	SeP #$20		;>  Go back to 8-bit mode.
+	lda #$00		;>  Load #$00 for the next routine.
+	ldy XOffsets,x		;>  Load a low byte in Y to form a 16-bit value.
+	jsr GetHighByte		;>  Get the 16-bit value according to data.
+	sta !PropTileXOffset	;>  Store X offset.
+	sep #$20		;>  Go back to 8-bit mode.
 
-	PlX
-	LdA #$00
-	LdY YOffsets,x
-	JSr GetHighByte
-	StA !PropTileYOffset
-	SeP #$20
+	plx
+	lda #$00
+	ldy YOffsets,x
+	jsr GetHighByte
+	sta !PropTileYOffset
+	sep #$20
 
-	LdA $13			;\  If not time to update the propeller image's main
-	AND !PropFlipFrequency  ; | index...
-;	ORA $9D
-	BNE .DontUpdateFrame	;/  ...continue.
-	LdA $71
-	Dec
-	Cmp #$04
-	BCC .DontUpdateFrame
+	lda $13			;\  If not time to update the propeller image's main
+	and !PropFlipFrequency  ; | index...
+;	ora $9D
+	bne .DontUpdateFrame	;/  ...continue.
+	lda $71
+	dec
+	cmp #$04
+	bcc .DontUpdateFrame
 
-	LdA !PropTileAngle	;\
-	Inc			; |
-	Cmp #$04		; |
-	BCC .DontReset		; | 
-	LdA #$00		; |
+	lda !PropTileAngle	;\
+	inc			; |
+	cmp #$04		; |
+	bcc .DontReset		; | 
+	lda #$00		; |
 .DontReset			; |
-	StA !PropTileAngle	;/
+	sta !PropTileAngle	;/
 .DontUpdateFrame
 
-	LdA PropellerTileIndexes,x
-	StA $00
-	BEq .NoXFlp
-	Cmp #$14
-	BEq .NoXFlp
-	LdA $76
-	ASL #6
+	lda PropellerTileIndexes,x
+	sta $00
+	beq .NoXFlp
+	cmp #$14
+	beq .NoXFlp
+	lda $76
+	asl #6
 .NoXFlp
-	AND #%01000000
-	ORA #%00010001
-	StA !PropTileFlags
+	and #%01000000
+	ora #%00000001
+	sta !PropTileFlags
 
-	LdA !PropTileAngle
-	ORA $00
-	ASL
-	StA !PropTileFrame
+	lda !PropTileAngle
+	ora $00
+	asl
+	sta !PropTileFrame
 
-	RtS
+	rts
 
 ClearTile:
-	LdA #%00000000
-	StA !PropTileFlags
-	RtS
+	lda #%00000000
+	sta !PropTileFlags
+	rts
 
 ;<  Sets A to a 16-bit value in the range #$FF80 - #$007F  >;
 
@@ -119,12 +119,12 @@ ClearTile:
 ; ¬ X and Y won't be changed.
 
 GetHighByte:
-	BPl .NoNeg
-	Dec
-.NoNeg	XBA
-	TYA
-	ReP #$20
-	RtS
+	bpl .NoNeg
+	dec
+.NoNeg	xba
+	tya
+	rep #$20
+	rts
 
 ; /	   \ ;
 ;|  Tables  |;
