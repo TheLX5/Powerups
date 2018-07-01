@@ -100,7 +100,7 @@ print "MAIN ",pc
 	jsr main
 +	
 	jsr graphics
-	lda #$03
+	ldy #$03
 	jsl SubOffScreen
 	plb
 	rtl

@@ -78,6 +78,7 @@ PropMushroomMain:
 	lda $9D
 	bne Rtrn0
 
+	ldy #$00
 	jsl SubOffScreen
 	jsl $01A7DC|!BankB
 	bcs TouchedItem
