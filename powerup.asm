@@ -113,6 +113,7 @@ endif
 	incsrc powerups_files/hijacks/instant_kill_flag.asm
 	incsrc powerups_files/hijacks/ducking_flag.asm
 	incsrc powerups_files/hijacks/slide_flag.asm
+	incsrc powerups_files/hijacks/water_splash_edit.asm
 	incsrc powerups_files/hex_edits.asm
 	incsrc powerups_files/ow_mario.asm
 
@@ -288,6 +289,12 @@ freecode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	incsrc powerups_files/custom_interaction_engine.asm
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Edits water splash effect.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	incsrc powerups_files/water_splash_edit.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
