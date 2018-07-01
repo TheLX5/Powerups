@@ -123,6 +123,8 @@ PlrDMA:
 	bpl -
 	pla : sta $0D86|!base2
 
+	ldx.b #powerup_items/$10000
+	stx $14
 	lda !item_gfx_refresh
 	and #$0003
 	asl
@@ -140,8 +142,6 @@ PlrDMA:
 	sta $12
 	lda #$60A0
 	sta $2116
-	ldx.b #powerup_items/$10000
-	stx $14
 	lda #$0040
 	sta $15
 	sty $420B
@@ -180,8 +180,6 @@ PlrDMA:
 .both_tiles
 	lda #$60A0
 	sta $2116
-	ldx.b #powerup_items/$10000
-	stx $14
 	ldx #$00
 -	
 	lda !item_gfx_pointer,x
