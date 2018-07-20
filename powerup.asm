@@ -114,8 +114,6 @@ endif
 	incsrc powerups_files/hijacks/ducking_flag.asm
 	incsrc powerups_files/hijacks/slide_flag.asm
 	incsrc powerups_files/hijacks/water_splash_edit.asm
-	incsrc powerups_files/hex_edits.asm
-	incsrc powerups_files/ow_mario.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Add-on hijacks installer
@@ -124,6 +122,13 @@ endif
 	incsrc powerups_files/addon_hijack_installer.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Hex edits
+
+	incsrc powerups_files/hex_edits.asm
+	incsrc powerups_files/ow_mario.asm
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 org $00A38B|!base3
 	if read1($00D067|!base3) == $DEAD
