@@ -1,2 +1,2 @@
-give_boomerang_suit:
-	%cape_item(!boomerang_suit_powerup_num,$0A,$1DF9)
+give_fire_flower:
+	%flower_item(!fire_powerup_num,$0A,$1DF9)

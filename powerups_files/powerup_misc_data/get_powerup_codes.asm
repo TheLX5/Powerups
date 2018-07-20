@@ -10,7 +10,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Starts at #$06
 ;; vvvv ---- Here goes your pointers ---- vvvv
-
+	
+	dw give_mushroom
+	dw give_nothing
+	dw give_star
+	dw give_cape
+	dw give_fire_flower
+	dw give_1up
 	dw give_hammer_suit
 	dw give_boomerang_suit
 	dw give_super_leaf
@@ -34,6 +40,12 @@
 ;; Order doesn't matter
 ;; vvvv ---- Here goes your codes/incsrc ---- vvvv
 
+	incsrc get_powerup/mushroom.asm
+	incsrc get_powerup/nothing.asm
+	incsrc get_powerup/star.asm
+	incsrc get_powerup/feather.asm
+	incsrc get_powerup/fire_flower.asm
+	incsrc get_powerup/1up.asm
 	incsrc get_powerup/hammer_suit.asm
 	incsrc get_powerup/boomerang_suit.asm
 	incsrc get_powerup/super_leaf.asm

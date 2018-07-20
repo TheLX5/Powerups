@@ -156,30 +156,6 @@ endif
 	lda.w PowerIndex,y
 	sep #$10
 	plb
-	cmp #$06
-	bcs .notoriginal
-.run_original
-	cmp #$01
-	beq .actual_run_original
-	pha
-	lda #$00
-	sta !clipping_flag
-	sta !collision_flag
-	pla 
-.actual_run_original
-	jml $01C550|!base3
-.notoriginal	
-	sec 
-	sbc #$06
-	pha 
-	clc
-	adc #$04
-	cmp $19
-	bne +
-	pla 	
-	jmp GiveNothing
-+		
-	pla
 .run_power_code
 	jsl $0086DF|!base3
 
@@ -187,12 +163,6 @@ endif
 	incsrc powerup_misc_data/get_powerup_codes.asm
 
 init_powerups_code:
-	cmp #$06
-	bcs .notoriginal
-	jmp CheckItem_actual_run_original
-.notoriginal	
-	sec 
-	sbc #$06
 	jmp CheckItem_run_power_code
 
 GiveNothing:	
