@@ -79,7 +79,7 @@ endmacro
 
 if !i_read_the_readme == 0
 	print "Custom powerups patch."
-	print "Version 3.1.0"
+	print "Version 3.1.1"
 	print ""
 	print "Nothing was inserted."
 	print "Please read the Readme file included in this patch."
@@ -338,7 +338,7 @@ if read2($00D067|!base3) != $DEAD
 endif
 
 print "Custom powerups patch."
-print "Version 3.1.0"
+print "Version 3.1.1"
 print ""
 print "Inserted ", freespaceuse, " bytes"
 endif
