@@ -3,16 +3,24 @@
 	phk
 	plb
 	lda !7FAB10,x
+if !giepy == 1
+	and #$0C
+else
 	and #$08
+endif	
 	bne ..is_custom
 	lda !9E,x
 	tay
 	lda ..spr_tab,y
 	bra ..done_with_spr_num
 ..is_custom
-	lda !7FAB9E,x
-	tay
-	lda ..cust_spr_tab,y
+	lda.b #(..pointers-2)
+	sta $8A
+	lda.b #(..pointers-2)/$100
+	sta $8B
+	lda.b #(..pointers-2)/$10000
+	sta $8C
+	jsr get_sprite_group
 ..done_with_spr_num
 	plb
 	bit #$40
@@ -44,5 +52,10 @@
 	sta $1DF9|!base2
 	jsl $01AA33|!base3
 	jmp .clc_rts
+
+..pointers
+	dw ..cust_spr_tab_1
+	dw ..cust_spr_tab_2
+	dw ..cust_spr_tab_3
 
 incsrc mini_table.asm

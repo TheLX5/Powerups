@@ -35,6 +35,8 @@ endif
 
 !disable_drop_item	= 0	;Set it to 1 to disable items falling from item box automatically when getting hit.
 
+!giepy			= 0	;Set it to 1 if you're using GIEPY.
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Number of possible powerups.
 ;; Increase this define chain if you need more (or less) powerups slots.
@@ -764,3 +766,4 @@ else
 	!7FAB34 = $7FAB34
 	!7FAB9E	= $7FAB9E
 endif
+

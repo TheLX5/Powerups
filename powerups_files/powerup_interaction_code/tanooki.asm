@@ -6,16 +6,24 @@
 ..stone
 	phx
 	lda !7FAB10,x
+if !giepy == 1
+	and #$0C
+else
 	and #$08
+endif	
 	bne ..custom_sprite
 	lda !9E,x
 	tax 
 	lda.l ..normal_sprites_table,x
 	bra +
 ..custom_sprite	
-	lda !7FAB9E,x
-	tax
-	lda.l ..custom_sprites_table,x
+	lda.b #(..pointers-2)
+	sta $8A
+	lda.b #(..pointers-2)/$100
+	sta $8B
+	lda.b #(..pointers-2)/$10000
+	sta $8C
+	jsr get_sprite_group
 +	
 	plx 
 	sta $00
@@ -46,3 +54,9 @@
 	jmp .recover_code_hit
 			
 	incsrc tanooki_table.asm
+
+
+..pointers
+	dw ..custom_sprites_table_group_1
+	dw ..custom_sprites_table_group_2
+	dw ..custom_sprites_table_group_3

@@ -138,17 +138,26 @@ ExtendedHitSprites:
 	rtl
 .collision
 	lda !7FAB10,x
-	and #$08
+	and #$0C
 	bne .is_custom
 	ldy.w !9E,x
 	bra .continue
 .is_custom
-	rep #$20
-	inc $8A
-	inc $8A
-	sep #$20
 	lda !7FAB9E,x
 	tay
+	phx
+	lda !7FAB10,x
+	lsr #2
+	dec
+	tax
+	rep #$20
+-	
+	inc $8A
+	inc $8A
+	dex 
+	bpl -
+	sep #$20
+	plx
 .continue
 	rep #$30
 	lda ($8A)
