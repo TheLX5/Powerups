@@ -25,7 +25,7 @@
 		&emsp;&emsp;75<br>
 		&emsp;&emsp;00 00 18 C2 28 C0<br>
 	</code><br>
-	That cfg data will is for a item that acts like a Fire Flower and uses the palette C.<br><br>
+	That cfg data is for an item that acts like a Fire Flower and uses the palette C.<br><br>
 	
 	Back to <a href="#Table">top</a>
 	
@@ -40,7 +40,7 @@
 	To make use of this feature, to go <code>powerups_files/graphics</code> folder and open <code>powerup_items.bin</code> with your preferred editor. 
 	Then open the defines file of the powerup you're doing/editing and edit the <code>!xxxxx_dynamic_tile</code> define with the value that corresponds to the image you want.<br>
 	Item box's item images are uploaded to VRAM as well, the item box image will be in tile $0E by default. To use it correctly, you have to set to $0E the <code>!xxxxx_tile</code> define and modify the YXPPCCCT properties define (<code>!xxxxx_prop</code>).<br><br>
-	The image values can be get by looking at <code>powerup_items.bin</code> which has this format:<br><br>
+	The image values can be seen by looking at <code>powerup_items.bin</code> which has this format:<br><br>
 			<center><img src="./images/items_00.png"></center><br><br>
 	
 	<br><br>
@@ -53,8 +53,8 @@
 	<h3><a id="#GetPowerup">Get powerup item codes</a></h3><br>
 	Now that you have an item with the behaviors working, there's only one thing left that is the "get powerup item" code which is the piece of code that actually gives the player powerups or any other effect.<br><br>
 	To make your own code, you have to create a new file in <code>powerups_files/powerup_misc_data/get_powerup</code> folder (name doesn't matter).<br>
-	Start you code with an unique label name (suggestion: use the prefix "give_"), this is required since we need a way to tell asar where is our code.<br>
-	Then start writing your code, or select one of the two macros that plays an animation in the same fashion the Fire Flower and the Feather powerup items did in the original game. These are the macros:<br>
+	Start your code with a unique label name (suggestion: use the prefix "give_"), this is required since we need a way to tell asar where our code is.<br>
+	Start writing your code, or select one of the two macros that play an animation in the same fashion the Fire Flower and the Feather powerup items do in the original game. These are the macros:<br>
 	<ul>
 	<li>For an animation like the Fire Flower use <code>%flower_item()</code></li>
 	<li>For an animation like the Feather use <code>%cape_item()</code></li>
