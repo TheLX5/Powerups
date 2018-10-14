@@ -3,4 +3,4 @@ give_1up:
 	clc
 	adc !1594,x
 	jsl $02ACE5|!base3
-	rts
+	jml $01C560|!base3
