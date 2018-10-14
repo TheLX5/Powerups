@@ -7,4 +7,4 @@ give_star:
 +	
 	lda #$0A
 	sta $1DF9|!base2
-	rts
+	jml $01C560|!base3
