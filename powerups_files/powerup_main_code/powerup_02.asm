@@ -1,23 +1,24 @@
 ;;;;;;;;;;;;;;;
 ;; Cape powerup
 ;;;;;;;;;;;;;;;
-		LDA.b	#%00010111
-		STA	!cape_settings
-			
-		BIT	$16
-		BVC	.Return
+
+	lda.b #%00010111
+	sta !cape_settings
 		
-		LDA	$73
-		ORA	$74
-		ORA	$187A|!base2
-		ORA	$140D|!base2
-		ORA	$1470|!base2
-		ORA	$13E3|!base2
-		BNE	.Return
+	bit $16
+	bvc .Return
+		
+	lda $73
+	ora $74
+	ora $187A|!base2
+	ora $140D|!base2
+	ora $1470|!base2
+	ora $13E3|!base2
+	bne .Return
 	
-		LDA	#$12
-		STA	$14A6|!base2
-		LDA	#$04
-		STA	$1DFC|!base2
+	lda #$12
+	sta $14A6|!base2
+	lda #$04
+	sta $1DFC|!base2
 .Return		
-		RTS	
+	rts
