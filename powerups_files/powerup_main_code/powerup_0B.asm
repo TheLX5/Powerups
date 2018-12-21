@@ -1,3 +1,7 @@
+;;;;;;;;;;;;;;;;;;;
+;; Mini Mushroom (NSMBWii)
+;;;;;;;;;;;;;;;;;;;
+
 	lda #$01
 	sta !clipping_flag
 	sta !insta_kill_flag
@@ -15,6 +19,7 @@
 	lda #$19
 	sta !clipping_disp_y
 
+if !mini_mushroom_crouch == 1
 	lda $73
 	beq .no_crouch
 	lda #$80
@@ -28,7 +33,9 @@
 +	
 	sta !mask_15
 	sta !mask_17
+endif
 	
+if !mini_mushroom_carry == 1
 	lda $1470|!base2
 	ora $148F|!base2
 	beq .no_jump
@@ -49,6 +56,7 @@
 	and #%11110111
 	sta !mask_15
 .end	
+endif
 	lda $75
 	ora $1406|!base2
 	bne +
