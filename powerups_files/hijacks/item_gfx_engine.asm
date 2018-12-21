@@ -26,6 +26,9 @@ init_1up:
 org $02894F|!base3
 !a	jsl question_block_fix
 
+org $01F867|!base3		;fixes yoshi egg
+!a    jsl question_block_fix
+
 org $03C31C|!base3
 !a	jsl invisible_mushroom_fix
 
