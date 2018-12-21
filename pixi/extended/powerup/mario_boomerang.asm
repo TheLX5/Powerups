@@ -1,6 +1,8 @@
-incsrc !directory
+;incsrc !directory
+incsrc ../../../powerup_defs.asm
 
 print "MAIN ", pc
+mario_boomerang:
 	phb
 	phk
 	plb

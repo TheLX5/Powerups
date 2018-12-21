@@ -1,4 +1,5 @@
-incsrc !directory
+;incsrc !directory
+incsrc ../../../powerup_defs.asm
 
 !y_pos_lo = $1715|!base2
 !x_pos_lo = $171F|!base2
