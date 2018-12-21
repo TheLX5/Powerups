@@ -1,7 +1,9 @@
-
+!EXLEVEL = 1
 incsrc powerup_defs.asm
 ; Global defines for blocks
 ; Feel free to add more if you want.
+
+namespace nested on
 
 !sa1 = 0			; SA-1 flag
 !dp = $0000			; Direct Page remap ($0000 - LoROM/FastROM, $3000 - SA-1 ROM)
