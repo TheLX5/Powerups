@@ -1,3 +1,7 @@
+;;;;;;;;;;;;;;;;;;;
+;; Cloud Flower (SMG)
+;;;;;;;;;;;;;;;;;;;
+
 	lda !flags
 	bne .no_refill
 	lda !timer
@@ -8,6 +12,7 @@
 	lda $72
 	beq .return
 	lda $187A|!base2
+	ora $75
 	bne .return
 	lda !flags
 	beq .return
