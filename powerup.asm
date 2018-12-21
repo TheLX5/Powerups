@@ -131,7 +131,7 @@ endif
 
 
 org $00A38B|!base3
-	if read1($00D067|!base3) == $DEAD
+	if read2($00D067|!base3) == $DEAD
 		autoclean dl powerup_items
 	else
 		dl powerup_items
