@@ -217,7 +217,7 @@ endif
 .ground_frames
 	db $00,$01,$02
 .neutral_frames
-	db $13,$13,$13
+	db $13,$12,$13
 .right_frames
 	db $10,$11,$12
 .left_frames
