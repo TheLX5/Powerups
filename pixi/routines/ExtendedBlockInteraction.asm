@@ -11,6 +11,20 @@
 ; $8C = High byte of the map16 number in Layer 2/3 that the sprite is touching.
 
 
+!LM_RAM		= $0BF6|!base2		; 256 bytes of free RAM. Must be on shadow RAM.
+
+!L1_Screen_Lo	= !LM_RAM			; 96 bytes (32 * 3).
+!L2_Screen_Lo	= !LM_RAM+48		; 48 bytes (shared).
+!L1_Screen_Hi	= !LM_RAM+96		; 96 bytes (32 * 3).
+!L2_Screen_Hi	= !LM_RAM+96+48		; 48 bytes (shared).
+
+; These ones don't need to be on the shadow RAM, though...
+!L1_Lookup_Lo	= !LM_RAM+96+96		; 32 bytes
+!L2_Lookup_Lo	= !LM_RAM+96+96+16		; 16 bytes (shared)
+!L1_Lookup_Hi	= !LM_RAM+96+96+32		; 32 bytes
+!L2_Lookup_Hi	= !LM_RAM+96+96+32+16	; 16 bytes (shared)
+
+
 ExtendedTest:
 	stz $0F
 	stz $0E
@@ -200,18 +214,34 @@ ExtendedTest:
 	sta $00
 	
 	ldx $03
-	lda.l $00BA60|!BankB,x		;load map16 pointers based on Y pos high byte.
+	if !EXLEVEL == 1
+		lda.l !L1_Lookup_Lo,x		;load map16 pointers based on Y pos high byte.
+	else
+		lda.l $00BA60|!BankB,x
+	endif
 	ldy $0F			;$0F = ???
 	beq .not_horz
-	lda.l $00BA70|!BankB,x		;load map16 pointers based on Y pos high byte.
+	if !EXLEVEL == 1
+		lda.l !L2_Lookup_Lo,x		;load map16 pointers based on Y pos high byte.
+	else
+		lda.l $00BA70|!BankB,x
+	endif
 .not_horz
 	clc
 	adc $00			;merge the pointers with the merged Y and X nybbles
-	sta $05		
-	lda.l $00BA9C|!BankB,x	
+	sta $05	
+	if !EXLEVEL == 1
+		lda.l !L1_Lookup_Hi,x
+	else
+		lda.l $00BA9C|!BankB,x
+	endif
 	ldy $0F
 	beq .not_horz2		;do the same as above
-	lda.l $00BAAC|!BankB,x
+	if !EXLEVEL == 1
+		lda.l !L2_Lookup_Hi,x
+	else
+		lda.l $00BAAC|!BankB,x
+	endif
 .not_horz2
 	adc $02			;but add the pointers to X high position
 	sta $06
