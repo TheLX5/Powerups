@@ -240,3 +240,10 @@ org $02FE5E|!base3
 org $02FE63|!base3
 	db $3B
 endif
+
+org $00CCB5|!base3
+backup77:
+       LDA $77
+       STA !ram_77_backup
+org $00C599|!base3
+       dw backup77
