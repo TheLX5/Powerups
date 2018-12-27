@@ -10,7 +10,12 @@ instant_kill:
 if !disable_drop_item == 0
 	jsl $028008|!base3
 endif
+	lda !slippery_flag_backup
+	beq +
+	sta $86
++	
 	lda #$00
+	sta !slippery_flag_backup
 	sta !extra_tile_flag
 	sta !cape_settings
 	rtl

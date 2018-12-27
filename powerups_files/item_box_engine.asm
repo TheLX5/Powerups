@@ -181,8 +181,13 @@ clean_ram:
 	lda $13ED|!base2
 	and #$7F
 	sta $13ED|!base2
-	
+
+	lda !slippery_flag_backup
+	beq +
+	sta $86
++	
 	lda #$00
+	sta !slippery_flag_backup
 	sta !disable_spin_jump
 	sta !mask_15
 	sta !mask_17
