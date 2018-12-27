@@ -3,7 +3,7 @@
 ; Putting code or data is NOT recommend though or you will end up wasting lot of space.
 ; Put data or code at library folder instead.
 
-incsrc /../powerup_defs.asm
+incsrc ../powerup_defs.asm
 
 !sa1	= 0			; 0 if LoROM, 1 if SA-1 ROM.
 !dp	= $0000			; $0000 if LoROM, $3000 if SA-1 ROM.
