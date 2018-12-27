@@ -374,6 +374,10 @@ Kicked:
 ++	
 	sta !157C,x
 +	
+	lda !164A,x
+	beq +
+	jsr .liquids
++	
 	lda !15B8,x
 	pha
 	jsl !update_gravity
@@ -403,6 +407,23 @@ Kicked:
 +	
 	jsr sprite_contact
 	jmp block_interaction
+
+.liquids
+	dec !AA,x
+	lda $14
+	and #$08
+	beq +
+	dec !AA,x
++	
+	lda !B6,x
+	beq +
+	bmi ++
+	dec !B6,x
++	
+	rts
+++	
+	inc !B6,x
+	rts
 
 block_side:
 	lda #$01
@@ -486,10 +507,11 @@ Normal:
 	dec !AA,x
 +	
 	lda !B6,x
-	beq .handle_gravity
+	beq +++
 	bmi ++
 	dec !B6,x
-	bra .handle_gravity
++++
+	rts
 ++	
 	inc !B6,x
 	rts
@@ -590,10 +612,10 @@ graphics:
 	lda $13
 	and #$1F
 	ora $9D
-	phk
-	pea .ice_block_spark-1
-	pea $80C9
-	jml $01B152|!BankB
+;	phk
+;	pea .ice_block_spark-1
+;	pea $80C9
+;	jml $01B152|!BankB
 .ice_block_spark
 	%GetDrawInfo()
 	lda !ice_block_size,x
