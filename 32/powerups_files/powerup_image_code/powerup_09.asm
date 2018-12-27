@@ -1,9 +1,0 @@
-		LDA	!flags
-		CMP	#$01
-		BNE	.return
-		LDA.b	#%00010000
-		TSB	$78
-		LDA	#$46
-		STA	$13E0|!base2
-		STZ	$76
-.return		RTS	
