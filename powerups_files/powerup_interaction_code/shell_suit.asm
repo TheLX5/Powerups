@@ -13,9 +13,14 @@
 	sta !14C8,x
 	lda #$D0
 	sta !AA,x
+	phb
+	lda.b #$01|(!base3/$10000)
+	pha
+	plb
 	ldy $76
 	lda.w $A839,y
 	sta !B6,x
+	plb
 	jsl $01AB99|!base3
 	lda #$14
 	sta $1DF9|!base2
