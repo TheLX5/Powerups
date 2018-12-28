@@ -31,7 +31,7 @@
 	dw give_shell_suit
 	dw give_bubble_flower
 	dw give_cloud_flower
-	dw give_dummy
+	dw give_cat_suit
 
 ;; ^^^^ ---- Here goes your pointers ---- ^^^^
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -60,7 +60,7 @@
 	incsrc get_powerup/shell_suit.asm
 	incsrc get_powerup/bubble_flower.asm
 	incsrc get_powerup/cloud_flower.asm
-	incsrc get_powerup/dummy.asm
+	incsrc get_powerup/cat_suit.asm
 
 ;; ^^^^ ---- Here goes your codes/incsrc ---- ^^^^
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

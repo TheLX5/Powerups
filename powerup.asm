@@ -79,7 +79,7 @@ endmacro
 
 if !i_read_the_readme == 0
 	print "Custom powerups patch."
-	print "Version 3.1.1"
+	print "Version 3.2.0"
 	print ""
 	print "Nothing was inserted."
 	print "Please read the Readme file included in this patch."
@@ -160,10 +160,12 @@ freecode
 	%protect_data(penguin_mario)
 	%protect_data(propeller_mario)
 	%protect_data(shell_mario)
+	%protect_data(cat_mario)
 	%protect_data(cape_tiles)
 	%protect_data(tail_tiles)
 	%protect_data(propeller_tiles)
 	%protect_data(cloud_tiles)
+	%protect_data(cat_tiles)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Powerup code
@@ -338,7 +340,7 @@ if read2($00D067|!base3) != $DEAD
 endif
 
 print "Custom powerups patch."
-print "Version 3.1.1"
+print "Version 3.2.0"
 print ""
 print "Inserted ", freespaceuse, " bytes"
 endif

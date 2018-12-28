@@ -437,8 +437,18 @@ if !SA1 == 0
 ;; !item_gfx_latest: Holds the latest powerup item sprite index.
 ;; 1 bytes
 	!item_gfx_latest	= $7E2160
+;;;;;;
+;; !slippery_flag_backup: Saves the slippery level setting.
+;; 1 bytes
+	!slippery_flag_backup	= $7E2161
+;;;;;;
+;; !ram_77_backup: Saves whatever $77 has in the same frame.
+;; 1 bytes
+	!ram_77_backup		= $7E2162
+
 
 	else
+
 
 
 ;;;;;;;
@@ -638,8 +648,18 @@ if !SA1 == 0
 ;; !item_gfx_latest: Holds the latest powerup item sprite index.
 ;; 1 bytes
 	!item_gfx_latest	= $404260
+;;;;;;
+;; !slippery_flag_backup: Saves the slippery level setting.
+;; 1 bytes
+	!slippery_flag_backup	= $404261
+;;;;;;
+;; !ram_77_backup: Saves whatever $77 has in the same frame.
+;; 1 bytes
+	!ram_77_backup		= $404262
 
 endif
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SA-1 compatibility defines.

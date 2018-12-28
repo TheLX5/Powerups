@@ -10,7 +10,7 @@ TileIndexData:
 TileAltTable:
 	db $01,$02,$03,$02,$02,$02,$04,$04		; powerups 0 - 7
 	db $05,$02,$02,$01,$02,$06,$07,$08		; powerups 8 - F
-	db $02,$02,$02					; powerups 10 - 12
+	db $02,$02,$09					; powerups 10 - 12
 
 TileAltIndex:
 	dw tilemap_small_mario
@@ -21,6 +21,7 @@ TileAltIndex:
 	dw tilemap_penguin_mario
 	dw tilemap_propeller_mario
 	dw tilemap_shell_mario
+	dw tilemap_cat_mario
 
 ;original tilemap 32x32, useful if you have a 64KiB .bin file.
 
@@ -123,12 +124,12 @@ db $18,$19,$1A,$1B,$1C,$1D,$1E,$1F	;4
 db $20,$21,$22,$23,$24,$25,$26,$27	;5
 db $28,$29,$2A,$2B,$2C,$2D,$2E,$2F	;6
 db $30,$31,$32,$33,$34,$35,$36,$37	;7
-db $38,$39,$3A,$3B,$3C			;8
+db $38,$39,$3A,$3B,$3B			;8
 ;misc
-db $3D,$3E,$3F,$7F,$7F,$2A,$3B,$25	;9
+db $3D,$3E,$3D,$7F,$7F,$2A,$3B,$25	;9
 db $3A					;10
 ;custom
-db $00
+db $3C,$3E,$3F	;swim up
 
 tilemap_shell_mario:
 db $00,$01,$02,$03,$04,$05,$06,$07	;1
@@ -177,6 +178,22 @@ db $38,$39,$3A,$3B,$3C			;8
 ;misc
 db $3D,$3E,$3F,$7F,$7F,$2A,$3B,$25	;9
 db $3A					;10
+
+
+tilemap_cat_mario:
+db $00,$01,$02,$03,$00,$01,$02,$07	;1
+db $08,$09,$0A,$0B,$02,$0D,$0E,$0F	;2
+db $10,$11,$12,$13,$14,$15,$16,$17	;3
+db $18,$19,$1A,$1B,$1C,$1D,$1E,$1F	;4
+db $20,$21,$22,$23,$24,$25,$26,$27	;5
+db $28,$29,$2A,$2B,$2C,$2D,$2E,$2F	;6
+db $30,$31,$32,$33,$34,$35,$36,$37	;7
+db $38,$39,$3A,$3B,$3C			;8
+;misc
+db $3D,$3E,$3F,$7F,$7F,$2A,$3B,$25	;9
+db $3A					;10
+
+db $04,$05
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;For Above:

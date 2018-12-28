@@ -7,6 +7,15 @@
 					;You may want to change the .cfg file too.
 !penguin_suit_dynamic_tile	= $2A	;Tile used by this powerup.
 
+!penguin_suit_ride_yoshi	= 0
+
+!penguin_suit_shoot_sfx		= $06	;SFX number that plays when Mario shoots an iceball.
+!penguin_suit_shoot_port	= $1DFC	;SFX Port.
+
+!penguin_suit_base_x_speed	= $28	;Base x speed when Mario is sliding.
+
+!penguin_suit_pose_timer	= $0A	;How many frames will the "shooting" pose will be shown.
+
 %powerup_number(penguin_suit,0D)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.

@@ -42,8 +42,8 @@ MarioPalettes:
 	%insert_palette(bubble_flower_mario)		; powerup 12
 ; Cloud flower (SMG)
 	%insert_palette(cloud_flower_mario)		; powerup 11
-; Dummy
-	%insert_palette(dummy_mario)			; powerup 12
+; Cat Suit (SM3DW)
+	%insert_palette(cat_suit_mario)			; powerup 12
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; These values represent the palette of Luigi when he has each powerup.
@@ -86,8 +86,8 @@ LuigiPalettes:
 	%insert_palette(bubble_flower_luigi)		; powerup 10
 ; Cloud flower (SMG)
 	%insert_palette(cloud_flower_luigi)		; powerup 11
-; Dummy
-	%insert_palette(dummy_luigi)			; powerup 12
+; Cat Suit (SM3DW)
+	%insert_palette(cat_suit_luigi)			; powerup 12
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; These values represent the palette of Mario OR Luigi when he has a Star.

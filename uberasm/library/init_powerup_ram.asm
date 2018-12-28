@@ -34,4 +34,4 @@ powerup_indexes:
 	db $11	;shell
 	db $12	;bubble
 	db $13	;cloud
-	db $00	;nothing
+	db $14	;cat

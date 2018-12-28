@@ -1,10 +1,22 @@
-!dummy_tile		= $0E	;Tile used by the unused powerup E item
-!dummy_prop		= $0A	;YXPPCCCT properties of unused powerup E item
+;;;;;;;;;;;;;;;;;;;
+;; Cat Suit (SM3DW)
+;;;;;;;;;;;;;;;;;;;
+
+!cat_suit_tile		= $0E	;Tile used by the unused powerup E item
+!cat_suit_prop		= $04	;YXPPCCCT properties of unused powerup E item
 				;You may want to change the .cfg file too.
 
-!dummy_dynamic_tile	= $20	;Tile used by this powerup.
+!cat_suit_no_move	= $48
 
-%powerup_number(dummy,12)	;Mandatory macro to get the powerup number.
+!cat_suit_kick_x_speed	= $20
+!cat_suit_kick_y_speed	= $B8
+
+!cat_suit_climb_speed	= $DC
+!cat_suit_time_to_stick	= $50
+
+!cat_suit_dynamic_tile	= $4A	;Tile used by this powerup.
+
+%powerup_number(cat_suit,12)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

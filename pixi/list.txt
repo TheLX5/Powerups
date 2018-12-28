@@ -12,6 +12,7 @@
 0B powerups/shell_suit.cfg
 0C powerups/bubble_flower.cfg
 0D powerups/cloud_flower.cfg
+0E powerups/cat_suit.cfg
 10 ice_block.cfg
 
 EXTENDED:
