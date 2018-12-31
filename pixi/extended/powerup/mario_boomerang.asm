@@ -1,5 +1,5 @@
 ;incsrc !directory
-incsrc ../../../powerup_defs.asm
+incsrc ../../powerup_defs.asm
 
 print "MAIN ", pc
 mario_boomerang:
