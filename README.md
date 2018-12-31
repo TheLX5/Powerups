@@ -1,5 +1,5 @@
 # Description
-Makes possible to have custom powerups on Super Mario World.
+Makes possible to have custom powerups on Super Mario World and includes several powerups inside.
 
 # Features
 - Various powerups from other Mario games.
@@ -13,10 +13,8 @@ Makes possible to have custom powerups on Super Mario World.
 - Total control of Item Box (uses Item Box Special 1.2 patch).
 - A big library of routines to create projectiles.
 
-# Tutorial
-An online tutorial can be found in the following link http://media.smwcentral.net/LX5/powerup_readme.html
-
-A video tutorial is in the works.
+# Building
+Follow the instructions inside of the readme included in the package.
 
 # Lastest beta release
 Doesn't contain any code from here and has some missing features from the list.
