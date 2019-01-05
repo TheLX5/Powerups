@@ -401,7 +401,7 @@ Kicked:
 	sta !AA,x
 ++	
 	lda !1588,x
-	and #$03
+	and #$0B
 	beq +
 	jsr block_side
 +	
@@ -460,7 +460,7 @@ Normal:
 	cmp #$08
 	beq .next
 	lda !1588,x
-	and #$03
+	and #$0B
 	beq .end
 	lda #$02
 	sta !14C8,x
@@ -469,6 +469,11 @@ Normal:
 	lda !164A,x
 	beq .handle_gravity
 	jsr .liquids
+	lda !1588,x
+	and #$0B
+	beq .handle_gravity
+	lda #$02
+	sta !14C8,x
 .handle_gravity
 	lda !154C,x
 	beq .fall
@@ -487,7 +492,7 @@ Normal:
 	beq .zero_gravity
 .check_floor
 	lda !1588,x
-	and #$0C
+	and #$04
 	beq .no_floors
 	lda !carry_flag,x
 	beq .no_floors
