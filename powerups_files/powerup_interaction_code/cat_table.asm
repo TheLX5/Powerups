@@ -1,10 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Bits:
-; 0-2 = Unused.
-; 3 = Can't be killed by Raccoon Mario's statue.
-; 4 = Unused.
-; 5 = Unused.
-; 6-7 = Unused.
+; 0 = Can't be destroyed by scratch attack
+; 1-7 = unused
 ;
 ; Bit order is:
 ; 76543210
@@ -15,7 +12,7 @@
 	db $01,$01,$01,$01	; custom sprites 0-3
 	db $01,$01,$01,$01	; custom sprites 4-7
 	db $01,$01,$01,$01	; custom sprites 8-B
-	db $01,$01,$01,$00	; custom sprites C-F
+	db $01,$01,$01,$01	; custom sprites C-F
 	db $00,$00,$00,$00	; custom sprites 10-13
 	db $00,$00,$00,$00	; custom sprites 14-17
 	db $00,$00,$00,$00	; custom sprites 18-1B
