@@ -27,6 +27,8 @@ endif
 	lda #$00
 	sta !clipping_flag
 	sta !collision_flag
+	lda $1493|!base2
+	bne .out_of_water
 	lda $75
 	beq .out_of_water
 	jmp .underwater
@@ -223,7 +225,7 @@ endif
 .left_frames
 	db $10,$11,$12
 .up_frames
-	db $0A,$2E,$2F
+	db $1A,$2E,$2F
 .down_frames
 	db $04,$05,$06
 .right_speed

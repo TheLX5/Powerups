@@ -21,6 +21,8 @@ endif
 +	
 
 	ldy $73
+	lda $1493|!base2
+	bne .ground
 	lda $75
 	beq .ground
 	lda $187A|!base2
