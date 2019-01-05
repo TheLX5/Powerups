@@ -2,17 +2,17 @@
 ;; Cat Suit (SM3DW)
 ;;;;;;;;;;;;;;;;;;;
 
-!cat_suit_tile		= $0E	;Tile used by the unused powerup E item
-!cat_suit_prop		= $04	;YXPPCCCT properties of unused powerup E item
+!cat_suit_tile		= $0E	;Tile used by cat suit item
+!cat_suit_prop		= $04	;YXPPCCCT properties of the cat suit item.
 				;You may want to change the .cfg file too.
 
-!cat_suit_no_move	= $48
+!cat_suit_no_move	= $48	;Time until being able to climb a wall again
 
 !cat_suit_kick_x_speed	= $20
 !cat_suit_kick_y_speed	= $B8
 
 !cat_suit_climb_speed	= $DC
-!cat_suit_time_to_stick	= $50
+!cat_suit_time_to_stick	= $50	;How much frames is Mario able to climb
 
 !cat_suit_dynamic_tile	= $4A	;Tile used by this powerup.
 
