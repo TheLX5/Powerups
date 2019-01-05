@@ -33,7 +33,7 @@
 
 !ice_block_rainbow		= $01	;Set to 0 if you wanna disable the rainbow effect from the ice block debris.
 
-!ice_block_num			= $10	;Number of the ice block sprite.
+!ice_block_num			= $0F	;Number of the ice block sprite.
 !ice_block_break_sfx		= $07	;SFX that plays when the ice block breaks.
 !ice_block_break_port		= $1DFC	;Port of the SFX
 

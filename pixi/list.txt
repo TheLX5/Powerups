@@ -13,7 +13,7 @@
 0C powerups/bubble_flower.cfg
 0D powerups/cloud_flower.cfg
 0E powerups/cat_suit.cfg
-10 ice_block.cfg
+0F ice_block.cfg
 
 EXTENDED:
 00 powerup/mario_hammer.asm
