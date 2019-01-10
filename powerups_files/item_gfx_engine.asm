@@ -41,6 +41,11 @@ powerup_tiles:
 	db !powerup_10_tile
 	db !powerup_11_tile
 	db !powerup_12_tile
+	db !powerup_13_tile
+	db !powerup_14_tile
+	db !powerup_15_tile
+	db !powerup_16_tile
+	db !powerup_17_tile
 else
 
 ;; init_powerup was relocated to be able to initialize the powerups
@@ -238,6 +243,11 @@ dynamic_item_tiles:
 	db !dynamic_powerup_10_tile
 	db !dynamic_powerup_11_tile
 	db !dynamic_powerup_12_tile
+	db !dynamic_powerup_13_tile
+	db !dynamic_powerup_14_tile
+	db !dynamic_powerup_15_tile
+	db !dynamic_powerup_16_tile
+	db !dynamic_powerup_17_tile
 
 .box
 	db $00,$02,$06,$04
@@ -256,6 +266,11 @@ dynamic_item_tiles:
 	db !dynamic_powerup_10_tile
 	db !dynamic_powerup_11_tile
 	db !dynamic_powerup_12_tile
+	db !dynamic_powerup_13_tile
+	db !dynamic_powerup_14_tile
+	db !dynamic_powerup_15_tile
+	db !dynamic_powerup_16_tile
+	db !dynamic_powerup_17_tile
 
 powerup_tiles:
 	lda !14C8,x

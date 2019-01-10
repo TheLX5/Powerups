@@ -32,6 +32,11 @@
 	dw give_bubble_flower
 	dw give_cloud_flower
 	dw give_cat_suit
+	dw give_nothing
+	dw give_nothing
+	dw give_nothing
+	dw give_nothing
+	dw give_nothing
 
 ;; ^^^^ ---- Here goes your pointers ---- ^^^^
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

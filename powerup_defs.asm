@@ -12,7 +12,7 @@ endif
 ;; Misc Defines
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-!i_read_the_readme	= 0	;Set it to 1 to be able to insert the patch.
+!i_read_the_readme	= 1	;Set it to 1 to be able to insert the patch.
 				;I hope you did read the readme file.
 
 !enable_projectile_dma	= 1	;Enable the ASM hacks to make possible use DMA to upload the projectile tiles
@@ -43,7 +43,7 @@ endif
 ;; Pattern should be obvious.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-!max_powerup		= $12	;How many powerups do you have.
+!max_powerup		= $17	;How many powerups do you have.
 				;Increasing this value means that you will need to increase some other pointers and tables.
 
 !powerups_A = 00
@@ -65,8 +65,13 @@ endif
 !powerups_AAAAAAAAAAAAAAAAA = 10
 !powerups_AAAAAAAAAAAAAAAAAA = 11
 !powerups_AAAAAAAAAAAAAAAAAAA = 12
+!powerups_AAAAAAAAAAAAAAAAAAAA = 13
+!powerups_AAAAAAAAAAAAAAAAAAAAA = 14
+!powerups_AAAAAAAAAAAAAAAAAAAAAA = 15
+!powerups_AAAAAAAAAAAAAAAAAAAAAAA = 16
+!powerups_AAAAAAAAAAAAAAAAAAAAAAAA = 17
 
-macro powerup_number(define_name,num)
+macro powerup_number(define_name,num,effect)
 	!<define_name>_powerup_num = $<num>
 	!powerup_<num> = !<define_name>_powerup_num
 
@@ -74,6 +79,12 @@ macro powerup_number(define_name,num)
 
 	!powerup_<num>_tile = !<define_name>_tile
 	!powerup_<num>_prop = !<define_name>_prop
+
+if !better_powerdown == 1
+	!powerup_<num>_powerdown = Actions_<effect>
+else
+	!powerup_<num>_powerdown = Actions_Shrink
+endif
 endmacro
 
 ;;;;;;;;;;;;;

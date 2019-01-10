@@ -21,6 +21,8 @@ data00FADF:
 		db !starting_slot+$06,!starting_slot+$07,!starting_slot+$08
 		db !starting_slot+$09,!starting_slot+$0A,!starting_slot+$0B
 		db !starting_slot+$0C,!starting_slot+$0D,!starting_slot+$0E
+		db !starting_slot+$0F,!starting_slot+$10,!starting_slot+$11
+		db !starting_slot+$12,!starting_slot+$13
 	;springboard & p-switch
 		db $74,$74,$77,$75
 		db !starting_slot+$00,!starting_slot+$01,!starting_slot+$02
@@ -28,6 +30,8 @@ data00FADF:
 		db !starting_slot+$06,!starting_slot+$07,!starting_slot+$08
 		db !starting_slot+$09,!starting_slot+$0A,!starting_slot+$0B
 		db !starting_slot+$0C,!starting_slot+$0D,!starting_slot+$0E
+		db !starting_slot+$0F,!starting_slot+$10,!starting_slot+$11
+		db !starting_slot+$12,!starting_slot+$13
 	;key
 		db $74,$78,$78,$78
 		db $78,$78,$78
@@ -35,6 +39,8 @@ data00FADF:
 		db $78,$78,$78
 		db $78,$78,$78
 		db $78,$78,$78
+		db $78,$78,$78
+		db $78,$78
 	;baby yoshi
 		db $78,$78,$78,$78
 		db $78,$78,$78
@@ -42,6 +48,8 @@ data00FADF:
 		db $78,$78,$78
 		db $78,$78,$78
 		db $78,$78,$78
+		db $78,$78,$78
+		db $78,$78
 data00FADF_settings:
 	;any sprite
 		db $00,$00,$00,$00
@@ -50,6 +58,8 @@ data00FADF_settings:
 		db $01,$01,$01
 		db $01,$01,$01
 		db $01,$01,$01
+		db $01,$01,$01
+		db $01,$01
 	;springboard & p-switch
 		db $00,$00,$00,$00
 		db $01,$01,$01
@@ -57,6 +67,8 @@ data00FADF_settings:
 		db $01,$01,$01
 		db $01,$01,$01
 		db $01,$01,$01
+		db $01,$01,$01
+		db $01,$01
 	;key
 		db $00,$00,$00,$00
 		db $00,$00,$00
@@ -64,6 +76,8 @@ data00FADF_settings:
 		db $00,$00,$00
 		db $00,$00,$00
 		db $00,$00,$00
+		db $00,$00,$00
+		db $00,$00
 	;baby yoshi
 		db $00,$00,$00,$00
 		db $00,$00,$00
@@ -71,6 +85,8 @@ data00FADF_settings:
 		db $00,$00,$00
 		db $00,$00,$00
 		db $00,$00,$00
+		db $00,$00,$00
+		db $00,$00
 data00FAFB:
 		db $FF,$74,$75,$FF,$77
 		db !starting_slot+$00,!starting_slot+$01,!starting_slot+$02
@@ -78,3 +94,5 @@ data00FAFB:
 		db !starting_slot+$06,!starting_slot+$07,!starting_slot+$08
 		db !starting_slot+$09,!starting_slot+$0A,!starting_slot+$0B
 		db !starting_slot+$0C,!starting_slot+$0D,!starting_slot+$0E
+		db !starting_slot+$0F,!starting_slot+$10,!starting_slot+$11
+		db !starting_slot+$12,!starting_slot+$13

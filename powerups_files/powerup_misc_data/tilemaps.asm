@@ -5,12 +5,12 @@
 TileIndexData:
 	db $00,$46,$83,$46,$46,$46,$46,$46		; powerups 0 - 7
 	db $46,$46,$46,$00,$46,$46,$46,$46		; powerups 8 - F
-	db $46,$46,$46					; powerups 10 - 12
+	db $46,$46,$46,$46,$46,$46,$46,$46		; powerups 10 - 17
 
 TileAltTable:
 	db $01,$02,$03,$02,$02,$02,$04,$04		; powerups 0 - 7
 	db $05,$02,$02,$01,$02,$06,$07,$08		; powerups 8 - F
-	db $02,$02,$09					; powerups 10 - 12
+	db $02,$02,$09,$02,$02,$02,$02,$02		; powerups 10 - 17
 
 TileAltIndex:
 	dw tilemap_small_mario

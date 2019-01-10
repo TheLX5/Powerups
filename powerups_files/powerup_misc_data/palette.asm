@@ -45,6 +45,12 @@ MarioPalettes:
 ; Cat Suit (SM3DW)
 	%insert_palette(cat_suit_mario)			; powerup 12
 
+	%insert_palette(small_mario)			; powerup 13
+	%insert_palette(small_mario)			; powerup 14
+	%insert_palette(small_mario)			; powerup 15
+	%insert_palette(small_mario)			; powerup 16
+	%insert_palette(small_mario)			; powerup 17
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; These values represent the palette of Luigi when he has each powerup.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -88,6 +94,12 @@ LuigiPalettes:
 	%insert_palette(cloud_flower_luigi)		; powerup 11
 ; Cat Suit (SM3DW)
 	%insert_palette(cat_suit_luigi)			; powerup 12
+
+	%insert_palette(small_luigi)			; powerup 13
+	%insert_palette(small_luigi)			; powerup 14
+	%insert_palette(small_luigi)			; powerup 15
+	%insert_palette(small_luigi)			; powerup 16
+	%insert_palette(small_luigi)			; powerup 17
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; These values represent the palette of Mario OR Luigi when he has a Star.
