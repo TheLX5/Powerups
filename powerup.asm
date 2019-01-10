@@ -1,4 +1,3 @@
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Custom powerups patch by MarioE
 ; Asar version by Lui37
@@ -79,7 +78,7 @@ endmacro
 
 if !i_read_the_readme == 0
 	print "Custom powerups patch."
-	print "Version 3.2.0"
+	print "Version 3.2.1"
 	print ""
 	print "Nothing was inserted."
 	print "Please read the Readme file included in this patch."
@@ -108,9 +107,9 @@ endif
 	incsrc powerups_files/hijacks/custom_collision_engine.asm
 	incsrc powerups_files/hijacks/cape_engine.asm
 	incsrc powerups_files/hijacks/item_box_engine.asm
+	incsrc powerups_files/hijacks/better_powerdown.asm
 	incsrc powerups_files/hijacks/custom_interaction_engine.asm
 	incsrc powerups_files/hijacks/ride_yoshi.asm
-	incsrc powerups_files/hijacks/instant_kill_flag.asm
 	incsrc powerups_files/hijacks/ducking_flag.asm
 	incsrc powerups_files/hijacks/slide_flag.asm
 	incsrc powerups_files/hijacks/water_splash_edit.asm
@@ -194,6 +193,13 @@ freecode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	incsrc powerups_files/control_hack.asm
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enables powerdown ASM hacks.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	incsrc powerups_files/better_powerdown.asm
 	
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Clear almost 22000 bytes of RAM. Note that certain portions should NOT
@@ -203,9 +209,9 @@ freecode
 ; anything bad... besides glitching the berries due to their tiles are in GFX32.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-		if read1($009750|!base3) == $20
+if read1($009750|!base3) == $20
 	incsrc powerups_files/clear_7E2000.asm
-		endif
+endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Handle player tile GFX pointers
@@ -260,12 +266,6 @@ freecode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	incsrc powerups_files/cape_engine.asm
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Clear some RAM when Mario's hurt.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-	incsrc powerups_files/instant_kill_flag.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Handle Mario's riding yoshi status
@@ -340,7 +340,7 @@ if read2($00D067|!base3) != $DEAD
 endif
 
 print "Custom powerups patch."
-print "Version 3.2.0"
+print "Version 3.2.1"
 print ""
 print "Inserted ", freespaceuse, " bytes"
 endif

@@ -14,7 +14,7 @@
 !rocket_boots_boost_sfx		= $27	;Which SFX will play when going up.
 !rocket_boots_boost_port	= $1DFC	;SFX port of above.
 
-%powerup_number(rocket_boots,0A)	;Mandatory macro to get the powerup number.
+%powerup_number(rocket_boots,0A,Palette)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

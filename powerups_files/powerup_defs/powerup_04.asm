@@ -32,7 +32,7 @@
 
 !hammer_pro_props		= $06	;Palette of the hammer projectile.
 
-%powerup_number(hammer_suit,04)	;Mandatory macro to get the powerup number.
+%powerup_number(hammer_suit,04,Smoke)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

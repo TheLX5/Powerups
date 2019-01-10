@@ -1,2 +1,2 @@
-org $00F5FE|!base3			;cleans RAM when Mario's hurt
+org $00F5D5|!base3			;cleans RAM when Mario's hurt
 	autoclean JML reset_flags

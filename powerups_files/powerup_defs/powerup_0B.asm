@@ -11,7 +11,7 @@
 
 !mini_mushroom_dynamic_tile	= $26	;Tile used by the mini mushroom item
 
-%powerup_number(mini_mushroom,0B)	;Mandatory macro to get the powerup number.
+%powerup_number(mini_mushroom,0B,Kill)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

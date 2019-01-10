@@ -19,7 +19,7 @@
 
 !super_leaf_flight_timer	= $78	;How many frames Mario will be able to ascend.
 
-%powerup_number(super_leaf,06)	;Mandatory macro to get the powerup number.
+%powerup_number(super_leaf,06,Smoke)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

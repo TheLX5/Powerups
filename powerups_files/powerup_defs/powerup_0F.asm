@@ -9,7 +9,7 @@
 !shell_suit_base_x_speed	= $28	;Base x speed when Mario is inside of the shell.
 !shell_suit_dynamic_tile	= $44	;Tile used by this powerup.
 
-%powerup_number(shell_suit,0F)	;Mandatory macro to get the powerup number.
+%powerup_number(shell_suit,0F,Smoke)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

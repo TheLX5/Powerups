@@ -1,4 +1,4 @@
-%powerup_number(small,00)	;Mandatory macro to get the powerup number.
+%powerup_number(small,00,Shrink)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

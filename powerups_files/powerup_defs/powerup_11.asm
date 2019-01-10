@@ -12,7 +12,7 @@
 
 !cloud_prop			= $02
 
-%powerup_number(cloud_flower,11)	;Mandatory macro to get the powerup number.
+%powerup_number(cloud_flower,11,Palette)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

@@ -38,7 +38,7 @@
 !ice_block_break_port		= $1DFC	;Port of the SFX
 
 
-%powerup_number(ice_flower,0C)	;Mandatory macro to get the powerup number.
+%powerup_number(ice_flower,0C,Palette)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

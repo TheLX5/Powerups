@@ -3,7 +3,7 @@
 
 !fireball_shoot_up		= 1	;If this is set to 1, Mario will be able to shoot upwards the superballs.
 
-%powerup_number(fire,03)	;Mandatory macro to get the powerup number.
+%powerup_number(fire,03,Palette)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

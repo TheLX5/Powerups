@@ -27,7 +27,7 @@
 !big_bubble_shine_prop		= $02	;YXPPCCCT properties of the big bubble shine.
 
 
-%powerup_number(bubble_flower,10)	;Mandatory macro to get the powerup number.
+%powerup_number(bubble_flower,10,Palette)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

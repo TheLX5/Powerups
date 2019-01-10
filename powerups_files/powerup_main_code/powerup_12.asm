@@ -4,8 +4,8 @@
 
 .cat_mario
 	lda #$01
-	sta !ducking_flag
-	sta !slide_flag
+;	sta !ducking_flag
+;	sta !slide_flag
 	dec
 	sta !power_ram
 

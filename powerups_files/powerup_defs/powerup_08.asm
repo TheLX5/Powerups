@@ -8,7 +8,7 @@
 !frog_suit_ride_yoshi	= 0	;Change to 1 to make Frog Mario able to ride Yoshi.
 !frog_suit_dynamic_tile	= $20	;Tile used by this powerup.
 
-%powerup_number(frog_suit,08)	;Mandatory macro to get the powerup number.
+%powerup_number(frog_suit,08,Smoke)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup

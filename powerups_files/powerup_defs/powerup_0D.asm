@@ -16,7 +16,7 @@
 
 !penguin_suit_pose_timer	= $0A	;How many frames will the "shooting" pose will be shown.
 
-%powerup_number(penguin_suit,0D)	;Mandatory macro to get the powerup number.
+%powerup_number(penguin_suit,0D,Smoke)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.
 	;<hex_num>: Actual powerup number, it must not repeat from another powerup
