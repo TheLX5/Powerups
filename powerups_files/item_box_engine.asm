@@ -31,6 +31,7 @@ macro flower_item(num,sfx,port)
 	lda #$04
 	jsl $02ACE5|!base3
 +	
+	jsr request_gfx
 	jmp clean_ram
 endmacro
 
@@ -53,6 +54,7 @@ macro cape_item(num,sfx,port)
 +	
 	jsl $01C5AE|!base3
 	inc $9D
+	jsr request_gfx
 	jmp clean_ram
 endmacro	
 
@@ -149,7 +151,6 @@ if !dynamic_items == 1
 	ora #$10
 	sta !item_gfx_refresh
 endif
-
 .noitem
 	lda #$00
 	sta $0F
@@ -194,8 +195,15 @@ clean_ram:
 	sta !flags
 	sta !timer
 	sta !misc
+	sta !misc+1
 	sta !shell_immunity
+	phy
+	ldy $19
+	cpy #$02
+	beq +
 	sta !cape_settings
++	
+	ply
 	sta !extra_tile_flag
 	sta !extra_tile_offset_x
 	sta !extra_tile_offset_x+1
@@ -221,6 +229,30 @@ clean_ram:
 	sta !power_ram+$E
 	sta !power_ram+$F
 	jml $01C560|!base3
+
+request_gfx:
+	phy
+	ldy $19
+	lda $02801B|!base3
+	sta $8A
+	lda $02801C|!base3
+	sta $8B
+	lda $02801D|!base3
+	sta $8C
+	lda [$8A],y
+	sta !gfx_player_request
+	sta !gfx_pl_compressed_flag
+	lda $028021|!base3
+	sta $8A
+	lda $028022|!base3
+	sta $8B
+	lda $028023|!base3
+	sta $8C
+	lda [$8A],y
+	sta !gfx_extra_request
+	sta !gfx_ex_compressed_flag
+	ply
+	rts
 
 ItemBoxFix:
 	phx			;

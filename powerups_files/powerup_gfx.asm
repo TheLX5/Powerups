@@ -2,6 +2,7 @@
 ; This file contains GFX for separate powerups.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+macro a()
 %insert_gfx(small_mario,0)
 %insert_gfx(big_mario,1)
 %insert_gfx(hammer_mario,2)
@@ -19,3 +20,4 @@
 %insert_extra_gfx(propeller_tiles,2)
 %insert_extra_gfx(cloud_tiles,3)
 %insert_extra_gfx(cat_tiles,4)
+endmacro

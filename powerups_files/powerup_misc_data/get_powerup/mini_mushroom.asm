@@ -52,6 +52,7 @@ give_mini_mushroom:
 	jsl $01C5AE|!base3
 	inc $9D
 +
+	jsr request_gfx
 	jmp clean_ram
 
 .x_coords

@@ -41,6 +41,7 @@ give_penguin_suit:
 	sta !flags
 	sta !timer
 	sta !misc
+	sta !misc+1
 	sta !shell_immunity
 	sta !cape_settings
 	sta !extra_tile_flag
@@ -67,4 +68,5 @@ give_penguin_suit:
 	sta !power_ram+$D
 	sta !power_ram+$E
 	sta !power_ram+$F
+	jsr request_gfx
 	jml $01C560|!base3

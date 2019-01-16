@@ -35,6 +35,9 @@ endif
 
 !disable_drop_item	= 0	;Set it to 1 to disable items falling from item box automatically when getting hit.
 
+!starting_extra_exgfx	= $0F00	;Starting ExGFX slot for the Extra Tile GFX
+!starting_player_exgfx	= $0E00
+
 !giepy			= 0	;Set it to 1 if you're using GIEPY.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -263,7 +266,6 @@ if !SA1 == 0
 	!gfx_bypass_flag	= $7E2003
 ;;;;;;;
 ;; !gfx_bypass_num: This RAM should contain the index of the graphics of the player.
-
 	!gfx_bypass_num		= $7E2004	
 ;;;;;;;
 ;; !mask_15: Setting this disables bits from $15/$16.
@@ -442,25 +444,53 @@ if !SA1 == 0
 	!gfx_index		= $7E215E
 ;;;;;;
 ;; !item_gfx_oldest: Holds the oldest powerup item sprite index.
-;; 1 bytes
+;; 1 byte
 	!item_gfx_oldest	= $7E215F
 ;;;;;;
 ;; !item_gfx_latest: Holds the latest powerup item sprite index.
-;; 1 bytes
+;; 1 byte
 	!item_gfx_latest	= $7E2160
 ;;;;;;
 ;; !slippery_flag_backup: Saves the slippery level setting.
-;; 1 bytes
+;; 1 byte
 	!slippery_flag_backup	= $7E2161
 ;;;;;;
 ;; !ram_77_backup: Saves whatever $77 has in the same frame.
-;; 1 bytes
+;; 1 byte
 	!ram_77_backup		= $7E2162
-
+;;;;;;
+;; !gfx_player_buffer: Decompression buffer for Player GFX
+;; 32768 bytes.
+	!gfx_player_buffer	= $7F0000
+;;;;;;
+;; !gfx_extra_buffer: Decompression buffer for 5th tile GFX
+;; Up to 8192 bytes.
+	!gfx_extra_buffer	= $7E3000
+;;;;;;
+;; !gfx_items_buffer: Decompression buffer for dynamic items GFX.
+;; Up to 8192 bytes.
+	!gfx_items_buffer	= $7E5000
+;;;;;;
+;; !gfx_owpl_buffer: Copy of the first 2KiB of !gfx_player_buffer
+;; 2048 bytes.
+	!gfx_ow_pl_buffer	= $7E7000
+;;;;;;
+;; !gfx_pl_compressed_flag: Flag used to determine if graphics were compressed or not.
+	!gfx_pl_compressed_flag	= $7E2163
+;;;;;;
+;; !gfx_ex_compressed_flag:  Flag used to determine if graphics were compressed or not.
+;; 1 byte.
+	!gfx_ex_compressed_flag	= $7E2164
+;;;;;;
+;; !gfx_player_request: Determines if the player GFX should be decompressed or not.
+;; 1 byte.
+	!gfx_player_request	= $7E2165
+;;;;;;
+;; !gfx_extra_request: Determines if the extra tile GFX should be decompressed or not.
+;; 1 byte.
+	!gfx_extra_request	= $7E2167
 
 	else
-
-
 
 ;;;;;;;
 ;; SA-1 Defines, ignore if not using SA-1.
@@ -667,6 +697,37 @@ if !SA1 == 0
 ;; !ram_77_backup: Saves whatever $77 has in the same frame.
 ;; 1 bytes
 	!ram_77_backup		= $404262
+;;;;;;
+;; !gfx_player_buffer: Decompression buffer for Player GFX
+;; 32768 bytes.
+	!gfx_player_buffer	= $7F0000
+;;;;;;
+;; !gfx_extra_buffer: Decompression buffer for 5th tile GFX
+;; Up to 8192 bytes.
+	!gfx_extra_buffer	= $7E3000
+;;;;;;
+;; !gfx_items_buffer: Decompression buffer for dynamic items GFX.
+;; Up to 8192 bytes.
+	!gfx_items_buffer	= $7E5000
+;;;;;;
+;; !gfx_ow_pl_buffer: Copy of the first 2KiB of !gfx_player_buffer
+;; 2048 bytes.
+	!gfx_ow_pl_buffer	= $7E7000
+;;;;;;
+;; !gfx_pl_compressed_flag: Flag used to determine if graphics were compressed or not.
+	!gfx_pl_compressed_flag	= $404263
+;;;;;;
+;; !gfx_ex_compressed_flag:  Flag used to determine if graphics were compressed or not.
+;; 1 byte.
+	!gfx_ex_compressed_flag	= $404264
+;;;;;;
+;; !gfx_player_request: Determines if the player GFX should be decompressed or not.
+;; 1 byte.
+	!gfx_player_request	= $404265
+;;;;;;
+;; !gfx_extra_request: Determines if the extra tile GFX should be decompressed or not.
+;; 1 byte.
+	!gfx_extra_request	= $404267
 
 endif
 

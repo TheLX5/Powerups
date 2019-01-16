@@ -2,18 +2,46 @@
 !DroppingIfOnlyBig	= 1		; If the above is 0, this one is unused.
 
 PowerDown:
-	PHX
+	phx
+	phy
+	lda $15E9|!base2
+	pha
+
 	if !DisableDropping|!DroppingIfOnlyBig == 0
 		JSL $028008|!base3
 	endif
 
-	LDA $19
-	DEC
-	ASL : TAX
-	JSR (Actions,x)
+	lda $19
+	dec
+	asl
+	tax
+	jsr (Actions,x)
 
-	PLX
-	RTL
+	ldy $19
+	lda $02801B|!base3
+	sta $8A
+	lda $02801C|!base3
+	sta $8B
+	lda $02801D|!base3
+	sta $8C
+	lda [$8A],y
+	sta !gfx_player_request
+	sta !gfx_pl_compressed_flag
+	lda $028021|!base3
+	sta $8A
+	lda $028022|!base3
+	sta $8B
+	lda $028023|!base3
+	sta $8C
+	lda [$8A],y
+	sta !gfx_extra_request
+	sta !gfx_ex_compressed_flag
+
+	pla
+	sta $15E9|!base2
+	ply
+	plx
+	rtl
 
 ; Feel free to add more actions if you use more power ups
 ; (e.g. through LX5's custom power up patch).
@@ -47,41 +75,41 @@ dw !powerup_12_powerdown
 .Shrink
 	if !DisableDropping == 0
 		if !DroppingIfOnlyBig == 1
-			JSL $028008|!base3
+			jsl $028008|!base3
 		endif
 	endif
-	LDA #$04
-	STA $1DF9|!base2
-	LDA #$2F
-	STA $1496|!base2
-	STA $9D
-	LDA #$01
-	STA $71
-	STZ $19
-	RTS
+	lda #$04
+	sta $1DF9|!base2
+	lda #$2F
+	sta $1496|!base2
+	sta $9D
+	lda #$01
+	sta $71
+	stz $19
+	rts
 
 ; Transforming to a smoke
 .Smoke
-	LDA #$0C
-	STA $1DF9|!base2
-	JSL $01C5AE|!base3
-	INC $9D
-	LDA #$01
-	STA $19
-	RTS
+	lda #$0C
+	sta $1DF9|!base2
+	jsl $01C5AE|!base3
+	inc $9D
+	lda #$01
+	sta $19
+	rts
 
 ; Cycling through the palette
 .Palette
-	LDA #$20
-	STA $149B|!base2
-	STA $9D
-	LDA #$04
-	STA $71
-	LDA #$04
-	STA $1DF9|!base2
-	STZ $1407|!base2
-	LDA #$7F
-	STA $1497|!base2
-	LDA #$01
-	STA $19
-	RTS
+	lda #$20
+	sta $149B|!base2
+	sta $9D
+	lda #$04
+	sta $71
+	lda #$04
+	sta $1DF9|!base2
+	stz $1407|!base2
+	lda #$7F
+	sta $1497|!base2
+	lda #$01
+	sta $19
+	rts

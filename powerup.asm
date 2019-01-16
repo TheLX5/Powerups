@@ -1,7 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Custom powerups patch by MarioE
+; Custom powerups patch by LX5
+; Original version by MarioE
 ; Asar version by Lui37
-; Modified by LX5
 ; 
 ; This does exactly what the title says and it adds in some more very useful
 ; stuff.
@@ -113,6 +113,7 @@ endif
 	incsrc powerups_files/hijacks/ducking_flag.asm
 	incsrc powerups_files/hijacks/slide_flag.asm
 	incsrc powerups_files/hijacks/water_splash_edit.asm
+	incsrc powerups_files/hijacks/decompression.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Add-on hijacks installer
@@ -148,6 +149,7 @@ freecode
 ; Prot area
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+macro b()
 	%protect_data(small_mario)
 	%protect_data(big_mario)
 	%protect_data(hammer_mario)
@@ -165,6 +167,7 @@ freecode
 	%protect_data(propeller_tiles)
 	%protect_data(cloud_tiles)
 	%protect_data(cat_tiles)
+endmacro
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Powerup code
@@ -194,6 +197,11 @@ freecode
 
 	incsrc powerups_files/control_hack.asm
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enables decompression requests
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	incsrc powerups_files/decompression.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Enables powerdown ASM hacks.
