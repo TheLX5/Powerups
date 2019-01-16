@@ -3,15 +3,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Controls:
-	LDA	$0DA8|!base2,x
-	STA	$18
-	LDA	!mask_15
-	TRB	$15
-	TRB	$16
-	LDA	!mask_17
-	TRB	$17
-	TRB	$18
-	LDA	#$00
-	STA	!mask_15
-	STA	!mask_17
-	RTL	
+	lda $0DA8|!base2,x
+	sta $18
+	lda !mask_15
+	trb $15
+	trb $16
+	lda !mask_17
+	trb $17
+	trb $18
+	lda #$00
+	sta !mask_15
+	sta !mask_17
+	rtl	
