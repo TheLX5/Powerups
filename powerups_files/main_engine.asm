@@ -61,3 +61,8 @@ PowerupCode:
 	dw powerup_10
 	dw powerup_11
 	dw powerup_12
+	dw powerup_13
+	dw powerup_14
+	dw powerup_15
+	dw powerup_16
+	dw powerup_17
