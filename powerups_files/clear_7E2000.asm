@@ -3,7 +3,7 @@
 ; be used.
 ;  - Original patch
 ; Dunno why the patch says this, clearing all of the RAM doesn't seem to do
-; anything bad... besides glitching the berries due to their tiles are in GFX32.
+; anything bad... besides glitching the berries due to their tiles being in GFX32.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 if !clear_7E2000 == 1
