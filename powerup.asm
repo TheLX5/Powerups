@@ -10,64 +10,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Macros
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-macro insert_gfx(filename,add)
-	org ($00A304+!base3+($<add>*3))
-		if read2($00D067|!base3) == $DEAD
-			autoclean dl <filename>_gfx
-		else
-			dl <filename>_gfx
-		endif
-	warnpc $00A38B|!base3
-freedata
-	<filename>_gfx:
-		incbin powerups_files/graphics/<filename>.bin
-endmacro
-
-macro insert_extra_gfx(filename,add)
-	org ($00F63A+!base3+($<add>*3))
-		if read2($00D067|!base3) == $DEAD
-			autoclean dl <filename>_gfx
-		else
-			dl <filename>_gfx
-		endif
-	warnpc $00F69F|!base3
-freedata
-	<filename>_gfx:
-		incbin powerups_files/graphics/<filename>.bin
-endmacro
-
-macro insert_palette(filename)
-	incbin powerups_files/powerup_misc_data/palette_files/<filename>.mw3:10C-120
-endmacro
-
-macro insert_big_gfx(filename,add)
-    org ($00A304+!base3+($<add>*3))
-		if read2($00D067|!base3) == $DEAD
-			autoclean dl <filename>_gfx
-		else
-			dl <filename>_gfx
-		endif
-    warnpc $00A38B|!base3
-        incbin powerups_files/graphics/<filename>.bin -> <filename>_gfx
-endmacro
-
-macro protect_data(filename)
-	prot <filename>_gfx
-endmacro
-
-macro insert_addon_code(filename)
-	incsrc powerups_files/addons/<filename>.asm
-endmacro
-
-macro insert_addon_hack(filename)
-	incsrc powerups_files/addons/hijacks/<filename>.asm
-endmacro
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Defines, do not edit these
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -75,13 +17,12 @@ endmacro
 
 	incsrc powerup_defs.asm
 
-
 if !i_read_the_readme == 0
 	print "Custom powerups patch."
 	print "Version 3.2.1"
 	print ""
 	print "Nothing was inserted."
-	print "Please read the Readme file included in this patch."
+	print "Please read the Readme file included in the zip file."
 else
 
 if !SA1 = 1
@@ -129,45 +70,12 @@ endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-org $00A38B|!base3
-	if read2($00D067|!base3) == $DEAD
-		autoclean dl powerup_items
-	else
-		dl powerup_items
-	endif
-
 org $00A304|!base3
 	PowerupGFX:
 org $00F63A|!base3
 	ExtraTilesGFX:
 
 freecode
-	prot powerup_items
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Prot area
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-macro b()
-	%protect_data(small_mario)
-	%protect_data(big_mario)
-	%protect_data(hammer_mario)
-	%protect_data(boomerang_mario)
-	%protect_data(raccoon_mario)
-	%protect_data(tanooki_mario)
-	%protect_data(frog_mario)
-	%protect_data(mini_mario)
-	%protect_data(penguin_mario)
-	%protect_data(propeller_mario)
-	%protect_data(shell_mario)
-	%protect_data(cat_mario)
-	%protect_data(cape_tiles)
-	%protect_data(tail_tiles)
-	%protect_data(propeller_tiles)
-	%protect_data(cloud_tiles)
-	%protect_data(cat_tiles)
-endmacro
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Powerup code
@@ -330,22 +238,6 @@ PowerupData:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	
 	incsrc powerups_files/addon_code_installer.asm
-	
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Graphics files
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-freedata
-powerup_items:
-	incbin powerups_files/graphics/powerup_items.bin
-
-	incsrc powerups_files/powerup_gfx.asm
-
-if read2($00D067|!base3) != $DEAD
-	org $00D067|!base3
-	install_byte:
-		dw $DEAD
-endif
 
 print "Custom powerups patch."
 print "Version 3.2.1"

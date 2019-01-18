@@ -27,16 +27,20 @@ endif
 				;Only works if !dynamic_items is 1
 
 !starting_slot		= $00	;Starting slot of the powerup custom sprites.
-
+				
 !clear_7E2000		= 1	;Clear Mario GFX from RAM. Needs to be 0 if using Dynamic Z or the Mode 7 Game Over patch.
 				;1 = enable, 0 = disable
-
+				
 !better_powerdown	= 0	;Set it to 1 if you have any plans on using Better Powerdown patch.
-
+				
 !disable_drop_item	= 0	;Set it to 1 to disable items falling from item box automatically when getting hit.
-
-!starting_extra_exgfx	= $0F00	;Starting ExGFX slot for the Extra Tile GFX
-!starting_player_exgfx	= $0E00
+				
+!gfx_compression	= 0	;Set to 1 to enable Player GFX compression-
+				;It currently doesn't work with SA-1 Pack v1.31.
+				
+!starting_player_exgfx	= $0E00	;Starting ExGFX slot for the player GFX.
+				
+!starting_extra_exgfx	= $0F00	;Starting ExGFX slot for the Extra Tile GFX.
 
 !giepy			= 0	;Set it to 1 if you're using GIEPY.
 
@@ -115,6 +119,61 @@ macro foreach2(code1, code2, code3)
 endmacro
 
 	%foreach("incsrc powerups_files/powerup_defs/powerup_",".asm")
+
+;;;;;;;;;;;;;;;;;;;;
+;; Useful macros
+
+macro insert_gfx(filename,add)
+	!i := !i+1
+	org ($00A304+!base3+($<add>*3))
+		if read2($00D067|!base3) == $DEAD
+			autoclean dl <filename>_gfx
+		else
+			dl <filename>_gfx
+		endif
+	warnpc $00A38B|!base3
+freedata
+	<filename>_gfx:
+		incbin powerups_files/graphics/<filename>.bin
+endmacro
+
+macro insert_extra_gfx(filename,add)
+	!i := !i+1
+	org ($00F63A+!base3+($<add>*3))
+		if read2($00D067|!base3) == $DEAD
+			autoclean dl <filename>_gfx
+		else
+			dl <filename>_gfx
+		endif
+	warnpc $00F69F|!base3
+freedata
+	<filename>_gfx:
+		incbin powerups_files/graphics/<filename>.bin
+endmacro
+
+macro insert_palette(filename)
+	incbin powerups_files/powerup_misc_data/palette_files/<filename>.mw3:10C-120
+endmacro
+
+macro insert_big_gfx(filename,add)
+	!i := !i+1
+	org ($00A304+!base3+($<add>*3))
+		if read2($00D067|!base3) == $DEAD
+			autoclean dl <filename>_gfx
+		else
+			dl <filename>_gfx
+		endif
+	warnpc $00A38B|!base3
+		incbin powerups_files/graphics/<filename>.bin -> <filename>_gfx
+endmacro
+
+macro insert_addon_code(filename)
+	incsrc powerups_files/addons/<filename>.asm
+endmacro
+
+macro insert_addon_hack(filename)
+	incsrc powerups_files/addons/hijacks/<filename>.asm
+endmacro
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SP1 & SP2 remap options
