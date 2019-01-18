@@ -33,7 +33,7 @@ macro prot_file(file, label)
 		print "_prot ", pc
 		
 		<label>:
-			incbin "/../<file>"
+			incbin "../<file>"
 	pullpc
 endmacro
 
@@ -44,7 +44,7 @@ macro prot_source(file, label)
 		print "_prot ", pc
 		
 		<label>:
-			incsrc "/../<file>"
+			incsrc "../<file>"
 	pullpc
 endmacro
 
