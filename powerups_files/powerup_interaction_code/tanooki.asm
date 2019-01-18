@@ -17,13 +17,9 @@ endif
 	lda.l ..normal_sprites_table,x
 	bra +
 ..custom_sprite	
-	lda.b #(..pointers-2)
-	sta $8A
-	lda.b #(..pointers-2)/$100
-	sta $8B
-	lda.b #(..pointers-2)/$10000
-	sta $8C
-	jsr get_sprite_group
+	lda !7FAB9E,x
+	tax
+	lda.l ..custom_sprites_table,x
 +	
 	plx 
 	sta $00
@@ -54,9 +50,3 @@ endif
 	jmp .recover_code_hit
 			
 	incsrc tanooki_table.asm
-
-
-..pointers
-	dw ..custom_sprites_table_group_1
-	dw ..custom_sprites_table_group_2
-	dw ..custom_sprites_table_group_3

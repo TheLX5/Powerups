@@ -43,14 +43,10 @@ endif
 	tay 
 	lda.w ..normal_sprites,y
 	bra ++
-+			
-	lda.b #(..pointers-2)
-	sta $8A
-	lda.b #(..pointers-2)/$100
-	sta $8B
-	lda.b #(..pointers-2)/$10000
-	sta $8C
-	jsr get_sprite_group
++	
+	lda !7FAB9E,x
+	tay
+	lda.w ..cust_spr_tab,y	
 ++		
 	plb 
 	bit #$01
@@ -83,9 +79,4 @@ endif
 	sta !154C,x
 	jmp .clc_rts
 
--	incsrc shell_suit_table.asm
-
-..pointers
-	dw ..cust_spr_tab_1
-	dw ..cust_spr_tab_2
-	dw ..cust_spr_tab_3
+	incsrc shell_suit_table.asm
