@@ -151,7 +151,7 @@ if !SA1 == 1
 	txa
 	and #$00FF
 	clc
-	adc.w #!sprite_num
+	adc.w #!9E
 	sta $B4
 	adc #$0016
 	sta $CC
@@ -162,7 +162,7 @@ if !SA1 == 1
 	sta $87
 endif
 	jsl $07FC3B|!base3
-	lda #$01
+	lda #$02
 	jsl $02ACE5|!base3
 ....try_again
 	jmp ...try_again
@@ -177,36 +177,6 @@ endif
 	db $EE,$10,$FF,$00
 
 incsrc ../powerup_interaction_code/cat_table.asm
-
-.get_sprite_group
-if !giepy == 1
-	lda !7FAB9E,x
-	tay
-	phx
-	lda !7FAB10,x
-	lsr #2
-	dec
-	tax
-	rep #$20
--	
-	inc $8A
-	inc $8A
-	dex 
-	bpl -
-	sep #$20
-	plx
-.continue
-else
-	lda !7FAB9E,x
-	tay
-endif	
-	rep #$30
-	lda ($8A)
-	sta $8A
-	sep #$20
-	lda [$8A],y
-	sep #$10
-	rts
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
