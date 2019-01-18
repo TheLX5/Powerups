@@ -35,3 +35,8 @@ powerup_indexes:
 	db $12	;bubble
 	db $13	;cloud
 	db $14	;cat
+	db $15	;unused
+	db $16	;unused
+	db $17	;unused
+	db $18	;unused
+	db $19	;unused

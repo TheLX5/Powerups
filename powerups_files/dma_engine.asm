@@ -123,7 +123,8 @@ PlrDMA:
 	bpl -
 	pla : sta $0D86|!base2
 
-	ldx.b #powerup_items/$10000
+
+	ldx.b #read1($00A38D|!base3)
 	stx $14
 	lda !item_gfx_refresh
 	and #$0003
@@ -161,7 +162,7 @@ PlrDMA:
 	sta $12
 	lda #$60C0
 	sta $2116
-	ldx.b #powerup_items/$10000
+	ldx.b #read1($00A38D|!base3)
 	stx $14
 	lda #$0040
 	sta $15
@@ -222,7 +223,7 @@ if !no_dynamic_item_box == 0
 .item_box_refresh
 	lda #$60E0
 	sta $2116
-	ldx.b #powerup_items/$10000
+	ldx.b #read1($00A38D|!base3)
 	stx $14
 	lda.l !item_gfx_pointer+4
 	sta $12

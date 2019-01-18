@@ -192,7 +192,7 @@ init_item:
 	rep #$20
 	and #$FF00		;update the item gfx pointers
 	lsr #3
-	adc #powerup_items
+	adc.w #read2($00A38B|!base3) ;#powerup_items
 	sta !item_gfx_pointer,x
 	clc
 	adc #$0200

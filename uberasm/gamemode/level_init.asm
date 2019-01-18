@@ -2,6 +2,7 @@ init:
 	lda $86
 	sta !slippery_flag_backup
 
+.init_cloud_data
 	lda $19
 	cmp #!cloud_flower_powerup_num
 	bne +
@@ -18,6 +19,7 @@ init:
 	bpl -
 	plx
 	sep #$30
-
 +	
+	;jsl decompress_gfx
+
 	rtl

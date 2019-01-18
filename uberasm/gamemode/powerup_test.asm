@@ -8,10 +8,15 @@ main:
 	bcc .no_max_power_r
 	lda #!max_powerup
 	sta $19
+	if !gfx_compression == 1
+		jsl decompress_gfx
+	endif
 	jml init_powerup_ram
 .no_max_power_r
 	inc $19
-;	inc $0DB8|!addr,x
+	if !gfx_compression == 1
+		jsl decompress_gfx
+	endif
 	jml init_powerup_ram
 .no_r	
 	lda $18
@@ -21,9 +26,15 @@ main:
 	bne .no_max_power_l
 	lda #$00
 	sta $19
+	if !gfx_compression == 1
+		jsl decompress_gfx
+	endif
 	jml init_powerup_ram
 .no_max_power_l
 	dec $19
+	if !gfx_compression == 1
+		jsl decompress_gfx
+	endif
 	jml init_powerup_ram
 .no_l	
 	rtl

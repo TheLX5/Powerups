@@ -12,4 +12,8 @@ clean_powerup_ram:
 	sta !extra_gfx_bypass_num
 	sta !clipping_flag
 	sta !collision_flag
+	sta !gfx_pl_compressed_flag
+	sta !gfx_ex_compressed_flag
+	sta !gfx_player_request
+	sta !gfx_extra_request
 	rtl

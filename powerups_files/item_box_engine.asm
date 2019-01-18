@@ -140,7 +140,7 @@ if !dynamic_items == 1
 	rep #$20
 	and #$FF00
 	lsr #3
-	adc.w #powerup_items
+	adc.w #read2($00A38B|!base3)	;powerup_items
 	sta !item_gfx_pointer+4
 	clc 
 	adc #$0200
