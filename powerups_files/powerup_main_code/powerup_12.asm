@@ -9,6 +9,20 @@
 	dec
 	sta !power_ram
 
+	lda $13E3|!base2
+	beq .no_active
+	phb
+	lda #$00
+	pha
+	plb
+	phk
+	pea .no_wall-1
+	pea $84CE
+	jml $00EB42|!base3
+.no_wall
+	plb
+.no_active
+
 	jsr .scratch
 	jsr .climb
 	rts
@@ -117,13 +131,11 @@ endif
 	plx
 	bra ++
 +			
-	lda.b #(..pointers-2)
-	sta $8A
-	lda.b #(..pointers-2)/$100
-	sta $8B
-	lda.b #(..pointers-2)/$10000
-	sta $8C
-	jsr .get_sprite_group
+	phx
+	lda !7FAB9E,x
+	tax
+	lda ..custom_sprites_table,x
+	plx
 ++	
 	cmp #$00
 	bne ....try_again
@@ -134,11 +146,24 @@ endif
 	sta !1540,x
 	lda #$08
 	sta $1DF9|!base2
-if !SA1 == 0
+if !SA1 == 1
+	rep #$20
+	txa
+	and #$00FF
+	clc
+	adc.w #!sprite_num
+	sta $B4
+	adc #$0016
+	sta $CC
+	adc #$0016
+	sta $EE
+	sep #$20
+	lda ($B4)
+	sta $87
+endif
 	jsl $07FC3B|!base3
 	lda #$01
 	jsl $02ACE5|!base3
-endif
 ....try_again
 	jmp ...try_again
 
@@ -147,11 +172,6 @@ endif
 
 ...poses
 	db $00,$00,$47,$46,$46
-
-..pointers
-	dw ..custom_sprites_table_group_1
-	dw ..custom_sprites_table_group_2
-	dw ..custom_sprites_table_group_3
 
 ..x_disp
 	db $EE,$10,$FF,$00
