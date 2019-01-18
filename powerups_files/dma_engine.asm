@@ -191,7 +191,7 @@ PlrDMA:
 .skip_both
 	inx #2
 	cpx #$04
-	bcs -
+	bcc -
 
 ;bottom tiles
 	lda #$61A0
@@ -206,7 +206,7 @@ PlrDMA:
 .skip_both_2
 	inx #2
 	cpx #$04
-	bcs -
+	bcc -
 
 
 .no_update

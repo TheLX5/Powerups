@@ -56,6 +56,9 @@ init_powerup:
 	stz !1510,x
 init_item:
 .search_oldest
+	phb
+	phk
+	plb
 	lda !item_gfx_latest
 	sta $00
 	lda !item_gfx_oldest
@@ -63,6 +66,8 @@ init_item:
 	stz $03
 	tax
 
+	cpx #$FF
+	beq ..free
 	cpx $15E9|!base2
 	beq ..free
 	lda !14C8,x
@@ -90,6 +95,8 @@ init_item:
 	
 .search_latest
 	ldx $00
+	cpx #$FF
+	beq ..free
 	cpx $15E9|!base2
 	beq ..free
 	lda !14C8,x
@@ -128,6 +135,8 @@ init_item:
 	dw ..both_alive
 
 ..none_alive
+	lda #$FF
+	sta !item_gfx_oldest
 	ldx $15E9|!base2
 	stz !1602,x
 	bra ..end	
@@ -139,12 +148,11 @@ init_item:
 	sta !item_gfx_oldest
 	bra ..shared_alive
 ..both_alive
-	lda !item_gfx_latest
-	sta !item_gfx_oldest
 	ldx $01
 	stz !14C8,x
 	jsr smoke_routine_item
-	lda $00
+	lda !item_gfx_latest
+	sta !item_gfx_oldest
 ..shared_alive
 	tay
 	lda !1602,y
@@ -155,6 +163,7 @@ init_item:
 	txa
 	sta !item_gfx_latest
 
+	wdm
 	lda !1602,x
 	inc
 	ora !item_gfx_refresh
@@ -175,9 +184,6 @@ init_item:
 	sec
 	sbc #$74		;load the correct index for original items
 .continue
-	phb
-	phk
-	plb
 	tay
 	
 	ldx $15E9|!base2
@@ -190,7 +196,7 @@ init_item:
 	xba
 
 	rep #$20
-	and #$FF00		;update the item gfx pointers
+	and #$FF00		;update the item gfx poi nters
 	lsr #3
 	adc.w #read2($00A38B|!base3) ;#powerup_items
 	sta !item_gfx_pointer,x
@@ -202,6 +208,8 @@ init_item:
 	ldx $15E9|!base2
 	plb
 	rtl
+
+
 
 smoke_routine_item:
 	lda !186C,x

@@ -73,7 +73,20 @@ CheckItem:
 	phb
 	phk
 	plb 
-	
+
+	txa
+	cmp !item_gfx_oldest
+	beq .reset_oldest
+	cmp !item_gfx_latest
+	bne .do_nothing
+.reset_latest
+	lda #$FF
+	sta !item_gfx_latest
+	bra .do_nothing
+.reset_oldest
+	lda #$FF
+	sta !item_gfx_oldest
+.do_nothing
 	stz !1528,x
 
 	lda !190F,x

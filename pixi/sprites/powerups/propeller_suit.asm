@@ -245,11 +245,7 @@ else
 	jsl $01B7B3|!BankB
 
 endif
-	rts
 .DontDraw
-	lda !item_gfx_refresh
-	and #$03
-	sta !item_gfx_refresh
 	rts
 
 .XPositions:

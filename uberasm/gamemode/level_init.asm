@@ -1,4 +1,8 @@
 init:	
+	lda #$FF
+	sta !item_gfx_oldest
+	sta !item_gfx_latest
+
 	lda $86
 	sta !slippery_flag_backup
 
