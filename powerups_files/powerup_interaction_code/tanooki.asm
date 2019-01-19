@@ -6,11 +6,7 @@
 ..stone
 	phx
 	lda !7FAB10,x
-if !giepy == 1
-	and #$0C
-else
 	and #$08
-endif	
 	bne ..custom_sprite
 	lda !9E,x
 	tax 

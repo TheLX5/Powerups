@@ -33,11 +33,7 @@
 	phk	
 	plb	
 	lda !7FAB10,x
-if !giepy == 1
-	and #$0C
-else
 	and #$08
-endif	
 	bne +
 	lda !9E,x
 	tay 

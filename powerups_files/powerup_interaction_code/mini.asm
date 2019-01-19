@@ -3,11 +3,7 @@
 	phk
 	plb
 	lda !7FAB10,x
-if !giepy == 1
-	and #$0C
-else
 	and #$08
-endif	
 	bne ..is_custom
 	lda !9E,x
 	tay
