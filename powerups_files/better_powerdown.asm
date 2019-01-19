@@ -1,5 +1,5 @@
-!DisableDropping	= 0		; If 1 then the reserve item will NOT drop if you get hurt
-!DroppingIfOnlyBig	= 1		; If the above is 0, this one is unused.
+!DisableDropping	= !disable_drop_item		; If 1 then the reserve item will NOT drop if you get hurt
+!DroppingIfOnlyBig	= !drop_item_if_big		; If the above is 0, this one is unused.
 
 PowerDown:
 	phx
@@ -37,6 +37,16 @@ PowerDown:
 	sta !gfx_extra_request
 	sta !gfx_ex_compressed_flag
 
+	lda !slippery_flag_backup
+	beq +
+	sta $86
++	
+	lda #$00
+	sta !slippery_flag_backup
+
+	lda #$10
+	tsb $78
+
 	pla
 	sta $15E9|!base2
 	ply
@@ -68,6 +78,9 @@ dw !powerup_12_powerdown
 .Kill
 	pla
 	pla
+	pla
+	sta $15E9|!base2
+	ply
 	plx
 	jml $00F606|!base3
 
