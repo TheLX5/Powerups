@@ -1,5 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Unused A
+;; Rocket Boots (Terraria)
 ;;;;;;;;;;;;;;;;;;;
 
 !rocket_boots_tile		= $0E	;Tile used by the Hammer Suit item

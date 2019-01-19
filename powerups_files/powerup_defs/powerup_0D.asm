@@ -1,5 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Penguin Suit (Unfinished)
+;; Penguin Suit (NSMBWii)
 ;;;;;;;;;;;;;;;;;;;
 
 !penguin_suit_tile		= $0E	;Tile used by the penguin suit item

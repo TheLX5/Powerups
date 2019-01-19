@@ -1,3 +1,7 @@
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Bubble Flower
+;;;;;;;;;;;;;;;;;;;;;;;;
+
 !bubble_flower_tile		= $0E	;Tile used by the bubble flower item
 !bubble_flower_prop		= $0A	;YXPPCCCT properties of the bubble flower item
 					;You may want to change the .cfg file too.

@@ -1,8 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;
-;; Super Leaf (Super Mario Bros. 3)
-;; 
-;; Gives Mario a pair of ears and a raccoon tail
-;; You can fly for a short period of time.
+;; Tanooki Suit (Super Mario Bros. 3)
 ;;;;;;;;;;;;;;;;;;;
 
 !tanooki_suit_dynamic_tile	= $0E	;Tile used by this powerup.
