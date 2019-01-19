@@ -23,7 +23,7 @@ macro flower_item(num,sfx,port)
 	sta !clipping_flag
 	sta !collision_flag
 	lda $0F
-	bpl +
+	bmi +
 	lda #<sfx>
 	sta <port>|!base2
 	ldy !1534,x
