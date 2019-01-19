@@ -3,10 +3,11 @@
 ;;;;;;;;;;;;;;;;;;;
 
 .cat_mario
-	lda #$01
+;	lda #$01
 ;	sta !ducking_flag
 ;	sta !slide_flag
-	dec
+;	dec
+	lda #$00
 	sta !power_ram
 
 	lda $13E3|!base2
