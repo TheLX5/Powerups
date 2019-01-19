@@ -1,6 +1,4 @@
-!EXLEVEL = 1
 incsrc powerup_defs.asm
-; Global defines for blocks
 ; Feel free to add more if you want.
 
 namespace nested on
@@ -20,8 +18,31 @@ if read1($00FFD5) == $23	; SA-1 detection code
 	!bank8 = $00
 endif
 
-; If you are using the Bounce Block Unrestrictor and changed this address modify this as well (Or if you're using SA-1 change it to the SA-1 address)
-!bounce_map16_num = $7EC275
+
+; If you are using Custom Bounce Blocks, remember to changed this address if you have modified it in Custom Bounce Blocks.
+!RAM_BounceMap16Low = $7FC275
+!RAM_BounceMap16High = $7FC279
+!RAM_BounceTileTbl = $7FC27D
+
+; These are the SA-1 defines to the above bounce block sprite defines.
+!RAM_BounceMap16Low_SA1 = $6132
+!RAM_BounceMap16High_SA1 = $6136
+!RAM_BounceTileTbl_SA1 = $613A
+
+; Checks the current LM version, if it is bigger or equal to <version> it will set <define> to 1, other 0
+; Also sets !lm_version to the last used version number. e.g. 1.52 would return 152 (dec)
+macro assert_lm_version(version, define)
+	!lm_version #= ((read1($0FF0B4)-'0')*100)+((read1($0FF0B6)-'0')*10)+(read1($0FF0B7)-'0')
+	if !lm_version >= <version>
+		!<define> = 1
+	else
+		!<define> = 0
+	endif
+endmacro
+
+%assert_lm_version(257, "EXLEVEL") ; Ex level support
+
+;print "Lunar Magic Version: !lm_version , !EXLEVEL"
 
 ; Sets a couple of defines for sprite tables with proper SA-1 remapping if needed.
 ; example remap: LDA $14C8,x => LDA !14C8,x or LDA !sprite_status,x
@@ -85,6 +106,10 @@ endmacro
 %define_sprite_table(sprite_tweaker_190f, "190F", $190F, $7658)
 %define_sprite_table(sprite_misc_1fd6, "1FD6", $1FD6, $766E)
 %define_sprite_table(sprite_cape_disable_time, "1FE2", $1FE2, $7FD6)
+%define_sprite_table(extra_byte_1, "7FAB40", $7FAB40, $400099)
+%define_sprite_table(extra_byte_2, "7FAB4C", $7FAB4C, $4000AF)
+%define_sprite_table(extra_byte_3, "7FAB58", $7FAB58, $4000C5)
+%define_sprite_table(extra_byte_4, "7FAB64", $7FAB64, $4000DB)
 
 ; Romi's Sprite Tool defines.
 %define_sprite_table(sprite_extra_bits, "7FAB10", $7FAB10, $6040)
@@ -93,3 +118,7 @@ endmacro
 %define_sprite_table(sprite_extra_prop2, "7FAB34", $7FAB34, $606D)
 %define_sprite_table(sprite_custom_num, "7FAB9E", $7FAB9E, $6083)
 
+; Custom Bounce Block Defines
+%define_sprite_table(bounce_map16_low, RAM_BounceMap16Low, !RAM_BounceMap16Low, !RAM_BounceMap16Low_SA1)
+%define_sprite_table(bounce_map16_high, RAM_BounceMap16High, !RAM_BounceMap16High, !RAM_BounceMap16High_SA1)
+%define_sprite_table(bounce_sprite_tile, RAM_BounceTileTbl, !RAM_BounceTileTbl, !RAM_BounceTileTbl_SA1)
