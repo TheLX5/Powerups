@@ -278,13 +278,13 @@ hammer_normal_sprites:
 ;.64 Rope mechanism, line-guided
 	db %00011111
 ;.65 Chainsaw, line-guided
-	db %00001110
+	db %00001111
 ;.66 Upside down chainsaw, line-guided
-	db %00001110
+	db %00001111
 ;.67 Grinder, line-guided
 	db %00001111
 ;.68 Fuzz ball, line-guided
-	db %00001100
+	db %00001101
 ;.69 Unused
 	db %00000000
 ;.6A Coin game cloud

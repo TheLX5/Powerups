@@ -281,13 +281,13 @@ boomerang_normal_sprites:
 ;.64 Rope mechanism, line-guided
 	db %00011111
 ;.65 Chainsaw, line-guided
-	db %00001110
+	db %00001111
 ;.66 Upside down chainsaw, line-guided
-	db %00001110
+	db %00001111
 ;.67 Grinder, line-guided
 	db %00001111
 ;.68 Fuzz ball, line-guided
-	db %00001100
+	db %00000001
 ;.69 Unused
 	db %00000000
 ;.6A Coin game cloud
@@ -405,7 +405,7 @@ boomerang_normal_sprites:
 ;.A2 MechaKoopa
 	db %00000100
 ;.A3 Grey platform on chain
-	db %00111111
+	db %00011111
 ;.A4 Floating Spike ball
 	db %00000111
 ;.A5 Fuzzball/Sparky, ground-guided

@@ -8,6 +8,10 @@
 ; carry clear = collision wasn't found
 ; 
 
+	lda $8A
+	pha
+	lda $8B
+	pha
 	txy
 	sty $185E|!Base2
 	ldx.b #!SprSize-1
@@ -26,11 +30,17 @@
 	jsl $03B72B|!BankB
 	bcs .collision
 .ignore
+	lda $01,s
+	sta $8B
+	lda $02,s
+	sta $8A
 	ldy $185E|!Base2
 	dex
 	bpl .loop 
 	sty $15E9|!Base2
 	tyx
+	pla 
+	pla
 	clc
 	rtl
 .collision
@@ -57,5 +67,7 @@
 	and #$10
 	bne .ignore
 	ldy $185E|!Base2
+	pla
+	pla
 	sec
 	rtl

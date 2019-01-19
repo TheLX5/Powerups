@@ -22,7 +22,7 @@ iceball_custom_sprites:
 	db %00010010,%00010010,%00010010,%00010010	; custom sprites 4-7
 	db %00010010,%00010010,%00010010,%00010010	; custom sprites 8-B
 	db %00010010,%00010010,%00010010,%00000010	; custom sprites C-F
-	db %00000000,%00000010,%00000000,%00000000	; custom sprites 10-13
+	db %00000000,%00000000,%00000000,%00000000	; custom sprites 10-13
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites 14-17
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites 18-1B
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites 1C-1F
@@ -93,23 +93,23 @@ iceball_normal_sprites:
 ;.03 Yellow Koopa no shell
 	db %00000001
 ;.04 Green Koopa
-	db %10000101
+	db %00000101
 ;.05 Red Koopa
-	db %10000101
+	db %00000001
 ;.06 Blue Koopa
-	db %10000101
+	db %00000001
 ;.07 Yellow Koopa
-	db %10000101
+	db %00000001
 ;.08 Green Koopa flying left
-	db %10000101
+	db %00000001
 ;.09 Green bouncing Koopa
-	db %10000101
+	db %00000001
 ;.0A Red vertical flying Koopa
-	db %10000101
+	db %00000001
 ;.0B Red horizontal flying Koopa
-	db %10000101
+	db %00000001
 ;.0C Yellow Koopa with wings
-	db %10000101
+	db %00000001
 ;.0D Bob-omb
 	db %00000001
 ;.0E Keyhole
@@ -287,11 +287,11 @@ iceball_normal_sprites:
 ;.64 Rope mechanism, line-guided
 	db %00011111
 ;.65 Chainsaw, line-guided
-	db %00001110
+	db %00011111
 ;.66 Upside down chainsaw, line-guided
-	db %00001110
+	db %00011111
 ;.67 Grinder, line-guided
-	db %00001111
+	db %00011111
 ;.68 Fuzz ball, line-guided
 	db %00000010
 ;.69 Unused

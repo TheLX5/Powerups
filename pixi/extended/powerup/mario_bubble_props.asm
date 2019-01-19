@@ -127,7 +127,7 @@ bubble_normal_sprites:
 ;.18 Surface jumping fish
 	db %00000000
 ;.19 Display text from level Message Box #1
-	db %00011011
+	db %00011111
 ;.1A Classic Piranha Plant
 	db %00000000
 ;.1B Bouncing football in place
