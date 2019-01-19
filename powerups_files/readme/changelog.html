@@ -7,6 +7,22 @@
 <body text="#FFFFFF">
 	<h1>Changelog</h1><br><br>
 	
+	<h2>Version 3.3.0 (2019-Jan-19)</h2>
+<ul>
+	<li>Implemented Better Powerdown ASM hacks.</li>
+	<li>Reworked the GFX insertion part of the patch. It's now a standalone patch that you can reapply whenever you want.</li>
+	<li>Implemented GFX compression. Disabled by default until SA-1 Pack gets a better NMI handler.</li>
+	<li>Fixed Dynamic Items getting overwritten randomly.</li>
+	<li>Fixed Dynamic Items not uploading their graphics appropriately if there were 2 requests simultaneously.</li>
+	<li>Fixed Ice Blocks physics and other issues related to them.</li>
+	<li>Fixed several issues related to player's poses.</li>
+	<li>Fixed several sprites dying to projectiles.</li>
+	<li>Expanded the default number of powerup slots to 0x17.</li>
+	<li>Moved the default Ice block sprite number to $0F.</li>
+	<li>Moved some macros in powerup.asm to powerup_defs.asm</li>
+	<li>Removed GIEPY support.</li>
+</ul>
+
 	<h2>Version 3.2.0 (2018-Dec-27)</h2>
 <ul>
 	<li>Added Lunar Magic 3.00 compatibility.</li>
