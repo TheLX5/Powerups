@@ -107,7 +107,7 @@ boomerang_normal_sprites:
 ;.0D Bob-omb
 	db %00000100
 ;.0E Keyhole
-	db %00011011
+	db %00011111
 ;.0F Goomba
 	db %00000000
 ;.10 Bouncing Goomba with wings
@@ -335,7 +335,7 @@ boomerang_normal_sprites:
 ;.7F Flying yellow 1-Up
 	db %00111111
 ;.80 Key
-	db %10000000
+	db %10011111
 ;.81 Changing item from translucent block
 	db %00111111
 ;.82 Bonus game sprite
