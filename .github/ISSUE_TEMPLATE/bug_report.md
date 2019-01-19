@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: Create a report to help us improve the Custom Powerups patch
 title: ''
 labels: bug
 assignees: ''
@@ -20,11 +20,11 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Video**
+Try adding GIFs or Videos about the problem so we can understand it better.
 
 **External resources usage**
-Try providing information about what Tools do you use and what codes have you inserted in your ROM so we can understand your problem.
+Try providing information about what tools do you use and what codes have you inserted in your ROM so we can understand your problem.
 
 **Additional context**
 Add any other context about the problem here.
