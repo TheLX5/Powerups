@@ -31,9 +31,10 @@ endif
 !clear_7E2000		= 1	;Clear Mario GFX from RAM. Needs to be 0 if using Dynamic Z or the Mode 7 Game Over patch.
 				;1 = enable, 0 = disable
 				
-!better_powerdown	= 0	;Set it to 1 if you have any plans on using Better Powerdown patch.
+!better_powerdown	= 1	;Set it to 1 if you have any plans on using Better Powerdown patch.
 				
-!disable_drop_item	= 0	;Set it to 1 to disable items falling from item box automatically when getting hit.
+!disable_drop_item	= 0	;If 1 then the reserve item will NOT drop if you get hurt
+!drop_item_if_big	= 1	;If the above is 0, this one is unused.
 				
 !gfx_compression	= 0	;Set to 1 to enable Player GFX compression-
 				;It currently doesn't work with SA-1 Pack v1.31.
@@ -41,8 +42,6 @@ endif
 !starting_player_exgfx	= $0E00	;Starting ExGFX slot for the player GFX.
 				
 !starting_extra_exgfx	= $0F00	;Starting ExGFX slot for the Extra Tile GFX.
-
-!giepy			= 0	;Set it to 1 if you're using GIEPY.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Number of possible powerups.
@@ -87,11 +86,16 @@ macro powerup_number(define_name,num,effect)
 	!powerup_<num>_tile = !<define_name>_tile
 	!powerup_<num>_prop = !<define_name>_prop
 
-if !better_powerdown == 1
-	!powerup_<num>_powerdown = Actions_<effect>
-else
-	!powerup_<num>_powerdown = Actions_Shrink
-endif
+	if !better_powerdown == 1
+		!powerup_<num>_powerdown = Actions_<effect>
+	else
+		if not(stringsequal("<effect>", "Kill"))
+			!powerup_<num>_powerdown = Actions_Shrink
+		else
+			!powerup_<num>_powerdown = Actions_<effect>
+		endif
+	endif
+
 endmacro
 
 ;;;;;;;;;;;;;
