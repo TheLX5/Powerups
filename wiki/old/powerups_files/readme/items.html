@@ -1,0 +1,107 @@
+<html>
+<head>
+	<title>Custom Powerups readme</title>	
+	<link href="readme.css" type="text/css" rel="stylesheet">
+
+</head>
+<body text="#FFFFFF">
+	<h1><a id="Table">Custom Powerup items programming</a></h1><br><br>
+	
+	<h2>Table of Contents</h2>
+	<ol>
+	<li><a href="#OriginalItems">Original items behavior</a></li>
+	<li><a href="#DynamicItems">Dynamic Powerup Items</a></li>
+	<li><a href="#GetPowerup">Get powerup item codes</a></li>
+	<li><a href="#CustomItems">Programming a custom item</a></li>
+	</ol>
+	
+	<br><br><hr><br><br>
+
+	<h3><a id="#OriginalItems">Original items behavior</a></h3><br>
+	To avoid programming various powerup items and save some ROM space, the patch hijacks the original powerup routines to make use of their behaviors. If you want to use these behaviors, you just have to create a cfg file with the original powerup information you want and set $190F's highest bit to 1. Here is an example:<br><br>
+	
+	<code>
+		&emsp;&emsp;00<br>
+		&emsp;&emsp;75<br>
+		&emsp;&emsp;00 00 18 C2 28 C0<br>
+	</code><br>
+	That cfg data is for an item that acts like a Fire Flower and uses the palette C.<br><br>
+	
+	Back to <a href="#Table">top</a>
+	
+
+
+
+	<br><br><hr><br><br>
+
+	<h3><a id="#DynamicItems">Dynamic Powerup Items</a></h3><br>
+	The patch uploads dynamically the image of the powerup to VRAM when it gets spawned to free some space in SP1 that can be used by other graphics.<br><br>
+	
+	To make use of this feature, to go <code>powerups_files/graphics</code> folder and open <code>powerup_items.bin</code> with your preferred editor. 
+	Then open the defines file of the powerup you're doing/editing and edit the <code>!xxxxx_dynamic_tile</code> define with the value that corresponds to the image you want.<br>
+	Item box's item images are uploaded to VRAM as well, the item box image will be in tile $0E by default. To use it correctly, you have to set to $0E the <code>!xxxxx_tile</code> define and modify the YXPPCCCT properties define (<code>!xxxxx_prop</code>).<br><br>
+	The image values can be seen by looking at <code>powerup_items.bin</code> which has this format:<br><br>
+			<center><img src="./images/items_00.png"></center><br><br>
+	
+	<br><br>
+	Back to <a href="#Table">top</a>
+
+	
+	
+	<br><br><hr><br><br>
+
+	<h3><a id="#GetPowerup">Get powerup item codes</a></h3><br>
+	Now that you have an item with the behaviors working, there's only one thing left that is the "get powerup item" code which is the piece of code that actually gives the player powerups or any other effect.<br><br>
+	To make your own code, you have to create a new file in <code>powerups_files/powerup_misc_data/get_powerup</code> folder (name doesn't matter).<br>
+	Start your code with a unique label name (suggestion: use the prefix "give_"), this is required since we need a way to tell asar where our code is.<br>
+	Start writing your code, or select one of the two macros that play an animation in the same fashion the Fire Flower and the Feather powerup items do in the original game. These are the macros:<br>
+	<ul>
+	<li>For an animation like the Fire Flower use <code>%flower_item()</code></li>
+	<li>For an animation like the Feather use <code>%cape_item()</code></li>
+	<li>If you decide to code your own routine, you just have to remind to end your code with <code>JMP clean_ram</code> if you want to let the patch initialize most of the powerup RAM or <code>JML $01C560|!base3</code> if you want to initialize the powerup RAM in your code.</li>
+	</ul>
+	Finally, you have to add your code in <code>get_powerup_codes.asm</code> which can be found in <code>powerups_files/powerup_misc_data</code> which consists of adding your code to the pointer table and telling asar to insert your code there with the <code>inscrc</code> command.<br><br>
+	
+	
+	Back to <a href="#Table">top</a>
+	
+	
+	
+	
+	<br><br><hr><br><br>
+	
+	<h3><a id="#CustomItems">Programming a custom item</a></h3><br>
+	Programming a custom item is 100% possible, you just need to use these routines to make them compatible with the patch.
+	<ul>
+	<li>On init routine:</li><br>
+	<code>
+	&emsp;&emsp;lda $02806F|!BankB<br>
+	&emsp;&emsp;sta $00<br>
+	&emsp;&emsp;lda $02806F|!BankB<br>
+	&emsp;&emsp;sta $01<br>
+	&emsp;&emsp;lda $02806F|!BankB<br>
+	&emsp;&emsp;sta $02<br>
+	&emsp;&emsp;jml [!Base1]<br>
+	</code><br>
+	<li>On interaction routine (runs the "get powerup item" code):</li><br>
+	<code>
+	&emsp;&emsp;lda $02800F|!BankB<br>
+	&emsp;&emsp;sta $00<br>
+	&emsp;&emsp;lda $028010|!BankB<br>
+	&emsp;&emsp;sta $01<br>
+	&emsp;&emsp;lda $028011|!BankB<br>
+	&emsp;&emsp;sta $02<br>
+	&emsp;&emsp;jml [!Base1]<br>
+	</code><br>
+	</ul>
+	Also, <code>$1602</code> has the index to know where the graphics for that powerup were uploaded and <code>$1510</code> should not be modified.<br><br>
+	Back to <a href="#Table">top</a>
+
+
+	
+	<br><br><hr>
+	
+	<br>
+	<p>Return to the <a href="../../powerup_readme.html">main page</a></p><br>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+<head>
+	<title>Custom Powerups readme</title>	
+	<link href="readme.css" type="text/css" rel="stylesheet">
+
+</head>
+<body text="#FFFFFF">
+	<h1><a id="Table">Custom Player Palette advanced usage</a></h1><br><br>
+	
+	<h2>Table of Contents</h2>
+	<ol>
+	<li><a href="#UploadPalette">Uploading your own palette.</a></li>
+	</ol>
+	
+	<br><br><hr><br><br>
+	
+	<h3><a id="#UploadPalette">Uploading your own palette.</a></h3><br>
+	Like Manual Player Palette Uploader patch, the powerup pack lets you upload your own Player palette any time you want by writing the location of your palette table to a 24-bit pointer in RAM.<br>
+	The RAM pointer can be used with the <code>!pal_pointer</code> define and to activate the effect, you also need to set <code>!pal_bypass</code> to a non-zero value in order to upload your palette. Note that <code>!pal_bypass</code> is cleared every frame and the original palette will be uploaded when it is zero.<br><br>
+	
+	A small example of this feature:<br><br>
+	<code>
+	&emsp;&emsp;LDA #$01<br>
+	&emsp;&emsp;STA !pal_bypass<br>
+	&emsp;&emsp;LDA #YourPalette<br>
+	&emsp;&emsp;STA !pal_pointer<br>
+	&emsp;&emsp;LDA.b #YourPalette/$100<br>
+	&emsp;&emsp;STA !pal_pointer+1<br>
+	&emsp;&emsp;LDA.b #YourPalette/$10000<br>
+	&emsp;&emsp;STA !pal_pointer+2<br>
+	<br>
+	&emsp;&emsp;YourPalette:<br>
+	&emsp;&emsp;dw $4F3F,$581D,$1140,$3FE0,$3C07,$7CAE,$7DB3,$2F00,$165F,$03FF<br><br>
+	</code>
+	If you prefer using .mw3 files instead of raw SNES RGB palette data, use the <code>%insert_palette(filename)</code> macro, which only inserts the relevant data (player palettes). The macro is also included in UberASM as <code>%insert_palette(path)</code>.<br>
+	<br>
+	Back to <a href="#Table">top</a>
+
+
+
+	<br><br><hr><br><br>
+	
+	
+	<br><br><p>Return to the <a href="../../powerup_readme.html">main page</a></p><br>
+</body>
+</html>

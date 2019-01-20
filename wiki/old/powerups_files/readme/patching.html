@@ -1,0 +1,131 @@
+<html>
+<head>
+	<title>Custom Powerups readme</title>	
+	<link href="readme.css" type="text/css" rel="stylesheet">
+
+</head>
+<body text="#FFFFFF">
+	<h1>Patching & Basic tweaking</h1><br><br>
+	
+	<h2><a id="Table">Table of Contents</a></h2>
+	<ol>
+	<li><a href="#Insert">How do I insert this patch? </a></li>
+	<li><a href="#InsertSA1">How do I insert this patch on a SA-1 ROM?</a></li>
+	<li><a href="#Tweaks">Customizing the patch</a></li>
+	</ol>
+	
+	
+	<br><br><hr><br><br>
+	
+	<h2><a id="Insert">How do I insert this patch?</a></h2><br>
+	Getting this patch inserted is a really easy task, let's see a quick guide:<br><br>
+	
+	<b>1) Download the <a href="https://github.com/TheLX5/Powerups/releases/latest">latest release</a> on GitHub.</b><br><br>
+		<center><img src="./images/patching_00.png"></center><br><br>
+		Click the zip file and it should start downloading. I know you might already have the file, but it doesn't hurt having this step. Also, extract the zip's contents in a folder<br><br>
+		<center><img src="./images/patching_01.png"></center><br><br>
+	<b>2) Download the following tools and patches.</b><br>
+		<ul><li><a href="https://www.smwcentral.net/?p=section&a=details&id=17546">asar 1.61 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=18944">PIXI 1.2.7 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=18777">GPS 1.4.1 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=18113">UberASM Tool 1.3 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=17546">AddMusicK 1.0.6 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=11603">No More Sprite Tile Limits</a></li>
+		</ul><br>
+	<b>3) Open your ROM in Lunar Magic, enable FastROM patch, change compression options and expand ROM to 2MB+.</b><br><br>
+		<center><img src="./images/patching_02.gif"></center><br><br>
+	<b>4) Go to powerups_files/powerup_defs/ and edit anything you want from these files.</b><br><br>
+	<b>5) Search !i_read_the_readme define in powerups_defs.asm and set it to 1.</b><br><br>
+	<b>6) Use AddMusicK to add the included SFXs for some powerups.</b><br><br>
+		&emsp;AddMusicK is also required to fix weird sound effects may play during gameplay if you don't use it.<br><br>
+	<b>7) Open asar.exe and insert powerup_gfx.asm</b><br><br>
+	<b>8) Open asar.exe and insert powerup.asm</b><br><br>
+	<b>9) Copy "powerup_defs.asm" and paste it in your PIXI folder.</b><br><br>
+	<b>10) Create a folder named powerups_files in your PIXI folder.</b><br><br>
+	<b>11) Copy the powerup_defs folder and paste it inside of the powerups_files folder you created in your PIXI folder.</b><br><br>
+		&emsp;Your PIXI folder should look like this:
+	<center><img src="./images/patching_06.png">   <img src="./images/patching_07.png"></center><br><br>
+	<b>12) Insert the included sprites with PIXI.</b><br><br>
+	<b>13) Copy the highlighted files to your GPS and UberASM Tool folders</b><br><br>
+	<b>14) Insert the included blocks with GPS</b><br><br>
+	<b>15) Insert the included codes with UberASM Tool.</b><br><br>
+	<b>16) Insert the No More Sprite Tile Limits patch (mandatory if you wanna use Ice & Bubble flowers)</b><br><br>
+	<b>17) Enjoy!</b><br><br>
+	
+	<b>BIG NOTE:</b><br>
+		&emsp;If you modify ANYTHING in powerups_files/powerup_defs/ folder, be sure that you reflect the changes in the PIXI/GIEPY, UberASM Tool and GPS folders! You have been warned.<br><br>
+	
+	
+	Back to <a href="#Table">top</a><br><br><hr><br>
+	
+	<h2><a id="InsertSA1">How do I insert this patch on a SA-1 ROM?</a></h2><br>
+	Getting this patch inserted is a really easy task, let's see a quick guide:<br><br>
+	
+	<b>1) Download the <a href="https://github.com/TheLX5/Powerups/releases/latest">latest release</a> on GitHub.</b><br><br>
+		<center><img src="./images/patching_00.png"></center><br><br>
+		Click the zip file and it should start downloading. I know you might already have the file, but it doesn't hurt having this step. Also, extract the zip's contents in a folder<br><br>
+		<center><img src="./images/patching_01.png"></center><br><br>
+	<b>2) Download the following tools.</b><br>
+		<ul><li><a href="https://www.smwcentral.net/?p=section&a=details&id=17546">asar 1.61 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=18944">PIXI 1.2.7 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=18777">GPS 1.4.1 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=18113">UberASM Tool 1.3 or newer</a></li>
+		<li><a href="https://www.smwcentral.net/?p=section&a=details&id=17546">AddMusicK 1.0.6 or newer</a></li>
+		</ul><br>
+		Note that you only need either PIXI or GIEPY as sprite insertion tools, using both is not recommended.<br><br>
+	<b>3) Get a clean SA-1 ROM.</b><br><br>
+	<b>4) Go to powerups_files/powerup_defs/ and edit anything you want from these files.</b><br><br>
+	<b>5) Search !i_read_the_readme define in powerups_defs.asm and set it to 1.</b><br><br>
+	<b>6) Use AddMusicK to add the included SFXs for some powerups.</b><br><br>
+		&emsp;AddMusicK is also required to fix weird sound effects may play during gameplay if you don't use it.<br><br>
+	<b>7) Open asar.exe and insert powerup.asm</b><br><br>
+	<b>8) Copy "powerup_defs.asm" and paste it in your PIXI folder.</b><br><br>
+	<b>9) Create a folder named powerups_files in your PIXI folder.</b><br><br>
+	<b>10) Copy the powerup_defs folder and paste it inside of the powerups_files folder you created in your PIXI or GIEPY folder, depends on which Sprite tool are you using.</b><br><br>
+		&emsp;Your PIXI folder should look like this:
+	<center><img src="./images/patching_06.png">   <img src="./images/patching_07.png"></center><br><br>
+	<b>11) Insert the included sprites with PIXI.</b><br><br>
+	<b>12) Copy the highlighted files to your GPS and UberASM Tool folders</b><br><br>
+	<b>13) Insert the included blocks with GPS</b><br><br>
+	<b>14) Insert the included codes with UberASM Tool.</b><br><br>
+	<b>15) Enjoy!</b><br><br>
+	<b>BIG NOTE:</b><br>
+		&emsp;If you modify ANYTHING in powerups_files/powerup_defs/ folder, be sure that you reflect the changes in the PIXI, UberASM Tool and GPS folders! You have been warned.<br><br>
+
+	Back to <a href="#Table">top</a><br><br><hr><br>
+	
+	<h2><a id="Tweaks">Customizing the patch</a></h2><br>
+		This whole section is dedicated to the settings inside powerup_defs.asm file.<br><br>
+		
+	<b>!enable_projectile_dma</b><br>
+	&emsp;This feature is for these powerups that shoot projectiles at enemies. It uploads the graphics of the projectile to VRAM to the highlighted spots in the image.<br>
+	&emsp;Setting this feature to 0 means that it's up to you to relocate the projectile GFX to some space that isn't used.<br><br>
+	<center><img src="./images/patching_04.png"></center><br><br>
+	<b>!projectile_dma_tile</b><br>
+	&emsp;Which tiles are going to be used for the Projectile DMA feature. Top left corner.<br><br>
+	<b>!dynamic_items</b><br>
+	&emsp;Having a lot of powerups also means that you need a lot of powerup items! This is why this feature was created. You can have up to 64 different powerup items.<br>
+	&emsp;It uses DMA to transfer the powerup item graphic to the yellow spots in the following image, the pink one is used for the item box.<br><br>
+	<center><img src="./images/patching_05.png"></center><br><br>
+	&emsp;The limits of this feature are that you can't use ExAnimation on the powerup items and only <b>TWO</b> powerups can be on screen at the same time.<br><br>
+	<center><img src="./images/patching_03.gif"></center><br><br>
+	<b>!starting_slot</b><br>
+	&emsp;It refers to the first sprite slot used by the custom sprites. It should match the values used in the provided sprites.txt file.<br>
+	&emsp;If they don't match, Bad Things will happen to your ROM. You have been warned.<br><br>
+	<b>!clear_7E2000</b><br>
+	&emsp;Clears the uncompressed Mario graphics that are stored on RAM. If you're using the Mode 7 Game Over Patch you may want to set to zero this.<br><br>
+	<b>!better_powerdown</b><br>
+	&emsp;Enable if using it, it will disable some code used to clear RAM when hit. That's handled by the Better Powerdown patch from MarioFanGamer.<br><br>
+	
+	<h3>SP1 & SP2 remap options</h3>
+	In this section everything is explained with comments. Knowledge about sprite tiles and YXPPCCCT is required here. Search for an adequate tutorial about these.<br><br>
+	<h3>Other defines</h3>
+	There is some stuff related to the item box, everything is commented for easier understanding. Should be very straightforward.<br><br>
+	
+	Back to <a href="#Table">top</a>
+	
+	<br><br><hr><br><br>
+	
+	<p>Return to the <a href="../../powerup_readme.html">main page</a></p><br>
+</body>
+</html>

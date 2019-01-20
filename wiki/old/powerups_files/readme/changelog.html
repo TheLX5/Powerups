@@ -1,0 +1,283 @@
+<html>
+<head>
+	<title>Custom Powerups readme</title>
+	<link href="readme.css" type="text/css" rel="stylesheet">
+
+</head>
+<body text="#FFFFFF">
+	<h1>Changelog</h1><br><br>
+	
+	<h2>Version 3.3.0 (2019-Jan-19)</h2>
+<ul>
+	<li>Implemented Better Powerdown ASM hacks.</li>
+	<li>Reworked the GFX insertion part of the patch. It's now a standalone patch that you can reapply whenever you want.</li>
+	<li>Implemented GFX compression. Disabled by default until SA-1 Pack gets a better NMI handler.</li>
+	<li>Fixed Dynamic Items getting overwritten randomly.</li>
+	<li>Fixed Dynamic Items not uploading their graphics appropriately if there were 2 requests simultaneously.</li>
+	<li>Fixed Ice Blocks physics and other issues related to them.</li>
+	<li>Fixed several issues related to player's poses.</li>
+	<li>Fixed several sprites dying to projectiles.</li>
+	<li>Fixed Cat Suit's scratch attack not giving points on SA-1.</li>
+	<li>Fixed flower items to have more consistency, give points and play SFXs.</li>
+	<li>Expanded the default number of powerup slots to 0x17.</li>
+	<li>Moved the default Ice block sprite number to $0F.</li>
+	<li>Moved some macros in powerup.asm to powerup_defs.asm</li>
+	<li>Removed GIEPY support.</li>
+</ul>
+
+	<h2>Version 3.2.0 (2018-Dec-27)</h2>
+<ul>
+	<li>Added Lunar Magic 3.00 compatibility.</li>
+	<li>Added Penguin Suit.</li>
+	<li>Added Cat Suit.</li>
+	<li>Fixed a freespace leak when reinserting the patch.</li>
+	<li>Fixed a crash related to 1-up mushrooms and star items.</li>
+	<li>Fixed Mini Mario's collision issues with solid sprites.</li>
+	<li>Mini Mario can now jump while carrying an item and while crouching.</li>
+	<li>Fixed Yoshi egg's crashing the game when they try to spawn an item.</li>
+	<li>Fixed a graphical glitch when losing the cape powerup.</li>
+	<li>Adjusted a bit Frog Mario's underwater idle animation.</li>
+	<li>Cloud Mario now is unable to summon clouds underwater.</li>
+	<li>Adjusted ice block physics while it's submerged in water.</li>
+	<li>Fixed UberASMTool error when trying to insert the included codes.</li>
+	<li>Adjusted the recommended tools in the readme.</li>
+	<li>Removed the online version of the readme.</li>
+</ul>
+	
+<h2>Version 3.1.1 (2018-Jul-25)</h2>
+<ul>
+	<li>Added GIEPY support. (Experimental)</li>
+	<li>Added some missing files.</li>
+	<li>Added more information to the readme.</li>
+	<li>Removed the big note from readme's main page.</li>
+	<li>Reprogrammed Dynamic Items logic, it's now faster.</li>
+	<li>Fixed Dynamic Items DMA routine when two tiles needed to upload their graphics in the same frame.</li>
+	<li>Added comments to the foreach macros.</li>
+	<li>Various poses issues are now fixed.</li>
+	<li>Slightly optimized the tilemap code.</li>
+	<li>Yoshi and Podoboo now display properly their graphics on SA-1 ROMs.</li>
+	<li>Added SFX for the propeller suit.</li>
+	<li>Fixed propeller priority issues.</li>
+	<li>Water splash position for Mini and Shell Mario is now fixed.</li>
+	<li>It's now possible to edit what will happen when you touch an item with this patch.</li>
+</ul>
+	
+<h2>Version 3.1.0 (2018-Abr-26)</h2>
+<ul>
+	<li>SA-1 support. REQUIRES ASAR 1.60 OR NEWER.</li>
+	<li>Added Ice Flower.</li>
+	<li>Added Cloud Flower.</li>
+	<li>Added Bubble Flower.</li>
+	<li>Included some UberASM Tool codes.</li>
+	<li>Added information about powerups in the readme.</li>
+	<li>Fixed Mario going up in the overworld tile.</li>
+	<li>Fixed tile reveal animation in the overworld.</li>
+	<li>Fixed a graphical error when two or more powerup items were loaded in the same frame.</li>
+	<li>Fixed swimming poses not being properly displayed at specific cases, this also fixes several other poses.</li>
+	<li>Boomerangs from Boomerang Mario didn't properly stop uploading their GFX if they were catched by Mario.</li>
+	<li>Feathers from super koopas now spawn appropriately.</li>
+	<li>Mushroom from bubbles now spawns appropriately.</li>
+	<li>Goal tape item now spawns appropriately.</li>
+	<li>Cape flight is now reset when the player gets another powerup.</li>
+	<li>Frog Mario physics are disabled when the player isn't controlling Mario, this fixes some issues with animations.</li>
+	<li>Adjusted Frog Mario collision points with layers when he's swimming.</li>
+	<li>Adjusted some Frog Mario poses.</li>
+	<li>Fixed a rare error related to graphics insertion.</li>
+	<li>Fixed a potential crash in SA-1 ROMs regarding poses.</li>
+	<li>Propeller suit item seems to behave properly now.</li>
+	<li>Optimized a bit extended sprites' sprite detection routine.</li>
+	<li>Mushrooms taken when Mario was in his mini form didn't have any effect.</li>
+	<li>Fixed a pose when Frog Mario jumped out of the water</li>
+	<li>Mini Mario no longer activates the drop item box routine when dying.</li>
+	<li>Removed Per Level Sprites support from projectiles. Nobody uses them and their tables used a good amount of free space (8KiB for each projectile).</li>
+	<li>Reworked how projectiles killed their DMA routine, it should be working as expected now.</li>	
+	<li>Included the, unfinished, Penguin Suit powerup. If someone wants to finish it, go ahead.</li>
+	<li>ExtendedGetDrawInfoSpecial now clears the DMA bit flag if it detects that the sprite is dead in the current frame, just in case of bad coding practices.</li>
+	<li>Adjusted addons' freespace finder to use banks in the 10-3F/90-BF range.</li>
+	<li>Fixed a few addresses not using FastROM addressing.</li>
+	<li>Fixed crash when hitting a sprite if your powerup status number was over $10</li>
+	<li>Fixed powerup_items.palmask not masking out the correct colors.</li>
+	<li>image_engine.asm was slightly optimized.</li>
+</ul>
+	
+<h2>Version 3.0.4 (2018-Jan-24)</h2>
+<ul>
+	<li>Implemented a define to force users to read the readme so people actually read it.</li>
+	<li>Made possible to edit palettes with LM, instead of building tables you just edit a .mw3 file in powerups_files/powerup_misc_data/palette_files</li>
+	<li>Fixed a problem with dynamic powerup tile allocation when a propeller suit was using the second dynamic item tile.</li>
+	<li>Dynamic powerup items DMA routine got reprogrammed, it now uploads only the required graphics and it's faster in most cases.</li>
+	<li>Fixed a potential SA-1 crash/unintended behavior in the powerup items DMA routine.</li>
+	<li>Reworked the logic behind the dynamic item tile allocation, this fixes a issue where new powerup items would overwrite old items graphics if the latest item that you got was the newest one.</li>
+	<li>Reworked the logic behind Projectile DMA, now it uploads the necessary graphics when it's actually required.</li>
+	<li>Cape/Extra tile DMA routine doesn't get executed if there's no tile set for the current powerup state.</li>
+	<li>GFX and Extra Tile indexes are now stored to RAM (Read only).</li>
+	<li>Adjusted Shell Mario's speed when the player is inside of the shell so it doesn't break have some clipping issues.</li>
+	<li>Added a few defines in Shell powerup defines file.</li>
+	<li>Fixed Shell suit's question mark block.</li>
+	<li>Boomerangs didn't stop uploading their graphics if they were catched by Mario</li>
+	<li>Fixed some alignments with Boomerang Mario graphics.</li>
+	<li>Added missing frames for Boomerang Mario.</li>
+	<li>Fixed some misalignments of the Raccoon tail</li>
+	<li>Extra tile now disappears if Mario was instantly killed</li>
+	<li>Reseted some statuses for Frog Mario</li>
+	<li>Made possible for Frog Mario to carry sprites.</li>
+	<li>Added a define to decide if Frog Mario is able to ride Yoshi.</li>
+	<li>Reseted some statuses for Mini Mario</li>
+	<li>Raccoon tail now attacks both back and front when doing a spin attack.</li>
+	<li>Fixed YXPPCCT properties for the tanooki suit and super leaf powerup items when they are in the item box.</li>
+	<li>Fixed some issues when trying to insert with an older asar the propeller mushroom powerup. You should be using the latest asar version anyway.</li>
+	<li>Fixed some X speeds for the iceball projectile. Not that the powerup is actually usable though...</li>
+</ul>
+	
+<h2>Version 3.0.3 (2018-Jan-16)</h2>
+<ul>
+	<li>Added Question Mark blocks that spawns powerups</li>
+	<li>Added a folder with some defines that you need, this was added in case someone have different folders for GPS and PIXI</li>
+	<li>Added the missing stuff for PIXI</li>
+	<li>Added a missing global palette file.</li>
+	<li>Implemented a Install Byte, this fixed the problem for autocleaning stuff that you shouldn't.</li>
+	<li>!power_ram is now initialized when getting a powerup.</li>
+	<li>Fixed the mushroom graphics for the bubble sprite and fishin' lakitu.</li>
+	<li>Implemented !slide_flag and !ducking_flag.</li>
+	<li>Extra tile is now properly displayed in the overworld.</li>
+	<li>Made dynamic the 1-up mushroom spawned by 1-up checkpoints.</li>
+	<li>Frog Mario now slides automatically on slopes if the player isn't pressing Left or Right.</li>
+	<li>Frog Mario no longer ducks. Quack.</li>
+	<li>Frog Mario now has a better behavior on slopes</li>
+	<li>Frog Mario can't hold items underwater anymore.</li>
+	<li>Fixed a potential SA-1 crash or unintended behavior related to Frog Mario losing Yoshi.</li>
+	<li>Removed "C3 Beta" from the print statement</li>
+	
+</ul>
+	
+<h2>Version 3.0.0 C3 Release(2018-Jan-14)</h2>
+<ul>
+	<li>Added several powerups</li>
+	<li>!ride_yoshi_flag wasn't working properly</li>
+	<li>5th tile now properly hides when its told to disappear with $78 and the settings</li>
+	<li>Fixed item box graphics not reloading when loading a sublevel</li>
+	<li>Fixed a garbage item appearing instead of a mushroom when triggering an invisible mushroom</li>
+	<li>Commented out the code regarding cover up tiles</li>
+	<li>Added !power_ram, basically a small block of reserved RAM for usage with powerups</li>
+	<li>Fixed item box items spawning in the same coordinates as the sprite that hurt Mario</li>
+	<li>Added !insta_kill_flag.</li>
+	<li>Expanded default powerup states to $12</li>
+	<li>Fixed some items breaking the item box graphics</li>
+	<li>Made several RAMs clear every frame</li>
+	<li>Included some addresses at $028008 for easier reading.</li>
+</ul>
+	
+	
+<h2>Version 3.0.0 Beta(2017-Aug-16)</h2>
+<ul>
+	<li>32x32 patch integration</li>
+	<li>Removed Mario's 8x8 tiles DMAer patch</li>
+	<li>Included a proper readme</li>
+	<li>Dynamic powerup items are now available</li>
+	<li>Made possible to use a 5th tile</li>
+	<li>Cape tile is now isolated from GFX32</li>
+	<li>Annoying sound effect when using !disable_spin_jump is gone</li>
+	<li>Removed other_patches directory.</li>
+	<li>Added a bonus room fix if using Dynamic Items.</li>
+	<li>Cape shenaningans are fixed</li>
+	<li>Introduced !ride_yoshi_flag, so you can disable riding Yoshi without very specific stuff</li>
+	<li>Made some optimizations to some files.</li>
+	<li>Got rid of some bad formatting in most of the asm files</li>
+</ul>
+	
+<h2>Version 2.1.1 (2016-Jun-27)</h2>
+<ul>
+	<li>Added a little patch that disables riding yoshi if !flags isn't zero.</li>
+	<li>Fixed a bug with Raccoon-like powerups making the wrong SFX.</li>
+	<li>Fixed a bug with Raccoon-like and Cape powerups not being able to kill enemies with cape/tail.</li>
+	<li>Made !wait_timer usable again.</li>
+	<li>Fixed the inclusion of other_patches/custom_interaction.asm</li>
+	<li>Removed unnecesary lines on powerups_files/palette_engine.asm</li>
+</ul>
+	
+<h2>Version 2.1.0 (2016-Jun-10)</h2>
+<ul>
+	<li>Added Raccoon-like powerups compatibility.</li>
+	<li>Added two extra RAMs: !cape_settings & !flight_timer.</li>
+	<li>Fixed the bug when the player has Star power and it only flashes between normal palette and fire palette of player 1.</li>
+	<li>Added a table that will let you to decide which palettes to show when using a Star.</li>
+	<li>Added a file that let's you to have custom interaction codes with sprites.</li>
+	<li>Added compatibility with Sonikku's Custom Default Interaction patch.</li>
+</ul>
+	
+<h2>Version 2.0.1 (2016-Apr-13)</h2>
+<ul>
+	<li>Fixed a issue with some defines in extended_sprites.asm. Thanks to Rykon-V73 for reporting this.</li>
+</ul>
+	
+<h2>Version 2.0.0 (2016-Mar-24)</h2>
+<ul>
+	<li>Every file has been moved.</li>
+	<li>It's now easier to update (at least for me).</li>
+	<li>Powerups have been removed from this patch, you must download them separately.</li>
+	<li>Included a quick guide fow newbie users.</li>
+	<li>Separated the advanced stuff in powerups_manual.txt</li>
+	<li>Probably a lot of stuff was changed, kek.</li>
+	</ul>
+	
+<h2>Version 1.1.0(2016-Jan-2)</h2>
+<ul>
+	<li>Tiny Mushroom powerup from NSMBWii is now available.</li>
+	<li>Cloud flower powerup from SMG series is now available. Huge thanks to Lui37.</li>
+	<li>The patch is now fully SA-1 compatible, just insert it as you would do normally and the patch will handle everything like every new patch on SMWC.</li>
+	<li>Hammer and Boomerangs now interact with layer 1 objects.</li>
+	<li>Boomerang can retrieve some sprites when fired, this makes the Boomerang to not be just a Hammer clone.</li>
+	<li>Custom interaction fields with sprites is now possible.</li>
+	<li>Custom interaction dots/points with layer 1/2 (maybe 3?) is now possible.</li>
+	<li>Remapping some smoke particles is now optional too. A define is included in powerup_defs.asm to decide if insert the hex edits or not.</li>
+	<li>Added a define to control which extended sprite number will Mario shoot while having powerup that shoots projectiles.</li>
+	<li>Added a define to change where the Projectile DMA graphics will be loaded to.</li>
+	<li>Made some (small) name changes to some files in powerup_files folder.</li>
+	<li>Changed the custom sprite settings table in sprites_props.asm to use bits instead of hex values.</li>
+	<li>Minor Extender patch is now completely optional, you still require to patch the file though, specially if you want those Z tiles fixed.</li>
+	<li>Patch size increased a bit.</li>
+	<li>Migrated from Item Box Special 1.1 to 1.3.</li>
+	<li>Added several custom blocks.</li>
+	<li>THE Z TILE OF THE RIP VAN FISH IS NOW FIXED.</li>
+	<li>Mode 7 Game Over patch detection. Clearing $7E2000 area made this patch to display an invisible Mario, this is now fixed.</li>
+	<li>Fixed a HUGE mistake on IceBlock.asm. Changed a $1622,x to $1686,x.</li>
+	<li>Iceball image is now properly aligned while using the projectile DMA feature.</li>
+	<li>Riding Yoshi instantly bug is now gone.</li>
+	<li>Projectile DMA feature now works correctly in title screen. Thanks to KDee for reporting this.</li>
+	<li>Mario's 8x8 tiles weren't showing correctly on title screen, it's fixed now.</li>
+	<li>Fixed several misplaced things.</li>
+</ul>
+	
+<h2>Version 1.0.0 (2015-Aug-21)</h2>
+<ul>
+	<li>Bubble projectile is now available.</li>
+	<li>Mario ExGFX integrated in the patch.</li>
+	<li>Added a feature that uploads dynamically the projectiles GFX to the VRAM and it can be disabled if the user wants.</li>
+	<li>Optimized most of the graphic files for the powerup tilemaps, now they are 12kB instead of 24kB.</li>
+	<li>The new insert size of the patch is 87472 bytes instead of 178909 bytes.</li>
+	<li>There are a bunch of defines in powerup_defs.asm that let you to remap some GFX00 and GFX01 stuff.</li>
+	<li>DKC Status bar compatibility.</li>
+	<li>!shell_immunity now has a purpose. Thanks to Lui37.</li>
+	<li>Included some defines to set the tile/YXPPCCCT properties of the projectiles in powerup_defs.asm</li>
+	<li>Added some settings for Mario Statue in sprite_props.asm.</li>
+	<li>Tanooki suit was using the wrong combination of buttons to trigger the statue.</li>
+	<li>Mario statue was able to climb in nets.</li>
+	<li>Mario statue was using spin jump instead of a custom routine to detect sprites and kill them or be invincible to them.</li>
+	<li>Fixed a bug in question block that doesn't do anything in vertical levels.</li>
+	<li>Ice blocks weren't detecting ceilings correctly.</li>
+	<li>Iceballs now really listen to the sprite_props.asm settings.</li>
+	<li>Iceballs doesn't display a fireball when are about to disappear in a puff of smoke.</li>
+	<li>And probably a lot more. I don't remember what I fixed (forgot to create a list... >.>).</li>
+</ul>
+	
+<h2>Alpha versions (201X-???-??)</h2>
+<ul>
+	<li>Lot of stuff is lost, you can download older versions if you are curious about how this patch evolved.</li>
+</ul>
+	
+	<br>
+	
+	<br><br><p>Return to the <a href="../../powerup_readme.html">main page</a></p><br>
+	
+</body>
+</html>

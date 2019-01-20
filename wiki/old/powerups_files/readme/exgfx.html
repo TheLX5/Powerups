@@ -1,0 +1,54 @@
+<html>
+<head>
+	<title>Custom Powerups readme</title>	
+	<link href="readme.css" type="text/css" rel="stylesheet">
+
+</head>
+<body text="#FFFFFF">
+	<h1><a id="Table">Player ExGFX</a></h1><br><br>
+	
+	<h2>Table of Contents</h2>
+	<ol>
+	<li><a href="#SetUp">Setting up the new graphics</a></li>
+	<li><a href="#BasicCode">Basic code for Player ExGFX change</a></li>
+	</ol>
+	
+	
+	<br><br><hr><br><br>
+	
+	<h3><a id="#SetUp">Setting up the new graphics</a></h3><br>
+	The player graphics format is the same as they are in Ladida's 32x32 player tilemap kit patch, each frame is a 32x32 square in the bin file. I suggest using a file that is already included with the patch to know which poses are which.<br>
+	To include your new graphics, you have to put your bin file in the <code>powerups_files/graphics</code> folder. Then open powerup_gfx.asm which is in <code>powerups_files</code> folder and add your graphics file there too using the macros you see in the file.<br>
+	Macro for bin files with a size <= 32KiB:<br>
+	<code><br>
+	%insert_gfx(filename,id)<br>
+	</code><br>
+	Macro for graphic files with a size between 32KiB and 64KiB:<br>
+	<code><br>
+	%insert_gfx_big(filename,id)<br>
+	</code><br><br>
+	
+	Back to <a href="#Table">top</a>
+
+
+
+	
+	<br><br><hr><br><br>
+	
+	<h3><a id="#BasicCode">Basic code for Player ExGFX change</a></h3><br>
+	Now that you included your own custom graphics, it's time to make use of them.<br><br>
+	Change Mario GFX:<br><br>
+	<code>
+	&emsp;&emsp;LDA #$01<br>
+	&emsp;&emsp;STA !gfx_bypass_flag<br>
+	&emsp;&emsp;LDA #$XX&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;;There goes the ID of your graphic file.<br>
+	&emsp;&emsp;STA !gfx_bypass_num<br>
+	</code><br>
+	The code is rather simple, with a bit of work you can have a whole new set of different suits for Mario!<br><br>
+	Back to <a href="#Table">top</a>
+
+
+	
+	<br><br><p>Return to the <a href="../../powerup_readme.html">main page</a></p><br>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<html>
+<head>
+	<title>Custom Powerups readme</title>	
+	<link href="readme.css" type="text/css" rel="stylesheet">
+
+</head>
+<body text="#FFFFFF">
+	<h1><a id="Table">Custom Player tilemaps & poses</a></h1><br><br>
+	
+	<h2>Table of Contents</h2>
+	<ol>
+	<li><a href="#TweakTilemap">Tweaking an existing tilemap</a></li>
+	<li><a href="#CreateTilemap">Creating your own player tilemap</a></li>
+	<li><a href="#CustomPoses">Making use of your custom poses</a></li>
+	</ol>
+	
+	<br><br><hr><br><br>
+	
+	<h3><a id="#TweakTilemap">Tweaking an existing tilemap</a></h3><br>
+	Tweaking tilemaps is simple enough. Firstly you need to open powerups_files/powerup_misc_data/tilemaps.asm, which is a file that contains every single tilemap table.<br>
+	Then you have to scroll down to find the tilemap you want to modify, you can easily find them since their labels start with "tilemap_".<br>
+	The format of the table can be found at near the end of the file:<br><br>
+	<center><img src="./images/tilemap_01.png"></center><br><br>
+	The numbers for each pose can be retrieved by looking at the graphics file in powerups_files/graphics<br><br>
+	<center><img src="./images/tilemap_02.png"></center><br><br><br>
+	Back to <a href="#Table">top</a>
+
+
+
+	<br><br><hr><br><br>
+	
+	<h3><a id="#CreateTilemap">Creating your own player tilemap</a></h3><br>
+	Custom tilemaps are needed if you want to create a powerup with new poses or different poses, creating them is not a hard job, it's rather easy and most of them are just copy-paste from other tables.<br><br>
+	First, you need to set your TileIndexData, this value is used for some calculations during the routine, so there are only a few valid values, which are: $00 for powerups like small mario, $46 for powerups like big mario and $83 for cape-like powerups.<br>
+	Then you have to expand the TileAltIndex table by adding another entry to the pointer table with your tilemap table name and use its entry number to add it to the corresponding powerup number in the TileAltTable table.
+	All that is left to do is to create the tilemap table which should follow the normal SMW poses like the tables included in the file.<br>
+	To add new, custom, poses to your tilemap table, just add them at the end of your tilemap table. Making use of these new poses is documented in the next section.<br><br>
+	Back to <a href="#Table">top</a>
+
+
+
+	<br><br><hr><br><br>
+	
+	<h3><a id="#CustomPoses">Making use of your custom poses</a></h3><br>
+	To use your custom poses, you need to open the relevant file corresponding to the powerup you're creating or want to give new poses in the powerups_files/powerup_img_code folder. Once you opened the file, you can just write your custom code there that should store to RAM $7E13E0 and end in RTS. There's not much to add here since it's basically a "write it yourself" type of code.
+	Back to <a href="#Table">top</a>
+
+
+	
+	<br><br><p>Return to the <a href="../../powerup_readme.html">main page</a></p><br>
+</body>
+</html>
