@@ -12,8 +12,8 @@ endif
 ;; Misc Defines
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-!i_read_the_readme	= 1	;Set it to 1 to be able to insert the patch.
-				;I hope you did read the readme file.
+!i_read_the_readme	= 0	;Set it to 1 to be able to insert the patch.
+				;I hope you did read the readme.
 
 !enable_projectile_dma	= 1	;Enable the ASM hacks to make possible use DMA to upload the projectile tiles
 				;Note that this takes some v-blank time because this uses two DMA routines
@@ -42,6 +42,100 @@ endif
 !starting_player_exgfx	= $0E00	;Starting ExGFX slot for the player GFX.
 				
 !starting_extra_exgfx	= $0F00	;Starting ExGFX slot for the Extra Tile GFX.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; SP1 & SP2 remap options
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;
+;; Shell-less koopa (green, red & yellow)
+;;;;;;;;;;;;;;;;;;;
+
+!remap_shell_less_koopa = 0	;This remap will make all of the shell-less koopas
+				;use the tiles used by the blue shell-less koopas.
+				;0 = don't do this & recover the old data
+				;1 = do this
+
+;;;;;;;;;;;;;;;;;;;
+;; POW (or P-Switch)
+;;;;;;;;;;;;;;;;;;;
+
+!remap_pow		= 0	;Enable POW remapping.
+!pow_tile		= $60	;16x16 tile of the POW sprite.
+!flat_pow_tile		= $7F	;8x8 tile of the pressed POW sprite.
+!blue_pow_yxppccct	= $07	;YXPPCCCT properties of the Blue POW
+!silver_pow_yxppccct	= $03	;YXPPCCCT properties of the Silver POW
+
+;;;;;;;;;;;;;;;;;;;
+;; Squished koopa
+;;;;;;;;;;;;;;;;;;;
+
+!remap_squished_koopa	= 0	;Enable squished koopa remapping.
+!squished_koopa_tile	= $4D	;8x8 tile of the squished koopa tile.
+
+;;;;;;;;;;;;;;;;;;;
+;; 8x8 bubble
+;;;;;;;;;;;;;;;;;;;
+
+!remap_little_bubble	= 1	;Enable little bubble remapping.
+!little_bubble_tile	= $38	;8x8 tile of the little bubble.
+
+;;;;;;;;;;;;;;;;;;;
+;; Cheep-cheep
+;;;;;;;;;;;;;;;;;;;
+
+!remap_cheep_cheeps	= 0	;Enable cheep-cheep remapping.
+!flopping_cheep_tile_1	= $08	;Cheep cheep tile #1
+!flopping_cheep_tile_2	= $6D	;Cheep cheep tile #2
+!cheep_cheep_page	= $01	;Select cheep-cheep GFX page.
+				;#$00 Page 1 (SP1-SP2), #$01 Page 2 (SP3-SP4)
+
+;;;;;;;;;;;;;;;;;;;
+;; Hammers
+;;;;;;;;;;;;;;;;;;;
+
+!remap_hammers		= 0	;Enable hammer remapping.
+!hammer_tile_1		= $08	;Hammer tile #1
+!hammer_tile_2		= $6D	;Hammer tile #2
+!hammer_palette_page	= $07	;This byte sets the YXPPCCCT properties
+
+;;;;;;;;;;;;;;;;;;;
+;; Coin sparkles
+;;;;;;;;;;;;;;;;;;;
+
+!remap_sparkles		= 0	;Enable little sparkles remapping.
+!large_star_tile	= $5C	;Large star tile.
+!medium_star_tile	= $6C	;Medium star tile.
+!small_star_tile	= $6D	;Small star tile.
+
+;;;;;;;;;;;;;;;;;;;
+;; Spinjump star
+;;;;;;;;;;;;;;;;;;;
+
+!remap_spinjump_star	= 0	;Enable spinjump stars remapping
+!spin_star_tile		= $6C	;Spinjump star tile
+
+;;;;;;;;;;;;;;;;;;;
+;; Smoke particles
+;;;;;;;;;;;;;;;;;;;
+
+!remap_smoke_particles	= 1	;Leaves free a 16x16 tile in SP1 (tile x66)
+
+;;;;;;;;;;;;;;;;;;;
+;; Bubble sprite
+;;;;;;;;;;;;;;;;;;;
+
+!remap_bubble_mushroom	= 1	;Enable fixing the mushroom sprite inside a bubble.
+!bubble_mushroom_tile	= $E0
+!bubble_mushroom_prop	= $09
+
+;;;;;;;;;;;;;;;;;;;;
+;; Fishing Lakitu
+;;;;;;;;;;;;;;;;;;;;
+
+!remap_lakitu_mushroom	= 1
+!lakitu_mushroom_tile	= $E0
+!lakitu_mushroom_prop	= $3B
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Number of possible powerups.
@@ -178,100 +272,6 @@ endmacro
 macro insert_addon_hack(filename)
 	incsrc powerups_files/addons/hijacks/<filename>.asm
 endmacro
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; SP1 & SP2 remap options
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;
-;; Shell-less koopa (green, red & yellow)
-;;;;;;;;;;;;;;;;;;;
-
-!remap_shell_less_koopa = 0	;This remap will make all of the shell-less koopas
-				;use the tiles used by the blue shell-less koopas.
-				;0 = don't do this & recover the old data
-				;1 = do this
-
-;;;;;;;;;;;;;;;;;;;
-;; POW (or P-Switch)
-;;;;;;;;;;;;;;;;;;;
-
-!remap_pow		= 0	;Enable POW remapping.
-!pow_tile		= $60	;16x16 tile of the POW sprite.
-!flat_pow_tile		= $7F	;8x8 tile of the pressed POW sprite.
-!blue_pow_yxppccct	= $07	;YXPPCCCT properties of the Blue POW
-!silver_pow_yxppccct	= $03	;YXPPCCCT properties of the Silver POW
-
-;;;;;;;;;;;;;;;;;;;
-;; Squished koopa
-;;;;;;;;;;;;;;;;;;;
-
-!remap_squished_koopa	= 0	;Enable squished koopa remapping.
-!squished_koopa_tile	= $4D	;8x8 tile of the squished koopa tile.
-
-;;;;;;;;;;;;;;;;;;;
-;; 8x8 bubble
-;;;;;;;;;;;;;;;;;;;
-
-!remap_little_bubble	= 1	;Enable little bubble remapping.
-!little_bubble_tile	= $38	;8x8 tile of the little bubble.
-
-;;;;;;;;;;;;;;;;;;;
-;; Cheep-cheep
-;;;;;;;;;;;;;;;;;;;
-
-!remap_cheep_cheeps	= 0	;Enable cheep-cheep remapping.
-!flopping_cheep_tile_1	= $08	;Cheep cheep tile #1
-!flopping_cheep_tile_2	= $6D	;Cheep cheep tile #2
-!cheep_cheep_page	= $01	;Select cheep-cheep GFX page.
-				;#$00 Page 1 (SP1-SP2), #$01 Page 2 (SP3-SP4)
-
-;;;;;;;;;;;;;;;;;;;
-;; Hammers
-;;;;;;;;;;;;;;;;;;;
-
-!remap_hammers		= 0	;Enable hammer remapping.
-!hammer_tile_1		= $08	;Hammer tile #1
-!hammer_tile_2		= $6D	;Hammer tile #2
-!hammer_palette_page	= $07	;This byte sets the YXPPCCCT properties
-
-;;;;;;;;;;;;;;;;;;;
-;; Coin sparkles
-;;;;;;;;;;;;;;;;;;;
-
-!remap_sparkles		= 0	;Enable little sparkles remapping.
-!large_star_tile	= $5C	;Large star tile.
-!medium_star_tile	= $6C	;Medium star tile.
-!small_star_tile	= $6D	;Small star tile.
-
-;;;;;;;;;;;;;;;;;;;
-;; Spinjump star
-;;;;;;;;;;;;;;;;;;;
-
-!remap_spinjump_star	= 0	;Enable spinjump stars remapping
-!spin_star_tile		= $6C	;Spinjump star tile
-
-;;;;;;;;;;;;;;;;;;;
-;; Smoke particles
-;;;;;;;;;;;;;;;;;;;
-
-!remap_smoke_particles	= 1	;Leaves free a 16x16 tile in SP1 (tile x66)
-
-;;;;;;;;;;;;;;;;;;;
-;; Bubble sprite
-;;;;;;;;;;;;;;;;;;;
-
-!remap_bubble_mushroom	= 1	;Enable fixing the mushroom sprite inside a bubble.
-!bubble_mushroom_tile	= $E0
-!bubble_mushroom_prop	= $09
-
-;;;;;;;;;;;;;;;;;;;;
-;; Fishing Lakitu
-;;;;;;;;;;;;;;;;;;;;
-
-!remap_lakitu_mushroom	= 1
-!lakitu_mushroom_tile	= $E0
-!lakitu_mushroom_prop	= $3B
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Other defines
