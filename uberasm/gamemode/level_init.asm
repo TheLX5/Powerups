@@ -24,6 +24,8 @@ init:
 	plx
 	sep #$30
 +	
-	;jsl decompress_gfx
 
+if !gfx_compression == 1
+	jsl decompress_gfx
+endif
 	rtl

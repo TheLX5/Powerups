@@ -1,6 +1,6 @@
 init:
 	jsl init_powerup_ram
-	sep #$30
+if !gfx_compression == 1
 	phb
 	lda #$04|!bank8
 	pha
@@ -11,5 +11,6 @@ init:
 	pea $DC68
 	jml $04DD40|!bank
 	plb
+endif
 main:
 	rtl
