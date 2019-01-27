@@ -14,7 +14,7 @@
 20B:130	question_mark_blocks/shell_suit.asm
 20C:130	question_mark_blocks/cloud_flower.asm
 20D:130	question_mark_blocks/bubble_flower.asm
-20D:130	question_mark_blocks/cat_suit.asm
+20E:130	question_mark_blocks/cat_suit.asm
 
 210:130	hammer_shatter.asm
 211:130	hammer_immune.asm
