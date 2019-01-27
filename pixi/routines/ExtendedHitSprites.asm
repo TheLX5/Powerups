@@ -64,8 +64,10 @@
 	lda [$8A],y
 	sep #$10
 	sta $0F
+	bmi .pass
 	and #$10
 	bne .ignore
+.pass
 	ldy $185E|!Base2
 	pla
 	pla

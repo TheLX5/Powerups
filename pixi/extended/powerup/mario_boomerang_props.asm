@@ -11,10 +11,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 boomerang_custom_sprites:
-	db %00010001,%00010001,%00010001,%00010001	; custom sprites 0-3
-	db %00010001,%00010001,%00010001,%00010001	; custom sprites 4-7
-	db %00010001,%00010001,%00010001,%00010001	; custom sprites 8-B
-	db %00010001,%00010001,%00010001,%00000001	; custom sprites C-F
+	db %11010001,%11010001,%11010001,%11010001	; custom sprites 0-3
+	db %11010001,%11010001,%11010001,%11010001	; custom sprites 4-7
+	db %11010001,%11010001,%11010001,%11010001	; custom sprites 8-B
+	db %11010001,%11010001,%11010001,%00000001	; custom sprites C-F
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites 10-13
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites 14-17
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites 18-1B
@@ -311,15 +311,15 @@ boomerang_normal_sprites:
 ;.73 Super Koopa, feather
 	db %00000000
 ;.74 Mushroom
-	db %00111111
+	db %11111111
 ;.75 Flower
-	db %00111111
+	db %11111111
 ;.76 Star
-	db %00111111
+	db %11111111
 ;.77 Feather
-	db %00111111
+	db %11111111
 ;.78 1-Up
-	db %00111111
+	db %11111111
 ;.79 Growing Vine
 	db %00111111
 ;.7A Firework
@@ -329,13 +329,13 @@ boomerang_normal_sprites:
 ;.7C Princess Peach
 	db %00111111
 ;.7D Balloon
-	db %00111111
+	db %11111111
 ;.7E Flying Red coin
-	db %00111111
+	db %11111111
 ;.7F Flying yellow 1-Up
-	db %00111111
+	db %11111111
 ;.80 Key
-	db %10011111
+	db %11111111
 ;.81 Changing item from translucent block
 	db %00111111
 ;.82 Bonus game sprite
