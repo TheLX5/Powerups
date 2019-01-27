@@ -1,5 +1,15 @@
 gfx_decompression:
+if !SA1 == 1
+	LDA #$B1
+	STA $3180
+	LDA #$8A
+	STA $3181
+	LDA #$02
+	STA $3182
+	JSR $1E80
+else
 	jsl $028AB1|!base3
+endif
 
 	lda !gfx_player_request
 	beq .no_player
