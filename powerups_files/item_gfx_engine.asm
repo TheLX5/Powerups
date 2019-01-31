@@ -163,7 +163,6 @@ init_item:
 	txa
 	sta !item_gfx_latest
 
-	wdm
 	lda !1602,x
 	inc
 	ora !item_gfx_refresh
