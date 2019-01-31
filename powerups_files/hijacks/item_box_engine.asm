@@ -14,6 +14,8 @@ dl GFXData				;028018
 dl GFXData_compressed_flag		;02801B
 dl ExtraGFXData				;02801E
 dl ExtraGFXData_compressed_flag		;028021
+dl gfx_decompression			;028024
+dl actual_gfx_decompression		;028027
 warnpc $02806F|!base3
 
 org $02806F|!base3

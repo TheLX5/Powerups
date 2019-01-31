@@ -10,7 +10,7 @@ if !SA1 == 1
 else
 	jsl $028AB1|!base3
 endif
-
+actual_gfx_decompression:
 	lda !gfx_player_request
 	beq .no_player
 	dec
