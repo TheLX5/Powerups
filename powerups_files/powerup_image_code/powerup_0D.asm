@@ -13,22 +13,26 @@
 	ora $1493|!base2
 	ora $148F|!base2
 	bne .no_water
+.override
+	lda !power_ram
+.write
+	sta $13E0|!base2
+-
+	rts
+
+.no_water
+	lda !flags
+	bne .sliding
+	lda $77
+	and #$04
+	bne -
 	lda $149C|!base2
-	beq .override
-	lda $75
-	bne +
+	beq -
 	lda #$17
 	bra .write
 +	
 	lda #$2C
 	bra .write
-.override
-	lda !power_ram
-.write
-	sta $13E0|!base2
-
-.no_water
-	rts
 
 .sliding
 	lda $1891|!base2
