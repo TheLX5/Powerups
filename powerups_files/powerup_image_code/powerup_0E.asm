@@ -154,7 +154,7 @@ PropellerTileIndexes:
 YOffsets:
 	db $F4,$F4,$F4,$04,$F4,$F4,$F4,$F4
 	db $F4,$F4,$04,$F4,$F4,$F3,$F4,$F4
-	db $FB,$01,$01,$01,$F4,$F4,$F4
+	db $04,$14,$14,$14,$F4,$F4,$F4
 	db $F4,$F4,$F4,$F4,$F3,$F4,$FB,$F4
 	db $F4,$F4,$F4,$F4,$F4,$F1,$F4,$F4
 	db $F4,$F4,$F4,$F4,$F4,$F4,$F4,$F4
@@ -182,10 +182,10 @@ XOffsets:
 	db $00,$00		;>  
 	db $00,$00
 	db $00,$00
-	db $07,$F9		;>  About to run up a wall.	
-	db $0C,$F4
-	db $0C,$F4
-	db $0C,$F4
+	db $18,$E8		;>  About to run up a wall.	
+	db $23,$DE
+	db $23,$DE
+	db $23,$DE
 	db $01,$FF
 				;>  Posing on Yoshi to Looking at castle poses are set to
 				;   always be 0 to not make the table too big.
