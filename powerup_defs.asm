@@ -28,10 +28,11 @@ endif
 
 !starting_slot		= $00	;Starting slot of the powerup custom sprites.
 				
-!clear_7E2000		= 1	;Clear Mario GFX from RAM. Needs to be 0 if using Dynamic Z or the Mode 7 Game Over patch.
+!clear_7E2000		= 1	;Clear Mario GFX from RAM. Needs to be 0 if using the Mode 7 Game Over patch.
 				;1 = enable, 0 = disable
 				
-!better_powerdown	= 1	;Set it to 1 if you have any plans on using Better Powerdown patch.
+!better_powerdown	= 0	;Set it to 1 if you want to enable Better Powerdown patch effects.
+				;Read the wiki to know how to configure this.
 				
 !disable_drop_item	= 0	;If 1 then the reserve item will NOT drop if you get hurt
 !drop_item_if_big	= 1	;If the above is 0, this one is unused.
@@ -301,7 +302,6 @@ endmacro
 !extended_dir		= !ext_sprite_ram+20
 !extended_prev		= !ext_sprite_ram+30
 !extended_index		= !ext_sprite_ram+40
-!sprite_ram		= !ext_sprite_ram+50
 
 !ItemBoxSfx = $0C       ; play the item box drop sound effect
 !PowerupSfx = $0B       ; play the powerup sound effect
@@ -477,50 +477,46 @@ if !SA1 == 0
 ;; 1 byte
 	!insta_kill_flag	= $7E2120
 ;;;;;;;
-;; !ext_sprite_ram: Reserved for 4 extended sprites tables.
-;; 40 bytes.
-	!ext_sprite_ram		= $7E2121
-;;;;;;;
 ;; !power_ram: Reserved for powerups.
 ;; 16 bytes.
-	!power_ram		= $7E2149
+	!power_ram		= $7E2121
 ;;;;;;;
 ;; !projectile_gfx_bank: RAM that should contain the projectile GFX bank byte.
 ;; 2 bytes.
-	!projectile_gfx_bank	= $7E2159
+	!projectile_gfx_bank	= $7E2131
 ;;;;;;;
 ;; !ducking_flag: Disables ducking if set.
 ;; 1 byte.
-	!ducking_flag		= $7E215B
+	!ducking_flag		= $7E2133
 ;;;;;;;
 ;; !slide_flag: Disables sliding on slopes if set.
 ;; 1 byte.
-	!slide_flag		= $7E215C
+	!slide_flag		= $7E2134
 ;;;;;;;
 ;; !extra_tile_index: Which set of GFX is the extra tile using.
 ;; If it is a negative value, the tile won't upload its graphics to SP1. Applies to both cape and extra tiles.
 ;; 1 byte.
-	!extra_tile_index	= $7E215D
+	!extra_tile_index	= $7E2135
 ;;;;;;;
 ;; !gfx_index: Which set of GFX is the player using.
 ;; 1 byte.
-	!gfx_index		= $7E215E
+	!gfx_index		= $7E2136
 ;;;;;;
 ;; !item_gfx_oldest: Holds the oldest powerup item sprite index.
 ;; 1 byte
-	!item_gfx_oldest	= $7E215F
+	!item_gfx_oldest	= $7E2137
 ;;;;;;
 ;; !item_gfx_latest: Holds the latest powerup item sprite index.
 ;; 1 byte
-	!item_gfx_latest	= $7E2160
+	!item_gfx_latest	= $7E2138
 ;;;;;;
 ;; !slippery_flag_backup: Saves the slippery level setting.
 ;; 1 byte
-	!slippery_flag_backup	= $7E2161
+	!slippery_flag_backup	= $7E2139
 ;;;;;;
 ;; !ram_77_backup: Saves whatever $77 has in the same frame.
 ;; 1 byte
-	!ram_77_backup		= $7E2162
+	!ram_77_backup		= $7E213A
 ;;;;;;
 ;; !gfx_player_buffer: Decompression buffer for Player GFX
 ;; 32768 bytes.
@@ -539,19 +535,27 @@ if !SA1 == 0
 	!gfx_ow_pl_buffer	= $7E7000
 ;;;;;;
 ;; !gfx_pl_compressed_flag: Flag used to determine if graphics were compressed or not.
-	!gfx_pl_compressed_flag	= $7E2163
+	!gfx_pl_compressed_flag	= $7E213B
 ;;;;;;
 ;; !gfx_ex_compressed_flag:  Flag used to determine if graphics were compressed or not.
 ;; 1 byte.
-	!gfx_ex_compressed_flag	= $7E2164
+	!gfx_ex_compressed_flag	= $7E213C
 ;;;;;;
 ;; !gfx_player_request: Determines if the player GFX should be decompressed or not.
 ;; 1 byte.
-	!gfx_player_request	= $7E2165
+	!gfx_player_request	= $7E213D
 ;;;;;;
 ;; !gfx_extra_request: Determines if the extra tile GFX should be decompressed or not.
 ;; 1 byte.
-	!gfx_extra_request	= $7E2167
+	!gfx_extra_request	= $7E213E
+;;;;;;;
+;; !ext_sprite_ram: Reserved for 4 extended sprites tables.
+;; 40 bytes.
+	!ext_sprite_ram		= $7E213F
+;;;;;;
+;; !sprite_ram: Reserved for 1 sprite table.
+;; 12 bytes.
+	!sprite_ram		= $7E2171
 
 	else
 
@@ -716,50 +720,46 @@ if !SA1 == 0
 ;; 1 byte
 	!insta_kill_flag	= $404220
 ;;;;;;;
-;; !ext_sprite_ram: Reserved for 4 extended sprites tables.
-;; 40 bytes.
-	!ext_sprite_ram		= $404221
-;;;;;;;
 ;; !power_ram: Reserved for powerups.
 ;; 16 bytes.
-	!power_ram		= $404249
+	!power_ram		= $404221
 ;;;;;;;
 ;; !projectile_gfx_bank: RAM that should contain the projectile GFX bank byte.
 ;; 2 bytes.
-	!projectile_gfx_bank	= $404259
+	!projectile_gfx_bank	= $404231
 ;;;;;;;
 ;; !ducking_flag: Disables ducking if set.
 ;; 1 byte.
-	!ducking_flag		= $40425B
+	!ducking_flag		= $404233
 ;;;;;;;
 ;; !slide_flag: Disables sliding on slopes if set.
 ;; 1 byte.
-	!slide_flag		= $40425C
+	!slide_flag		= $404234
 ;;;;;;;
 ;; !extra_tile_index: Which set of GFX is the extra tile using.
 ;; If it is a negative value, the tile won't upload its graphics to SP1. Applies to both cape and extra tiles.
 ;; 1 byte.
-	!extra_tile_index	= $40425D
+	!extra_tile_index	= $404235
 ;;;;;;;
 ;; !gfx_index: Which set of GFX is the player using.
 ;; 1 byte.
-	!gfx_index		= $40425E
+	!gfx_index		= $404236
 ;;;;;;
 ;; !item_gfx_oldest: Holds the oldest powerup item sprite index.
-;; 1 bytes
-	!item_gfx_oldest	= $40425F
+;; 1 byte
+	!item_gfx_oldest	= $404237
 ;;;;;;
 ;; !item_gfx_latest: Holds the latest powerup item sprite index.
-;; 1 bytes
-	!item_gfx_latest	= $404260
+;; 1 byte
+	!item_gfx_latest	= $404238
 ;;;;;;
 ;; !slippery_flag_backup: Saves the slippery level setting.
-;; 1 bytes
-	!slippery_flag_backup	= $404261
+;; 1 byte
+	!slippery_flag_backup	= $404239
 ;;;;;;
 ;; !ram_77_backup: Saves whatever $77 has in the same frame.
-;; 1 bytes
-	!ram_77_backup		= $404262
+;; 1 byte
+	!ram_77_backup		= $40423A
 ;;;;;;
 ;; !gfx_player_buffer: Decompression buffer for Player GFX
 ;; 32768 bytes.
@@ -773,24 +773,32 @@ if !SA1 == 0
 ;; Up to 8192 bytes.
 	!gfx_items_buffer	= $7E5000
 ;;;;;;
-;; !gfx_ow_pl_buffer: Copy of the first 2KiB of !gfx_player_buffer
+;; !gfx_owpl_buffer: Copy of the first 2KiB of !gfx_player_buffer
 ;; 2048 bytes.
 	!gfx_ow_pl_buffer	= $7E7000
 ;;;;;;
 ;; !gfx_pl_compressed_flag: Flag used to determine if graphics were compressed or not.
-	!gfx_pl_compressed_flag	= $404263
+	!gfx_pl_compressed_flag	= $40423B
 ;;;;;;
 ;; !gfx_ex_compressed_flag:  Flag used to determine if graphics were compressed or not.
 ;; 1 byte.
-	!gfx_ex_compressed_flag	= $404264
+	!gfx_ex_compressed_flag	= $40423C
 ;;;;;;
 ;; !gfx_player_request: Determines if the player GFX should be decompressed or not.
 ;; 1 byte.
-	!gfx_player_request	= $404265
+	!gfx_player_request	= $40423D
 ;;;;;;
 ;; !gfx_extra_request: Determines if the extra tile GFX should be decompressed or not.
 ;; 1 byte.
-	!gfx_extra_request	= $404267
+	!gfx_extra_request	= $40423E
+;;;;;;;
+;; !ext_sprite_ram: Reserved for 4 extended sprites tables.
+;; 40 bytes.
+	!ext_sprite_ram		= $40423F
+;;;;;;
+;; !sprite_ram: Reserved for 1 sprite table.
+;; 12 bytes.
+	!sprite_ram		= $404271
 
 endif
 
