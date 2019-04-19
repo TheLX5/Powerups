@@ -17,6 +17,8 @@
 !boomerang_catch_cooldown	= $10	;How many frames the boomerang will be "uncatchable"
 					;Don't set it too low, otherwise Mario will catch these in an instant.
 
+!boomerang_item_retrieve	= 0	;Set to 0 to make boomerangs not retrieve items.
+
 !boomerang_y_speed		= $EC	;Base Y speed, it's used to calculate every Y speed.
 					;It's based on Mario's X speed.
 

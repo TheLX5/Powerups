@@ -54,7 +54,7 @@ endif
 	incsrc powerups_files/hijacks/ducking_flag.asm
 	incsrc powerups_files/hijacks/slide_flag.asm
 	incsrc powerups_files/hijacks/water_splash_edit.asm
-	incsrc powerups_files/hijacks/decompression.asm
+;	incsrc powerups_files/hijacks/decompression.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Add-on hijacks installer
@@ -101,7 +101,7 @@ freecode
 ; Enables decompression requests
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-	incsrc powerups_files/decompression.asm
+;	incsrc powerups_files/decompression.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Enables powerdown ASM hacks.

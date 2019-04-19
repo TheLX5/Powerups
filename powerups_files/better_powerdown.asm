@@ -17,6 +17,7 @@ PowerDown:
 	tax
 	jsr (Actions,x)
 
+if !gfx_compression = 1
 	ldy $19
 	lda $02801B|!base3
 	sta $8A
@@ -36,13 +37,16 @@ PowerDown:
 	lda [$8A],y
 	sta !gfx_extra_request
 	sta !gfx_ex_compressed_flag
+endif
 
 	lda !slippery_flag_backup
 	beq +
 	sta $86
 +	
-	lda #$00
 	sta !slippery_flag_backup
+	
+	lda #$00
+	sta !cape_settings
 
 	lda #$10
 	tsb $78

@@ -236,11 +236,11 @@ contact:
 
 	lda #$01
 	sta $1DFC|!Base2
+
 	lda !1588,x
-	sta $00
+	pha
 	lda !164A,x
-	sta $01
-	
+	pha
 	lda #$36
 	sta !9E,x
 	lda #!ice_block_num
@@ -251,18 +251,25 @@ contact:
 	jsl $0187A7|!BankB
 	lda #$08
 	sta !14C8,x
-	
 	lda #$FF
 	sta !1540,x
-	lda $00
+	pla
+	sta !164A,x
+	pla
 	sta !1588,x
+
+	lda $85
+	bne .next
+	lda !1588,x
 	and #$04
 	beq .no_floor
+	lda !164A,x
+	bne .next
 	lda #$01
 	sta $C2,x
 	bra .next
 .no_floor
-	lda $01
+	lda !164A,x
 	bne .next
 	lda #$80
 	sta !154C,x

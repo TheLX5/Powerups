@@ -43,8 +43,10 @@ give_mini_mushroom:
 	sta $19
 	sta $0DB8|!base2,y
 	plx
+if !DEBUG
 	lda $0F
 	bmi +
+endif
 	lda #$04
 	sta $1DF9|!base2
 	lda #$04
@@ -52,7 +54,9 @@ give_mini_mushroom:
 	jsl $01C5AE|!base3
 	inc $9D
 +
+if !gfx_compression == 1
 	jsr request_gfx
+endif	
 	jmp clean_ram
 
 .x_coords

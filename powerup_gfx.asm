@@ -2,7 +2,7 @@ incsrc powerup_defs.asm
 
 if !i_read_the_readme == 0
 	print "Custom Powerups patch - GFX Installer."
-	print "Version 3.2.1"
+	print "Version 1.0.0"
 	print ""
 	print "Nothing was inserted."
 	print "Please read the Readme file included in the zip file."

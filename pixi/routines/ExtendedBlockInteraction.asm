@@ -13,15 +13,15 @@
 
 !LM_RAM		= $0BF6|!base2		; 256 bytes of free RAM. Must be on shadow RAM.
 
-!L1_Screen_Lo	= !LM_RAM			; 96 bytes (32 * 3).
+!L1_Screen_Lo	= !LM_RAM		; 96 bytes (32 * 3).
 !L2_Screen_Lo	= !LM_RAM+48		; 48 bytes (shared).
 !L1_Screen_Hi	= !LM_RAM+96		; 96 bytes (32 * 3).
 !L2_Screen_Hi	= !LM_RAM+96+48		; 48 bytes (shared).
 
 ; These ones don't need to be on the shadow RAM, though...
 !L1_Lookup_Lo	= !LM_RAM+96+96		; 32 bytes
-!L2_Lookup_Lo	= !LM_RAM+96+96+16		; 16 bytes (shared)
-!L1_Lookup_Hi	= !LM_RAM+96+96+32		; 32 bytes
+!L2_Lookup_Lo	= !LM_RAM+96+96+16	; 16 bytes (shared)
+!L1_Lookup_Hi	= !LM_RAM+96+96+32	; 32 bytes
 !L2_Lookup_Hi	= !LM_RAM+96+96+32+16	; 16 bytes (shared)
 
 

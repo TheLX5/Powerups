@@ -235,7 +235,6 @@ endif
 	jsl $03B72B|!BankB
 	bcc .skip_to_sprites
 
-	wdm
 	stz !extended_num,x
 	lda !extended_table,x
 	and #$DF
@@ -276,8 +275,10 @@ endif
 	rts
 contact:
 	tyx
+if !boomerang_item_retrieve == 1
 	lda $0F
 	bmi .items
+endif
 	jmp .normal_hit
 .end
 	sty $15E9|!Base2

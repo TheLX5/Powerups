@@ -1,4 +1,6 @@
-init:
+init:	
+	lda $0DAE|!addr
+	bne +
 	jsl init_powerup_ram
 if !gfx_compression == 1
 	phb
@@ -12,5 +14,6 @@ if !gfx_compression == 1
 	jml $04DD40|!bank
 	plb
 endif
++	
 main:
 	rtl

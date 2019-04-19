@@ -8,8 +8,10 @@ give_penguin_suit:
 	lda #!penguin_suit_powerup_num
 	sta $19
 	sta $0DB8|!base2,y
+if !DEBUG
 	lda $0F
 	bmi +
+endif
 	lda #$0A
 	sta $1DF9|!base2
 	ldy !1534,x
@@ -68,5 +70,7 @@ give_penguin_suit:
 	sta !power_ram+$D
 	sta !power_ram+$E
 	sta !power_ram+$F
+if !gfx_compression == 1
 	jsr request_gfx
+endif
 	jml $01C560|!base3

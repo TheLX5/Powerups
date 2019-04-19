@@ -28,15 +28,19 @@ endif
 
 !starting_slot		= $00	;Starting slot of the powerup custom sprites.
 				
-!clear_7E2000		= 1	;Clear Mario GFX from RAM. Needs to be 0 if using the Mode 7 Game Over patch.
+!clear_7E2000		= 1	;Clear Mario GFX from RAM. Needs to be 0 if using Dynamic Z or the Mode 7 Game Over patch.
 				;1 = enable, 0 = disable
 				
-!better_powerdown	= 0	;Set it to 1 if you want to enable Better Powerdown patch effects.
-				;Read the wiki to know how to configure this.
+!better_powerdown	= 0	;Set it to 1 if you have any plans on using Better Powerdown patch.
 				
 !disable_drop_item	= 0	;If 1 then the reserve item will NOT drop if you get hurt
 !drop_item_if_big	= 1	;If the above is 0, this one is unused.
+
+!DEBUG			= 0	;Enable debugging.
 				
+
+;; Unused features, don't modify anything.
+
 !gfx_compression	= 0	;Set to 1 to enable Player GFX compression-
 				;It currently doesn't work with SA-1 Pack v1.31.
 				

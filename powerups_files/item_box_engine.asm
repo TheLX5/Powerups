@@ -22,8 +22,10 @@ macro flower_item(num,sfx,port)
 	lda #$00
 	sta !clipping_flag
 	sta !collision_flag
+if !DEBUG
 	lda $0F
 	bmi +
+endif
 	lda #<sfx>
 	sta <port>|!base2
 	ldy !1534,x
@@ -31,7 +33,9 @@ macro flower_item(num,sfx,port)
 	lda #$04
 	jsl $02ACE5|!base3
 +	
+if !gfx_compression == 1
 	jsr request_gfx
+endif
 	jmp clean_ram
 endmacro
 
@@ -43,8 +47,10 @@ macro cape_item(num,sfx,port)
 	lda #<num>
 	sta $19
 	sta $0DB8|!base2,y
+if !DEBUG
 	lda $0F
 	bmi +
+endif
 	lda #<sfx>
 	sta <port>|!base2
 	ldy !1534,x
@@ -54,7 +60,9 @@ macro cape_item(num,sfx,port)
 +	
 	jsl $01C5AE|!base3
 	inc $9D
+if !gfx_compression == 1
 	jsr request_gfx
+endif
 	jmp clean_ram
 endmacro	
 
@@ -165,8 +173,10 @@ if !dynamic_items == 1
 	sta !item_gfx_refresh
 endif
 .noitem
+if !DEBUG
 	lda #$00
 	sta $0F
+endif
 	lda.w PowerIndex,y
 	sep #$10
 	plb
@@ -243,6 +253,7 @@ clean_ram:
 	sta !power_ram+$F
 	jml $01C560|!base3
 
+if !gfx_compression == 1
 request_gfx:
 	phy
 	ldy $19
@@ -266,6 +277,7 @@ request_gfx:
 	sta !gfx_ex_compressed_flag
 	ply
 	rts
+endif
 
 ItemBoxFix:
 	phx			;

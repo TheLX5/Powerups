@@ -467,24 +467,28 @@ Normal:
 .end	
 .next
 	lda !164A,x
-	beq .handle_gravity
+	beq .outside_water
 	jsr .liquids
 	lda !1588,x
 	and #$0B
-	beq .handle_gravity
+	beq .apply_gravity
 	lda #$02
 	sta !14C8,x
-.handle_gravity
+	bra .end_gravity
+
+.outside_water
 	lda !154C,x
 	beq .fall
 	lda !carry_flag,x
 	bne .check_floor
 .zero_gravity
+	lda #$FF
+	sta !1540,x
 	stz !AA,x
 	jsl !update_x_pos
 	jsl !update_y_pos
 	bra .end_gravity
-.fall	
+.fall
 	lda !C2,x
 	lsr
 	bcc .check_floor
@@ -493,16 +497,23 @@ Normal:
 .check_floor
 	lda !1588,x
 	and #$04
-	beq .no_floors
+	beq .apply_gravity
 	lda !carry_flag,x
 	beq .no_floors
+-	
 	lda #$02
 	sta !14C8,x
+	bra .apply_gravity
 .no_floors
+	lda !154C,x
+	beq -
+.apply_gravity
 	jsl !update_gravity
 .end_gravity
 	jsr sprite_contact
 	jmp block_interaction
+	rts
+
 
 .liquids
 	dec !AA,x
@@ -522,6 +533,9 @@ Normal:
 	rts
 
 block_interaction:
+	lda !14C8,x
+	cmp #$08
+	beq .process
 	lda !154C,x
 	beq .process
 	jmp skip_dir
@@ -548,6 +562,7 @@ block_interaction:
 	ply
 	cpy #$03
 	bne +
+	sta $8A
 	pla
 	sta !14D4,x
 	pla

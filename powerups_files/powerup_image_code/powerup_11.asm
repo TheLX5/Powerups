@@ -1,7 +1,6 @@
 !buffer_size		= $0030
 !buffer_inc		= $0004
 !buffer_separation	= $0004
-	wdm
 
 	lda #$03
 	sta !extra_tile_flag

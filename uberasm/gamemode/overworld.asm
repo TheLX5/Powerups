@@ -1,4 +1,15 @@
 main:
+	lda $0DAE|!addr
+	bne +
+	jsl init_powerup_ram
++	
+if !DEBUG
+	jsl powerup_test
+endif
+	rtl
+
+
+powerup_test:
 	ldx $0DB3|!addr
 	lda $18
 	and #$10

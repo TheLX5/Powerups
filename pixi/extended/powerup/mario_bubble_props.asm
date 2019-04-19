@@ -105,7 +105,7 @@ bubble_normal_sprites:
 ;.0D Bob-omb
 	db %00000100
 ;.0E Keyhole
-	db %00011011
+	db %00000000	;	db %00011011
 ;.0F Goomba
 	db %00000000
 ;.10 Bouncing Goomba with wings
@@ -143,7 +143,7 @@ bubble_normal_sprites:
 ;.20 Magikoopa's magic
 	db %00011111
 ;.21 Moving coin
-	db %11011111
+	db %00010000
 ;.22 Green vertical net Koopa
 	db %00000000
 ;.23 Red vertical net Koopa
@@ -391,7 +391,7 @@ bubble_normal_sprites:
 ;.9C Flying blocks for Hammer Brother
 	db %00111111
 ;.9D Bubble with sprite
-	db %11111111
+	db %00010000
 ;.9E Ball and Chain
 	db %00011111
 ;.9F Banzai Bill

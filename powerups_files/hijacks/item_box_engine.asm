@@ -10,12 +10,22 @@ autoclean dl ItemTilemap		;02800C
 dl CheckItem				;02800F
 dl init_powerups_code			;028012
 dl PowerIndex				;028015
-dl GFXData				;028018
-dl GFXData_compressed_flag		;02801B
-dl ExtraGFXData				;02801E
-dl ExtraGFXData_compressed_flag		;028021
-dl gfx_decompression			;028024
-dl actual_gfx_decompression		;028027
+dl $FFFFFF	;reserved		;028018		;dl GFXData
+dl $FFFFFF	;reserved		;02801B		;dl GFXData_compressed_flag	
+dl $FFFFFF	;reserved		;02801E		;dl ExtraGFXData
+dl $FFFFFF	;reserved		;028021		;dl ExtraGFXData_compressed_flag
+dl $FFFFFF	;reserved		;028024		;dl gfx_decompression
+dl $FFFFFF	;reserved		;028027		;dl actual_gfx_decompression
+if !dynamic_items == 0
+	dl powerup_tiles_powerup_tiles	;02802A
+	dl $FFFFFF			;02802D
+else
+	dl dynamic_item_tiles		;02802A
+	dl dynamic_item_tiles_box	;02802D
+endif
+
+
+
 warnpc $02806F|!base3
 
 org $02806F|!base3

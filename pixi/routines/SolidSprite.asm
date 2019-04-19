@@ -248,6 +248,7 @@ SubSetInteractBounds:
 	PLA
 	PLA
 	LDA #$00
+	STA $8A
 	PLP : RTL
 
 ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

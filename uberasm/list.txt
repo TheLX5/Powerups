@@ -15,6 +15,7 @@ overworld:
 gamemode:
 06 title_screen.asm
 0B fade_to_overworld.asm
+0E overworld.asm
 13 level_init.asm
 
 
