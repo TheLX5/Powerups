@@ -1,16 +1,16 @@
 ClearStatusRAM:
-	LdA #$02
-	StA $1DF9|!base2
+	lda #$02
+	sta $1DF9|!base2
 
-	LdA $19
-	Cmp #!PropSuit_powerup_num
-	BNE .Rtrn0
+	lda $19
+	cmp #!PropSuit_powerup_num
+	bne .Rtrn0
 
-	LdA #$80
-	StA !PropStatus
-	LdA #$00
-	StA !PropStatusTimer
-	StA !mask_15
-	StA $140D|!base2
+	lda #$80
+	sta !PropStatus
+	lda #$00
+	sta !PropStatusTimer
+	sta !mask_15
+	sta $140D|!base2
 
-.Rtrn0	RtL
+.Rtrn0	rtl
