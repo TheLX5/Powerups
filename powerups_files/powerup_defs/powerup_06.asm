@@ -16,8 +16,8 @@
 					;$14 = max value
 
 !super_leaf_settings		= $2A	;Settings for !cape_settings
-
-!super_leaf_flight_timer	= $78	;How many frames Mario will be able to ascend.
+!super_leaf_tap_timer		= $08	;Tap time.
+!super_leaf_flight_timer	= $66	;How many frames Mario will be able to ascend.
 
 %powerup_number(super_leaf,06,Smoke)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)

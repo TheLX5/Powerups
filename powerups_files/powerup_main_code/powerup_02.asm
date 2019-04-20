@@ -4,6 +4,8 @@
 
 	lda.b #%00010111
 	sta !cape_settings
+	lda #$10
+	sta !cape_button_timer
 		
 	bit $16
 	bvc .Return

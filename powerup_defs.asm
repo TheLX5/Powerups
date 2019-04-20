@@ -522,6 +522,13 @@ if !SA1 == 0
 ;; 1 byte
 	!ram_77_backup		= $7E213A
 ;;;;;;
+;; !cape_button_time: Time for how long you keep floating after
+;; releasing B when floating with the cape/raccoon like powerups.
+;; 1 byte.
+	!cape_button_timer	= $7E213B
+
+
+;;;;;;
 ;; !gfx_player_buffer: Decompression buffer for Player GFX
 ;; 32768 bytes.
 	!gfx_player_buffer	= $7F0000
@@ -539,27 +546,27 @@ if !SA1 == 0
 	!gfx_ow_pl_buffer	= $7E7000
 ;;;;;;
 ;; !gfx_pl_compressed_flag: Flag used to determine if graphics were compressed or not.
-	!gfx_pl_compressed_flag	= $7E213B
+	!gfx_pl_compressed_flag	= $7E213C
 ;;;;;;
 ;; !gfx_ex_compressed_flag:  Flag used to determine if graphics were compressed or not.
 ;; 1 byte.
-	!gfx_ex_compressed_flag	= $7E213C
+	!gfx_ex_compressed_flag	= $7E213D
 ;;;;;;
 ;; !gfx_player_request: Determines if the player GFX should be decompressed or not.
 ;; 1 byte.
-	!gfx_player_request	= $7E213D
+	!gfx_player_request	= $7E213E
 ;;;;;;
 ;; !gfx_extra_request: Determines if the extra tile GFX should be decompressed or not.
 ;; 1 byte.
-	!gfx_extra_request	= $7E213E
+	!gfx_extra_request	= $7E213F
 ;;;;;;;
 ;; !ext_sprite_ram: Reserved for 4 extended sprites tables.
 ;; 40 bytes.
-	!ext_sprite_ram		= $7E213F
+	!ext_sprite_ram		= $7E2160
 ;;;;;;
 ;; !sprite_ram: Reserved for 1 sprite table.
 ;; 12 bytes.
-	!sprite_ram		= $7E2171
+	!sprite_ram		= $7E21C8
 
 	else
 
@@ -765,6 +772,12 @@ if !SA1 == 0
 ;; 1 byte
 	!ram_77_backup		= $40423A
 ;;;;;;
+;; !cape_button_time: Time for how long you keep floating after
+;; releasing B when floating with the cape/raccoon like powerups.
+;; 1 byte.
+	!cape_button_timer	= $40423B
+
+;;;;;;
 ;; !gfx_player_buffer: Decompression buffer for Player GFX
 ;; 32768 bytes.
 	!gfx_player_buffer	= $7F0000
@@ -782,27 +795,27 @@ if !SA1 == 0
 	!gfx_ow_pl_buffer	= $7E7000
 ;;;;;;
 ;; !gfx_pl_compressed_flag: Flag used to determine if graphics were compressed or not.
-	!gfx_pl_compressed_flag	= $40423B
+	!gfx_pl_compressed_flag	= $40423C
 ;;;;;;
 ;; !gfx_ex_compressed_flag:  Flag used to determine if graphics were compressed or not.
 ;; 1 byte.
-	!gfx_ex_compressed_flag	= $40423C
+	!gfx_ex_compressed_flag	= $40423D
 ;;;;;;
 ;; !gfx_player_request: Determines if the player GFX should be decompressed or not.
 ;; 1 byte.
-	!gfx_player_request	= $40423D
+	!gfx_player_request	= $40423E
 ;;;;;;
 ;; !gfx_extra_request: Determines if the extra tile GFX should be decompressed or not.
 ;; 1 byte.
-	!gfx_extra_request	= $40423E
+	!gfx_extra_request	= $40423F
 ;;;;;;;
 ;; !ext_sprite_ram: Reserved for 4 extended sprites tables.
 ;; 40 bytes.
-	!ext_sprite_ram		= $40423F
+	!ext_sprite_ram		= $404260
 ;;;;;;
 ;; !sprite_ram: Reserved for 1 sprite table.
 ;; 12 bytes.
-	!sprite_ram		= $404271
+	!sprite_ram		= $4042C8
 
 endif
 

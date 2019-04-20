@@ -13,8 +13,8 @@
 					;$14 = max value
 
 !tanooki_suit_settings		= $2A	;Settings for !cape_settings
-
-!tanooki_suit_flight_timer	= $78	;How many frames Mario will be able to ascend.
+!tanooki_suit_tap_timer		= $08	;Tap time.
+!tanooki_suit_flight_timer	= $66	;How many frames Mario will be able to ascend.
 
 %powerup_number(tanooki_suit,07,Smoke)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)

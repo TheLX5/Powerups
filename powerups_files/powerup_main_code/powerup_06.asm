@@ -9,6 +9,8 @@
 	sta !cape_settings
 	lda #!super_leaf_flight_timer
 	sta !flight_timer
+	lda #!super_leaf_tap_timer
+	sta !cape_button_timer
 
 	lda $13F3|!base2
 	beq .no_balloon

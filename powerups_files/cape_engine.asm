@@ -142,7 +142,9 @@ cape_tap:
 	lda $15,x
 	bpl .code_00D924
 .continue
-	jml $00D908|!base3
+	lda !cape_button_timer
+	sta $14A5|!base2
+	jml $00D90D|!base3
 .code_00D924
 	jml $00D924|!base3
 .tap	

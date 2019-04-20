@@ -6,10 +6,12 @@
 ;; You can also convert yourself in a statue.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-	lda #!super_leaf_settings
+	lda #!tanooki_suit_settings
 	sta !cape_settings
-	lda #!super_leaf_flight_timer
+	lda #!tanooki_suit_flight_timer
 	sta !flight_timer
+	lda #!tanooki_suit_tap_timer
+	sta !cape_button_timer
 
 	lda $13F3|!base2
 	beq .no_balloon
