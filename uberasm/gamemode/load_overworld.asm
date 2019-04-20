@@ -1,6 +1,7 @@
-init:	
-	lda $0DAE|!addr
-	bne +
+main:	
+init:
+	lda #$00
+	sta $13E0|!addr
 	jsl init_powerup_ram
 if !gfx_compression == 1
 	phb
@@ -15,5 +16,4 @@ if !gfx_compression == 1
 	plb
 endif
 +	
-main:
 	rtl
