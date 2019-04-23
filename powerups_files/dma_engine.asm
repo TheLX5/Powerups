@@ -252,7 +252,7 @@ endif
 	pld
 	sep #$20
 .skip_all
-	jml $00A38F|!base3
+	jml $00A304|!base3
 
 .vramtbl
 	dw $6300,$6200,$6100,$6000
