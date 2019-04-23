@@ -228,7 +228,7 @@ endmacro
 
 macro insert_gfx(filename,add)
 	!i := !i+1
-	org ($00A304+!base3+($<add>*3))
+	org ($00A30A+!base3+($<add>*3))
 		if read2($00D067|!base3) == $DEAD
 			autoclean dl <filename>_gfx
 		else
