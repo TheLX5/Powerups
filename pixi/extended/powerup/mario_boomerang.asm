@@ -122,29 +122,55 @@ movement:
 	beq $01 
 	iny 
 	sty $00
-	ldy !extended_x_speed,x
 	lda !extended_dir,x
-	bne .left
+	beq .left
 .right	
-	tya
-	clc
-	adc $00
-	bmi .keep_going
-	cmp #$50		;max speed
-	bcc .keep_going
-	lda #$50
-	bra .keep_going
-.left	
-	tya
+	lda !extended_table,x
+	and #$02
+	bne ..returning
+	lda !extended_x_speed,x
 	sec
 	sbc $00
-	bpl .keep_going
-	cmp #$B0
-	bcs .keep_going
-	lda #$B0
-.keep_going
+	bpl .end_x_speed
+	lda !extended_table,x
+	ora #$02
+	sta !extended_table,x
+	lda #$00
+	bra .end_x_speed
+
+..returning
+	lda !extended_x_speed,x
+	beq +
+	cmp #$AF
+	bcc .end_x_speed
++
+	sec
+	sbc $00
+	bra .end_x_speed
+.left	
+	lda !extended_table,x
+	and #$02
+	bne ..returning
+	lda !extended_x_speed,x
+	clc
+	adc $00
+	bmi .end_x_speed
+	lda !extended_table,x
+	ora #$02
+	sta !extended_table,x
+	lda #$00
+	bra .end_x_speed
+
+..returning
+	lda !extended_x_speed,x
+	cmp #$50
+	bcs .end_x_speed
+	clc
+	adc $00
+
+.end_x_speed	
 	sta !extended_x_speed,x
-	
+
 	lda !extended_table,x
 	and #$01
 	bne .go_up
