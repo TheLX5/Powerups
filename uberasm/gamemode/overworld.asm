@@ -3,11 +3,12 @@ main:
 	bne +
 	jsl init_powerup_ram
 +	
-if !DEBUG
+if !DEBUG == 1
 	jsl powerup_test
 endif
 	rtl
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 powerup_test:
 	ldx $0DB3|!addr

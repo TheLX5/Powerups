@@ -26,6 +26,14 @@
 	jmp ClearStatus
 .continue
 
+	lda $1697|!base2
+	cmp !power_ram+5
+	beq .no_reset
+	sta !power_ram+5
+	lda #$00
+	sta !PropStatus
+.no_reset
+
 	LdA !PropStatus
 	BPl +
 	LdA $77

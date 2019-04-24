@@ -13,11 +13,30 @@ normal_rt:
 	lda !extended_table,x
 	bpl main_rt
 kill_bubble:
-	lda #$02
-	sta $17C0|!Base2,x
-	lda #$0C
-	sta $17CC|!Base2,x
-	
+	ldy #$0B
+-	
+	lda $17F0|!Base2,y
+	beq +
+	dey
+	bpl -
+	bra ++
++	
+	lda !extended_y_low,x
+	clc
+	adc #$00
+	and #$F0
+	clc
+	adc #$03
+	sta $17FC|!Base2,y
+	lda !extended_x_low,x
+	sta $1808|!Base2,y
+	lda !extended_x_high,x
+	sta $18EA|!Base2,y
+	lda #$07
+	sta $17F0|!Base2,y
+	lda #$12
+	sta $1850|!Base2,y
+++	
 	lda #$19
 	sta $1DFC|!Base2
 kill_dma:

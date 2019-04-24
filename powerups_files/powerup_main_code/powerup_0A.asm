@@ -11,6 +11,14 @@
 	ora $75
 	ora $187A|!base2
 	bne .return_clear
+	
+	lda $1697|!base2
+	cmp !power_ram+5
+	beq .no_reset
+	sta !power_ram+5
+	bra .checks_start
+.no_reset
+
 	lda !power_ram
 	asl
 	tax
@@ -32,6 +40,7 @@
 	lda $16
 	and #$80
 	beq ..nope
+..start
 	lda #!rocket_boots_time
 	sta !misc
 	lda #$01
@@ -86,8 +95,8 @@
 	sta !misc
 .done
 	lda $14
-	and #$07
-	beq .no_sfx
+	and #$03
+	bne .no_sfx
 	lda #!rocket_boots_boost_sfx
 	sta !rocket_boots_boost_port|!base2
 	rep #$20
@@ -114,6 +123,6 @@
 	clc
 	adc #$18
 	sta $17C4|!base2,y
-	lda #$0F
+	lda #$0D
 	sta $17CC|!base2,y
 	rts

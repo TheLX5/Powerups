@@ -72,9 +72,9 @@
 	lsr #2
 	and #$03
 	tax
-	lda.l ...poses,x
+	lda.l ..poses,x
 	sta !power_ram
-	cpx #$03
+	cpx #$02
 	bcs +
 	rts 
 +	
@@ -165,9 +165,39 @@ endif
 	jmp ...try_again
 
 ...blocks
+	stz $13E8|!base2
+	lda !power_ram
+	beq ..end
+	sec
+	sbc #$46
+	asl
+	tay
+	lda #$01
+	sta $13E8|!base2
+	lda $76
+	asl
+	tax
+	rep #$20
+	lda $94
+	clc
+	adc.l ..block_x_disp,x
+	sta $13E9|!base2
+	tyx
+	lda $96
+	clc
+	adc.l ..block_y_disp,x
+	sta $13EB|!base2
+	sep #$20
+..end	
 	rts
 
-...poses
+..block_y_disp
+	dw $0006
+	dw $0016
+..block_x_disp
+	dw $FFF2
+	dw $000E
+..poses
 	db $00,$00,$47,$46,$46
 
 ..x_disp

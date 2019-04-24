@@ -52,7 +52,6 @@ endif
 	rts
 	
 .found_slot
-	
 if !enable_projectile_dma == 1
 	txa
 	sec

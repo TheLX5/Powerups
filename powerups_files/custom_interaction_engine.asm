@@ -16,7 +16,7 @@ force_hit_sprites:
 		
 .recover_code_hit_x	
 	plx 	
-.recover_code_hit	
+.recover_code_hit
 	lda !167A,x
 	bpl .default_interaction
 .return_force		
