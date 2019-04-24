@@ -8,6 +8,8 @@
 
 !mini_mushroom_crouch		= 0	;Set to 1 to disable jumping while crouching.
 !mini_mushroom_carry		= 0	;Set to 1 to disable jumping while carrying items.
+!mini_mushroom_yoshi_stomp	= 0	;Set to 1 to enable Mini Mario stomp enemies
+					;while riding Yoshi
 
 !mini_mushroom_dynamic_tile	= $26	;Tile used by the mini mushroom item
 

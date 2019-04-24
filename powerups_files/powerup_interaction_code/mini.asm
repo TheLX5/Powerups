@@ -27,6 +27,10 @@
 ..platform_fix
 	jmp .return_force
 ..bounce_off
+if !mini_mushroom_yoshi_stomp == 1
+	lda $187A|!base2
+	bne ..default_interaction
+endif
 	phk
 	pea ..sub_vert_pos-1
 	pea $80C9
