@@ -221,6 +221,7 @@ Killed:
 
 Carried:
 	jsl !block_interact
+	jsr extra_interaction
 	stz !AA,x
 	lda $76
 	eor #$01
@@ -381,6 +382,7 @@ Kicked:
 	lda !15B8,x
 	pha
 	jsl !update_gravity
+	jsr extra_interaction
 	pla
 	beq +
 	sta $00
@@ -395,12 +397,14 @@ Kicked:
 	bra ++
 +	
 	lda !1588,x
+	ora !1504,x
 	and #$04
 	beq ++
 	lda #$10
 	sta !AA,x
 ++	
 	lda !1588,x
+	ora !1504,x
 	and #$0B
 	beq +
 	jsr block_side
@@ -438,6 +442,7 @@ block_side:
 	cmp #$1C
 	bcc +
 	lda !1588,x
+	ora !1504,x
 	and #$40
 	asl #2
 	rol
@@ -460,6 +465,7 @@ Normal:
 	cmp #$08
 	beq .next
 	lda !1588,x
+	ora !1504,x
 	and #$0B
 	beq .end
 	lda #$02
@@ -470,6 +476,7 @@ Normal:
 	beq .outside_water
 	jsr .liquids
 	lda !1588,x
+	ora !1504,x
 	and #$0B
 	beq .apply_gravity
 	lda #$02
@@ -484,6 +491,7 @@ Normal:
 .zero_gravity
 	lda #$FF
 	sta !1540,x
+.zero_gravity_2
 	stz !AA,x
 	jsl !update_x_pos
 	jsl !update_y_pos
@@ -493,9 +501,10 @@ Normal:
 	lsr
 	bcc .check_floor
 	lda !carry_flag,x
-	beq .zero_gravity
+	beq .zero_gravity_2
 .check_floor
 	lda !1588,x
+	ora !1504,x
 	and #$04
 	beq .apply_gravity
 	lda !carry_flag,x
@@ -509,6 +518,7 @@ Normal:
 	beq -
 .apply_gravity
 	jsl !update_gravity
+	jsr extra_interaction
 .end_gravity
 	jsr sprite_contact
 	jmp block_interaction
@@ -530,6 +540,44 @@ Normal:
 	rts
 ++	
 	inc !B6,x
+	rts
+
+extra_interaction:
+	lda !C2,x
+	and #$06
+	cmp #$06
+	bne .end
+	lda !1588,x
+	pha
+	lda !sprite_x_low,x
+	pha
+	lda !sprite_x_high,x
+	pha
+	lda !sprite_y_low,x
+	pha
+	sec
+	sbc #$10
+	sta !sprite_y_low,x
+	lda !sprite_y_high,x
+	pha
+	sbc #$00
+	sta !sprite_y_high,x
+
+	jsl $019138|!BankB
+	lda !1588,x
+	sta !1504,x
+	
+	pla
+	sta !sprite_y_high,x
+	pla
+	sta !sprite_y_low,x
+	pla
+	sta !sprite_x_high,x
+	pla
+	sta !sprite_x_low,x
+	pla
+	sta !1588,x
+.end	
 	rts
 
 block_interaction:
@@ -579,6 +627,8 @@ block_interaction:
 	lda $8A
 	and #$C0
 	beq skip
+	cpy #$03
+	beq top
 	jmp wall_contact
 skip:
 	jmp skip_dir
