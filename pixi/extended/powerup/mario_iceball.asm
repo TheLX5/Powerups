@@ -249,6 +249,8 @@ contact:
 	lda #$88
 	sta !7FAB10,x
 	jsl $0187A7|!BankB
+	stz !1504,x
+	stz !1510,x
 	lda #$08
 	sta !14C8,x
 	lda #$FF
@@ -271,7 +273,7 @@ contact:
 .no_floor
 	lda !164A,x
 	bne .next
-	lda #$80
+	lda #$A0
 	sta !154C,x
 .next	
 	lda $0F
