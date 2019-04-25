@@ -268,7 +268,7 @@ contact:
 	lda !164A,x
 	bne .next
 	lda #$01
-	sta $C2,x
+	sta !C2,x
 	bra .next
 .no_floor
 	lda !164A,x
