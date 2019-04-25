@@ -151,7 +151,7 @@ iceball_normal_sprites:
 ;.20 Magikoopa's magic
 	db %00011111
 ;.21 Moving coin
-	db %11011111
+	db %00010000
 ;.22 Green vertical net Koopa
 	db %10000101
 ;.23 Red vertical net Koopa
