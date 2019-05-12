@@ -1,0 +1,102 @@
+{
+  "$1656": {
+    "Object Clipping": 0,
+    "Can be jumped on": false,
+    "Dies when jumped on": false,
+    "Hop in/kick shell": false,
+    "Disappears in cloud of smoke": false
+  },
+  "$1662": {
+    "Sprite Clipping": 0,
+    "Use shell as death frame": false,
+    "Fall straight down when killed": false
+  },
+  "$166E": {
+    "Use second graphics page": false,
+    "Palette": 3,
+    "Disable fireball killing": true,
+    "Disable cape killing": false,
+    "Disable water splash": false,
+    "Don't interact with Layer 2": false
+  },
+  "$167A": {
+    "Don't disable cliping when starkilled": false,
+    "Invincible to star/cape/fire/bounce blk.": true,
+    "Process when off screen": false,
+    "Don't change into shell when stunned": false,
+    "Can't be kicked like shell": false,
+    "Process interaction with Mario every frame": false,
+    "Gives power-up when eaten by yoshi": true,
+    "Don't use default interaction with Mario": true
+  },
+  "$1686": {
+    "Inedible": false,
+    "Stay in Yoshi's mouth": false,
+    "Weird ground behaviour": false,
+    "Don't interact with other sprites": true,
+    "Don't change direction if touched": false,
+    "Don't turn into coin when goal passed": true,
+    "Spawn a new sprite": false,
+    "Don't interact with objects": false
+  },
+  "$190F": {
+    "Make platform passable from below": false,
+    "Don't erase when goal passed": false,
+    "Can't be killed by sliding": false,
+    "Takes 5 fireballs to kill": false,
+    "Can be jumped on with upwards Y speed": false,
+    "Death frame two tiles high": false,
+    "Don't turn into a coin with silver POW": true,
+    "Don't get stuck in walls (carryable sprites)": true
+  },
+  "AsmFile": "",
+  "ActLike": 116,
+  "Type": 0,
+  "Extra Property Byte 1": 0,
+  "Extra Property Byte 2": 0,
+  "Additional Byte Count (extra bit clear)": 0,
+  "Additional Byte Count (extra bit set)": 0,
+  "Map16": "",
+  "Displays": [
+    {
+      "Description": "Mini Mushroom powerup item.",
+      "ExtraBit": false,
+      "Tiles": [
+        {
+          "X offset": 0,
+          "Y offset": 0,
+          "map16 tile": 0
+        }
+      ],
+      "X": 0,
+      "Y": 0,
+      "DisplayText": "",
+      "UseText": false
+    },
+    {
+      "Description": "Mini Mushroom powerup item.",
+      "ExtraBit": true,
+      "Tiles": [
+        {
+          "X offset": 0,
+          "Y offset": 0,
+          "map16 tile": 0
+        }
+      ],
+      "X": 0,
+      "Y": 0,
+      "DisplayText": "",
+      "UseText": false
+    }
+  ],
+  "Collection": [
+    {
+      "Name": "Mini Mushroom",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 0,
+      "Extra Property Byte 2": 0,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    }
+  ]
+}

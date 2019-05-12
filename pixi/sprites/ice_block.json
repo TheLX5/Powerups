@@ -1,0 +1,102 @@
+{
+  "$1656": {
+    "Object Clipping": 0,
+    "Can be jumped on": false,
+    "Dies when jumped on": false,
+    "Hop in/kick shell": false,
+    "Disappears in cloud of smoke": false
+  },
+  "$1662": {
+    "Sprite Clipping": 0,
+    "Use shell as death frame": false,
+    "Fall straight down when killed": false
+  },
+  "$166E": {
+    "Use second graphics page": false,
+    "Palette": 5,
+    "Disable fireball killing": true,
+    "Disable cape killing": true,
+    "Disable water splash": false,
+    "Don't interact with Layer 2": false
+  },
+  "$167A": {
+    "Don't disable cliping when starkilled": true,
+    "Invincible to star/cape/fire/bounce blk.": true,
+    "Process when off screen": false,
+    "Don't change into shell when stunned": true,
+    "Can't be kicked like shell": true,
+    "Process interaction with Mario every frame": true,
+    "Gives power-up when eaten by yoshi": false,
+    "Don't use default interaction with Mario": true
+  },
+  "$1686": {
+    "Inedible": false,
+    "Stay in Yoshi's mouth": true,
+    "Weird ground behaviour": false,
+    "Don't interact with other sprites": false,
+    "Don't change direction if touched": true,
+    "Don't turn into coin when goal passed": true,
+    "Spawn a new sprite": false,
+    "Don't interact with objects": false
+  },
+  "$190F": {
+    "Make platform passable from below": false,
+    "Don't erase when goal passed": true,
+    "Can't be killed by sliding": true,
+    "Takes 5 fireballs to kill": false,
+    "Can be jumped on with upwards Y speed": true,
+    "Death frame two tiles high": false,
+    "Don't turn into a coin with silver POW": true,
+    "Don't get stuck in walls (carryable sprites)": true
+  },
+  "AsmFile": "ice_block.asm",
+  "ActLike": 0,
+  "Type": 1,
+  "Extra Property Byte 1": 0,
+  "Extra Property Byte 2": 128,
+  "Additional Byte Count (extra bit clear)": 0,
+  "Additional Byte Count (extra bit set)": 0,
+  "Map16": "",
+  "Displays": [
+    {
+      "Description": "Ice block sprite for the Ice Flower and Penguin Suit items. Not meant to be placed in a level.",
+      "ExtraBit": false,
+      "Tiles": [
+        {
+          "X offset": 0,
+          "Y offset": 0,
+          "map16 tile": 0
+        }
+      ],
+      "X": 0,
+      "Y": 0,
+      "DisplayText": "",
+      "UseText": false
+    },
+    {
+      "Description": "Ice block sprite for the Ice Flower and Penguin Suit items. Not meant to be placed in a level.",
+      "ExtraBit": true,
+      "Tiles": [
+        {
+          "X offset": 0,
+          "Y offset": 0,
+          "map16 tile": 0
+        }
+      ],
+      "X": 0,
+      "Y": 0,
+      "DisplayText": "",
+      "UseText": false
+    }
+  ],
+  "Collection": [
+    {
+      "Name": "Ice Block(Don't use)",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 0,
+      "Extra Property Byte 2": 0,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    }
+  ]
+}
