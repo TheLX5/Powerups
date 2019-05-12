@@ -1,7 +1,6 @@
 main:	
 init:
-	lda #$00
-	sta $13E0|!addr
+	stz $13E0|!addr
 	jsl init_powerup_ram
 if !gfx_compression == 1
 	phb

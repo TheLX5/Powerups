@@ -1,7 +1,4 @@
-init:	
-	lda $0DAE|!addr
-	bne end_init
-	
+init:		
 if !dynamic_items == 1
 	ldy $0DC2|!addr
 	lda.b #read1($02802D|!bank)
@@ -23,7 +20,7 @@ if !dynamic_items == 1
 	sta !item_gfx_pointer+10
 	sep #$20
 	lda !item_gfx_refresh
-	ora #$10
+	ora #$13
 	sta !item_gfx_refresh
 endif
 
