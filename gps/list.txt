@@ -1,5 +1,15 @@
 ; GPS block list
 
+;# Enhanced vanilla blocks
+2F0:112	enhanced_blocks/on_off.asm
+2F1:11E	enhanced_blocks/turn_block.asm
+2F2:12E	enhanced_blocks/throw_block.asm
+2F3:12C	enhanced_blocks/glass_block.asm
+2F4:2B	enhanced_blocks/coin.asm
+2F5:2C	enhanced_blocks/purple_coin.asm
+2F6:2A	enhanced_blocks/pow_coin.asm
+2F7:132	enhanced_blocks/pow_coin.asm
+
 200:130	question_mark_blocks/hammer_suit.asm
 201:130	question_mark_blocks/boomerang_suit.asm
 202:130	question_mark_blocks/super_leaf.asm
@@ -16,35 +26,106 @@
 20D:130	question_mark_blocks/bubble_flower.asm
 20E:130	question_mark_blocks/cat_suit.asm
 
-210:130	hammer_shatter.asm
-211:130	hammer_immune.asm
-212:130	boomerang_shatter.asm
-213:130	boomerang_immune.asm
-214:130	statue_shatter.asm
-215:130	statue_solid.asm
-216:2B	superball_coin.asm
-217:130 superball_passable.asm
-218:130 superball_shatter.asm
-219:130 mini_passable.asm
-21A:25	mini_shatter.asm
-21B:0	mini_top_water.asm
-21C:100 shell_act_like.asm
-21D:130 shell_act_like.asm
-21E:25	shell_stop.asm
-21F:130	shell_shatter.asm
+210:130	instant_question_mark_blocks/hammer_suit.asm
+211:130	instant_question_mark_blocks/boomerang_suit.asm
+212:130	instant_question_mark_blocks/super_leaf.asm
+213:130	instant_question_mark_blocks/tanooki_suit.asm
+214:130	instant_question_mark_blocks/frog_suit.asm
+215:130	instant_question_mark_blocks/superball_flower.asm
+216:130	instant_question_mark_blocks/rocket_boots.asm
+217:130	instant_question_mark_blocks/mini_mushroom.asm
+218:130	instant_question_mark_blocks/ice_flower.asm
+219:130	instant_question_mark_blocks/penguin_suit.asm
+21A:130	instant_question_mark_blocks/propeller_suit.asm
+21B:130	instant_question_mark_blocks/shell_suit.asm
+21C:130	instant_question_mark_blocks/cloud_flower.asm
+21D:130	instant_question_mark_blocks/bubble_flower.asm
+21E:130	instant_question_mark_blocks/cat_suit.asm
 
-220:130	instant_question_mark_blocks/hammer_suit.asm
-221:130	instant_question_mark_blocks/boomerang_suit.asm
-222:130	instant_question_mark_blocks/super_leaf.asm
-223:130	instant_question_mark_blocks/tanooki_suit.asm
-224:130	instant_question_mark_blocks/frog_suit.asm
-225:130	instant_question_mark_blocks/superball_flower.asm
-226:130	instant_question_mark_blocks/rocket_boots.asm
-227:130	instant_question_mark_blocks/mini_mushroom.asm
-228:130	instant_question_mark_blocks/ice_flower.asm
-229:130	instant_question_mark_blocks/penguin_suit.asm
-22A:130	instant_question_mark_blocks/propeller_suit.asm
-22B:130	instant_question_mark_blocks/shell_suit.asm
-22C:130	instant_question_mark_blocks/cloud_flower.asm
-22D:130	instant_question_mark_blocks/bubble_flower.asm
-22E:130	instant_question_mark_blocks/cat_suit.asm
+;# Projectile blocks
+220:130	projectiles/immune_all.asm
+221:130	projectiles/shatter_all.asm
+222:130	projectiles/shatter_rainbow_all.asm
+223:130	projectiles/poof_all.asm
+224:130	projectiles/shatter_sensible_all.asm
+225:130	projectiles/shatter_sensible_rainbow_all.asm
+226:130	projectiles/poof_sensible_all.asm
+
+;# Fireball blocks
+230:130	projectiles/fireball/immune.asm
+231:130	projectiles/fireball/shatter.asm
+232:130	projectiles/fireball/shatter_rainbow.asm
+233:130	projectiles/fireball/poof.asm
+234:130	projectiles/fireball/shatter_sensible.asm
+235:130	projectiles/fireball/shatter_sensible_rainbow.asm
+236:130	projectiles/fireball/poof_sensible.asm
+
+;# Iceball blocks
+240:130	projectiles/iceball/immune.asm
+241:130	projectiles/iceball/shatter.asm
+242:130	projectiles/iceball/shatter_rainbow.asm
+243:130	projectiles/iceball/poof.asm
+244:130	projectiles/iceball/shatter_sensible.asm
+245:130	projectiles/iceball/shatter_sensible_rainbow.asm
+246:130	projectiles/iceball/poof_sensible.asm
+
+;# Hammer blocks
+250:130	projectiles/hammer/immune.asm
+251:130	projectiles/hammer/shatter.asm
+252:130	projectiles/hammer/shatter_rainbow.asm
+253:130	projectiles/hammer/poof.asm
+254:130	projectiles/hammer/shatter_sensible.asm
+255:130	projectiles/hammer/shatter_sensible_rainbow.asm
+256:130	projectiles/hammer/poof_sensible.asm
+
+;# Boomerang blocks
+260:130	projectiles/boomerang/immune.asm
+261:130	projectiles/boomerang/shatter.asm
+262:130	projectiles/boomerang/shatter_rainbow.asm
+263:130	projectiles/boomerang/poof.asm
+264:130	projectiles/boomerang/shatter_sensible.asm
+265:130	projectiles/boomerang/shatter_sensible_rainbow.asm
+266:130	projectiles/boomerang/poof_sensible.asm
+
+;# Superball blocks
+270:130	projectiles/superball/immune.asm
+271:130	projectiles/superball/shatter.asm
+272:130	projectiles/superball/shatter_rainbow.asm
+273:130	projectiles/superball/poof.asm
+274:130	projectiles/superball/shatter_sensible.asm
+275:130	projectiles/superball/shatter_sensible_rainbow.asm
+276:130	projectiles/superball/poof_sensible.asm
+
+;# Bubble blocks
+280:130	projectiles/bubble/immune.asm
+281:130	projectiles/bubble/shatter.asm
+282:130	projectiles/bubble/shatter_rainbow.asm
+283:130	projectiles/bubble/poof.asm
+284:130	projectiles/bubble/shatter_sensible.asm
+285:130	projectiles/bubble/shatter_sensible_rainbow.asm
+286:130	projectiles/bubble/poof_sensible.asm
+
+;# Misc other powerup blocks
+290:100	powerup_specific/statue_act_like.asm
+291:130	powerup_specific/statue_shatter.asm
+292:130	powerup_specific/statue_rainbow_shatter.asm
+293:130	powerup_specific/statue_poof.asm
+294:100	powerup_specific/mini_passable.asm
+295:0	powerup_specific/mini_top_water.asm
+296:130	powerup_specific/mini_shatter.asm
+297:100	powerup_specific/shell_act_like.asm
+298:130	powerup_specific/shell_shatter.asm
+299:130	powerup_specific/shell_rainbow_shatter.asm
+29A:130	powerup_specific/shell_poof.asm
+29B:25	powerup_specific/shell_stop.asm
+29C:130	powerup_specific/penguin_shatter.asm
+29D:130	powerup_specific/penguin_rainbow_shatter.asm
+29E:130	powerup_specific/penguin_poof.asm
+29F:25	powerup_specific/penguin_stop.asm
+2A0:25	powerup_specific/cloud_refill.asm
+2A1:25	powerup_specific/cloud_refill_once.asm
+2A2:25	powerup_specific/rocket_refill.asm
+2A3:25	powerup_specific/rocket_refill_once.asm
+2A4:130	powerup_specific/propeller_shatter.asm
+2A5:130	powerup_specific/propeller_rainbow_shatter.asm
+2A6:130	powerup_specific/propeller_poof.asm
