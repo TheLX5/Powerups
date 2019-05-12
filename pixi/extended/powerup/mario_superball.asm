@@ -39,28 +39,33 @@ actual_main:
 	%ExtendedBlockInteraction()
 	bcs checks
 skip_objs:
+	lda #$00
+	sta !extended_flags,x
 	jmp no_obj_contact
 checks:
-	ldy $0F
-	lda $008B|!Base1,y
-	xba
-	lda $000C|!Base1,y
-	rep #$20
-	and #$3FFF
-	asl
-	tay
-	lda $06F624|!BankB
-	sta $00
-	lda $06F626|!BankB
-	sta $02
-	lda [$00],y
-	cmp #$002B
-	sep #$20
-	beq skip_objs
+;	ldy $0F
+;	lda $008B|!Base1,y
+;	xba
+;	lda $000C|!Base1,y
+;	rep #$20
+;	and #$3FFF
+;	asl
+;	tay
+;	lda $06F624|!BankB
+;	sta $00
+;	lda $06F626|!BankB
+;	sta $02
+;	lda [$00],y
+;	cmp #$0030
+;	sep #$20
+;	bcc skip_objs
+	lda !extended_flags,x
+	bmi skip_objs
 	
 	lda !extended_flags,x
 	inc 
 	sta !extended_flags,x
+	and #$7F
 	cmp #$03
 	bcs kill_sprite
 	lda !extended_x_speed,x
@@ -68,6 +73,7 @@ checks:
 	inc
 	sta !extended_x_speed,x
 	lda !extended_flags,x
+	and #$7F
 	cmp #$02
 	bcc .no_flip_y
 	lda #$03

@@ -9,11 +9,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 hammer_custom_sprites:
-	db %00010001,%00010001,%00010001,%00010001	; custom sprites 0-3
-	db %00010001,%00010001,%00010001,%00010001	; custom sprites 4-7
-	db %00010001,%00010001,%00010001,%00010001	; custom sprites 8-B
-	db %00010001,%00010001,%00010001,%00000001	; custom sprites C-F
-	db %00000000,%00000000,%00000000,%00000000	; custom sprites 10-13
+	db %00010000,%00010000,%00010000,%00010000	; custom sprites 0-3
+	db %00010000,%00010000,%00010000,%00010000	; custom sprites 4-7
+	db %00010000,%00010000,%00010000,%00010000	; custom sprites 8-B
+	db %00010000,%00010000,%00010000,%00000001	; custom sprites C-F
+	db %00010000,%00010000,%00000000,%00000000	; custom sprites 10-13
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites 14-17
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites 18-1B
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites 1C-1F
@@ -142,7 +142,7 @@ hammer_normal_sprites:
 ;.20 Magikoopa's magic
 	db %00011111
 ;.21 Moving coin
-	db %11011111
+	db %00010000
 ;.22 Green vertical net Koopa
 	db %00000000
 ;.23 Red vertical net Koopa
@@ -200,7 +200,7 @@ hammer_normal_sprites:
 ;.3D Rip Van Fish
 	db %00000000
 ;.3E POW
-	db %11111111
+	db  %00010000
 ;.3F Para-Goomba
 	db %00000000
 ;.40 Para-Bomb
@@ -222,9 +222,9 @@ hammer_normal_sprites:
 ;.48 Diggin' Chuck's rock
 	db %00000100
 ;.49 Growing/shrinking pipe end
-	db %00111111
+	db %00010000
 ;.4A Goal Point Question Sphere
-	db %11111111
+	db %00010000
 ;.4B Pipe dwelling Lakitu
 	db %00000000
 ;.4C Exploding Block
@@ -240,9 +240,9 @@ hammer_normal_sprites:
 ;.51 Ninji
 	db %00000000
 ;.52 Moving ledge hole in ghost house
-	db %00111111
+	db %00010000
 ;.53 Throw block sprite
-	db %01101110
+	db %00010000
 ;.54 Climbing net door
 	db %00011111
 ;.55 Checkerboard platform, horizontal

@@ -13,7 +13,7 @@ superball_custom_sprites:
 	db %00010001,%00010001,%00010001,%00010001	; custom sprites 4-7
 	db %00010001,%00010001,%00010001,%00010001	; custom sprites 8-B
 	db %00010001,%00010001,%00010001,%00000001	; custom sprites C-F
-	db %00000000,%00000000,%00000000,%00000000	; custom sprites 10-13
+	db %00010000,%00010000,%00000000,%00000000	; custom sprites 10-13
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites 14-17
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites 18-1B
 	db %00000000,%00000000,%00000000,%00000000	; custom sprites 1C-1F
@@ -242,7 +242,7 @@ superball_normal_sprites:
 ;.52 Moving ledge hole in ghost house
 	db %00111111
 ;.53 Throw block sprite
-	db %01101110
+	db %00010000
 ;.54 Climbing net door
 	db %00011111
 ;.55 Checkerboard platform, horizontal
