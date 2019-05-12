@@ -166,7 +166,7 @@ init_item:
 	lda !1602,x
 	inc
 	ora !item_gfx_refresh
-	and #$03
+	and #$13
 	sta !item_gfx_refresh
 
 
