@@ -64,7 +64,14 @@
 	lda [$8A],y
 	sep #$10
 	sta $0F
+	ldy $185E|!Base2
+	lda !ext_sprite_num,x
+	cmp #!boomerang_ext_num
+	bne .skip
+	lda $0F
 	bmi .pass
+.skip	
+	lda $0F
 	and #$10
 	bne .ignore
 .pass
