@@ -1,0 +1,256 @@
+{
+  "$1656": {
+    "Object Clipping": 0,
+    "Can be jumped on": false,
+    "Dies when jumped on": false,
+    "Hop in/kick shell": false,
+    "Disappears in cloud of smoke": false
+  },
+  "$1662": {
+    "Sprite Clipping": 0,
+    "Use shell as death frame": false,
+    "Fall straight down when killed": false
+  },
+  "$166E": {
+    "Use second graphics page": false,
+    "Palette": 0,
+    "Disable fireball killing": true,
+    "Disable cape killing": true,
+    "Disable water splash": true,
+    "Don't interact with Layer 2": true
+  },
+  "$167A": {
+    "Don't disable cliping when starkilled": true,
+    "Invincible to star/cape/fire/bounce blk.": true,
+    "Process when off screen": false,
+    "Don't change into shell when stunned": true,
+    "Can't be kicked like shell": true,
+    "Process interaction with Mario every frame": true,
+    "Gives power-up when eaten by yoshi": false,
+    "Don't use default interaction with Mario": true
+  },
+  "$1686": {
+    "Inedible": true,
+    "Stay in Yoshi's mouth": true,
+    "Weird ground behaviour": true,
+    "Don't interact with other sprites": true,
+    "Don't change direction if touched": true,
+    "Don't turn into coin when goal passed": true,
+    "Spawn a new sprite": false,
+    "Don't interact with objects": true
+  },
+  "$190F": {
+    "Make platform passable from below": false,
+    "Don't erase when goal passed": true,
+    "Can't be killed by sliding": true,
+    "Takes 5 fireballs to kill": false,
+    "Can be jumped on with upwards Y speed": false,
+    "Death frame two tiles high": false,
+    "Don't turn into a coin with silver POW": true,
+    "Don't get stuck in walls (carryable sprites)": false
+  },
+  "AsmFile": "spawner.asm",
+  "ActLike": 54,
+  "Type": 1,
+  "Extra Property Byte 1": 255,
+  "Extra Property Byte 2": 255,
+  "Additional Byte Count (extra bit clear)": 2,
+  "Additional Byte Count (extra bit set)": 2,
+  "Map16": "qAW4BakFuQU=",
+  "Displays": [
+    {
+      "Description": "Powerup Spawner/Generator.\\n\\nSpawns a powerup like if were generated via a Question Block every second if there aren't any powerups on the screen.\\nIt uses the first Extra Byte to determine which powerup will it spawn and the second Extra Byte determines the frequency of items being generated.\\n\\nValid values for the first Extra Byte: \\n00 - Mushroom \\n01 - Fire Flower \\n02 - Star \\n03 - Feather \\n04 - Hammer Suit\\n05 - Boomerang Suit\\n06 - Super Leaf \\n07 - Tanooki Suit\\n08 - Frog Suit \\n09 - Superball Flower \\n0A - Rocket Boots \\n0B - Mini Mushroom \\n0C - Ice Flower \\n0D - Penguin Suit \\n0E - Propeller Suit \\n0F - Shell Suit \\n10 - Bubble Flower \\n11 - Cloud Flower \\n12 - Cat Suit\n",
+      "ExtraBit": false,
+      "Tiles": [
+        {
+          "X offset": 0,
+          "Y offset": 0,
+          "map16 tile": 1
+        },
+        {
+          "X offset": 0,
+          "Y offset": 0,
+          "map16 tile": 276
+        }
+      ],
+      "X": 0,
+      "Y": 0,
+      "DisplayText": "",
+      "UseText": false
+    },
+    {
+      "Description": "Powerup Spawner/Generator.\\n\\nSpawns a powerup like if were generated via a Question Block every second if there aren't any powerups on the screen.\\nIt uses the first Extra Byte to determine which powerup will it spawn and the second Extra Byte determines the frequency of items being generated.\\n\\nValid values for the first Extra Byte: \\n00 - Mushroom \\n01 - Fire Flower \\n02 - Star \\n03 - Feather \\n04 - Hammer Suit\\n05 - Boomerang Suit\\n06 - Super Leaf \\n07 - Tanooki Suit\\n08 - Frog Suit \\n09 - Superball Flower \\n0A - Rocket Boots \\n0B - Mini Mushroom \\n0C - Ice Flower \\n0D - Penguin Suit \\n0E - Propeller Suit \\n0F - Shell Suit \\n10 - Bubble Flower \\n11 - Cloud Flower \\n12 - Cat Suit\n",
+      "ExtraBit": true,
+      "Tiles": [
+        {
+          "X offset": 0,
+          "Y offset": 0,
+          "map16 tile": 1
+        },
+        {
+          "X offset": 0,
+          "Y offset": 0,
+          "map16 tile": 276
+        }
+      ],
+      "X": 0,
+      "Y": 0,
+      "DisplayText": "",
+      "UseText": false
+    }
+  ],
+  "Collection": [
+    {
+      "Name": "Mushroom Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 0,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Flower Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 1,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Feather Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 2,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Star Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 3,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Hammer Suit Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 4,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Boomerang Suit Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 5,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Super Leaf Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 6,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Tanooki Suit Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 7,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Frog Suit Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 8,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Superball Flower Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 9,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Rocket Boots Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 10,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Mini Mushroom Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 11,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Ice Flower Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 12,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Penguin Suit Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 13,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Propeller Suit Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 14,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Shell Suit Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 15,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Bubble Flower Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 16,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Cloud Flower Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 17,
+      "Extra Property Byte 2": 72,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    },
+    {
+      "Name": "Cat Suit Spawner",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 18,
+      "Extra Property Byte 2": 0,
+      "Extra Property Byte 3": 0,
+      "Extra Property Byte 4": 0
+    }
+  ]
+}

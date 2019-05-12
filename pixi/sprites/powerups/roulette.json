@@ -1,0 +1,160 @@
+{
+  "$1656": {
+    "Object Clipping": 0,
+    "Can be jumped on": false,
+    "Dies when jumped on": false,
+    "Hop in/kick shell": false,
+    "Disappears in cloud of smoke": false
+  },
+  "$1662": {
+    "Sprite Clipping": 11,
+    "Use shell as death frame": false,
+    "Fall straight down when killed": false
+  },
+  "$166E": {
+    "Use second graphics page": false,
+    "Palette": 0,
+    "Disable fireball killing": false,
+    "Disable cape killing": false,
+    "Disable water splash": false,
+    "Don't interact with Layer 2": false
+  },
+  "$167A": {
+    "Don't disable cliping when starkilled": false,
+    "Invincible to star/cape/fire/bounce blk.": true,
+    "Process when off screen": false,
+    "Don't change into shell when stunned": false,
+    "Can't be kicked like shell": false,
+    "Process interaction with Mario every frame": false,
+    "Gives power-up when eaten by yoshi": true,
+    "Don't use default interaction with Mario": true
+  },
+  "$1686": {
+    "Inedible": false,
+    "Stay in Yoshi's mouth": false,
+    "Weird ground behaviour": false,
+    "Don't interact with other sprites": true,
+    "Don't change direction if touched": false,
+    "Don't turn into coin when goal passed": true,
+    "Spawn a new sprite": false,
+    "Don't interact with objects": false
+  },
+  "$190F": {
+    "Make platform passable from below": false,
+    "Don't erase when goal passed": false,
+    "Can't be killed by sliding": false,
+    "Takes 5 fireballs to kill": false,
+    "Can be jumped on with upwards Y speed": false,
+    "Death frame two tiles high": false,
+    "Don't turn into a coin with silver POW": true,
+    "Don't get stuck in walls (carryable sprites)": true
+  },
+  "AsmFile": "roulette.asm",
+  "ActLike": 129,
+  "Type": 1,
+  "Extra Property Byte 1": 0,
+  "Extra Property Byte 2": 0,
+  "Additional Byte Count (extra bit clear)": 4,
+  "Additional Byte Count (extra bit set)": 4,
+  "Map16": "",
+  "Displays": [
+    {
+      "Description": "Powerup Item Roulette. \\n\\nRecreation of the original Powerup Item roulette to allow custom Powerups to show up. It uses the four Extra Bytes to determine which items will it show. \\nWARNING: DON'T PLACE IT NEAR A LEVEL ENTRANCE, SECONDARY ENTRANCE OR A MIDWAY ENTRANCE.\\n\\nValid values: \\n00 - Mushroom \\n01 - Fire Flower \\n02 - Star \\n03 - Feather \\n04 - Hammer Suit\\n05 - Boomerang Suit\\n06 - Super Leaf \\n07 - Tanooki Suit\\n08 - Frog Suit \\n09 - Superball Flower \\n0A - Rocket Boots \\n0B - Mini Mushroom \\n0C - Ice Flower \\n0D - Penguin Suit \\n0E - Propeller Suit \\n0F - Shell Suit \\n10 - Bubble Flower \\n11 - Cloud Flower \\n12 - Cat Suit",
+      "ExtraBit": false,
+      "Tiles": [
+        {
+          "X offset": 0,
+          "Y offset": 0,
+          "map16 tile": 0
+        },
+        {
+          "X offset": -8,
+          "Y offset": -8,
+          "map16 tile": 534
+        }
+      ],
+      "X": 0,
+      "Y": 0,
+      "DisplayText": "",
+      "UseText": false
+    },
+    {
+      "Description": "Powerup Item Roulette. \\n\\nRecreation of the original Powerup Item roulette to allow custom Powerups to show up. It uses the four Extra Bytes to determine which items will it show. \\nWARNING: DON'T PLACE IT NEAR A LEVEL ENTRANCE, SECONDARY ENTRANCE OR A MIDWAY ENTRANCE.\\n\\nValid values: \\n00 - Mushroom \\n01 - Fire Flower \\n02 - Star \\n03 - Feather \\n04 - Hammer Suit\\n05 - Boomerang Suit\\n06 - Super Leaf \\n07 - Tanooki Suit\\n08 - Frog Suit \\n09 - Superball Flower \\n0A - Rocket Boots \\n0B - Mini Mushroom \\n0C - Ice Flower \\n0D - Penguin Suit \\n0E - Propeller Suit \\n0F - Shell Suit \\n10 - Bubble Flower \\n11 - Cloud Flower \\n12 - Cat Suit",
+      "ExtraBit": true,
+      "Tiles": [
+        {
+          "X offset": 0,
+          "Y offset": 0,
+          "map16 tile": 0
+        },
+        {
+          "X offset": -8,
+          "Y offset": -8,
+          "map16 tile": 534
+        }
+      ],
+      "X": 0,
+      "Y": 0,
+      "DisplayText": "",
+      "UseText": false
+    }
+  ],
+  "Collection": [
+    {
+      "Name": "Original items roulette",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 0,
+      "Extra Property Byte 2": 1,
+      "Extra Property Byte 3": 3,
+      "Extra Property Byte 4": 2
+    },
+    {
+      "Name": "Flower items roulette",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 1,
+      "Extra Property Byte 2": 12,
+      "Extra Property Byte 3": 9,
+      "Extra Property Byte 4": 16
+    },
+    {
+      "Name": "Flying items roulette",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 3,
+      "Extra Property Byte 2": 6,
+      "Extra Property Byte 3": 14,
+      "Extra Property Byte 4": 10
+    },
+    {
+      "Name": "SMB3 items Roulette",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 6,
+      "Extra Property Byte 2": 4,
+      "Extra Property Byte 3": 7,
+      "Extra Property Byte 4": 8
+    },
+    {
+      "Name": "NSMB items Roulette",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 11,
+      "Extra Property Byte 2": 13,
+      "Extra Property Byte 3": 14,
+      "Extra Property Byte 4": 15
+    },
+    {
+      "Name": "Unique items Roulette",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 5,
+      "Extra Property Byte 2": 10,
+      "Extra Property Byte 3": 17,
+      "Extra Property Byte 4": 18
+    },
+    {
+      "Name": "Aquatic items Roulette",
+      "ExtraBit": false,
+      "Extra Property Byte 1": 8,
+      "Extra Property Byte 2": 13,
+      "Extra Property Byte 3": 16,
+      "Extra Property Byte 4": 2
+    }
+  ]
+}
