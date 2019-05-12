@@ -34,9 +34,9 @@ incsrc ../../powerup_defs.asm
 print "INIT ",pc
 	lda $02806F|!BankB
 	sta $00
-	lda $02806F|!BankB
+	lda $028070|!BankB
 	sta $01
-	lda $02806F|!BankB
+	lda $028071|!BankB
 	sta $02
 	jml [!Base1]
 
@@ -174,7 +174,7 @@ endif
 	lda !1602,x
 	inc
 	ora !item_gfx_refresh
-	and #$03
+	and #$13
 	sta !item_gfx_refresh
 .skip	
 .GetDrawInfo
