@@ -14,6 +14,11 @@ cape_image:
 	lda $71
 	cmp #$09
 	beq .hide_cape
+	cmp #$01
+	bcc .pass
+	cmp #$05
+	bcc .hide_cape
+.pass	
 	lda $78
 	and #$10
 	bne .hide_cape
