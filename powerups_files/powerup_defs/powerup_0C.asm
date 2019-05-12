@@ -23,7 +23,18 @@
 !iceball_run_sprites		= 1	;If this is set to 0, the sprite will check contact with sprites every frame.
 					;Otherwise, it will only check every other frame.
 					;Set it to zero if you are using SA-1.
-					
+
+!iceball_activate_on_off	= 0	;Set to 1 to enable fireballs be able to active ON/OFF blocks on contact.
+
+!iceball_activate_turn_block	= 0	;Set to 1 to enable fireballs be able to active turn blocks on contact.
+					;Set to 2 to enable fireballs be able to break turn blocks on contact.
+
+!iceball_activate_throw_block	= 0	;Set to 1 to enable fireballs be able to break throw blocks on contact.
+
+!iceball_activate_glass_block	= 0	;Set to 1 to enable fireballs be able to active glass blocks on contact.
+
+!iceball_collect_coins		= 0	;Set to 1 to enable fireballs be able to collect coins.
+				
 !iceball_prop			= $0A	;YXPPCCCT properties for the iceball
 
 !iceball_pro_tile_1		= $00	;Frames of the iceball sprite.

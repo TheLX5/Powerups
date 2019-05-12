@@ -3,6 +3,17 @@
 
 !fireball_shoot_up		= 1	;If this is set to 1, Mario will be able to shoot upwards the superballs.
 
+!fireball_activate_on_off	= 0	;Set to 1 to enable fireballs be able to active ON/OFF blocks on contact.
+
+!fireball_activate_turn_block	= 0	;Set to 1 to enable fireballs be able to active turn blocks on contact.
+					;Set to 2 to enable fireballs be able to break turn blocks on contact.
+
+!fireball_activate_throw_block	= 0	;Set to 1 to enable fireballs be able to break throw blocks on contact.
+
+!fireball_activate_glass_block	= 0	;Set to 1 to enable fireballs be able to active glass blocks on contact.
+
+!fireball_collect_coins		= 0	;Set to 1 to enable fireballs be able to collect coins.
+
 %powerup_number(fire,03,Palette)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.

@@ -17,7 +17,7 @@
 !boomerang_catch_cooldown	= $10	;How many frames the boomerang will be "uncatchable"
 					;Don't set it too low, otherwise Mario will catch these in an instant.
 
-!boomerang_item_retrieve	= 0	;Set to 0 to make boomerangs not retrieve items.
+!boomerang_item_retrieve	= 1	;Set to 0 to make boomerangs not retrieve items.
 
 !boomerang_y_speed		= $EC	;Base Y speed, it's used to calculate every Y speed.
 					;It's based on Mario's X speed.
@@ -38,6 +38,17 @@
 !boomerang_run_blocks		= 0	;If this is set to 0, the boomerang will check contact with blocks every frame.
 					;Otherwise, it will only check every other frame.
 					;Set it to zero if you are using SA-1.
+
+!boomerang_activate_on_off	= 1	;Set to 1 to enable boomerangs be able to active ON/OFF blocks on contact.
+
+!boomerang_activate_turn_block	= 1	;Set to 1 to enable boomerangs be able to active turn blocks on contact.
+					;Set to 2 to enable boomerangs be able to break turn blocks on contact.
+
+!boomerang_activate_throw_block	= 0	;Set to 1 to enable boomerangs be able to break throw blocks on contact.
+
+!boomerang_activate_glass_block	= 1	;Set to 1 to enable boomerangs be able to active glass blocks on contact.
+
+!boomerang_collect_coins	= 0	;Set to 1 to enable boomerangs be able to collect coins.
 
 
 %powerup_number(boomerang_suit,05,Smoke)	;Mandatory macro to get the powerup number.
