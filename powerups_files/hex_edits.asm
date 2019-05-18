@@ -239,6 +239,9 @@ org $02FE5E|!base3
 	db $CE
 org $02FE63|!base3
 	db $3B
+
+org $07F47B|!base3	;pballoon
+	db $20
 endif
 
 org $00CCB5|!base3

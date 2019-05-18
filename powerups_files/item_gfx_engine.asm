@@ -52,6 +52,7 @@ else
 
 init_powerup:
 	inc !C2,x		;original code, dunno what it does.
+init_pballoon_item:
 	stz $02
 	stz !1510,x
 init_item:
@@ -77,6 +78,8 @@ init_item:
 	and #$08
 	bne ..custom_sprite
 	lda !9E,x
+	cmp #$7D
+	beq ..found
 	cmp #$74
 	bcc ..free
 	cmp #$7A
@@ -106,6 +109,8 @@ init_item:
 	and #$08
 	bne ..custom_sprite
 	lda !9E,x
+	cmp #$7D
+	beq ..found
 	cmp #$74
 	bcc ..free
 	cmp #$7A
@@ -176,12 +181,17 @@ init_item:
 	sec
 	sbc.b #!starting_slot
 	clc
-	adc #$05		;load the correct index for custom items
+	adc.b #$05+1		;load the correct index for custom items
 	bra .continue
 .original_items
 	lda !9E,x
+	cmp #$7D
+	bne +
+	lda #$00
+	bra .continue
++	
 	sec
-	sbc #$74		;load the correct index for original items
+	sbc.b #$74-1		;load the correct index for original items
 .continue
 	tay
 	
@@ -191,7 +201,7 @@ init_item:
 	lda !1602,x
 	asl
 	tax			;load dynamic tile to show
-	lda.w dynamic_item_tiles,y
+	lda.w dynamic_item_tiles-1,y
 	xba
 
 	rep #$20
@@ -233,6 +243,7 @@ smoke_routine_item:
 	sta $17C8|!base2,y
 	rts
 
+	db $4C
 dynamic_item_tiles:
 	db $00,$02,$06,$04,$00
 	db !dynamic_powerup_04_tile
@@ -281,7 +292,8 @@ dynamic_item_tiles:
 
 powerup_tiles:
 	lda !14C8,x
-	bne .draw
+	cmp #$08
+	beq .draw
 	lda #$F0
 	sta $0301|!base2,y
 	jml $01C6E5|!base3
@@ -312,26 +324,26 @@ powerup_tiles:
 question_block_fix:
 	jsl $07F7D2|!base3	;original code
 	lda !9E,x
+	cmp #$7D
+	beq +
 	cmp #$74
 	bcc +
 	cmp #$7A
 	bcs +
 	stx $15E9|!base2
-	pei ($9A)
-	pei ($98)		;position was fuk
-	lda #$01
-	sta $02
+;	pei ($9A)
+;	pei ($98)		;position was fuk
+;	lda #$01
+;	sta $02
 	stz !1602,x
 	stz !1510,x
-;	lda #$18
-;	sta !cover_up_flag,x
 	jsl init_item
-	rep #$20
-	pla
-	sta $98
-	pla
-	sta $9A
-	sep #$20
+;	rep #$20
+;	pla
+;	sta $98
+;	pla
+;	sta $9A
+;	sep #$20
 +	
 	rtl
 
@@ -368,5 +380,21 @@ bubble_fix:
 	rtl
 +	
 	jml init_item
+
+pballoon_fix:
+	jsl $07F7D2|!base3
+	lda $04,s
+	cmp #$7D
+	beq +
+	rtl
++	
+	stz !1510,x
+	lda $15E9|!base2
+	pha
+	stx $15E9|!base2
+	jsl init_item
+	pla
+	sta $15E9|!base2
+	rtl
 
 endif

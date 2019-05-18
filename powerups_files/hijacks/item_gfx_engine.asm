@@ -13,6 +13,8 @@ org $01817D+($74*2)|!base3
 	dw init_star
 	dw init_feather
 	dw init_1up
+org $01817D+($7D*2)|!base3
+	dw init_pballoon
 
 org $01C6DD|!base3
 init_mushroom:
@@ -27,7 +29,7 @@ org $02894F|!base3
 !a	jsl question_block_fix
 
 org $01F867|!base3		;fixes yoshi egg
-!a    jsl question_block_fix
+!a	jsl question_block_fix
 
 org $03C31C|!base3
 !a	jsl invisible_mushroom_fix
@@ -40,5 +42,8 @@ org $02EB19|!base3
 
 org $02D980|!base3
 !a	jsl bubble_fix
+
+org $0289C0|!base3
+!a	jsl pballoon_fix
 
 endif

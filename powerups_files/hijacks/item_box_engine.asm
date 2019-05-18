@@ -1,5 +1,8 @@
 org $01C538|!base3
-autoclean JML CheckItem
+	!a JML CheckItem
+init_pballoon:
+	jsl init_pballoon_item
+	rts
 
 org $009095|!base3
 autoclean JML ItemBoxFix	; execute custom code for item box graphics routine
