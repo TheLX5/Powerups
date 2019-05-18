@@ -1,4 +1,4 @@
-verbose: on
+verbose: off
 
 ; UberASM Tool code list.
 ; You can use the same .asm file for multiple levels/OW/etc. for saving space.
@@ -16,11 +16,11 @@ gamemode:
 04 prepare_title_screen.asm
 0C load_overworld.asm
 0E overworld.asm
-13 level_init.asm
+11 level_init.asm
 
 
 global:		other/global_code.asm	; global code.
 statusbar:	other/status_code.asm	; status bar code.
 macrolib:	other/macro_library.asm	; macro library.
 sprite:		$7FAC80			; 38 (SNES) or 68 (SA-1) bytes of free RAM.
-rom:		smw.smc			; ROM file to use.
+rom:		SMW.smc			; ROM file to use.
