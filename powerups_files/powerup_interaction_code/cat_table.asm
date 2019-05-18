@@ -12,7 +12,7 @@
 	db $01,$01,$01,$01	; custom sprites 4-7
 	db $01,$01,$01,$01	; custom sprites 8-B
 	db $01,$01,$01,$01	; custom sprites C-F
-	db $00,$00,$00,$00	; custom sprites 10-13
+	db $01,$01,$00,$00	; custom sprites 10-13
 	db $00,$00,$00,$00	; custom sprites 14-17
 	db $00,$00,$00,$00	; custom sprites 18-1B
 	db $00,$00,$00,$00	; custom sprites 1C-1F
