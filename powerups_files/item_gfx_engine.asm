@@ -177,21 +177,28 @@ init_item:
 
 	lda !190F,x		;check if custom item
 	bpl .original_items
+	lda !9E,x
+	cmp #$78
+	beq .poison
 	lda !7FAB9E,x
 	sec
 	sbc.b #!starting_slot
 	clc
-	adc.b #$05+1		;load the correct index for custom items
+	adc.b #$05		;load the correct index for custom items
+	bra .continue
+.poison	
+	lda.b #!starting_slot+2+!max_powerup+1
 	bra .continue
 .original_items
 	lda !9E,x
 	cmp #$7D
 	bne +
-	lda #$00
+.balloon
+	lda.b #!starting_slot+2+!max_powerup+0
 	bra .continue
 +	
 	sec
-	sbc.b #$74-1		;load the correct index for original items
+	sbc.b #$74		;load the correct index for original items
 .continue
 	tay
 	
@@ -201,7 +208,7 @@ init_item:
 	lda !1602,x
 	asl
 	tax			;load dynamic tile to show
-	lda.w dynamic_item_tiles-1,y
+	lda.w dynamic_item_tiles,y
 	xba
 
 	rep #$20
@@ -243,7 +250,6 @@ smoke_routine_item:
 	sta $17C8|!base2,y
 	rts
 
-	db $4C
 dynamic_item_tiles:
 	db $00,$02,$06,$04,$00
 	db !dynamic_powerup_04_tile
@@ -266,6 +272,9 @@ dynamic_item_tiles:
 	db !dynamic_powerup_15_tile
 	db !dynamic_powerup_16_tile
 	db !dynamic_powerup_17_tile
+	db $4C
+	db $4E
+
 
 .box
 	db $00,$02,$06,$04
@@ -289,6 +298,8 @@ dynamic_item_tiles:
 	db !dynamic_powerup_15_tile
 	db !dynamic_powerup_16_tile
 	db !dynamic_powerup_17_tile
+	db $4C
+	db $4E
 
 powerup_tiles:
 	lda !14C8,x

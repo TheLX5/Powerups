@@ -34,6 +34,7 @@ power_table:
 	db $0C
 	db $0D
 	db $0E
+	db $12
 	
 return:
 	rts

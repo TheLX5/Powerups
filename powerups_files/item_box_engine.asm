@@ -77,6 +77,12 @@ mushroom_animation_fix:
 	sta $19
 	rtl
 
+SkipCheck:
+	phb
+	phk
+	plb
+	bra CheckItem_skip_checks
+
 CheckItem:
 	phb
 	phk
@@ -97,13 +103,18 @@ CheckItem:
 .do_nothing
 	stz !1528,x
 
+.skip_checks
 	lda !190F,x
 	bmi .custom
 	lda !9E,x
+-	
 	sec 
 	sbc #$74
 	bra .next
 .custom		
+	lda !9E,x
+	cmp #$78
+	beq -
 	lda !7FAB9E,x
 	sec	
 	sbc.b #!starting_slot

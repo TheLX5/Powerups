@@ -26,6 +26,7 @@ else
 	dl dynamic_item_tiles		;02802A
 	dl dynamic_item_tiles_box	;02802D
 endif
+dl SkipCheck				;028030
 
 
 

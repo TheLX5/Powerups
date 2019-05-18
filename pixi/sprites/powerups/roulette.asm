@@ -173,7 +173,6 @@ roulette:
 	pea.w $80C9
 	jml [!Base1]
 ..grab_item
-	wdm
 	ldx $15E9|!Base2
 	pla
 	sta !190F,x
@@ -205,11 +204,7 @@ roulette:
 	db $0C	;10 bubble
 	db $0D	;11 cloud
 	db $0E	;12 cat
-	db $00	;13 unused
-	db $00	;14 unused
-	db $00	;15 unused
-	db $00	;16 unused
-	db $00	;17 unused
+	db $78	;18 poison
 
 ..item_flag
 	db $00	;mushroom
@@ -231,12 +226,7 @@ roulette:
 	db $80	;bubble
 	db $80	;cloud
 	db $80	;cat
-	db $80	;unused
-	db $80	;unused
-	db $80	;unused
-	db $80	;unused
-	db $80	;unused
-	
+	db $80	;poison
 	
 .gfx	
 	lda !1602,x
@@ -330,11 +320,7 @@ roulette:
 	db !dynamic_powerup_10_tile
 	db !dynamic_powerup_11_tile
 	db !dynamic_powerup_12_tile
-	db !dynamic_powerup_13_tile
-	db !dynamic_powerup_14_tile
-	db !dynamic_powerup_15_tile
-	db !dynamic_powerup_16_tile
-	db !dynamic_powerup_17_tile
+	db $4E
 
 ..palettes
 	db $08,$0A,$04,$04
@@ -353,8 +339,4 @@ roulette:
 	db !powerup_10_prop
 	db !powerup_11_prop
 	db !powerup_12_prop
-	db !powerup_13_prop
-	db !powerup_14_prop
-	db !powerup_15_prop
-	db !powerup_16_prop
-	db !powerup_17_prop
+	db $06
