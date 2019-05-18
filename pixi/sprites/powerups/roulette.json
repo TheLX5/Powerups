@@ -30,7 +30,7 @@
     "Don't use default interaction with Mario": true
   },
   "$1686": {
-    "Inedible": false,
+    "Inedible": true,
     "Stay in Yoshi's mouth": false,
     "Weird ground behaviour": false,
     "Don't interact with other sprites": true,
