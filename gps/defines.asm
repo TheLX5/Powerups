@@ -1,4 +1,5 @@
 incsrc powerup_defs.asm
+; Global defines for blocks
 ; Feel free to add more if you want.
 
 namespace nested on
@@ -17,7 +18,6 @@ if read1($00FFD5) == $23	; SA-1 detection code
 	!bank = $000000
 	!bank8 = $00
 endif
-
 
 ; If you are using Custom Bounce Blocks, remember to changed this address if you have modified it in Custom Bounce Blocks.
 !RAM_BounceMap16Low = $7FC275
@@ -106,10 +106,6 @@ endmacro
 %define_sprite_table(sprite_tweaker_190f, "190F", $190F, $7658)
 %define_sprite_table(sprite_misc_1fd6, "1FD6", $1FD6, $766E)
 %define_sprite_table(sprite_cape_disable_time, "1FE2", $1FE2, $7FD6)
-%define_sprite_table(extra_byte_1, "7FAB40", $7FAB40, $400099)
-%define_sprite_table(extra_byte_2, "7FAB4C", $7FAB4C, $4000AF)
-%define_sprite_table(extra_byte_3, "7FAB58", $7FAB58, $4000C5)
-%define_sprite_table(extra_byte_4, "7FAB64", $7FAB64, $4000DB)
 
 ; Romi's Sprite Tool defines.
 %define_sprite_table(sprite_extra_bits, "7FAB10", $7FAB10, $6040)
@@ -117,6 +113,10 @@ endmacro
 %define_sprite_table(sprite_extra_prop1, "7FAB28", $7FAB28, $6057)
 %define_sprite_table(sprite_extra_prop2, "7FAB34", $7FAB34, $606D)
 %define_sprite_table(sprite_custom_num, "7FAB9E", $7FAB9E, $6083)
+%define_sprite_table(sprite_extra_byte1, "7FAB40", $7FAB40, $60A4)
+%define_sprite_table(sprite_extra_byte2, "7FAB4C", $7FAB4C, $60BA)
+%define_sprite_table(sprite_extra_byte3, "7FAB58", $7FAB58, $60D0)
+%define_sprite_table(sprite_extra_byte4, "7FAB64", $7FAB64, $60E6)
 
 ; Custom Bounce Block Defines
 %define_sprite_table(bounce_map16_low, RAM_BounceMap16Low, !RAM_BounceMap16Low, !RAM_BounceMap16Low_SA1)

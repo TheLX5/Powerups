@@ -10,6 +10,34 @@
 2F6:2A	enhanced_blocks/pow_coin.asm
 2F7:132	enhanced_blocks/pow_coin.asm
 
+;# Object Powerup items
+2D0:25	object_powerup_blocks/mushroom.asm
+2D1:25	object_powerup_blocks/fire_flower.asm
+2D2:25	object_powerup_blocks/feather.asm
+2D3:25	object_powerup_blocks/star.asm
+2D4:25	object_powerup_blocks/1up.asm
+2D5:25	object_powerup_blocks/poison_mushroom.asm
+2E0:25	object_powerup_blocks/hammer_suit.asm
+2E1:25	object_powerup_blocks/boomerang_suit.asm
+2E2:25	object_powerup_blocks/super_leaf.asm
+2E3:25	object_powerup_blocks/tanooki_suit.asm
+2E4:25	object_powerup_blocks/frog_suit.asm
+2E5:25	object_powerup_blocks/superball_flower.asm
+2E6:25	object_powerup_blocks/rocket_boots.asm
+2E7:25	object_powerup_blocks/mini_mushroom.asm
+2E8:25	object_powerup_blocks/ice_flower.asm
+2E9:25	object_powerup_blocks/penguin_suit.asm
+2EA:25	object_powerup_blocks/propeller_suit.asm
+2EB:25	object_powerup_blocks/shell_suit.asm
+2EC:25	object_powerup_blocks/bubble_flower.asm
+2ED:25	object_powerup_blocks/cloud_flower.asm
+2EE:25	object_powerup_blocks/cat_suit.asm
+
+;# Question Mark blocks
+2C0:130	instant_question_mark_blocks/mushroom.asm
+2C1:130	instant_question_mark_blocks/fire_flower.asm
+2C2:130	instant_question_mark_blocks/feather.asm
+2C3:130	instant_question_mark_blocks/poison_mushroom.asm
 200:130	question_mark_blocks/hammer_suit.asm
 201:130	question_mark_blocks/boomerang_suit.asm
 202:130	question_mark_blocks/super_leaf.asm
@@ -25,7 +53,6 @@
 20C:130	question_mark_blocks/cloud_flower.asm
 20D:130	question_mark_blocks/bubble_flower.asm
 20E:130	question_mark_blocks/cat_suit.asm
-
 210:130	instant_question_mark_blocks/hammer_suit.asm
 211:130	instant_question_mark_blocks/boomerang_suit.asm
 212:130	instant_question_mark_blocks/super_leaf.asm
