@@ -33,7 +33,7 @@ JMP MarioCorner : JMP MarioInside : JMP MarioHead
 
 !item_memory_dependent = 0	; Makes the block stay collected
 !InvisibleBlock = 0			; Not solid, doesn't detect sprites, can only be hit from below
-!ActivatePerSpinJump = 1	; Activatable with a spin jump (doesn't work if invisible)
+!ActivatePerSpinJump = 0	; Activatable with a spin jump (doesn't work if invisible)
 ; 0 for false, 1 for true
 
 if !ActivatePerSpinJump
