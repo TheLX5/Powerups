@@ -19,7 +19,7 @@
 
 if !i_read_the_readme == 0
 	print "Custom powerups patch."
-	print "Version 3.3.3"
+	print "Version 3.3.4"
 	print ""
 	print "Nothing was inserted."
 	print "Please read the Readme file included in the zip file."
@@ -70,7 +70,7 @@ endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-org $00A30A|!base3
+org $00A316|!base3
 	PowerupGFX:
 org $00F63A|!base3
 	ExtraTilesGFX:
@@ -240,7 +240,7 @@ PowerupData:
 	incsrc powerups_files/addon_code_installer.asm
 
 print "Custom powerups patch."
-print "Version 3.3.3"
+print "Version 3.3.4"
 print ""
 print "Inserted ", freespaceuse, " bytes"
 endif

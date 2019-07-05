@@ -2,7 +2,7 @@ incsrc powerup_defs.asm
 
 if !i_read_the_readme == 0
 	print "Custom Powerups patch - GFX Installer."
-	print "Version 1.0.1"
+	print "Version 1.0.2"
 	print ""
 	print "Nothing was inserted."
 	print "Please read the Readme file included in the zip file."
@@ -19,7 +19,7 @@ org $00A38B|!base3
 		dl powerup_items
 	endif
 
-org $00A30A|!base3
+org $00A316|!base3
 	PowerupGFX:
 org $00F63A|!base3
 	ExtraTilesGFX:
@@ -63,7 +63,7 @@ if read2($00D067|!base3) != $DEAD
 endif
 
 print "Custom powerups patch - GFX Installer."
-print "Version 1.0.1"
+print "Version 1.0.2"
 print ""
 print "Inserted ", freespaceuse, " bytes among ", dec(!i)," files."
 endif
