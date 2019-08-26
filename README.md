@@ -1,21 +1,24 @@
 # Description
-Makes possible to have custom powerups on Super Mario World and includes several powerups inside.
+The Custom Powerups patch is a package of a bunch of ASM hacks mainly created by MarioE and LX5 with the main goal of adding new powerups for Super Mario World with ease and give a bunch of tools for programmers to create their own powerups for the game.
 
 # Features
-- Various powerups from other Mario games.
-- Insert up to 256 different powerups.
-- Give powerups any palette, graphics and animations you want.
-- Uses a 32x32 tilemap for the player.
-- Add-on feature to add custom ASM hacks for your own powerups.
-- Powerup and projectile graphics are uploaded to SP1 (VRAM) when it's needed.
-- Create your own custom interaction fields with the included tools.
-- Frees up 22000 bytes of RAM in $7E2000.
-- Total control of Item Box (uses Item Box Special 1.2 patch).
-- A big library of routines to create projectiles.
+## For regular users
+- Several new powerups from various Mario (and other) games
+- 32x32 player tilemap
+- Dynamic powerup items and projectiles
+- Easy and powerful customization options in the main patch and each powerup
+- Enhanced vanilla blocks and powerup items to make them more interesting
+- Better Powerdown patch native integration
 
-# Building
-Follow the instructions inside of the readme included in the package.
+## For programmers
+- A nice ecosystem with RAM defines ready to use in every major tool (PIXI, GPS and UberASM Tool)
+- Frees up ~22000 bytes of RAM at $7E2000
+- Can insert up to 256 different powerups
+- Several RAM addresses to alter the behavior of the patch's core engines
+- Easy to use "add-on" engine to include specific ASM hacks for your powerups
+- Total control of player's interaction field with ground and sprites
+- A bunch of pointers to routines and tables ready to use at $02800C about various things of the patch
+- Let's you install external ASM hacks that need to run during NMI at $00A304
 
-# Lastest beta release
-Doesn't contain any code from here and has some missing features from the list.
-http://bin.smwcentral.net/u/12344/powerup_pack.zip
+# Installation
+Follow the guide over [here](https://github.com/TheLX5/Powerups/wiki/2.-Installation)
