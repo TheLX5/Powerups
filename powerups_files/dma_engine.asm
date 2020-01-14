@@ -256,3 +256,48 @@ endif
 
 .vramtbl
 	dw $6300,$6200,$6100,$6000
+
+	
+skip_mario_gfx:
+	ldx #$0140
+	stx $4325
+	plx
+	stx $2116
+	sta $420B
+	
+	ldy #$B180
+	sty $4322
+	ldx #$0180
+	stx $4325
+	ldx #$6240
+	stx $2116
+	sta $420B
+	
+	ldy #$B380
+	sty $4322
+	ldx #$0980
+	stx $4325
+	ldx #$6340
+	jml $0FFBA3|!base3
+
+fix_mario_palette:
+	phx
+	ldy.b #$86
+	sty $2121
+	rep #$10
+	ldx.w #(9*2)
+	ldy.w #$86*2
+-	
+	lda $213B
+	sta $0703|!base2,y
+	lda $213B
+	sta $0704|!base2,y
+	iny #2
+	dex #2
+	bpl -
+	sep #$10
+	plx
+	stz $2121
+	rep #$30
+	lda #$0200
+	jml $0FFC99|!base3
