@@ -68,7 +68,16 @@ PropMushroomMain:
 
 	lda !14C8,x
 	cmp #$0C
-	beq +
+	bne ++
+	
+	lda !154C,x
+	bne +
+	jsl $01A7DC|!BankB
+	bcs TouchedItem
++
+	plb
+	rtl
+++	
 	cmp #$08
 	bne Rtrn0
 	lda $9D
@@ -76,9 +85,12 @@ PropMushroomMain:
 +	
 	lda #$00
 	%SubOffScreen()
+	
+	lda !154C,x
+	bne +
 	jsl $01A7DC|!BankB
 	bcs TouchedItem
-
++
 	jsl $01801A|!BankB
 	lda !1534,x
 	bne DroppingFromItemBox
@@ -136,6 +148,8 @@ db $16,$E8,$FC
 SubGFX:
 	lda !14C8,x
 	cmp #$08
+	beq +
+	cmp #$0C
 	beq +
 	jmp .GetDrawInfo
 +
