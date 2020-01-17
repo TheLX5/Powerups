@@ -9,17 +9,12 @@
 ; \	 / ;
 
 ;<  Main code  >;
-
-	StZ $1407|!base2	   ;>  Never be gliding with the cape.
-	LdA !PropStatusTimer	   ;\
-	BEq .IsZero		   ; |		>  Don't decrement if it's 0.
-	Dec : StA !PropStatusTimer ; | Handle time decrementing.
+	stz $1407|!base2	   ;>  Never be gliding with the cape.
+	lda !PropStatusTimer	   ;\
+	beq .IsZero		   ; |		>  Don't decrement if it's 0.
+	dec : sta !PropStatusTimer ; | Handle time decrementing.
 .IsZero				   ;/
 
-	lda $1891|!base2	  ; | ...or in P-Balloon status...
-	beq +		  ;/  ...return.
-	rts
-+	
 	lda $75			  ;\  If in water...
 	ora $74
 	beq .continue
@@ -34,29 +29,29 @@
 	sta !PropStatus
 .no_reset
 
-	LdA !PropStatus
-	BPl +
-	LdA $77
-	AND #$04
-	PhP
-	LdA !PropStatus
-	PlP
-	BEq +
-	AND #$7F
-	StA !PropStatus
-+	AND #$7F
-	BEq +
-	PhA
-	LdA #$80
-	TSB $15
-	PlA
-+	TAY
-	LdA $1470|!base2
-	ORA $148F|!base2
-	BEq +
-	Jmp ClearStatus
-+	TYA
-	JSL $0086DF|!base3	;>  Jump to a location based on status index.
+	lda !PropStatus
+	bpl +
+	lda $77
+	and #$04
+	php
+	lda !PropStatus
+	plp
+	beq +
+	and #$7F
+	sta !PropStatus
++	and #$7F
+	beq +
+	pha
+	lda #$80
+	tsb $15
+	pla
++	tay
+	lda $1470|!base2
+	ora $148F|!base2
+	beq +
+	jmp ClearStatus
++	tya
+	jsl $0086DF|!base3	;>  Jump to a location based on status index.
 	dw .Normal		;>  $00 No special actions.
 	dw .Propelling		;>  $01 Propelling.
 	dw .Descending		;>  $02 Descending.
@@ -67,325 +62,325 @@
 ;< Status $00: Not flying >;
 
 .Normal:
-	LdA #$07		;\
-	StA !PropFlipFrequency	;/  Set propeller frequency to be every 8 frames.
-	StZ $140D|!base2	;>  Force the player to not be spin jumping (even if it's
+	lda #$07		;\
+	sta !PropFlipFrequency	;/  Set propeller frequency to be every 8 frames.
+	stz $140D|!base2	;>  Force the player to not be spin jumping (even if it's
 				;   disabled in the misc. tables)
 
-	LdA $18			;\
-	BPl ..Rtrn0 		;/  Return if not pressing A.
+	lda $18			;\
+	bpl ..Rtrn0 		;/  Return if not pressing A.
 
-	LdA !PropStatus
-	BMi ..Rtrn0
+	lda !PropStatus
+	bmi ..Rtrn0
 
-	LdA #$01		;\
-	StA !PropStatus		;/  Set status to be flying.
-	LdA #$00		;\
-	StA !PropFlipFrequency	;/  Set propeller frequency to be every frame.
-	LdA $76			;\
-	ASL			; | Set starting frame based on direction.
-	StA !PropPlayerFrame	;/
+	lda #$01		;\
+	sta !PropStatus		;/  Set status to be flying.
+	lda #$00		;\
+	sta !PropFlipFrequency	;/  Set propeller frequency to be every frame.
+	lda $76			;\
+	asl			; | Set starting frame based on direction.
+	sta !PropPlayerFrame	;/
 
-	LdA $13E3|!base2
-	BEq ..NotWallRunning
-	AND #$01 : TAX
-	LdA ..WallRunningDropXSpeeds,x
-	StA $7B
-	StZ $13E3|!base2
+	lda $13E3|!base2
+	beq ..NotWallRunning
+	and #$01 : TAX
+	lda ..WallRunningDropXSpeeds,x
+	sta $7B
+	stz $13E3|!base2
 ..NotWallRunning
 
-	LdA !FlightTime		;\
-	StA !PropStatusTimer	;/  Set flying time before starting to descend.
-	StZ $72
-	StZ $73			;>  Set the player to not be ducking.
-	LdA #$80		;\
-	StA $1406|!base2	;/  Make the screen scroll vertically.
-	LdA #$80
-	StA !mask_15
-	LdA !FlightSFX		;\
-	StA !FlightSFXPort	;/  Play the sound effect.
-	LdA !FlightSpeed	;\  Set speed to #$D0. I'm doing this here to avoid a bug
-	StA $7D			;/  in which the player can fly and touch the ground at the
+	lda !FlightTime		;\
+	sta !PropStatusTimer	;/  Set flying time before starting to descend.
+	stz $72
+	stz $73			;>  Set the player to not be ducking.
+	lda #$80		;\
+	sta $1406|!base2	;/  Make the screen scroll vertically.
+	lda #$80
+	sta !mask_15
+	lda !FlightSFX		;\
+	sta !FlightSFXPort	;/  Play the sound effect.
+	lda !FlightSpeed	;\  Set speed to #$D0. I'm doing this here to avoid a bug
+	sta $7D			;/  in which the player can fly and touch the ground at the
 				;   same time, cleaning the store to $1406.
 
-..Rtrn0	RtS			;>  Return.
+..Rtrn0	rts			;>  Return.
 
 ..WallRunningDropXSpeeds:
 	db $28,$D8
 
 .Propelling:
-	JSr CheckDownAndGround_CheckGround
+	jsr CheckDownAndGround_CheckGround
 
-	LdA $71
-	Cmp #$05
-	BEq ..ClearStatus
-	Cmp #$06
-	BNE ..DontClearStatus
+	lda $71
+	cmp #$05
+	beq ..ClearStatus
+	cmp #$06
+	bne ..DontClearStatus
 ..ClearStatus
 	Jmp ClearStatus
 ..DontClearStatus
 
-	LdA #$01 : JSr CheckPlayerSpinFrequency	;\
-	BNE ..DontUpdateFrame			;/
+	lda #$01 : jsr CheckPlayerSpinFrequency	;\
+	bne ..DontUpdateFrame			;/
 
-	LdA !PropPlayerFrame	;\
-	Inc			; |
-	Cmp #$04		; |
-	BCC ..DontReset		; | 
-	LdA #$00		; |
+	lda !PropPlayerFrame	;\
+	inc			; |
+	cmp #$04		; |
+	bcc ..DontReset		; | 
+	lda #$00		; |
 ..DontReset			; |
-	StA !PropPlayerFrame	;/
+	sta !PropPlayerFrame	;/
 ..DontUpdateFrame
 
-	LdA !PropStatusTimer	;\  If the timer is 0...
-	BEq ..StartingToDescend	;/  ...handle speed to start descending.
-	LdA !FlightSpeed	;\
-	StA $7D			;/  Continue setting Y speed.
+	lda !PropStatusTimer	;\  If the timer is 0...
+	beq ..StartingToDescend	;/  ...handle speed to start descending.
+	lda !FlightSpeed	;\
+	sta $7D			;/  Continue setting Y speed.
 
-..Rtrn0	RtS			;>  Return.
+..Rtrn0	rts			;>  Return.
 
 ..StartingToDescend
-	LdA #$01		;\
-	StA !PropFlipFrequency	;/  Set propeller frequency to be every 2 frames.
-	AND $14
-	BNE +
-	Dec $7D			;>  Decrement Y speed to make the descent start "accurate".
+	lda #$01		;\
+	sta !PropFlipFrequency	;/  Set propeller frequency to be every 2 frames.
+	and $14
+	bne +
+	dec $7D			;>  Decrement Y speed to make the descent start "accurate".
 +
-	LdA $7D			;\
-	SeC : SbC #$13		; |
-	Cmp #$04		; | If Y speed is #$11, #$12 or #$13...
-	BCS ..Rtrn1		;/  ...return. Otherwise, increment status.
+	lda $7D			;\
+	sec : sbc #$13		; |
+	cmp #$04		; | If Y speed is #$11, #$12 or #$13...
+	bcs ..Rtrn1		;/  ...return. Otherwise, increment status.
 
 ..Descend
-	LdA #$03		;\
-	StA !PropFlipFrequency	;/  Set propeller frequency to be every 4 frames.
-	LdA #$02		;\
-	StA !PropStatus		;/  Set the powerup status to descending.
-	LdA !PropPlayerFrame	;\
-	ORA #$04		; | "Add" 4 to image index.
-	StA !PropPlayerFrame	;/
+	lda #$03		;\
+	sta !PropFlipFrequency	;/  Set propeller frequency to be every 4 frames.
+	lda #$02		;\
+	sta !PropStatus		;/  Set the powerup status to descending.
+	lda !PropPlayerFrame	;\
+	ora #$04		; | "Add" 4 to image index.
+	sta !PropPlayerFrame	;/
 
-..Rtrn1	RtS
+..Rtrn1	rts
 
 .Descending:
-	JSr CheckDownAndGround
+	jsr CheckDownAndGround
 
-	LdA #$14		;\
-	StA $7D			;/  Set Y speed to #$11.
-	LdA $14			;\
-	AND #$03		; |
-	BNE ..DontUpdateFrame	;/
-	LdA !PropPlayerFrame
-	Inc
-	Cmp #$08
-	BCC ..DontReset
-	LdA #$04
+	lda #$14		;\
+	sta $7D			;/  Set Y speed to #$11.
+	lda $14			;\
+	and #$03		; |
+	bne ..DontUpdateFrame	;/
+	lda !PropPlayerFrame
+	inc
+	cmp #$08
+	bcc ..DontReset
+	lda #$04
 ..DontReset
-	StA !PropPlayerFrame
+	sta !PropPlayerFrame
 ..DontUpdateFrame
 
-	LdA $18			;\
-	BPl ..Rtrn0		;/  Return if not pressing A.
+	lda $18			;\
+	bpl ..Rtrn0		;/  Return if not pressing A.
 
-	LdA #$03		;\
-	StA !PropStatus		;/  Set status to be spinning.
-	LdA #$01		;\
-	StA !PropFlipFrequency	;/  Set propeller frequency to be every 4 frames.
+	lda #$03		;\
+	sta !PropStatus		;/  Set status to be spinning.
+	lda #$01		;\
+	sta !PropFlipFrequency	;/  Set propeller frequency to be every 4 frames.
 ..ResetSpin
-	LdA !PropPlayerFrame	;\
-	AND #$FB		; | "Substract" 4 to image index.
-	StA !PropPlayerFrame	;/
-	LdA #$3C		;\
-	StA !PropStatusTimer	;/
-	LdA !FrndSpinSFX	;\
-	StA !FrndSpinSFXPort	;/  Play the "friendly" spin sound effect.
+	lda !PropPlayerFrame	;\
+	and #$FB		; | "Substract" 4 to image index.
+	sta !PropPlayerFrame	;/
+	lda #$3C		;\
+	sta !PropStatusTimer	;/
+	lda !FrndSpinSFX	;\
+	sta !FrndSpinSFXPort	;/  Play the "friendly" spin sound effect.
 
 ..Rtrn0
 	RtS
 
 .Spinning:
-	JSr CheckDownAndGround
+	jsr CheckDownAndGround
 
-	LdA !PropStatusTimer
-	BNE ..ContinueCode
+	lda !PropStatusTimer
+	bne ..ContinueCode
 ..GoToDescending
 	Bra .Propelling_Descend
 ..ContinueCode
 
-	LdA #$15		;\
-	StA $7D			;/  Set Y speed to #$11.
+	lda #$15		;\
+	sta $7D			;/  Set Y speed to #$11.
 
-	LdA #$15 : JSr CheckPlayerSpinFrequency	;\  If not time to update image...
-	BNE ..DontUpdateFrame			;/  ...branch to code.
+	lda #$15 : JSr CheckPlayerSpinFrequency	;\  If not time to update image...
+	bne ..DontUpdateFrame			;/  ...branch to code.
 
-	LdA !PropPlayerFrame	;\
-	Inc			; |
-	Cmp #$04		; |
-	BCC ..DontReset		; | 
-	LdA #$00		; |
+	lda !PropPlayerFrame	;\
+	inc			; |
+	cmp #$04		; |
+	bcc ..DontReset		; | 
+	lda #$00		; |
 ..DontReset			; |
-	StA !PropPlayerFrame	;/
+	sta !PropPlayerFrame	;/
 ..DontUpdateFrame
 
-	LdA $18
-	BMi .Descending_ResetSpin
+	lda $18
+	bmi .Descending_ResetSpin
 
 ..Rtrn0	RtS
 
 .SpinAttacking:
-	StZ $7B			;>  Clear X speed.
-	LdA #$83		;\
-	StA !mask_15		;/  Player can't press Left, Right and A/B.
-	LdA #$01		;\
-	StA $140D|!base2	;/  Set spin jumping.
+	stz $7B			;>  Clear X speed.
+	lda #$83		;\
+	sta !mask_15		;/  Player can't press Left, Right and A/B.
+	lda #$01		;\
+	sta $140D|!base2	;/  Set spin jumping.
 
-	LdA $77			;\
-	AND #$04		; | Branch if not touching ground.
-	BEq +			;/
+	lda $77			;\
+	and #$04		; | Branch if not touching ground.
+	beq +			;/
 
-	LdA #$01		;\
-	StA $1DF9|!base2	;/  Play "hit head" sound effect.
-++	Jmp ClearStatus		;>  Clear status and return from all this code.
+	lda #$01		;\
+	sta $1DF9|!base2	;/  Play "hit head" sound effect.
+++	jmp ClearStatus		;>  Clear status and return from all this code.
 
-+	LdA !PropStatusTimer
-	BNE +
-	LdA $15
-	AND #$04
-	BEq ..SetTransition
++	lda !PropStatusTimer
+	bne +
+	lda $15
+	and #$04
+	beq ..SetTransition
 +
-	LdA $14
-	AND #$01
-	BNE ..DontUpdateFrame
+	lda $14
+	and #$01
+	bne ..DontUpdateFrame
 
-	LdA !PropPlayerFrame	;\
-	Inc			; |
-	Cmp #$0C		; |
-	BCC ..DontReset		; | Animate the player. 
-	LdA #$08		; |
+	lda !PropPlayerFrame	;\
+	inc			; |
+	cmp #$0C		; |
+	bcc ..DontReset		; | Animate the player. 
+	lda #$08		; |
 ..DontReset			; |
-	StA !PropPlayerFrame	;/
+	sta !PropPlayerFrame	;/
 ..DontUpdateFrame
 
-	LdY #$01		     ;\
-	LdA $7D			     ; |
-	Cmp #$36		     ; |
-	BCS +			     ; |
-	Inc #3			     ; |
-	Bra ++			     ; |
-+	LdA #$3B		     ; |
-	LdY #$00		     ; |
-++	StA $7D			     ; |
-	TYA : StA !PropFlipFrequency ;/
+	ldy #$01		     ;\
+	lda $7D			     ; |
+	cmp #$36		     ; |
+	bcs +			     ; |
+	inc #3			     ; |
+	bra ++			     ; |
++	lda #$3B		     ; |
+	ldy #$00		     ; |
+++	sta $7D			     ; |
+	tya : sta !PropFlipFrequency ;/
 
-	RtS
+	rts
 
 ..SetTransition
-	LdA #$05
-	StA !PropStatus
-	Inc : StA !PropStatusTimer
-	LdA #$01
-	StA !PropFlipFrequency
-	Dec
-;	StA !disable_spin_jump
-	StA $140D
-	LdA !PropPlayerFrame
-	AND #$03
-	StA !PropPlayerFrame
-	RtS
+	lda #$05
+	sta !PropStatus
+	inc : sta !PropStatusTimer
+	lda #$01
+	sta !PropFlipFrequency
+	dec
+;	sta !disable_spin_jump
+	sta $140D
+	lda !PropPlayerFrame
+	and #$03
+	sta !PropPlayerFrame
+	rts
 
 .04to02:
-	LdA #$80
-	StA !mask_15
+	lda #$80
+	sta !mask_15
 
-	LdA $7D
-	BMi ++
-	LdA $77
-	AND #$04
-	BEq +
-++	Jmp ClearStatus
+	lda $7D
+	bmi ++
+	lda $77
+	and #$04
+	beq +
+++	jmp ClearStatus
 +
-	LdA $14
-	AND #$03
-	BNE ..DontUpdateFrame
+	lda $14
+	and #$03
+	bne ..DontUpdateFrame
 
-	LdA !PropPlayerFrame	;\
-	Inc			; |
-	Cmp #$04		; |
-	BCC ..DontReset		; | 
-	LdA #$00		; |
+	lda !PropPlayerFrame	;\
+	inc			; |
+	cmp #$04		; |
+	bcc ..DontReset		; | 
+	lda #$00		; |
 ..DontReset			; |
-	StA !PropPlayerFrame	;/
+	sta !PropPlayerFrame	;/
 ..DontUpdateFrame
 
-	LdA $7D
-	Cmp #$17
-	BCC +
-	Dec #6
-	Bra ++
-+	LdA #$02
-	StA !PropStatus
-	LdA !PropPlayerFrame
-	AND #$03
-	ORA #$04
-	StA !PropPlayerFrame
-	LdA #$17
-++	StA $7D
+	lda $7D
+	cmp #$17
+	bcc +
+	dec #6
+	bra ++
++	lda #$02
+	sta !PropStatus
+	lda !PropPlayerFrame
+	and #$03
+	ora #$04
+	sta !PropPlayerFrame
+	lda #$17
+++	sta $7D
 
-	RtS
+	rts
 
 ;<  Checks if the player is on ground or pressing down and acts according to them  >;
 
 CheckDownAndGround:
 .CheckStomp
-	LdA $7D
-	BPl .CheckGround
-	LdA #$80
-	StA !PropStatus
-	LdA #$00
-	StA !PropStatusTimer
-;	StA !disable_spin_jump
-	StA $140D|!base2
-	PlA : PlA
-	RtS
+	lda $7D
+	bpl .CheckGround
+	lda #$80
+	sta !PropStatus
+	lda #$00
+	sta !PropStatusTimer
+;	sta !disable_spin_jump
+	sta $140D|!base2
+	pla : pla
+	rts
 
 .CheckGround
-	LdA $77			;\
-	AND #$04		; | If not touching ground...
-	BEq .CheckDown		;/  ...check if pressing down. Otherwise reset status.
+	lda $77			;\
+	and #$04		; | If not touching ground...
+	beq .CheckDown		;/  ...check if pressing down. Otherwise reset status.
 
 .ResetStatus
-	LdA #$00		;\
-	StA !PropStatus		;/  Set powerup status to 0.
-	PlA : PlA		;\
-	RtS			;/  Return to SMW code.
+	lda #$00		;\
+	sta !PropStatus		;/  Set powerup status to 0.
+	pla : pla		;\
+	rts			;/  Return to SMW code.
 
 .CheckDown
-	LdA !PropStatus
-	Cmp #$01
-	BNE ..DoCheckDown
-	LdA !PropStatusTimer
-	Cmp !FlightTime-$14
-	BCS ..Rtrn0
+	lda !PropStatus
+	cmp #$01
+	bne ..DoCheckDown
+	lda !PropStatusTimer
+	cmp !FlightTime-$14
+	bcs ..Rtrn0
 
 ..DoCheckDown
-	LdA $15
-	AND #$04
-	BEq ..Rtrn0
+	lda $15
+	and #$04
+	beq ..Rtrn0
 
-	StA !PropStatus		;>  Set powerup status to 4. A always contains #$04 due to
+	sta !PropStatus		;>  Set powerup status to 4. A always contains #$04 due to
 				;   the previous check.
-	LdA #$0A		;\
-	StA $7D			;/  Set player's Y speed to #$04.
-	LdA !PropPlayerFrame
-	AND #$FB
-	ORA #$08
-	StA !PropPlayerFrame
-	LdA #$06		;\
-	StA !PropStatusTimer	;/  
-	LdA !SpinAtkSFX
-	StA !SpinAtkSFXPort
-	PlA : PlA		;\
-..Rtrn0	RtS			;/  Return to SMW code.
+	lda #$0A		;\
+	sta $7D			;/  Set player's Y speed to #$04.
+	lda !PropPlayerFrame
+	and #$FB
+	ora #$08
+	sta !PropPlayerFrame
+	lda #$06		;\
+	sta !PropStatusTimer	;/  
+	lda !SpinAtkSFX
+	sta !SpinAtkSFXPort
+	pla : pla		;\
+..Rtrn0	rts			;/  Return to SMW code.
 
 ;<  A check to the frame counter with the status timer that can be used for anything  >;
 ;> Input:
@@ -393,24 +388,25 @@ CheckDownAndGround:
 ;   frequency if !PropStatusTimer is under that value.
 
 CheckPlayerSpinFrequency:
-	StA $00
-	LdA !PropStatusTimer : TAY ;>  Load status timer into Y.
-	LdA $14			   ;\
-	CpY $00			   ; |
-	BCS +			   ; | Only update player's image every 2 or 4 frames,
-	AND #$03		   ; | depending of the timer's value.
-	Bra ++			   ; |
-+	AND #$01		   ;/
-++	RtS			   ;>  Return.
+	sta $00
+	lda !PropStatusTimer : TAY ;>  Load status timer into Y.
+	lda $14			   ;\
+	cpy $00			   ; |
+	bcs +			   ; | Only update player's image every 2 or 4 frames,
+	and #$03		   ; | depending of the timer's value.
+	bra ++			   ; |
++	and #$01		   ;/
+++	rts			   ;>  Return.
 
 ;<  Clears player's powerup status and timer  >;
 
 ClearStatus:
-	LdA #$00
-	StA !PropStatus
-	StA !PropStatusTimer
-	StA !mask_15
-	LdA #$07		;\
-	StA !PropFlipFrequency	;/  Set propeller frequency to be every 8 frames.
-	StZ $140D|!base2	;>  No more "spin jumping".
-	RtS
+	lda #$00
+	sta !PropStatus
+	sta !PropStatusTimer
+	sta !power_ram+5
+	sta !mask_15
+	lda #$07		;\
+	sta !PropFlipFrequency	;/  Set propeller frequency to be every 8 frames.
+	stz $140D|!base2	;>  No more "spin jumping".
+	rts

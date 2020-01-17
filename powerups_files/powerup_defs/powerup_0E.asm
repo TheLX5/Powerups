@@ -36,7 +36,7 @@
 !PropTileFlags	   = !extra_tile_flag	  ;>  RAM adress containing the propeller tile
 					  ;   flags. Check !extra_tile_flags in
 					  ;   powerup_defs.asm.
-!PropTileAngle	   = !collision_loc_x	  ;>  RAM adress used to create the real propeller
+!PropTileAngle	   = !power_ram+0	  ;>  RAM adress used to create the real propeller
 					  ;   tile's frame.
 !PropTileFrame	   = !extra_tile_frame	  ;>  RAM adress used as the propeller tile's frame.
 !PropTileYOffset   = !extra_tile_offset_y ;>  RAM adress used to set how many pixels the
@@ -45,7 +45,7 @@
 !PropTileXOffset   = !extra_tile_offset_x ;>  RAM adress used to set how many pixels the
 					  ;   propeller tile is goin to be from the
 					  ;   player horizontally.
-!PropFlipFrequency = !collision_loc_x+1	  ;>  RAM adress used to indicate the frequency
+!PropFlipFrequency = !power_ram+1	  ;>  RAM adress used to indicate the frequency
 					  ;   where the propeller tile's frame changes.
 !FlightSFXPort	   = $1DFC|!base2	  ;>  Port used by the flying sound effect.
 !FrndSpinSFXPort   = $1DFC|!base2	  ;>  Port used by the spinning sound effect.

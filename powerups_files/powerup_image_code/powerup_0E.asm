@@ -4,8 +4,14 @@
 ; \				    / ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+	lda $74
+	ora $13F3|!base2
+	ora $1891|!base2
+	beq +
+	jsr ClearStatus
+	bra .DrawPropellerTile
++	
 	lda $75
-	ora $74
 	bne .DrawPropellerTile
 	lda $71
 	sec : sbc #$05
