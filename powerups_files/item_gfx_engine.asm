@@ -336,25 +336,20 @@ question_block_fix:
 	jsl $07F7D2|!base3	;original code
 	lda !9E,x
 	cmp #$7D
-	beq +
+	beq ++
 	cmp #$74
 	bcc +
 	cmp #$7A
 	bcs +
+++	
+	lda $15E9|!base2
+	pha
 	stx $15E9|!base2
-;	pei ($9A)
-;	pei ($98)		;position was fuk
-;	lda #$01
-;	sta $02
 	stz !1602,x
 	stz !1510,x
 	jsl init_item
-;	rep #$20
-;	pla
-;	sta $98
-;	pla
-;	sta $9A
-;	sep #$20
+	pla
+	sta $15E9|!base2
 +	
 	rtl
 
