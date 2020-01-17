@@ -67,11 +67,13 @@ PropMushroomMain:
 	jsr SubGFX
 
 	lda !14C8,x
+	cmp #$0C
+	beq +
 	cmp #$08
 	bne Rtrn0
 	lda $9D
 	bne Rtrn0
-
++	
 	lda #$00
 	%SubOffScreen()
 	jsl $01A7DC|!BankB

@@ -305,6 +305,8 @@ powerup_tiles:
 	lda !14C8,x
 	cmp #$08
 	beq .draw
+	cmp #$0C
+	beq .draw
 	lda #$F0
 	sta $0301|!base2,y
 	jml $01C6E5|!base3

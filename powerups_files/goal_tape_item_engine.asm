@@ -18,9 +18,9 @@ goal_tape_hax:
 	tyx
 	lda $0F
 	pha
-	lda.b !9E,x
+	lda !9E,x
 	sta !7FAB9E,x
-	lda #$88
+	lda #$08
 	sta !7FAB10,x
 	jsl $0187A7|!base3
 	jsl init_item
@@ -29,7 +29,7 @@ goal_tape_hax:
 	txy
 	rtl
 .regular
-	ldx $15E9|!base2
+	tyx 
 	jsl init_item
 	txy
 	rtl
