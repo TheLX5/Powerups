@@ -4,7 +4,20 @@
 
 if !dynamic_items == 0
 powerup_tiles:
-	lda !190F,x		;$190F highest bit is used to difference a custom item from the original ones
+	lda !14D4,x
+	xba
+	lda !E4,x		;fixes powerups being processed off screen
+	rep #$20
+	cmp #$FF80
+	bcs .offscreen_v_fix
+	cmp $13D7|!base2
+	sep #$20
+	bcc .offscreen_v_fix
+	stz !14C8,x
+.offscreen_v_fix
+	sep #$20
+
+	lda !190F,x		;$190F highest bit is used to recognize a custom item from the original ones
 	bpl .original_code
 	lda !166E,x		;check if it should keep flipping like a flower.
 	and #$10
@@ -187,14 +200,14 @@ init_item:
 	adc.b #$05		;load the correct index for custom items
 	bra .continue
 .poison	
-	lda.b #!starting_slot+2+!max_powerup+1
+	lda.b #2+!max_powerup+1
 	bra .continue
 .original_items
 	lda !9E,x
 	cmp #$7D
 	bne +
 .balloon
-	lda.b #!starting_slot+2+!max_powerup+0
+	lda.b #2+!max_powerup+0
 	bra .continue
 +	
 	sec
@@ -302,6 +315,19 @@ dynamic_item_tiles:
 	db $4E
 
 powerup_tiles:
+	lda !14D4,x
+	xba
+	lda !E4,x		;fixes powerups being processed off screen
+	rep #$20
+	cmp #$FF80
+	bcs .offscreen_v_fix
+	cmp $13D7|!base2
+	sep #$20
+	bcc .offscreen_v_fix
+	stz !14C8,x
+.offscreen_v_fix
+	sep #$20
+	
 	lda !14C8,x
 	cmp #$08
 	beq .draw
