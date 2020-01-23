@@ -1,9 +1,17 @@
 incsrc ../../powerup_defs.asm
 
 print "INIT ",pc
+init:
 	lda !extra_byte_2,x
 	sta !157C,x
+	lda !extra_byte_1,x
+	cmp.b #power_table_end-power_table
+	bcc .end
+	stz !14C8,x
+.end
 	rtl
+
+
 print "MAIN ",pc
 	phb
 	phk
@@ -19,22 +27,23 @@ power_table:
 	db $75
 	db $77
 	db $76
-	db $00
-	db $01
-	db $02
-	db $03
-	db $04
-	db $05
-	db $06
-	db $07
-	db $08
-	db $09
-	db $0A
-	db $0B
-	db $0C
-	db $0D
-	db $0E
-	db $12
+	db !starting_slot+$00
+	db !starting_slot+$01
+	db !starting_slot+$02
+	db !starting_slot+$03
+	db !starting_slot+$04
+	db !starting_slot+$05
+	db !starting_slot+$06
+	db !starting_slot+$07
+	db !starting_slot+$08
+	db !starting_slot+$09
+	db !starting_slot+$0A
+	db !starting_slot+$0B
+	db !starting_slot+$0C
+	db !starting_slot+$0D
+	db !starting_slot+$0E
+	db !starting_slot+$12
+.end
 	
 return:
 	rts
