@@ -51,12 +51,12 @@
 	beq +
 	cmp #$02
 	bne .real_return
+	lda !power_ram
+-
+	asl
+	tay
 	lda #$01
 	sta $13E8|!base2
-	lda !power_ram
-	asl
--
-	tay
 	rep #$20
 	lda $94
 	clc
@@ -67,16 +67,14 @@
 	adc #$0014
 	sta $13EB|!base2
 	sep #$20
-	bra .real_return+3
+	bra .next_1
 +	
-	lda #$01
-	sta $13E8|!base2
 	lda !power_ram
 	eor #$01
 	bra -
 .real_return
 	stz $13E8|!base2
-	
+.next_1
 	lda $7D
 	rol #2
 	and #$01
