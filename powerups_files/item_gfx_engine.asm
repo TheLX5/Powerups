@@ -6,7 +6,7 @@ if !dynamic_items == 0
 powerup_tiles:
 	lda !14D4,x
 	xba
-	lda !E4,x		;fixes powerups being processed off screen
+	lda !D8,x		;fixes powerups being processed off screen
 	rep #$20
 	cmp #$FF80
 	bcs .offscreen_v_fix
@@ -317,7 +317,7 @@ dynamic_item_tiles:
 powerup_tiles:
 	lda !14D4,x
 	xba
-	lda !E4,x		;fixes powerups being processed off screen
+	lda !D8,x		;fixes powerups being processed off screen
 	rep #$20
 	cmp #$FF80
 	bcs .offscreen_v_fix
