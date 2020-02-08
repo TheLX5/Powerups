@@ -78,6 +78,11 @@ dw !powerup_0F_powerdown
 dw !powerup_10_powerdown
 dw !powerup_11_powerdown
 dw !powerup_12_powerdown
+dw !powerup_13_powerdown
+dw !powerup_14_powerdown
+dw !powerup_15_powerdown
+dw !powerup_16_powerdown
+dw !powerup_17_powerdown
 
 .Kill
 	pla
