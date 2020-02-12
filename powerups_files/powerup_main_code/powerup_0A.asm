@@ -6,12 +6,18 @@
 	bne .return
 	lda $77
 	and #$04
-	ora $73
+	beq +
+	lda #$00
+	sta !power_ram+5
+	bra .return_clear
++	ora $73
 	ora $74
 	ora $75
 	ora $187A|!base2
 	bne .return_clear
 	
+	lda $140D|!base2
+	bne .no_reset
 	lda $1697|!base2
 	cmp !power_ram+5
 	beq .no_reset
