@@ -14,10 +14,9 @@
 	ora $74
 	ora $75
 	ora $187A|!base2
+	ora $140D|!base2
 	bne .return_clear
 	
-	lda $140D|!base2
-	bne .no_reset
 	lda $1697|!base2
 	cmp !power_ram+5
 	beq .no_reset
