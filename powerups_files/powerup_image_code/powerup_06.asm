@@ -25,9 +25,9 @@
 	sta $13E0|!base2
 	lda .turn,x
 	sta $76
-	lda #$01
-	sta $13DB|!base2
-	bra .tail
+	lda #$01		;used to prevent player from
+	sta $13DB|!base2	;"jittering" during tail-attack
+	bra .tail		;while walking (stz didn't work well)
 .no_spin
 	cmp #$FD
 	bne .tail
