@@ -250,3 +250,6 @@ backup77:
        STA !ram_77_backup
 org $00C599|!base3
        dw backup77
+
+org $00D1AE|!base3	;Animation frame for Mario entering horizontal pipe on Yoshi
+	db $1D		;Remapped from $29 to $1D (Ducking with Item/Ducking on Yoshi)

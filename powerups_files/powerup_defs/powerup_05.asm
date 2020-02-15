@@ -25,7 +25,7 @@
 !boomerang_pro_tile_1		= $80	;Boomerang tile #1
 !boomerang_pro_tile_2		= $80	;Boomerang tile #2
 					;Those aren't used if you are using the projectile DMA feature!
-!boomerang_ext_prop		= $0A	;YXPPCCCT properties of the boomerang projectile.
+!boomerang_ext_prop		= $06	;YXPPCCCT properties of the boomerang projectile.
 
 !boomerang_ext_num		= $14	;Extended sprite number for Boomerangs.
 
