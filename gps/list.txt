@@ -15,7 +15,7 @@
 2D1:25	object_powerup_blocks/fire_flower.asm
 2D2:25	object_powerup_blocks/feather.asm
 2D3:25	object_powerup_blocks/star.asm
-2D4:25	object_powerup_blocks/1up.asm
+2D4:25	object_powerup_blocks/1up_mushroom.asm
 2D5:25	object_powerup_blocks/poison_mushroom.asm
 2E0:25	object_powerup_blocks/hammer_suit.asm
 2E1:25	object_powerup_blocks/boomerang_suit.asm
@@ -32,12 +32,15 @@
 2EC:25	object_powerup_blocks/bubble_flower.asm
 2ED:25	object_powerup_blocks/cloud_flower.asm
 2EE:25	object_powerup_blocks/cat_suit.asm
+2EF:25	object_powerup_blocks/electric_flower.asm
 
 ;# Question Mark blocks
 2C0:130	instant_question_mark_blocks/mushroom.asm
 2C1:130	instant_question_mark_blocks/fire_flower.asm
 2C2:130	instant_question_mark_blocks/feather.asm
 2C3:130	instant_question_mark_blocks/poison_mushroom.asm
+2C4:130	instant_question_mark_blocks/1up_mushroom.asm
+
 200:130	question_mark_blocks/hammer_suit.asm
 201:130	question_mark_blocks/boomerang_suit.asm
 202:130	question_mark_blocks/super_leaf.asm
@@ -53,6 +56,7 @@
 20C:130	question_mark_blocks/cloud_flower.asm
 20D:130	question_mark_blocks/bubble_flower.asm
 20E:130	question_mark_blocks/cat_suit.asm
+20F:130	question_mark_blocks/electric_flower.asm
 210:130	instant_question_mark_blocks/hammer_suit.asm
 211:130	instant_question_mark_blocks/boomerang_suit.asm
 212:130	instant_question_mark_blocks/super_leaf.asm
@@ -68,6 +72,7 @@
 21C:130	instant_question_mark_blocks/cloud_flower.asm
 21D:130	instant_question_mark_blocks/bubble_flower.asm
 21E:130	instant_question_mark_blocks/cat_suit.asm
+21F:130	instant_question_mark_blocks/electric_flower.asm
 
 ;# Projectile blocks
 220:130	projectiles/immune_all.asm
