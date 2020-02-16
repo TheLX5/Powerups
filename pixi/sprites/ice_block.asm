@@ -606,6 +606,7 @@ block_interaction:
 +	
 	phy
 	lda block_size,y
+	clc
 	%SolidSprite()
 	ply
 	cpy #$03
