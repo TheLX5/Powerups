@@ -300,7 +300,8 @@ GetDrawInfo:
    LDA $01
    BEQ +
      LDA #$01
-   +   STA !15A0,x
+   +
+   STA !15A0,x
    TDC
    ROL A
    STA !15C4,x

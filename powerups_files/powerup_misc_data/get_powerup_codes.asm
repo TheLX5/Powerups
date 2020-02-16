@@ -32,7 +32,7 @@
 	dw give_bubble_flower
 	dw give_cloud_flower
 	dw give_cat_suit
-	dw give_nothing
+	dw give_elec_flower
 	dw give_nothing
 	dw give_nothing
 	dw give_nothing
@@ -66,6 +66,7 @@
 	incsrc get_powerup/bubble_flower.asm
 	incsrc get_powerup/cloud_flower.asm
 	incsrc get_powerup/cat_suit.asm
+	incsrc get_powerup/elec_flower.asm
 
 ;; ^^^^ ---- Here goes your codes/incsrc ---- ^^^^
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -3,3 +3,4 @@
 %insert_addon_hack(custom_bubble)
 %insert_addon_hack(solid_sprite_fix)
 %insert_addon_hack(fix_tanooki_death)
+%insert_addon_hack(Paralyze)

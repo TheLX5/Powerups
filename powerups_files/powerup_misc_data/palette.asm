@@ -44,8 +44,9 @@ MarioPalettes:
 	%insert_palette(cloud_flower_mario)		; powerup 11
 ; Cat Suit (SM3DW)
 	%insert_palette(cat_suit_mario)			; powerup 12
+; Electric flower
+	%insert_palette(electric_flower_mario)		; powerup 13
 
-	%insert_palette(small_mario)			; powerup 13
 	%insert_palette(small_mario)			; powerup 14
 	%insert_palette(small_mario)			; powerup 15
 	%insert_palette(small_mario)			; powerup 16
@@ -94,8 +95,9 @@ LuigiPalettes:
 	%insert_palette(cloud_flower_luigi)		; powerup 11
 ; Cat Suit (SM3DW)
 	%insert_palette(cat_suit_luigi)			; powerup 12
+; Electric flower
+	%insert_palette(electric_flower_luigi)		; powerup 13
 
-	%insert_palette(small_luigi)			; powerup 13
 	%insert_palette(small_luigi)			; powerup 14
 	%insert_palette(small_luigi)			; powerup 15
 	%insert_palette(small_luigi)			; powerup 16

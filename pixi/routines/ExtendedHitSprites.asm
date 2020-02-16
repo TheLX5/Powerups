@@ -43,7 +43,14 @@
 	pla
 	clc
 	rtl
-.collision
+.collision	
+	lda !extended_num,y		;>	puny edit <3
+	cmp #!elecball_ext_num		; |	If not elecball, skip.
+	bne +				;/
+	lda !sprite_shock,x		;\
+	cmp #$3C+$1E			; |	Ignore enemy if more than 1,5 seconds remain for the paralyzation.
+	bcs .ignore			;/
++
 	lda !7FAB10,x
 	and #$08
 	bne .is_custom
@@ -58,14 +65,14 @@
 	tay
 .continue
 	rep #$30
-	lda ($8A)
+	lda [$8A]
 	sta $8A
 	sep #$20
 	lda [$8A],y
 	sep #$10
 	sta $0F
 	ldy $185E|!Base2
-	lda !ext_sprite_num,x
+	lda !ext_sprite_num,y
 	cmp #!boomerang_ext_num
 	bne .skip
 	lda $0F

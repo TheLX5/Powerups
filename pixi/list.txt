@@ -13,10 +13,11 @@
 0C powerups/bubble_flower.json
 0D powerups/cloud_flower.json
 0E powerups/cat_suit.json
-0F ice_block.json
-10 powerups/roulette.json
-11 powerups/spawner.json
-12 powerups/poison_mushroom.json
+0F powerups/elec_flower.json
+10 ice_block.json
+11 powerups/roulette.json
+12 powerups/spawner.json
+13 powerups/poison_mushroom.json
 
 EXTENDED:
 00 powerup/mario_hammer.asm
@@ -25,3 +26,4 @@ EXTENDED:
 03 powerup/mario_iceball.asm
 04 powerup/mario_bubble.asm
 05 powerup/mario_cloud.asm
+06 powerup/mario_elecball.asm
