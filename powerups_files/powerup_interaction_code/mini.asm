@@ -7,20 +7,21 @@
 	bne ..is_custom
 	lda !9E,x
 	tay
-	lda ..spr_tab,y
+	lda ..normal_sprites_table,y
 	bra ..done_with_spr_num
 ..is_custom
 	lda !7FAB9E,x
 	tay
-	lda ..cust_spr_tab,y
+	lda ..custom_sprites_table,y
 ..done_with_spr_num
 	plb
-	bit #$40
-	bne ..bounce_off
-	bit #$10
-	bne ..default_interaction
-	bit #$20
-	bne ..platform_fix
+	and #$03
+	cmp #$03
+	beq ..bounce_off
+	cmp #$01
+	beq ..default_interaction
+	cmp #$02
+	beq ..platform_fix
 	jmp .clc_rts
 ..default_interaction
 	jmp .recover_code_hit
