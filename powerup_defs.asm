@@ -31,7 +31,7 @@ endif
 !clear_7E2000		= 1	;Clear Mario GFX from RAM. Needs to be 0 if using Dynamic Z or the Mode 7 Game Over patch.
 				;1 = enable, 0 = disable
 				
-!better_powerdown	= 0	;Set it to 1 if you have any plans on using Better Powerdown patch.
+!better_powerdown	= 0	;Set it to 1 if you want to use a powerdown effect similar to Super Mario Bros. 3
 				
 !disable_drop_item	= 0	;If 1 then the reserve item will NOT drop if you get hurt
 !drop_item_if_big	= 1	;If the above is 0, this one is unused.
@@ -559,14 +559,26 @@ if !SA1 == 0
 ;; !gfx_extra_request: Determines if the extra tile GFX should be decompressed or not.
 ;; 1 byte.
 	!gfx_extra_request	= $7E213F
+;;;;;;
+;; !sprite_shock: Sprite table to lock a sprite's movement (set $9D just for it). Decrements once per frame.
+;; 12 bytes.
+	!sprite_shock		= $7E2140
+;;;;;;
+;; !sprite_shock_flags: Holds the flags for paralyzed sprites.
+;; 12 bytes.
+	!sprite_shock_flags	= $7E214C
+;;;;;;
+;; !sprite_shock_14: Holds a copy of the frame counter for paralyzed sprites.
+;; 12 bytes.
+	!sprite_shock_14	= $7E2158
 ;;;;;;;
 ;; !ext_sprite_ram: Reserved for 4 extended sprites tables.
 ;; 40 bytes.
-	!ext_sprite_ram		= $7E2160
+	!ext_sprite_ram		= $7E2170
 ;;;;;;
 ;; !sprite_ram: Reserved for 1 sprite table.
 ;; 12 bytes.
-	!sprite_ram		= $7E21C8
+	!sprite_ram		= $7E21D8
 
 	else
 
@@ -808,14 +820,26 @@ if !SA1 == 0
 ;; !gfx_extra_request: Determines if the extra tile GFX should be decompressed or not.
 ;; 1 byte.
 	!gfx_extra_request	= $40423F
+;;;;;;
+;; !sprite_shock: Sprite table to lock a sprite's movement (set $9D just for it). Decrements once per frame.
+;; 22 bytes.
+	!sprite_shock		= $404240
+;;;;;;
+;; !sprite_shock_flags: Holds the flags for paralyzed sprites.
+;; 22 bytes.
+	!sprite_shock_flags	= $404256
+;;;;;;
+;; !sprite_shock_14: Holds a copy of the frame counter for paralyzed sprites.
+;; 22 bytes.
+	!sprite_shock_14	= $40426C
 ;;;;;;;
 ;; !ext_sprite_ram: Reserved for 4 extended sprites tables.
 ;; 40 bytes.
-	!ext_sprite_ram		= $404260
+	!ext_sprite_ram		= $404282
 ;;;;;;
 ;; !sprite_ram: Reserved for 1 sprite table.
 ;; 12 bytes.
-	!sprite_ram		= $4042C8
+	!sprite_ram		= $4042AA
 
 endif
 
