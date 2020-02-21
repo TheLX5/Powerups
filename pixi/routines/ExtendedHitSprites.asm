@@ -65,7 +65,7 @@
 	tay
 .continue
 	rep #$30
-	lda [$8A]
+	lda ($8A)
 	sta $8A
 	sep #$20
 	lda [$8A],y

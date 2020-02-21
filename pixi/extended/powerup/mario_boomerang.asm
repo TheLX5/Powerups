@@ -299,10 +299,6 @@ endif
 	%ExtendedHitSprites()
 	bcs contact
 	tyx
-if !boomerang_item_retrieve == 1
-	lda $0F
-	bmi contact_items
-endif
 	rts
 contact:
 	tyx
