@@ -3,6 +3,9 @@
 ;; by LX5
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	
+	lda $9D
+	ora $13D4|!base2
+	bne .return
 	lda $187A|!base2
 	ora $1470|!base2
 	bne .reset
@@ -10,6 +13,8 @@
 	asl
 	tax
 	jmp (.ptrs,x)
+.return
+	rts
 
 .ptrs	
 	dw .checks
@@ -30,13 +35,16 @@
 .no_water
 	ora #$0F
 	sta !mask_15
-	ldy $76
+	lda !power_ram
+	tay 
 	lda.w .speeds,y
 	sta $7B
 	lda $77
 	and #$01
 	beq +
 	stz $76
+	lda #$00
+	sta !power_ram
 	lda #$01
 	sta $1DF9|!base2
 	jsr .cape_spin
@@ -46,6 +54,7 @@
 	beq .not_in_shell
 	lda #$01
 	sta $76
+	sta !power_ram
 	lda #$01
 	sta $1DF9|!base2
 	jsr .cape_spin
@@ -83,6 +92,8 @@
 	bcs .no_active
 	lda $73
 	beq .no_active
+	lda $76
+	sta !power_ram
 	lda #$01
 	sta !flags
 	sta $73
