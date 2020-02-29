@@ -74,6 +74,13 @@ class Toolbar(tk.Frame):
 					if not(os.path.isdir(self.pixi_path+"/extended/powerup/")):
 						tk.messagebox.showerror("Open PIXI sprite list", "Can't find the settings files of the projectiles.\n\nBe sure that PIXI's sprite list exists in the same folder as the extended sprites folder.")
 						return
+					with open(self.pixi_path+"/extended/powerup/mario_hammer_props.asm") as h:
+						if "; custom sprites FC-FF" in file:
+							tk.messagebox.showerror("Open PIXI sprite list", "Please update to a newer version of the Custom Powerups patch.")
+							return
+					if not(os.path.isfile(self.pixi_path+"/extended/powerup/mario_elecball_props.asm")):
+						tk.messagebox.showerror("Open PIXI sprite list", "Please update to a newer version of the Custom Powerups patch.")
+						return
 			except Exception as e:
 				tk.messagebox.showerror("Open PIXI sprite list", "Failed to read PIXI sprite list.")
 				return
