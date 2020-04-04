@@ -13,7 +13,7 @@ incsrc ../powerup_defs.asm
 ;		i = show global image (unused)
 
 	!carry_flag		= !1510
-	!ice_block_size		= !C2
+	!ice_block_size		= !1602
 	!inside_settings	= !7FAB28
 	!sprite_dir		= !157C
 	!sprite_timer		= !1540
@@ -82,7 +82,7 @@ Init:
 	sta !1540,x
 	lda !inside_settings,x
 	and #$06
-	sta !C2,x
+	sta !ice_block_size,x
 	lsr
 	tay
 	lda block_layer,y
@@ -220,6 +220,15 @@ Killed:
 	rts
 
 Carried:
+	stz !160E,x
+	lda $14
+	lsr
+	bcs +
+	lda !1540,x
+	inc
+	sta !1540,x
++	
+	
 	jsl !block_interact
 	jsr extra_interaction
 	stz !AA,x
@@ -362,6 +371,9 @@ code_01A0A6:
 
 
 Kicked:	
+	lda !1540,x
+	inc
+	sta !1540,x
 	lda $9D
 	ora !163E,x
 	beq +
@@ -474,6 +486,9 @@ Normal:
 .next
 	lda !164A,x
 	beq .outside_water
+	lda !ice_block_size,x
+	ora #$01
+	sta !ice_block_size,x
 	jsr .liquids
 	lda !1588,x
 	ora !1504,x
@@ -484,24 +499,20 @@ Normal:
 	bra .end_gravity
 
 .outside_water
+	lda !ice_block_size,x
+	lsr 
+	bcs .in_ground
+.in_air
 	lda !154C,x
-	beq .fall
+	beq .check_floor
 	lda !carry_flag,x
-	bne .check_floor
+	bne .apply_gravity
 .zero_gravity
-	lda #$FF
-	sta !1540,x
-.zero_gravity_2
 	stz !AA,x
 	jsl !update_x_pos
 	jsl !update_y_pos
-	bra .end_gravity
-.fall
-	lda !C2,x
-	lsr
-	bcc .check_floor
-	lda !carry_flag,x
-	beq .zero_gravity_2
+	jmp .end_gravity
+	
 .check_floor
 	lda !1588,x
 	ora !1504,x
@@ -510,13 +521,33 @@ Normal:
 	lda !carry_flag,x
 	beq .no_floors
 -	
+	lda !160E,x
+	cmp #$14
+	bcc .end_gravity
 	lda #$02
 	sta !14C8,x
 	bra .apply_gravity
 .no_floors
 	lda !154C,x
 	beq -
+	bra .apply_gravity
+
+.in_ground
+	lda !1588,x
+	ora !1504,x
+	and #$04
+	beq .apply_gravity
+	lda !carry_flag,x
+	beq .apply_gravity
+	lda !160E,x
+	cmp #$14
+	bcc .end_gravity
+	lda #$02
+	sta !14C8,x
+	jmp .end_gravity
+
 .apply_gravity
+	inc !160E,x
 	jsl !update_gravity
 	jsr extra_interaction
 .end_gravity
@@ -543,7 +574,7 @@ Normal:
 	rts
 
 extra_interaction:
-	lda !C2,x
+	lda !ice_block_size,x
 	and #$06
 	cmp #$06
 	bne .end
