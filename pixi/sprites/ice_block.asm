@@ -727,7 +727,7 @@ graphics:
 	bne .no_shake
 	lda !154C,x
 	beq .no_shake
-	cmp #$48
+	cmp.b #!ice_block_shake_timer
 	bcs .no_shake
 	lsr #2
 	and #$01

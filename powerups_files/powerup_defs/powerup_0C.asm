@@ -48,6 +48,8 @@
 !ice_block_break_sfx		= $07	;SFX that plays when the ice block breaks.
 !ice_block_break_port		= $1DFC	;Port of the SFX
 
+!ice_block_shake_timer		= $38	;How many frames the ice block will shake while suspended in air before
+					;falling
 
 %powerup_number(ice_flower,0C,Palette)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
