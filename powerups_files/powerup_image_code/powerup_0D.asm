@@ -30,6 +30,8 @@
 	bne -
 	lda $149C|!base2
 	beq -
+	lda $140D|!base2
+	bne -
 	lda #$17
 	bra .write
 +	
