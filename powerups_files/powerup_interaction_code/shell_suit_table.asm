@@ -388,7 +388,7 @@ db %00000001			; Sprite 74: Mushroom
 db %00000001			; Sprite 75: Flower
 db %00000001			; Sprite 76: Star
 db %00000001			; Sprite 77: Feather
-db %00000010			; Sprite 78: 1-Up
+db %00000001			; Sprite 78: 1-Up
 db %00000000			; Sprite 79: Growing Vine
 db %00000000			; Sprite 7A: Firework
 db %00000001			; Sprite 7B: Goal Point

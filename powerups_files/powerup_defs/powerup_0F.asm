@@ -9,6 +9,12 @@
 !shell_suit_base_x_speed	= $28	;Base x speed when Mario is inside of the shell.
 !shell_suit_dynamic_tile	= $44	;Tile used by this powerup.
 
+!shell_suit_inc_points		= 1	;Set to 0 to get a fixed amount of points when killing a sprite
+					;while the player is inside of the shell.
+					
+!shell_suit_fixed_points	= $01	;How many points the player will get if the points earned by killing
+					;enemies with the shell are fixed.
+
 %powerup_number(shell_suit,0F,Smoke)	;Mandatory macro to get the powerup number.
 	;Input: %powerup_number(<define>,<hex_num>)
 	;<define>: Prefix of your defines in this file, must be unique.

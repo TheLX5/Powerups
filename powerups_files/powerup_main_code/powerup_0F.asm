@@ -22,7 +22,6 @@
 	
 .sliding
 	stz $149B|!base2
-	stz $18D2|!base2
 	lda #$01
 	sta !disable_spin_jump
 	sta $73

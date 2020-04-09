@@ -63,6 +63,7 @@
 	lda #$1F
 	sta !1540,x
 	lda #$08
+	sta $1DF9|!base2
 	bra ...shared_hit
 ...fall_down
 	lda #$10
@@ -79,12 +80,33 @@
 	lda.w $A839,y
 	sta !B6,x
 	plb
-	lda #$14
+	stz $1DF9|!base2
 ...shared_hit
-	sta $1DF9|!base2
 	jsl $01AB99|!base3
-	lda #$01
+	
+	inc $18D2|!base2
+	lda $18D2|!base2
+	cmp #$08
+	bcc +
+	lda #$08
+	sta $18D2|!base2
++	
+if !shell_suit_inc_points == 0
+	lda #!shell_suit_fixed_points
+endif	
 	jsl $02ACE5|!base3
+	lda $1DF9|!base2
+	bne +
+	ldx $18D2|!base2
+	cpx #$08
+	bcs +
+	lda.l ...sfx,x
+	sta $1DF9|!base2
++	
+	ldx $15E9|!base2
 	jmp .clc_rts
+
+...sfx	
+	db $00,$13,$14,$15,$16,$17,$18,$19
 
 	incsrc shell_suit_table.asm
