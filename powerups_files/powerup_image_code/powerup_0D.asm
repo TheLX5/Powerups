@@ -3,6 +3,8 @@
 ;;;;;;;;;;;;;;;;;;;
 
 .image
+	lda $187A|!base2
+	bne .no_water
 	lda $75
 	beq .no_water
 	lda !flags

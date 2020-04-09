@@ -17,7 +17,18 @@ else
 	lda #$01
 endif
 	sta !ducking_flag
-;	lda #$00
+	lda $16
+	bpl +
+	lda $3FFFFF
++	
+	lda $187A|!base2
+	beq +
+	lda $13E0|!base2
+	sta !power_ram
+	bra .next
+	
++	
+	lda #$00
 	ldy $148F|!base2
 	bne .next
 ;	lda #$40
@@ -159,7 +170,7 @@ endif
 	lsr #3
 	and #$03
 	beq .no_dec
-	dec
+	lda #$01
 .no_dec	
 	tax
 	lda .neutral_frames,x

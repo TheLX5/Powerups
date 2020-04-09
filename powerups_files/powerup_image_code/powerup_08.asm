@@ -7,6 +7,7 @@
 	ora $13ED|!base2
 	ora $1493|!base2
 	ora $148F|!base2
+	ora $187A|!base2
 	bne .custom_anim
 	lda $75
 	bne .override

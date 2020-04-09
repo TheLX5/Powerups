@@ -21,12 +21,12 @@ endif
 +	
 
 	ldy $73
+	lda $187A|!base2
+	bne .ground
 	lda $1493|!base2
 	bne .ground
 	lda $75
 	beq .ground
-	lda $187A|!base2
-	bne .ground
 	lda $148F|!base2
 	bne .ground
 	jsr .underwater
