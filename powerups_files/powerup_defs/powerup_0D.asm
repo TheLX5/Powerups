@@ -7,7 +7,7 @@
 					;You may want to change the .cfg file too.
 !penguin_suit_dynamic_tile	= $2A	;Tile used by this powerup.
 
-!penguin_suit_ride_yoshi	= 0
+!penguin_suit_ride_yoshi	= 1
 
 !penguin_suit_shoot_sfx		= $06	;SFX number that plays when Mario shoots an iceball.
 !penguin_suit_shoot_port	= $1DFC	;SFX Port.

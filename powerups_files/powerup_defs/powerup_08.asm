@@ -5,7 +5,7 @@
 !frog_suit_tile		= $0E	;Tile used by the Frog suit item
 !frog_suit_prop		= $0A	;YXPPCCCT properties of the Frog suit item
 				;You may want to change the .cfg file too.
-!frog_suit_ride_yoshi	= 0	;Change to 1 to make Frog Mario able to ride Yoshi.
+!frog_suit_ride_yoshi	= 1	;Change to 1 to make Frog Mario able to ride Yoshi.
 !frog_suit_dynamic_tile	= $20	;Tile used by this powerup.
 
 %powerup_number(frog_suit,08,Smoke)	;Mandatory macro to get the powerup number.
