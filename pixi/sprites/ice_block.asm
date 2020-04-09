@@ -95,11 +95,21 @@ print "MAIN ",pc
 	phb
 	phk
 	plb
+	lda !14C8,x
+	cmp #$0B
+	beq run_gfx_later
+	jsr graphics
+run_gfx_later:
 	lda $9D
 	bne +
 	jsr main
 +	
+	lda !14C8,x
+	cmp #$0B
+	bne run_gfx_earlier
 	jsr graphics
+run_gfx_earlier:
+
 	lda #$03
 	%SubOffScreen()
 	plb
@@ -242,7 +252,7 @@ Carried:
 	bne +
 	lda #$09
 	sta !14C8,x
-	rts
+	jmp graphics
 +	
 	jsr sprite_contact_carried
 	lda $1419|!Base2
@@ -365,7 +375,7 @@ code_01A0A6:
 	sta !154C,x
 	lda #$0C
 	sta $149A|!Base2
-	rts
+	jmp graphics
 
 
 
@@ -642,7 +652,6 @@ block_interaction:
 	ply
 	cpy #$03
 	bne +
-	sta $8A
 	pla
 	sta !14D4,x
 	pla
@@ -660,7 +669,7 @@ block_interaction:
 	and #$C0
 	beq skip
 	cpy #$03
-	beq top
+	bra top
 	jmp wall_contact
 skip:
 	jmp skip_dir
@@ -670,6 +679,8 @@ bottom:
 	bne skip
 	jmp wall_contact
 top:	
+	lsr
+	bcs bottom
 	lda !164A,x
 	beq .no_liquids
 	inc !AA,x
@@ -709,17 +720,22 @@ wall_contact:
 	sta !14C8,x
 	rts
 
-
 graphics:
-	lda $13
-	and #$1F
-	ora $9D
-;	phk
-;	pea .ice_block_spark-1
-;	pea $80C9
-;	jml $01B152|!BankB
-.ice_block_spark
 	%GetDrawInfo()
+	
+	lda !carry_flag,x
+	bne .no_shake
+	lda !154C,x
+	beq .no_shake
+	cmp #$48
+	bcs .no_shake
+	lsr #2
+	and #$01
+	clc
+	adc $00
+	sta $00
+.no_shake
+
 	lda !ice_block_size,x
 	lsr
 	and #$03
