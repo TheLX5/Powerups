@@ -23,13 +23,17 @@ goal_tape_hax:
 	lda #$08
 	sta !7FAB10,x
 	jsl $0187A7|!base3
+if !dynamic_items == 1
 	jsl init_item
+endif
 	pla 
 	sta $0F
 	txy
 	rtl
 .regular
+if !dynamic_items == 1
 	tyx 
 	jsl init_item
 	txy
+endif	
 	rtl
