@@ -17,10 +17,7 @@ else
 	lda #$01
 endif
 	sta !ducking_flag
-	lda $16
-	bpl +
-	lda $3FFFFF
-+	
+	
 	lda $187A|!base2
 	beq +
 	lda $13E0|!base2
