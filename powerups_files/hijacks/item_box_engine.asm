@@ -1,8 +1,10 @@
 org $01C538|!base3
 	!a JML CheckItem
+if !dynamic_items == 1
 init_pballoon:
 	jsl init_pballoon_item
 	rts
+endif
 
 org $009095|!base3
 autoclean JML ItemBoxFix	; execute custom code for item box graphics routine

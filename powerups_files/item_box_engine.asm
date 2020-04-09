@@ -428,6 +428,7 @@ FinishSpawn:		;
 	inc !1534,x		; This was done in the original SMW only with the mushroom and flower.
 EndItemDrop:			;
 
+if !dynamic_items == 1
 	lda.w Settings,y
 	and #$40
 	beq .no_init_powerups
@@ -437,6 +438,8 @@ EndItemDrop:			;
 	jsl init_item
 
 .no_init_powerups
+endif
+
 End:
 	stz $0DC2|!base2
 	plb : ply : plx
