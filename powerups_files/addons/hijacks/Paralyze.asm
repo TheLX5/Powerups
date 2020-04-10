@@ -97,11 +97,9 @@ org $0385F9
 org	$038457
 	lda	$9D
 	bne	$1B				;/	For grey falling platform.
-	
-;<  For Rex  >:
-	
+
 org $07F26C+$91
-db $10,$10,$10,$10,$10,$10,$10,$10
+db 0,0,0,0,0,0,0,0
 
 org $07F26C+$AB
-db $10
+db 0
