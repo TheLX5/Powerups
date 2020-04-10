@@ -722,6 +722,9 @@ wall_contact:
 
 graphics:
 	%GetDrawInfo()
+	tya
+	clc : adc #$08
+	tay
 	
 	lda !carry_flag,x
 	bne .no_shake
@@ -762,6 +765,20 @@ endif
 	ora $64
 	sta $03
 
+	lda !14C8,x
+	cmp #$0B
+	php
+	lda #$00
+	plp
+	bcc +
+
+	lda $13DD|!Base2
+	ora $1419|!Base2
+	ora $1499|!Base2
+	beq +
+	ldy #$00
++	sta $5A
+
 	ldx #$03
 	stx $04
 -	
@@ -773,22 +790,22 @@ endif
 	lda $00
 	clc
 	adc x_disp,x
-	sta $0300|!Base2,y
+	sta $02F8|!Base2,y
 	lda $01
 	clc
 	adc y_disp,x
-	sta $0301|!Base2,y
+	sta $02F9|!Base2,y
 	lda ice_tiles,x
-	sta $0302|!Base2,y
+	sta $02FA|!Base2,y
 	lda ice_props,x
 	ora $03
-	sta $0303|!Base2,y
+	sta $02FB|!Base2,y
 	phy
 	tya
 	lsr #2
 	tay
 	lda size,x
-	sta $0460|!Base2,y
+	sta $045E|!Base2,y
 	ply
 	plx
 	iny #4
@@ -801,30 +818,136 @@ endif
 	lda $00
 	clc
 	adc coin_x_disp,x
-	sta $0300|!Base2,y
+	sta $02F8|!Base2,y
 	lda $01
 	clc
 	adc coin_y_disp,x
-	sta $0301|!Base2,y
+	sta $02F9|!Base2,y
 	lda #$E8
-	sta $0302|!Base2,y
+	sta $02FA|!Base2,y
 	lda #$04
 	ora $64
-	sta $0303|!Base2,y
+	sta $02FB|!Base2,y
 	tya
 	lsr #2
 	tay
 	lda #$02
-	sta $0460|!Base2,y
+	sta $045E|!Base2,y
 	ldx $15E9|!Base2
 	lda #$05
 	bra .coin_inside
 .no_sprite_inside
 	lda #$04
 .coin_inside
+	ldy $5A
+	bne .finish_special
 	ldy #$FF
 	jsl $01B7B3|!BankB
 	rts
+.finish_special
+
+;	STY $0B
+	ldy #$00
+	STA $08
+;	LDY !15EA,X
+	LDA !D8,X
+	STA $00
+	SEC
+	SBC $1C
+	STA $06
+	LDA !14D4,X
+	STA $01
+	LDA !E4,X
+	STA $02
+	SEC
+	SBC $1A
+	STA $07
+	LDA !14E0,X
+	STA $03
+..Loop0:
+	TYA
+	LSR A
+	LSR A
+	TAX
+;	LDA $0B
+;	BPL ..label_01B7F0
+	LDA $045E|!Base2,X
+	AND #$02
+	STA $045E|!Base2,X
+;	BRA ..label_01B7F3
+
+;..label_01B7F0:
+;	STA $0460|!Base2,X
+
+;..label_01B7F3:
+	LDX #$00
+	LDA $02F8|!Base2,Y
+	SEC
+	SBC $07
+	BPL ..label_01B7FE
+	DEX
+
+..label_01B7FE:
+	CLC
+	ADC $02
+	STA $04
+	TXA
+	ADC $03
+	STA $05
+;	JSR label_01B844
+	REP #$20
+	LDA $04
+	SEC
+	SBC $1A
+	CMP.W #$0100
+	SEP #$20
+	BCC ..label_01B819
+	TYA
+	LSR A
+	LSR A
+	TAX
+	LDA $045E|!Base2,X
+	ORA #$01
+	STA $045E|!Base2,X
+
+..label_01B819:
+	LDX #$00
+	LDA $02F9|!Base2,Y
+	SEC
+	SBC $06
+	BPL ..label_01B824
+	DEX
+
+..label_01B824:
+	CLC
+	ADC $00
+	STA $09
+	TXA
+	ADC $01
+	STA $0A
+;	JSR $C9BF
+	REP #$20
+	LDA $09
+	PHA
+	CLC
+	ADC.W #$0010
+	STA $09
+	SEC
+	SBC $1C
+	CMP.W #$0100
+	PLA
+	STA $09
+	SEP #$20
+	BCC ..label_01B838
+	LDA #$F0
+	STA $02F9|!Base2,Y
+
+..label_01B838:
+	INY #4
+	DEC $08
+	BPL ..Loop0
+	LDX $15E9|!Base2
+	RTS
 
 
 
