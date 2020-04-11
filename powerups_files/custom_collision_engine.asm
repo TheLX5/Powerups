@@ -25,6 +25,37 @@ custom_collision:
 .return	
 	jml $00EBAF|!base3
 
+body_inside_fix:
+	pha	
+	lda !collision_flag			;Are we using a custom collision?
+	bne .handle_custom
+	pla 
+	clc	
+	adc.w $E8A4,x
+	rtl
+.handle_custom	
+	cmp #$FF
+	beq .handle_indirect		;Are we using indirect loading?
+	pla
+	clc
+	adc.l !collision_data_y-2+8,x	;Handle RAM tables.
+	rtl
+.handle_indirect
+	lda !collision_loc_y
+	clc
+	adc #$08
+	sta $00
+	lda !collision_loc_y+1
+	adc #$00
+	sta $01
+	lda !collision_loc_y+2
+	sta $02
+	txy
+	pla 
+	clc 
+	adc [$00],y
+	rtl
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Custom collision between Mario<->Layers while wallrunning.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
