@@ -268,7 +268,7 @@ contact:
 	lda !164A,x
 	bne .next
 	lda #$01
-	sta !C2,x
+	sta !1602,x
 	bra .next
 .no_floor
 	lda !164A,x
@@ -312,9 +312,9 @@ contact:
 	sta !7FAB28,x
 	stz $01
 	lda $00
-	ora !C2,x
+	ora !1602,x
 	and #%00000111
-	sta !C2,x
+	sta !1602,x
 	lsr
 	phy
 	tay

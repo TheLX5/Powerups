@@ -404,7 +404,7 @@ db %00011111			; Sprite 7C: Princess Peach
 db %11111111			; Sprite 7D: Balloon
 db %11111111			; Sprite 7E: Flying Red coin
 db %11111111			; Sprite 7F: Flying yellow 1-Up
-db %11011111			; Sprite 80: Key
+db %11110011			; Sprite 80: Key
 db %11111111			; Sprite 81: Changing item from translucent block
 db %00111111			; Sprite 82: Bonus game sprite
 db %00111111			; Sprite 83: Left flying question block

@@ -14,7 +14,7 @@
   "$166E": {
     "Use second graphics page": false,
     "Palette": 2,
-    "Disable fireball killing": true,
+    "Disable fireball killing": false,
     "Disable cape killing": false,
     "Disable water splash": false,
     "Don't interact with Layer 2": false
