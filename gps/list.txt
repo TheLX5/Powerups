@@ -137,6 +137,15 @@
 285:130	projectiles/bubble/shatter_sensible_rainbow.asm
 286:130	projectiles/bubble/poof_sensible.asm
 
+;# Elecball blocks
+228:130	projectiles/elecball/immune.asm
+229:130	projectiles/elecball/shatter.asm
+22A:130	projectiles/elecball/shatter_rainbow.asm
+22B:130	projectiles/elecball/poof.asm
+22C:130	projectiles/elecball/shatter_sensible.asm
+22D:130	projectiles/elecball/shatter_sensible_rainbow.asm
+22E:130	projectiles/elecball/poof_sensible.asm
+
 ;# Misc other powerup blocks
 290:100	powerup_specific/statue_act_like.asm
 291:130	powerup_specific/statue_shatter.asm
