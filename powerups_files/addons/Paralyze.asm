@@ -26,7 +26,11 @@ ElecballParalyze:
 	cmp	#$0C				; |
 	bcs	.Pre_DecTimersJMP	;/
 	
+	phb
+	phk
+	plb
 	jsr	ShockGFX
+	plb
 	
 	lda	!14C8,x
 	cmp	#$0B				;\
@@ -465,4 +469,5 @@ SprInteractHack:
 	beq	ReturnPar
 	tay
 	jml	$01A411|!base3
+
 	
