@@ -10,27 +10,45 @@ MarioFireball:
 	lda !ext_sprite_num,x
 if !fireball_activate_turn_block > 0
 	cmp #$05
-	beq .fireball_found
+	bne +
+	jmp .fireball_found
++	
 endif	
 if !iceball_activate_turn_block > 0
 	cmp #!iceball_ext_num
-	beq .iceball_found
+	bne +
+	jmp .iceball_found
++	
 endif
 if !superball_activate_turn_block > 0
 	cmp #!superball_ext_num
-	beq .superball_found
+	bne +
+	jmp .superball_found
++	
 endif
 if !bubble_activate_turn_block > 0
 	cmp #!bubble_ext_num
-	beq .bubble_found
+	bne +
+	jmp .bubble_found
++	
 endif
 if !hammer_activate_turn_block > 0
 	cmp #!hammer_ext_num
-	beq .hammer_found
+	bne +
+	jmp .hammer_found
++	
 endif
 if !boomerang_activate_turn_block > 0
 	cmp #!boomerang_ext_num
-	beq .boomerang_found
+	bne +
+	jmp .boomerang_found
++	
+endif
+if !elecball_activate_turn_block > 0
+	cmp #!elecball_ext_num
+	bne +
+	jmp .elecball_found
++	
 endif
 	rtl
 
@@ -107,7 +125,7 @@ if !hammer_activate_turn_block > 0
 	sta !ext_sprite_x_speed,x
 	ply
 	if !hammer_activate_turn_block == 1
-		bra activate_block
+		jmp activate_block
 	else
 		jmp destroy_block
 	endif
@@ -144,10 +162,32 @@ if !boomerang_activate_turn_block > 0
 	sta !ext_sprite_x_speed,x
 	ply
 	if !boomerang_activate_turn_block == 1
+		jmp activate_block
 	else
 		jmp destroy_block
 	endif
 endif
+
+
+
+if !elecball_activate_turn_block > 0
+.elecball_found
+	if !elecball_activate_delete == 1
+		stz $176F|!addr,x
+		lda #$05
+		sta !extended_dir,x
+		lda #$03
+		sta !ext_sprite_flags,x
+		lda #$01
+		sta $1DF9|!addr
+	endif	
+	if !elecball_activate_turn_block == 1
+		jmp activate_block
+	else
+		jmp destroy_block
+	endif
+endif
+
 
 
 activate_block:

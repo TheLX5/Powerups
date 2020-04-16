@@ -18,9 +18,11 @@ MarioFireball:
 	beq .hammer_found
 	cmp #!boomerang_ext_num
 	beq .boomerang_found
+	cmp #!elecball_ext_num
+	beq .elecball_found
 	rtl
 	
-
+.elecball_found
 .fireball_found
 .boomerang_found
 .hammer_found

@@ -6,29 +6,11 @@ JMP WallFeet : JMP WallBody
 
 MarioFireball:
 	lda !ext_sprite_num,x
-	cmp #$05
-	beq .fireball_found
-	cmp #!iceball_ext_num
-	beq .iceball_found
-	cmp #!superball_ext_num
-	beq .superball_found
-	cmp #!bubble_ext_num
-	beq .bubble_found
-	cmp #!hammer_ext_num
-	beq .hammer_found
-	cmp #!boomerang_ext_num
-	beq .boomerang_found
 	cmp #!elecball_ext_num
 	beq .elecball_found
 	rtl
 	
 .elecball_found
-.fireball_found
-.boomerang_found
-.hammer_found
-.iceball_found
-.superball_found
-.bubble_found
 
 activate_block:
 	lda #$0F
@@ -51,4 +33,4 @@ SpriteH:
 MarioCape:
 	RTL
 
-print "Any projectile will break this block and won't stop/disable them. Follows the Acts Like setting for everything else."
+print "Elecballs will break this block and won't stop/disable them. Follows the Acts Like setting for everything else."

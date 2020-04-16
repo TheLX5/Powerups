@@ -31,5 +31,18 @@
 !elecball_pro_tile_3		= $00
 !elecball_pro_tile_4		= $00
 
+!elecball_activate_delete	= 1	;Set to 1 to delete elecballs when activating the blocks below.
+
+!elecball_activate_on_off	= 1	;Set to 1 to enable elecballs be able to active ON/OFF blocks on contact.
+
+!elecball_activate_turn_block	= 0	;Set to 1 to enable elecballs be able to active turn blocks on contact.
+					;Set to 2 to enable elecballs be able to break turn blocks on contact.
+
+!elecball_activate_throw_block	= 0	;Set to 1 to enable elecballs be able to break throw blocks on contact.
+
+!elecball_activate_glass_block	= 0	;Set to 1 to enable elecballs be able to active glass blocks on contact.
+
+!elecball_collect_coins		= 0	;Set to 1 to enable elecballs be able to collect coins.
+
 
 %powerup_number(elec_flower,13,Palette)	;Mandatory macro to get the powerup number.

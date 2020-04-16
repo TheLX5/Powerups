@@ -18,6 +18,8 @@ MarioFireball:
 	beq .hammer_found
 	cmp #!boomerang_ext_num
 	beq .boomerang_found
+	cmp #!elecball_ext_num
+	beq .elecball_found
 	rtl
 	
 
@@ -26,6 +28,15 @@ MarioFireball:
 	%create_smoke()
 	rtl
 
+.elecball_found
+	stz $176F|!addr,x
+	lda #$05
+	sta !extended_dir,x
+	lda #$03
+	sta !ext_sprite_flags,x
+	lda #$01
+	sta $1DF9|!addr
+	bra activate_block
 
 
 .boomerang_found

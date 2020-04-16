@@ -32,24 +32,21 @@ if !boomerang_collect_coins == 1
 	cmp #!boomerang_ext_num
 	beq .boomerang_found
 endif
+if !elecball_collect_coins == 1
+	cmp #!elecball_ext_num
+	beq .elecball_found
+endif
 	rtl
 
-.superball_found
 .fireball_found
 .iceball_found
+.superball_found
 .bubble_found
 .hammer_found
 .boomerang_found
+.elecball_found
 
 collect_coin:
-if !superball_collect_coins == 1
-	cmp #!superball_ext_num
-	bne +
-	lda !ext_sprite_flags,x
-	ora #$80
-	sta !ext_sprite_flags,x
-+
-endif
 	lda #$0F
 	trb $98
 	trb $9A
