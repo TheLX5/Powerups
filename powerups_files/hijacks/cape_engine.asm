@@ -17,3 +17,6 @@ org $00CF3F|!base3
 
 org $00D904|!base3
 !a	jml cape_tap
+
+org $00D8DE|!base3
+!a	jml yoshi_wings

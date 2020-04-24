@@ -144,11 +144,14 @@ cape_tap:
 	lda !cape_settings
 	and #$20
 	bne .tap
+.code_00D904
 	lda $15,x
 	bpl .code_00D924
 .continue
 	lda !cape_button_timer
+.code_00D90A
 	sta $14A5|!base2
+.code_00D90D
 	jml $00D90D|!base3
 .code_00D924
 	jml $00D924|!base3
@@ -156,3 +159,16 @@ cape_tap:
 	lda $16,x
 	bpl .code_00D924
 	bra .continue
+
+yoshi_wings:
+	ldy #$02
+	cpy $19
+	beq +
+	inx
++	
+	lda $14A5|!base2
+	bne cape_tap_code_00D90D
+	lda #$10
+	sta !cape_button_timer
+	bra cape_tap_code_00D904
+	
