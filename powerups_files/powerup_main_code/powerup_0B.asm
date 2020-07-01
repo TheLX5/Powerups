@@ -58,11 +58,13 @@ if !mini_mushroom_carry == 1
 .end	
 endif
 	lda $75
-	ora $1406|!base2
 	bne +
 	lda $7D
+	beq +
+	cmp #$80
+	beq +
+	cmp #$81
 	beq +
 	dec $7D
 +	
 	rts
-	
