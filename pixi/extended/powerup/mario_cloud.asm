@@ -27,6 +27,19 @@ cloud:
 	LDA !expiry_timer,x
 	BNE .active
 	
+	tya
+	sec
+	sbc #$08
+	lsr #2
+	tay
+	lda $0460|!base2,y
+	ora $0461|!base2,y
+	and #$01
+	bne .kill
+	
+	lda $0E
+	bne .kill
+	
 	LDY #$03			; disappear in a puff of smoke
 .smoke_loop
 	LDA $17C0|!base2,y
@@ -46,6 +59,7 @@ cloud:
 	ADC #$08
 	STA $17C8|!base2,y
 	
+.kill	
 	STZ $170B|!base2,x			; kill
 
 
@@ -197,7 +211,7 @@ sub_gfx:
 		sbc #$08
 		sta $0F
 	endif
-	
+
 	PHX				; set up loop
 	LDX #$01
 .draw_loop
@@ -310,6 +324,7 @@ endif
 
 ; returns with carry set if it's offscreen
 get_draw_info:
+	stz $0E
 	LDA !x_pos_hi,x			; X check
 	XBA
 	LDA !x_pos_lo,x
@@ -334,7 +349,6 @@ get_draw_info:
 	CMP #$0110
 	SEP #$20
 	BCS .return
-
 	LDY #$FC			; find OAM slot
 .OAM_loop
 	LDA $02FD|!base2,y
@@ -349,7 +363,9 @@ get_draw_info:
 	BRA .OAM_loop
 .found_slot
 	CLC
+	rts
 .return
+	inc $0E
 	RTS
 
 
