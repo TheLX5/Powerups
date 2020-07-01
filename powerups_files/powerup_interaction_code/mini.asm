@@ -45,9 +45,11 @@ endif
 ..bounce
 	cpy #$00
 	beq ..hit_from_below
+	jsl $01AA33|!base3
+	lda #$80
+	sta $1406|!base2
 	lda #$03
 	sta $1DF9|!base2
-	jsl $01AA33|!base3
 	jmp .clc_rts
 
 incsrc mini_table.asm
