@@ -100,6 +100,8 @@
 	dec
 	sta !misc
 .done
+	lda #$80
+	sta $1406|!base2
 	lda $14
 	and #$03
 	bne .no_sfx
