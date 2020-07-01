@@ -206,102 +206,126 @@ endif
 incsrc ../powerup_interaction_code/cat_table.asm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This place runs with DB set to BWRAM
+;; There's no need for !base2 defines
+;; It will break if the powerup ram addresses are
+;; remapped to use bank $41
+
+; Constant defines (all Y speeds are $80 - $FF, lower = faster; all X speeds are $00 - $7F, higher = faster)
+
+!cat_ClimbSpeed			= $E8			; Y speed at which player climbs a wall
+!cat_LedgePullYSpeed	= $C0			; Y speed at which player pulls up when climbing past top of ledge
+!cat_LedgePullXSpeed	= $0A			; X speed at which player pulls up when climbing past top of ledge
+!cat_KickYSpeed			= $B8			; Y speed with which player kicks off of a wall
+!cat_KickXSpeed			= $20			; X speed with which player kicks off of a wall
+!cat_DropYSpeed			= $00			; Y speed with which player drops off of a wall when pressing Down + B, or when otherwise detaching
+!cat_DropXSpeed			= $10			; X speed with which player drops off of a wall when pressing Down + B, or when otherwise detaching
+!cat_NoMoveTime			= $10			; How long to disable direction reversal following a wall kick (or when otherwise detaching if !sk_wallclimb = 1)
+!cat_NoMoveDetach		= $03			; How long to disable direction reversal upon detaching from the wall (prevents rapid regrabbing in some scenarios)
+!cat_NoMoveOut			= $07			; How long to disable direction reversal upon detaching from the wall (prevents rapid regrabbing in some scenarios)
+!cat_climb_ani_rate		= 4				; Set 1 - 8 to adjust rapidness of climbing animation, lower = faster
+!cat_suit_wall_attach_time	= 150
+!cat_wallkick_penalization	= 25
 
 .climb
 	lda !power_ram+1
-	bne +
-
+	bne ..skip
+	
 	phb
 	lda.b #!ram_77_backup/$10000
 	pha
 	plb
 	
+	lda.w !power_ram+2
+	bne +
+	lda $77
+	and #$04
+	beq +
+	stz.w !power_ram+7
+	stz.w !power_ram+11
++	
 	lda.w !flags
-	bpl ..not_disable
+	bpl ..unlocked
 	ldy.w !misc
 	dey
 	sty.w !misc
-	bne ..disable
+	bne ..locked
 	lda #$80
 	trb.w !flags
 	plb
-+	
+..skip	
 	rts
 
-..last_frame
+..check_last_frame
 	lda.w !ram_77_backup
 	and #$03
-	beq ..return
-	ldx $76
-	lda.l .wall_separate_speeds+2,x
+	beq ..end
+	
+	ldy #!cat_LedgePullYSpeed
+	lda.w !power_ram+6
+	beq ...time_out
+...time_left
+	lda $15
+	bit #$08
+	beq ...drop
+	lda.w !power_ram+6
+	sec
+	sbc.b #!cat_wallkick_penalization
+	cmp.b #$100-!cat_wallkick_penalization+1
+	bcs ...drop
+	sta.w !power_ram+6
+	bra ...skip
+...drop
+	inx #4
+	ldy #!cat_DropYSpeed
+	bra ...skip
+...time_out
+	lda #!cat_NoMoveOut
+	sta.w !misc
+	ldy #$F8
+...skip
+	lda.l ..Tbl_LedgePullXSpd,x
 	sta $7B
+	sta.w !power_ram+9
+	lda #$01
+	sta.w !power_ram+10
 	stz $7A
-	lda #$D8
-	sta $7D
+	sty $7D
+	sty.w !power_ram+8
+	lda #$0B
+	sta $72
 	lda #$80
 	sta $1406
-..return_move
-	lda $77
-	eor #$03
-	and $15
-	beq +
-	ldy.w !flags
-	bmi +
-	asl #2
-	sta.w !flags
-+	
-	lda #$80
-	tsb.w !flags
-	stz $77
-	stz.w !ram_77_backup
-	lda #!cat_suit_no_move
-	sta !misc
-..return_clear
-	stz.w !misc+1
-..return
+..clear_l
+	jmp ..clear
+
+..detach
+	lda.w !power_ram+2
+	beq ..end
+	jmp ..walldrop
+..end	
 	plb
 	rts
 
-..disable
+..locked
 	and #$7F
 	lsr #2
 	trb $15
 	trb $16
-..not_disable
-	lda.w !misc+1
+..unlocked
+	ldx $76
+	lda.w !power_ram+2
 	beq +
-	dec.w !misc+1
-
-	lda $76
+	txa
 	inc
+	trb $15
 	eor #$03
 	tsb $15
 	lda $77
-	beq ..last_frame
+	beq ..check_last_frame
 +	
 	lda $13EF
-	bne ..return_clear
-	lda $77
-	bit #$98
-	bne ..return_move
-
- 	ldy.w !misc+1
-	bne ..dont_check_input
-	and $15
-	beq ..return_clear
-	ldy.w !flags
-	bmi +
-	asl #2
-	sta.w !flags
-+	
-	lda #!cat_suit_time_to_stick
-	sta.w !misc+1
-
-..dont_check_input
-	lda.w !misc+1
-	dec
-	beq ..end_wall_climb
-	lda $71
+	ora $71
 	ora $73
 	ora $74
 	ora $75
@@ -309,73 +333,191 @@ incsrc ../powerup_interaction_code/cat_table.asm
 	ora $140D
 	ora $1470
 	ora $187A
-	bne ..return_clear
+	bne ..detach
 	lda $7E
 	cmp #$09
-	bcc ..return_clear
+	bcc ..detach
 	cmp #$E8
-	bcs ..return_clear
-
-	ldy #$10
-	lda $14
-	lsr #2
-	and #$01
+	bcs ..detach
+	lda $77
+	bit #$9C
+	bne ..detach
+	
+	ldy.w !power_ram+2
+	bne ..climbing
+	and $15
+	beq ..detach
+	asl #2
+	sta.w !flags
+	stz.w !misc
+	
+	inc.w !power_ram+2
+	
+	lda.w !power_ram+7
 	bne +
-	iny 
+	lda.b #!cat_suit_wall_attach_time
+	sta.w !power_ram+6
 +	
-	sty.w !power_ram
-
-	ldy #!cat_suit_climb_speed
+	inc
+	sta.w !power_ram+7
+	
+	stz $13DF
+	lda !ram_77_backup
+	bmi ..climbing
+	lda $94
+	and #$F0
+	ora.l ..Tbl_WallSnap,x
+	sta $94
+	
+..climbing
 	lda $9D
-	bne ..return_2
+	bne ..return_l
+	ldy #$10
+	lda.w !power_ram+6
+	beq ++
+	dec.w !power_ram+6
 	lda $16
-	php
-	bpl ..store_speed
-	ldy #!cat_suit_kick_y_speed
-..store_speed
-	sty $7D
-	ldx $76
-	lda.l .wall_stay_speeds,x
-	plp
-	bpl +
-	lda #$01
-	sta $1DF9
-	stz $77
-	stz.w !misc+1
-	stz.w !ram_77_backup
-	lda #$80
-	tsb.w !flags
-	lda #!cat_suit_no_move
-	sta.w !misc
-;	lda #$0B
-;	sta $72
-	lda.l .kick_x_speeds,x
+	bmi ..wallkick
+	lda $15
+	lsr #2
+	and #$03
+	tax
+	lda.l ..Tbl_WallClimbSpd,x
+	sta.w !power_ram+5
+	sta $7D
+	bne +
+	stz.w !power_ram+4
+	bra ..draw_pose
+++	
+-	
+	stz.w !power_ram+6
+	lda #$03
+	sta $7D
+	stz.w !power_ram+4
+	jsr ..generate_smoke
+	bra ..draw_pose
 +	
-	sta $7B
-	lda #$80
-	sta $1406
-..return_2
-	plb
-	rts
-
-..end_wall_climb
+	inc.w !power_ram+4
+	lda.w !power_ram+4
+	lsr #!cat_climb_ani_rate
+	bcc ..draw_pose
+	iny
+..draw_pose
+	sty.w !power_ram
+	
 	ldx $76
-	lda.l .wall_separate_speeds,x
+	lda.l ..Tbl_WallStaySpd,x
 	sta $7B
 	stz $7A
-	lda #$F0
-	sta $7D
+	lda #$80
+	sta $1406
+..return_l
+	bra ..return
+
+..wallkick
+	lda.w !power_ram+6
+	sec
+	sbc.b #!cat_wallkick_penalization
+	cmp.b #$100-!cat_wallkick_penalization+1
+	bcs -
+	sta.w !power_ram+6
+	ldy #!cat_KickYSpeed
+	ldx $76
+	lda $15
+	and #$04
+	beq +
+..walldrop
+	lda #!cat_NoMoveDetach
+	sta.w !misc
+..end_wall_climb
+	ldy #!cat_DropYSpeed
+	inx #2
+	lda #$01
+	sta $1DF9
+	bra ++
++	
+	lda #!cat_NoMoveTime
+	sta.w !misc
+	lda #$02
+	sta $1DF9
+++	
+	sty $7D
+	sty.w !power_ram+8
+	lda.l ..Tbl_WallKickXSpd,x
+	sta $7B
+	sta.w !power_ram+9
+	lda #$01
+	sta.w !power_ram+10
+	stz $7A
 	stz $77
-	lda #!cat_suit_no_move
-	sta !misc
+	stz.w !ram_77_backup
+	lda #$0B
+	sta $72
 	lda #$80
 	tsb.w !flags
+..clear
+	stz.w !power_ram+2
+..return
 	plb
 	rts
+	
+..generate_smoke
+	lda $14
+	and #$03
+	bne ...return
+	lda $7F
+	ora $81
+	bne ...return
+	ldx #$03
+...loop
+	lda $17C0,x
+	beq ...found_free
+	dex
+	bpl ...loop
+	dec $1863
+	bpl ...found_extra
+	lda #$03
+	sta $1863
+...found_extra
+	ldx $1863
+...found_free
+	lda #$03
+	sta $17C0,x
+	lda #$0B
+	sta $17CC,x
+	phx
+	ldx $76
+	lda $94
+	clc
+	adc.l ...x_disp,x
+	plx
+	sta $17C8,x
+	lda $96
+	clc
+	adc #$0D
+	sta $17C4,x
+...return
+	rts
 
-.wall_stay_speeds:
-	db -$10,$10
-.wall_separate_speeds:
-	db $18,-$18,$0A,-$0A
-.kick_x_speeds
-	db !cat_suit_kick_x_speed,!cat_suit_kick_x_speed^$FF+1
+...x_disp
+	db $FB,$0D
+
+..Tbl_WallSnap
+	db $0D,$02		; Wall attach X pos adjust, low nybble
+
+..Tbl_WallClimbSpd
+	db $00			; Wall climb speed, no input
+	db $00 ;!cat_ClimbSpeed^$FF+1	; Wall climb speed, holding Down
+	db !cat_ClimbSpeed		; Wall climb speed, holding Up
+	db !cat_ClimbSpeed		; Wall climb speed, holding both Up and Down
+	db $00
+
+..Tbl_WallStaySpd
+	db $F0,$10		; Wall attach reinforcing speeds
+
+..Tbl_LedgePullXSpd
+	db !cat_LedgePullXSpeed^$FF+1,!cat_LedgePullXSpeed	; Climb up past ledge X speeds
+
+..Tbl_WallKickXSpd
+	db !cat_KickXSpeed,!cat_KickXSpeed^$FF+1			; Wall kick X speeds
+	db !cat_DropXSpeed,!cat_DropXSpeed^$FF+1			; Wall drop X speeds

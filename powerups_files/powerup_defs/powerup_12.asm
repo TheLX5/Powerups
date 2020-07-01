@@ -6,13 +6,20 @@
 !cat_suit_prop		= $04	;YXPPCCCT properties of the cat suit item.
 				;You may want to change the .cfg file too.
 
-!cat_suit_no_move	= $48	;Time until being able to climb a wall again
 
-!cat_suit_kick_x_speed	= $20
-!cat_suit_kick_y_speed	= $B8
-
-!cat_suit_climb_speed	= $DC
-!cat_suit_time_to_stick	= $50	;How much frames is Mario able to climb
+!cat_ClimbSpeed			= $E8	; Y speed at which player climbs a wall
+!cat_LedgePullYSpeed		= $C0	; Y speed at which player pulls up when climbing past top of ledge
+!cat_LedgePullXSpeed		= $0A	; X speed at which player pulls up when climbing past top of ledge
+!cat_KickYSpeed			= $B8	; Y speed with which player kicks off of a wall
+!cat_KickXSpeed			= $20	; X speed with which player kicks off of a wall
+!cat_DropYSpeed			= $00	; Y speed with which player drops off of a wall when pressing Down + B, or when otherwise detaching
+!cat_DropXSpeed			= $10	; X speed with which player drops off of a wall when pressing Down + B, or when otherwise detaching
+!cat_NoMoveTime			= $10	; How long to disable direction reversal following a wall kick (or when otherwise detaching if !sk_wallclimb = 1)
+!cat_NoMoveDetach		= $03	; How long to disable direction reversal upon detaching from the wall (prevents rapid regrabbing in some scenarios)
+!cat_NoMoveOut			= $07	; How long to disable direction reversal upon detaching from the wall (prevents rapid regrabbing in some scenarios)
+!cat_climb_ani_rate		= 4	; Set 1 - 8 to adjust rapidness of climbing animation, lower = faster
+!cat_suit_wall_attach_time	= 150	; How many frames is Mario able to cling to a wall
+!cat_wallkick_penalization	= 25	; How many frames will be deducted after performing a wall jump/kick
 
 !cat_suit_dynamic_tile	= $4A	;Tile used by this powerup.
 

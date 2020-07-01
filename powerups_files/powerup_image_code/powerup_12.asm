@@ -4,11 +4,31 @@
 	sta !extra_tile_flag
 	sta !extra_tile_frame
 	
+	lda !power_ram+2
+	beq +
+	lda !power_ram+6
+	beq +
+	lda !power_ram+5
+	sta $7D
++	
+	lda !power_ram+10
+	beq +
+	lda !power_ram+8
+	sta $7D
+	lda !power_ram+9
+	sta $7B
+	lda #$00
+	sta !power_ram+10
++	
+	
 	lda !power_ram
 	beq +
 	sta $13E0|!base2
 	sec
 	sbc #$46
+	bmi +
+	cmp #$02
+	bcs +
 	sta $00
 	tax
 
