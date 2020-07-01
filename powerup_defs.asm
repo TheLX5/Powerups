@@ -37,7 +37,8 @@ endif
 !drop_item_if_big	= 1	;If the above is 0, this one is unused.
 
 !DEBUG			= 0	;Enable debugging.
-				
+
+!dma_channel		= 2	;Channel used for DMA transfers.
 
 ;; Unused features, don't modify anything.
 
