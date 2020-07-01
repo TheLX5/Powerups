@@ -5,7 +5,7 @@ JMP SpriteV : JMP SpriteH
 JMP Cape : JMP Fireball
 JMP MarioCorner : JMP MarioInside : JMP MarioHead
 
-!Sprite = $12	; sprite number
+!Sprite = $13	; sprite number
 !IsCustom = SEC ; CLC for normal, SEC custom sprite
 !State = $08	; $08 for normal, $09 for carryable sprites
 !1540_val = $3E	; If you use powerups, this should be $3E

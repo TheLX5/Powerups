@@ -1,6 +1,6 @@
 ;Act as $025.
 
-!powerup = $12
+!powerup = $13
 !custom = $01
 !cape = 1
 
