@@ -129,6 +129,11 @@ PlrDMA:
 	lda !item_gfx_refresh
 	and #$0003
 	asl
+	ldx $0100|!base2
+	cpx #$14
+	beq +
+	lda #$0000
++	
 	tax
 	jmp (.ptrs,x)
 
@@ -154,6 +159,9 @@ PlrDMA:
 	lda #$0040
 	sta $15
 	sty $420B
+	lda !item_gfx_refresh
+	and #$FFFE
+	sta !item_gfx_refresh
 	jmp .no_update
 
 
@@ -175,6 +183,9 @@ PlrDMA:
 	lda #$0040
 	sta $15
 	sty $420B
+	lda !item_gfx_refresh
+	and #$FFFD
+	sta !item_gfx_refresh
 	jmp .no_update
 
 
@@ -208,6 +219,9 @@ PlrDMA:
 	cpx #$04
 	bcc -
 
+	lda !item_gfx_refresh
+	and #$FFF0
+	sta !item_gfx_refresh
 
 .no_update
 
@@ -240,11 +254,11 @@ if !no_dynamic_item_box == 0
 	sty $420B
 endif
 
-.skip_item_refresh
-
 	lda !item_gfx_refresh
-	and #$FF00
+	and #$FF0F
 	sta !item_gfx_refresh
+
+.skip_item_refresh
 	
 if !enable_projectile_dma == 1
 	incsrc projectile_dma_engine.asm
