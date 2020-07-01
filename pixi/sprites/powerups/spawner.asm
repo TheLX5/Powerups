@@ -42,7 +42,8 @@ power_table:
 	db !starting_slot+$0C
 	db !starting_slot+$0D
 	db !starting_slot+$0E
-	db !starting_slot+$12
+	db !starting_slot+$0F
+	db !starting_slot+$13
 .end
 	
 return:
@@ -115,6 +116,7 @@ generator:
 	bcc ..ret
 
 ..check_slots
+	%GetDrawInfo()
 	jsl $02A9DE|!BankB
 	bpl .spawn
 ..ret
@@ -153,6 +155,9 @@ generator:
 	sta.w !E4,y
 	lda !14E0,x
 	sta !14E0,y
+	lda !extra_bits,x
+	and #$04
+	bne +
 	lda $00
 	cmp #$06
 	beq ..adjust
@@ -160,6 +165,7 @@ generator:
 	beq ..adjust
 	cmp #$0E
 	beq ..adjust
++	
 	lda !D8,x
 	sta.w !D8,y
 	lda !14D4,x
@@ -174,6 +180,26 @@ generator:
 	sbc #$00
 	sta !14D4,y
 ..continue_setup
+	lda !extra_bits,x
+	and #$04
+	beq +
+	lda !15A0,x
+	ora !186C,x
+	php
+	tyx
+	lda #$2C
+	sta !154C,x
+	sta !15AC,x
+	plp
+	bne ++
+	stz $00
+	stz $01
+	lda #$1B
+	sta $02
+	lda #$01
+	%SpawnSmoke()
+	bra ++
++	
 	tyx
 	lda #$2C
 	sta !154C,x
@@ -182,6 +208,7 @@ generator:
 	sta !1540,x
 	lda #$D0
 	sta !AA,x
+++	
 	lda #$01
 	sta $02
 	lda $15E9|!Base2
