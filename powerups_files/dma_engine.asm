@@ -11,41 +11,41 @@ PlrDMA:
 	ldy #$86			; palette DMA
 	sty $2121
 	lda #$0014
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	lda #$2200
-	sta $10
+	sta.b $00+(!dma_channel*$10)
 		
 	lda !pal_bypass
 	and #$00FF
 	bne .bypass_pal_upload
 		
 	lda $0D82|!base2
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	ldy.b #LuigiPalettes>>16
-	sty $14
+	sty.b $04+(!dma_channel*$10)
 	bra .continue_upload
 .bypass_pal_upload
 	lda.l !pal_pointer
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	lda.l !pal_pointer+1
-	sta $13
+	sta.b $03+(!dma_channel*$10)
 	sep #$20
 	lda #$00
 	sta !pal_bypass
 	rep #$20
 		
 .continue_upload
-	ldy #$02
+	ldy.b #(1<<!dma_channel)
 	sty $420B
 		
 	ldx #$80			; adjust some DMA settings
 	stx $2115
 	lda #$1801
-	sta $10
+	sta.b $00+(!dma_channel*$10)
 
 ;misc tiles
 	ldx #$7E
-	stx $14
+	stx $14+(!dma_channel*$10)
 	lda #$6060
 	sta $2116
 	ldx #$06
@@ -53,9 +53,9 @@ PlrDMA:
 	bcs .skip
 -	
 	lda $0D85|!base2,x
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	lda #$0040
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	sty $420B
 	inx #2
 	cpx $0D84|!base2
@@ -66,9 +66,9 @@ PlrDMA:
 	ldx #$06
 -	
 	lda $0D8F|!base2,x
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	lda #$0040
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	sty $420B
 	inx #2
 	cpx $0D84|!base2
@@ -83,22 +83,22 @@ PlrDMA:
 	xba 
 	bmi .skip_cape
 	ldx $0D88|!base2
-	stx $14
+	stx.b $04+(!dma_channel*$10)
 	
 	lda #$6040
 	sta $2116
 	lda $0D89|!base2
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	lda #$0040
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	sty $420B
 
 	lda #$6140
 	sta $2116
 	lda $0D93|!base2
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	lda #$0040
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	sty $420B
 
 .skip_cape
@@ -106,16 +106,16 @@ PlrDMA:
 ;mario tiles
 
 	ldx $0D87|!base2
-	stx $14
+	stx.b $04+(!dma_channel*$10)
 	lda $0D86|!base2 : pha
 	ldx #$06
 -	
 	lda.l .vramtbl,x
 	sta $2116
 	lda #$0080
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	lda $0D85|!base2
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	sty $420B
 	inc $0D86|!base2
 	inc $0D86|!base2
@@ -125,7 +125,7 @@ PlrDMA:
 
 
 	ldx.b #read1($00A38D|!base3)
-	stx $14
+	stx.b $04+(!dma_channel*$10)
 	lda !item_gfx_refresh
 	and #$0003
 	asl
@@ -145,19 +145,19 @@ PlrDMA:
 
 .1_tile	
 	lda !item_gfx_pointer 
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	lda #$60A0
 	sta $2116
 	lda #$0040
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	sty $420B
 
 	lda #$61A0
 	sta $2116
 	lda.l !item_gfx_pointer+6
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	lda #$0040
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	sty $420B
 	lda !item_gfx_refresh
 	and #$FFFE
@@ -167,21 +167,21 @@ PlrDMA:
 
 .2_tile
 	lda !item_gfx_pointer+2
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	lda #$60C0
 	sta $2116
 	ldx.b #read1($00A38D|!base3)
-	stx $14
+	stx.b $04+(!dma_channel*$10)
 	lda #$0040
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	sty $420B
 
 	lda #$61C0
 	sta $2116
 	lda.l !item_gfx_pointer+8
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	lda #$0040
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	sty $420B
 	lda !item_gfx_refresh
 	and #$FFFD
@@ -195,9 +195,9 @@ PlrDMA:
 	ldx #$00
 -	
 	lda !item_gfx_pointer,x
-	sta $12
+	sta $12+(!dma_channel*$10)
 	lda #$0040
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	sty $420B
 .skip_both
 	inx #2
@@ -210,9 +210,9 @@ PlrDMA:
 	ldx #$00
 -	
 	lda.l !item_gfx_pointer+6,x
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	lda #$0040
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	sty $420B
 .skip_both_2
 	inx #2
@@ -238,19 +238,19 @@ if !no_dynamic_item_box == 0
 	lda #$60E0
 	sta $2116
 	ldx.b #read1($00A38D|!base3)
-	stx $14
+	stx.b $04+(!dma_channel*$10)
 	lda.l !item_gfx_pointer+4
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	lda #$0040
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	sty $420B
 
 	lda #$61E0
 	sta $2116
 	lda.l !item_gfx_pointer+10
-	sta $12
+	sta.b $02+(!dma_channel*$10)
 	lda #$0040
-	sta $15
+	sta.b $05+(!dma_channel*$10)
 	sty $420B
 endif
 
