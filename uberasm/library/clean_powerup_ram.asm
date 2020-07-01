@@ -16,4 +16,13 @@ clean_powerup_ram:
 	sta !gfx_ex_compressed_flag
 	sta !gfx_player_request
 	sta !gfx_extra_request
+
+	ldx.b #21
+-	
+	sta !sprite_shock,x
+	sta !sprite_shock_flags,x
+	sta !sprite_shock_14,x
+	dex
+	bpl -
+
 	rtl
