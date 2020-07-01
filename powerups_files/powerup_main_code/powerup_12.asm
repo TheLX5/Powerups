@@ -211,22 +211,6 @@ incsrc ../powerup_interaction_code/cat_table.asm
 ;; It will break if the powerup ram addresses are
 ;; remapped to use bank $41
 
-; Constant defines (all Y speeds are $80 - $FF, lower = faster; all X speeds are $00 - $7F, higher = faster)
-
-!cat_ClimbSpeed			= $E8			; Y speed at which player climbs a wall
-!cat_LedgePullYSpeed	= $C0			; Y speed at which player pulls up when climbing past top of ledge
-!cat_LedgePullXSpeed	= $0A			; X speed at which player pulls up when climbing past top of ledge
-!cat_KickYSpeed			= $B8			; Y speed with which player kicks off of a wall
-!cat_KickXSpeed			= $20			; X speed with which player kicks off of a wall
-!cat_DropYSpeed			= $00			; Y speed with which player drops off of a wall when pressing Down + B, or when otherwise detaching
-!cat_DropXSpeed			= $10			; X speed with which player drops off of a wall when pressing Down + B, or when otherwise detaching
-!cat_NoMoveTime			= $10			; How long to disable direction reversal following a wall kick (or when otherwise detaching if !sk_wallclimb = 1)
-!cat_NoMoveDetach		= $03			; How long to disable direction reversal upon detaching from the wall (prevents rapid regrabbing in some scenarios)
-!cat_NoMoveOut			= $07			; How long to disable direction reversal upon detaching from the wall (prevents rapid regrabbing in some scenarios)
-!cat_climb_ani_rate		= 4				; Set 1 - 8 to adjust rapidness of climbing animation, lower = faster
-!cat_suit_wall_attach_time	= 150
-!cat_wallkick_penalization	= 25
-
 .climb
 	lda !power_ram+1
 	bne ..skip
