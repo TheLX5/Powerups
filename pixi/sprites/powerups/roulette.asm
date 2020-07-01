@@ -204,6 +204,7 @@ roulette:
 	db $0C	;10 bubble
 	db $0D	;11 cloud
 	db $0E	;12 cat
+	db $0F	;13 electric
 	db $78	;18 poison
 
 ..item_flag
@@ -226,6 +227,7 @@ roulette:
 	db $80	;bubble
 	db $80	;cloud
 	db $80	;cat
+	db $80	;13 electric
 	db $80	;poison
 	
 .gfx	

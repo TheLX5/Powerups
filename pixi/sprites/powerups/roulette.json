@@ -79,7 +79,7 @@
       "UseText": false
     },
     {
-      "Description": "Powerup Item Roulette. \\n\\nRecreation of the original Powerup Item roulette to allow custom Powerups to show up. It uses the four Extra Bytes to determine which items will it show. \\n\\nValid values: \\n00 - Mushroom \\n01 - Fire Flower \\n02 - Star \\n03 - Feather \\n04 - Hammer Suit\\n05 - Boomerang Suit\\n06 - Super Leaf \\n07 - Tanooki Suit\\n08 - Frog Suit \\n09 - Superball Flower \\n0A - Rocket Boots \\n0B - Mini Mushroom \\n0C - Ice Flower \\n0D - Penguin Suit \\n0E - Propeller Suit \\n0F - Shell Suit \\n10 - Bubble Flower \\n11 - Cloud Flower \\n12 - Cat Suit \\n13 - Poison Mushroom",
+      "Description": "Powerup Item Roulette. \\n\\nRecreation of the original Powerup Item roulette to allow custom Powerups to show up. It uses the four Extra Bytes to determine which items will it show. \\n\\nValid values: \\n00 - Mushroom \\n01 - Fire Flower \\n02 - Star \\n03 - Feather \\n04 - Hammer Suit\\n05 - Boomerang Suit\\n06 - Super Leaf \\n07 - Tanooki Suit\\n08 - Frog Suit \\n09 - Superball Flower \\n0A - Rocket Boots \\n0B - Mini Mushroom \\n0C - Ice Flower \\n0D - Penguin Suit \\n0E - Propeller Suit \\n0F - Shell Suit \\n10 - Bubble Flower \\n11 - Cloud Flower \\n12 - Cat Suit \\n13 - Electric Flower \\n14 - Poison Mushroom",
       "ExtraBit": true,
       "Tiles": [
         {

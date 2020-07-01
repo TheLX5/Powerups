@@ -59,7 +59,7 @@
   "Map16": "qAW4BakFuQU=",
   "Displays": [
     {
-      "Description": "Powerup Spawner/Generator.\\n\\nSpawns a powerup like if were generated via a Question Block every second if there aren't any powerups on the screen.\\nIt uses the first Extra Byte to determine which powerup will it spawn and the second Extra Byte determines the frequency of items being generated.\\n\\nValid values for the first Extra Byte: \\n00 - Mushroom \\n01 - Fire Flower \\n02 - Star \\n03 - Feather \\n04 - Hammer Suit\\n05 - Boomerang Suit\\n06 - Super Leaf \\n07 - Tanooki Suit\\n08 - Frog Suit \\n09 - Superball Flower \\n0A - Rocket Boots \\n0B - Mini Mushroom \\n0C - Ice Flower \\n0D - Penguin Suit \\n0E - Propeller Suit \\n0F - Shell Suit \\n10 - Bubble Flower \\n11 - Cloud Flower \\n12 - Cat Suit \\n13 - Poison Mushroom",
+      "Description": "Powerup Spawner/Generator.\\n\\nSpawns a powerup like if were generated via a Question Block every second if there aren't any powerups on the screen.\\nIt uses the first Extra Byte to determine which powerup will it spawn and the second Extra Byte determines the frequency of items being generated.\\n\\nValid values for the first Extra Byte: \\n00 - Mushroom \\n01 - Fire Flower \\n02 - Star \\n03 - Feather \\n04 - Hammer Suit\\n05 - Boomerang Suit\\n06 - Super Leaf \\n07 - Tanooki Suit\\n08 - Frog Suit \\n09 - Superball Flower \\n0A - Rocket Boots \\n0B - Mini Mushroom \\n0C - Ice Flower \\n0D - Penguin Suit \\n0E - Propeller Suit \\n0F - Shell Suit \\n10 - Bubble Flower \\n11 - Cloud Flower \\n12 - Cat Suit \\n13 - Electric Flower \\n14 - Poison Mushroom",
       "ExtraBit": false,
       "Tiles": [
         {
@@ -79,7 +79,7 @@
       "UseText": false
     },
     {
-      "Description": "Powerup Spawner/Generator.\\n\\nSpawns a powerup like if were generated via a Question Block every second if there aren't any powerups on the screen.\\nIt uses the first Extra Byte to determine which powerup will it spawn and the second Extra Byte determines the frequency of items being generated.\\n\\nValid values for the first Extra Byte: \\n00 - Mushroom \\n01 - Fire Flower \\n02 - Star \\n03 - Feather \\n04 - Hammer Suit\\n05 - Boomerang Suit\\n06 - Super Leaf \\n07 - Tanooki Suit\\n08 - Frog Suit \\n09 - Superball Flower \\n0A - Rocket Boots \\n0B - Mini Mushroom \\n0C - Ice Flower \\n0D - Penguin Suit \\n0E - Propeller Suit \\n0F - Shell Suit \\n10 - Bubble Flower \\n11 - Cloud Flower \\n12 - Cat Suit \\n13 - Poison Mushroom",
+      "Description": "Powerup Spawner/Generator.\\n\\nSpawns a powerup like if were generated via a Question Block every second if there aren't any powerups on the screen.\\nIt uses the first Extra Byte to determine which powerup will it spawn and the second Extra Byte determines the frequency of items being generated.\\n\\nValid values for the first Extra Byte: \\n00 - Mushroom \\n01 - Fire Flower \\n02 - Star \\n03 - Feather \\n04 - Hammer Suit\\n05 - Boomerang Suit\\n06 - Super Leaf \\n07 - Tanooki Suit\\n08 - Frog Suit \\n09 - Superball Flower \\n0A - Rocket Boots \\n0B - Mini Mushroom \\n0C - Ice Flower \\n0D - Penguin Suit \\n0E - Propeller Suit \\n0F - Shell Suit \\n10 - Bubble Flower \\n11 - Cloud Flower \\n12 - Cat Suit \\n13 - Electric Flower \\n14 - Poison Mushroom",
       "ExtraBit": true,
       "Tiles": [
         {
