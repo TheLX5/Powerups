@@ -15,10 +15,17 @@ main:
 	lda !extended_table,x
 	bpl actual_main
 kill_sprite:
+	%ExtendedGetDrawInfoSpecial()
+	lda $03
+	beq .smoke
+	stz !extended_num,x
+	bra +
+.smoke	
 	lda #$0F
 	sta $176F|!Base2,x
 	lda #$01
 	sta !extended_num,x
++	
 	txa 
 	sec 
 	sbc #$07
