@@ -703,9 +703,17 @@ sides:
 	lda $187A|!Base2
 	bne nope
 
+	lda $8A
+	lsr
+	bcs .top
+.everything_else
 	bit $15
 	bvc nope
-
+	bra .cont
+.top	
+	bit $16
+	bvc nope
+.cont	
 	lda #$0B
 	sta !14C8,x
 	lda #$01
