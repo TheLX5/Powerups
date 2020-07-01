@@ -275,6 +275,7 @@ endif
 	sta !1686,x
 	lda #$00
 	sta !sprite_ram,x
+	stz !AA,x
 	plx
 +	
 
@@ -398,6 +399,7 @@ endif
 	sta $1DF9|!Base2
 .return
 	sty $15E9|!Base2
+	tyx
 	rts
 
 .kill_spd
