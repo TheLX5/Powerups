@@ -45,7 +45,7 @@ PlrDMA:
 
 ;misc tiles
 	ldx #$7E
-	stx $14+(!dma_channel*$10)
+	stx $04+(!dma_channel*$10)
 	lda #$6060
 	sta $2116
 	ldx #$06
