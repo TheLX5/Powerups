@@ -378,7 +378,13 @@ incsrc ../powerup_interaction_code/cat_table.asm
 	lda #$03
 	sta $7D
 	stz.w !power_ram+4
+	lda #$01
 	jsr ..generate_smoke
+	lda.w !ram_77_backup
+	bne ..draw_pose
+	lda #$80
+	tsb.w !flags
+	stz.w !misc
 	bra ..draw_pose
 +	
 	inc.w !power_ram+4
