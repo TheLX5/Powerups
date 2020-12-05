@@ -212,6 +212,10 @@ clean_ram:
 	lda #$F0
 	sta $0301|!base2,y
 
+	lda #$FF
+	sta $78
+	
+	stz $149C|!base2
 	stz $1407|!base2
 	lda $13ED|!base2
 	and #$7F
