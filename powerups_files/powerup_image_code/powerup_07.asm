@@ -6,7 +6,10 @@
 ;; You can also convert yourself in a statue.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	
-	ldx $13F3|!base2
+	lda $13F3|!base2
+	ora $74
+	ora $73
+	ora $187A|!base2
 	bne .tail
 	lda !timer
 	sec
