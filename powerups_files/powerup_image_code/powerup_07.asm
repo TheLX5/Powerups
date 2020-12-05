@@ -8,6 +8,7 @@
 	
 	lda $13F3|!base2
 	ora $74
+	ora $71
 	ora $73
 	ora $187A|!base2
 	bne .tail
