@@ -47,6 +47,14 @@ endif
 	
 	lda #$00
 	sta !cape_settings
+	sta !extra_tile_flag
+	sta !mask_15
+	sta !mask_17
+	sta !disable_spin_jump
+	sta !shell_immunity
+	sta !ride_yoshi_flag
+	sta !ducking_flag
+	sta !slide_flag
 
 	lda #$10
 	tsb $78
