@@ -1,6 +1,6 @@
-incsrc powerup_defs.asm
-; Global defines for blocks
 ; Feel free to add more if you want.
+
+incsrc powerup_defs.asm
 
 namespace nested on
 
@@ -9,15 +9,22 @@ namespace nested on
 !addr = $0000			; Address remap ($0000 - LoROM/FastROM, $6000 - SA-1 ROM)
 !bank = $800000			; Long address remap ($800000 - FastROM, $000000 - SA-1 ROM)
 !bank8 = $80			; Bank byte remap ($80 - FastROM, $00 - SA-1 ROM)
+!fullsa1 = 0		; 6MB+ sa-1 rom flag
 
 if read1($00FFD5) == $23	; SA-1 detection code
-	sa1rom
+	if read1($00FFD7) == $0D ; full 6/8 mb sa-1 rom
+		fullsa1rom
+		!fullsa1 = 1
+	else
+		sa1rom
+	endif
 	!sa1 = 1		; SA-1 Pack v1.10+ identifier
 	!dp = $3000
 	!addr = $6000
 	!bank = $000000
 	!bank8 = $00
 endif
+
 
 ; If you are using Custom Bounce Blocks, remember to changed this address if you have modified it in Custom Bounce Blocks.
 !RAM_BounceMap16Low = $7FC275
@@ -41,8 +48,6 @@ macro assert_lm_version(version, define)
 endmacro
 
 %assert_lm_version(257, "EXLEVEL") ; Ex level support
-
-;print "Lunar Magic Version: !lm_version , !EXLEVEL"
 
 ; Sets a couple of defines for sprite tables with proper SA-1 remapping if needed.
 ; example remap: LDA $14C8,x => LDA !14C8,x or LDA !sprite_status,x
@@ -106,6 +111,10 @@ endmacro
 %define_sprite_table(sprite_tweaker_190f, "190F", $190F, $7658)
 %define_sprite_table(sprite_misc_1fd6, "1FD6", $1FD6, $766E)
 %define_sprite_table(sprite_cape_disable_time, "1FE2", $1FE2, $7FD6)
+%define_sprite_table(extra_byte_1, "7FAB40", $7FAB40, $400099)
+%define_sprite_table(extra_byte_2, "7FAB4C", $7FAB4C, $4000AF)
+%define_sprite_table(extra_byte_3, "7FAB58", $7FAB58, $4000C5)
+%define_sprite_table(extra_byte_4, "7FAB64", $7FAB64, $4000DB)
 
 ; Romi's Sprite Tool defines.
 %define_sprite_table(sprite_extra_bits, "7FAB10", $7FAB10, $6040)
@@ -113,10 +122,6 @@ endmacro
 %define_sprite_table(sprite_extra_prop1, "7FAB28", $7FAB28, $6057)
 %define_sprite_table(sprite_extra_prop2, "7FAB34", $7FAB34, $606D)
 %define_sprite_table(sprite_custom_num, "7FAB9E", $7FAB9E, $6083)
-%define_sprite_table(sprite_extra_byte1, "7FAB40", $7FAB40, $60A4)
-%define_sprite_table(sprite_extra_byte2, "7FAB4C", $7FAB4C, $60BA)
-%define_sprite_table(sprite_extra_byte3, "7FAB58", $7FAB58, $60D0)
-%define_sprite_table(sprite_extra_byte4, "7FAB64", $7FAB64, $60E6)
 
 ; Custom Bounce Block Defines
 %define_sprite_table(bounce_map16_low, RAM_BounceMap16Low, !RAM_BounceMap16Low, !RAM_BounceMap16Low_SA1)
