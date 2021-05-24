@@ -1,3 +1,5 @@
+THIS IS NO LONGER BEING SUPPORTED.
+
 # Description
 The Custom Powerups patch is a package of a bunch of ASM hacks mainly created by MarioE and LX5 with the main goal of adding new powerups for Super Mario World with ease and give a bunch of tools for programmers to create their own powerups for the game.
 
